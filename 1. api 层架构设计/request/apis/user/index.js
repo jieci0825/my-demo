@@ -16,7 +16,8 @@ export const reqGetUserInfo = id => {
 		load: {
 			loadText: '获取用户信息中',
 			color: 'orange'
-		}
+		},
+		unique: true
 	})
 }
 

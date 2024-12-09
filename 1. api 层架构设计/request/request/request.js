@@ -1,5 +1,12 @@
 import axios from 'axios'
-import { genOptions, normalizeRequestConfig, processRequestLoad, registerGlobalInterceptors } from './requestHandle'
+import {
+	genOptions,
+	normalizeRequestConfig,
+	processRequestLoad,
+	processRequestUnique,
+	registerGlobalInterceptors,
+	removeRequestUnique
+} from './requestHandle'
 import { LoadOptions, processLoad } from './helpers/processLoad'
 
 /**
@@ -11,6 +18,9 @@ import { LoadOptions, processLoad } from './helpers/processLoad'
  */
 /** @type {InterceptorConfig} */
 export const InterceptorConfig = {}
+
+// 存储请求唯一标识符
+export const pendingRequests = new Map()
 
 export class RequestImpl {
 	// axios 实例
@@ -50,23 +60,28 @@ export class RequestImpl {
 			config = requestInterceptor(config)
 		}
 
-		// 处理单一请求的加载效果
 		processRequestLoad(this, config, load)
+		processRequestUnique(pendingRequests, config, unique)
 
 		return new Promise((resolve, reject) => {
-			this.instance.request(config).then(
-				res => {
-					// 如果有单一响应拦截器，则调用次拦截器得到结果进行返回
-					//  - 将会在全局响应拦截器执行后执行
-					if (responseInterceptor) {
-						res = responseInterceptor(res)
+			this.instance
+				.request(config)
+				.then(
+					res => {
+						// 如果有单一响应拦截器，则调用次拦截器得到结果进行返回
+						//  - 将会在全局响应拦截器执行后执行
+						if (responseInterceptor) {
+							res = responseInterceptor(res)
+						}
+						resolve(res)
+					},
+					err => {
+						reject(err)
 					}
-					resolve(res)
-				},
-				err => {
-					reject(err)
-				}
-			)
+				)
+				.finally(() => {
+					removeRequestUnique(pendingRequests, config)
+				})
 		})
 	}
 

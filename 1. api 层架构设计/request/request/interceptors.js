@@ -1,4 +1,5 @@
-import { IS_SINGLE_LOADING, SINGLE_LOADER } from './constants'
+import { IS_SINGLE_LOADING, IS_SINGLE_UNIQUE, SINGLE_LOADER } from './constants'
+import { pendingRequests } from './request'
 
 export function useGlobalInterceptors(requestInstance) {
 	let currentLoader = null

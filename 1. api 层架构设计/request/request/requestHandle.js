@@ -1,4 +1,4 @@
-import { IS_SINGLE_LOADING, SINGLE_LOADER } from './constants'
+import { IS_SINGLE_LOADING, IS_SINGLE_UNIQUE, SINGLE_LOADER } from './constants'
 import { processLoad } from './helpers/processLoad'
 import { useGlobalInterceptors } from './interceptors'
 
@@ -83,6 +83,39 @@ export function processRequestLoad(requestInstance, config, load) {
 }
 
 /**
+ * 处理单一请求是否保持唯一性
+ */
+export function processRequestUnique(pendingRequests, config, unique) {
+	if (unique !== true) return
+
+	config[IS_SINGLE_UNIQUE] = true
+
+	const requestKey = generateRequestKey(config)
+
+	// 如果存在相同的请求，则取消之前的请求
+	if (pendingRequests.has(requestKey)) {
+		const controller = pendingRequests.get(requestKey)
+		// 取消请求
+		controller.abort()
+	}
+
+	// 创建新的控制器
+	const controller = new AbortController()
+	config.signal = controller.signal
+	// 存储控制器
+	pendingRequests.set(requestKey, controller)
+}
+
+/**
+ * 移除请求唯一标识符
+ */
+export function removeRequestUnique(pendingRequests, config) {
+	if (config[IS_SINGLE_UNIQUE] !== true) return
+	const requestKey = generateRequestKey(config)
+	pendingRequests.delete(requestKey)
+}
+
+/**
  * 单一请求配置参数归一化
  */
 export function normalizeRequestConfig(config) {
@@ -98,4 +131,12 @@ export function normalizeRequestConfig(config) {
 		// 是否保持请求唯一性
 		unique: config.unique || false
 	}
+}
+
+/**
+ * 生成请求唯一标识符的函数
+ */
+export function generateRequestKey(config) {
+	const { url, method } = config
+	return `${url}&${method}`
 }
