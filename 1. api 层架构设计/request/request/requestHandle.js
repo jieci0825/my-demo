@@ -66,7 +66,10 @@ export function registerGlobalInterceptors(requestInstance) {
 /**
  * 处理单一请求是否开始加载效果
  */
-export function processRequestLoad(config, load) {
+export function processRequestLoad(requestInstance, config, load) {
+	// 设置默认值
+	config[IS_SINGLE_LOADING] = requestInstance.loader === null ? false : true
+
 	// 如果 load 为 false 表示这个单一请求需要关闭loading效果
 	if (load === false) {
 		config[IS_SINGLE_LOADING] = false

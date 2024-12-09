@@ -15,7 +15,7 @@ export const reqGetUserInfo = id => {
 		},
 		load: {
 			loadText: '获取用户信息中',
-			color: 'green'
+			color: 'orange'
 		}
 	})
 }
@@ -28,7 +28,7 @@ export const reqGetUserList = () => {
 		'/user/list',
 		{},
 		{
-			load: true
+			load: false
 		}
 	)
 }

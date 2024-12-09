@@ -51,7 +51,7 @@ export class RequestImpl {
 		}
 
 		// 处理单一请求的加载效果
-		processRequestLoad(config, load)
+		processRequestLoad(this, config, load)
 
 		return new Promise((resolve, reject) => {
 			this.instance.request(config).then(

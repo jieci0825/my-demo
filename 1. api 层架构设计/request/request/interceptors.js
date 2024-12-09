@@ -10,8 +10,8 @@ export function useGlobalInterceptors(requestInstance) {
 		if (isSingleLoading(config)) {
 			currentLoader = config[SINGLE_LOADER]
 		} else {
-			// 如果为 false，则表示本次单一请求不需要加载效果，即存在全局加在器也不会执行
-			if (config[IS_SINGLE_LOADING] === false) {
+			// 如果为 false，或者不存在，则表示本次单一请求不需要加载效果，即存在全局加在器也不会执行
+			if (config[IS_SINGLE_LOADING] === false || !config[IS_SINGLE_LOADING]) {
 				currentLoader = null
 			} else {
 				// 检测是否存在全局加载器
