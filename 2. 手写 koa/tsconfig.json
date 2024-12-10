@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"target": "esnext", // 目标 ECMAScript 版本
+		"module": "esnext", // 模块系统
+		"moduleResolution": "node", // 模块解析策略
+		"strict": true, // 启用所有严格类型检查选项
+		"esModuleInterop": true, // 启用对 CommonJS 和 ES 模块的兼容性
+		"outDir": "./dist", // 输出目录
+		"declaration": true, // 生成相应的 .d.ts 文件
+		"declarationDir": "./dist/types" // .d.ts 文件的输出目录
+	},
+	"include": ["lib/**/*"],
+	"exclude": ["node_modules", "dist"]
+}
