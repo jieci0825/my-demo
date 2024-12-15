@@ -17,6 +17,8 @@ export const response: Response = {
 		return this._body
 	},
 	set body(newValue) {
+		// 如果使用了 body 设置返回值，则 status 状态码默认为 200
+		this.res.statusCode = 200
 		this._body = newValue
 	}
 }

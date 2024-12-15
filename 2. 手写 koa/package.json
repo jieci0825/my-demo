@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "rollup -c -w",
-    "start":"nodemon ./example/app.js",
+    "start": "nodemon ./example/app.js",
     "build": "vite build"
   },
   "devDependencies": {
@@ -15,5 +15,8 @@
     "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.7.2",
     "vite-plugin-dts": "^4.3.0"
+  },
+  "dependencies": {
+    "koa": "^2.15.3"
   }
 }

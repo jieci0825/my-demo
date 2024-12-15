@@ -2,20 +2,48 @@ import MyKoa from '../dist/main.js'
 
 const app = new MyKoa()
 
-app.use(ctx => {
-	// ctx.req ctx.res 为 http 模块提供的原生对象
-	// ctx.request 和 ctx.response 是 Koa 提供的封装对象
-	// ctx 内部通过原型关系进行关联。ctx.__proto__.__proto__ 即可访问最原始的 ctx 对象
-	// console.log(ctx.__proto__.__proto__)
+function sleep(ms) {
+	return new Promise(resolve => {
+		setTimeout(() => {
+			console.log('sleep')
+			resolve()
+		}, ms)
+	})
+}
 
-	// console.log(ctx.request.path)
-	// console.log(ctx.request.query)
-	// console.log('映射获取', ctx.path)
-
+// await 和 return 都会等待 Promise 执行完成
+// 但是 await 会等待 Promise 执行完成之后，继续执行后面的代码
+// 而 return 会直接返回，后面的代码不会执行
+app.use(async (ctx, next) => {
+	console.log('中间件1-before')
 	ctx.body = '111'
+	a
+	await next()
+	// 测试重复调用 next() 的报错问题
+	// await next()
+	console.log('中间件1-after')
 	ctx.body = '222'
+})
+
+app.use(async (ctx, next) => {
+	console.log('中间件2-before')
 	ctx.body = '333'
-	console.log('ctx.body', ctx.body)
+	await sleep(2000)
+	next()
+	console.log('中间件2-after')
+	ctx.body = '444'
+})
+
+app.use((ctx, next) => {
+	console.log('中间件3-before')
+	ctx.body = '555'
+	next()
+	console.log('中间件3-after')
+	ctx.body = '666'
+})
+
+app.on('error', err => {
+	console.log('监听一个错误：', err)
 })
 
 const port = 3000
