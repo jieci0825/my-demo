@@ -1,0 +1,5 @@
+packages:
+  # apps 文件夹下所有的子文件夹
+  - 'apps/*'
+  # packages 文件夹下所有的子文件夹
+  - 'packages/*'
