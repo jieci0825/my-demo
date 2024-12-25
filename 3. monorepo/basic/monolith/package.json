@@ -1,0 +1,13 @@
+{
+  "name": "monolith",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "monolith": "file:"
+  },
+  "devDependencies": {
+    "vite": "^6.0.3"
+  }
+}

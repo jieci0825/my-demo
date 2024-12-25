@@ -1,0 +1,14 @@
+//jsconfig.json file
+{
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"@/*": ["src/*"],
+			"@models/*": ["src/app/models/*"],
+			"@apis/*": ["src/app/apis/*"],
+			"@controllers/*": ["src/app/controllers/*"],
+			"@services/*": ["src/app/services/*"]
+		}
+	},
+	"exclude": ["node_modules"]
+}
