@@ -1,29 +1,30 @@
 <script setup lang="ts">
+import { EditorMode } from '@/constants'
 import { Plus, Compass } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const tableData = ref([])
-const router = useRouter()
+const $router = useRouter()
 
-const goToEditor = () => {
-    router.push('/editor')
+const goToCreateEditor = () => {
+    $router.push(`/editor/${EditorMode.CREATE}`)
 }
 const goToMaterials = () => {
-    router.push('/materials')
+    $router.push('/materials')
 }
 </script>
 
 <template>
     <div class="home-container flex flex-direction-column align-items-center">
         <!-- 标题 -->
-        <h1 class="title font-weight-100 mt-30">JC问卷系统</h1>
+        <h1 class="title font-weight-600 mt-30">JC问卷系统</h1>
         <!-- main -->
-        <div class="main mt-20">
+        <div class="main mt-40">
             <!-- 按钮组 -->
             <div class="actions mb-10">
                 <el-button
-                    @click="goToEditor"
+                    @click="goToCreateEditor"
                     :icon="Plus"
                     type="primary"
                     >创建问卷</el-button
@@ -46,10 +47,12 @@ const goToMaterials = () => {
                     prop="createDate"
                     label="创建日期"
                     width="150"
+                    align="center"
                 />
                 <el-table-column
                     prop="title"
                     label="问卷标题"
+                    align="center"
                 />
                 <el-table-column
                     prop="surveyCount"
@@ -96,7 +99,20 @@ const goToMaterials = () => {
 </template>
 
 <style scoped lang="scss">
+@font-face {
+    font-family: '阿里妈妈数黑体 Bold';
+    font-weight: 700;
+    src: url('//at.alicdn.com/wf/webfont/QdJkIkEeNscy/pJLChFrkPRG9.woff2') format('woff2'),
+        url('//at.alicdn.com/wf/webfont/QdJkIkEeNscy/Un8d9FV0jhk4.woff') format('woff');
+    font-display: swap;
+}
+
 .home-container {
+    .title {
+        color: var(--font-title-color);
+        font-size: 50px;
+        font-family: '阿里妈妈数黑体 Bold';
+    }
     .main {
         width: var(--center-width);
     }
