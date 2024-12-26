@@ -1,0 +1,108 @@
+/*
+定义公共类
+*/
+
+// font-weight
+// font-weight: 100 ~ 900
+// @example: .font-weight-100 { font-weight: 100; } .font-weight-900 { font-weight: 900; }
+@for $i from 100 through 900 {
+    .font-weight-#{$i}00 {
+        font-weight: #{$i}00;
+    }
+}
+
+// margin
+// margin: 1 ~ 10、15、20、25、30、35、40、45、50
+// @example: .mt-1 { margin-top: 1px; } .mr-10 { margin-right:10px }
+@each $direction, $property in(t: top, r: right, b: bottom, l: left) {
+    @each $size in 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 35, 40, 45, 50 {
+        .m#{$direction}-#{$size} {
+            margin-#{$property}: #{$size}px;
+        }
+    }
+}
+
+// padding
+// padding: 1 ~ 10、15、20、25、30、35、40、45、50
+// @example: .pt-1 { padding-top: 1px; } .pr-10 { padding-right:10px }
+@each $direction, $property in (t: top, b: bottom, l: left, r: right) {
+    @each $size in 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 35, 40, 45, 50 {
+        .p#{$direction}-#{$size} {
+            padding-#{$property}: #{$size}px;
+        }
+    }
+}
+
+.m0 {
+    margin: 0;
+}
+
+.p0 {
+    padding: 0;
+}
+
+.mc {
+    margin: 0 auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.self-start {
+    align-items: self-start;
+}
+
+.self-center {
+    align-items: center;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.flex-direction-column {
+    flex-direction: column;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.font-italic {
+    font-style: italic;
+}
+
+.select {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.pointer {
+    cursor: pointer;
+}
+.relative {
+    position: relative;
+}
+.absolute {
+    position: absolute;
+}
+.fixed {
+    position: fixed;
+}
