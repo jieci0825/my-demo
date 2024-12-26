@@ -3,7 +3,15 @@ import { createMemoryHistory, createRouter } from 'vue-router'
 const routes = [
     {
         path: '/',
-        component: () => import('@/views/Home/index.vue')
+        component: () => import('@/views/home/index.vue')
+    },
+    {
+        path: '/editor',
+        component: () => import('@/views/editor/index.vue')
+    },
+    {
+        path: '/materials',
+        component: () => import('@/views/materials/index.vue')
     }
 ]
 
