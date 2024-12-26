@@ -1,9 +1,10 @@
 :root {
+    --center-width: 1080px;
     // 646cff 747bff
-    --primary-color: #535bf2;
-    --success-color: #4caf50;
-    --warning-color: #ff9800;
-    --error-color: #f44336;
+    --primary-color: var(--el-color-primary);
+    --success-color: var(--el-color-success);
+    --warning-color: var(--el-color-warning);
+    --error-color: var(--el-color-error);
     --info-color: #8faac1;
     --border-color: #ebeef5;
     --background-color: #f5f7fa;
