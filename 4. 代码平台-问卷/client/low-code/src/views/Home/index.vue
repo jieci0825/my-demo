@@ -1,8 +1,17 @@
 <script setup lang="ts">
 import { Plus, Compass } from '@element-plus/icons-vue'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const tableData = ref([])
+const router = useRouter()
+
+const goToEditor = () => {
+    router.push('/editor')
+}
+const goToMaterials = () => {
+    router.push('/materials')
+}
 </script>
 
 <template>
@@ -14,11 +23,13 @@ const tableData = ref([])
             <!-- 按钮组 -->
             <div class="actions mb-10">
                 <el-button
+                    @click="goToEditor"
                     :icon="Plus"
                     type="primary"
                     >创建问卷</el-button
                 >
                 <el-button
+                    @click="goToMaterials"
                     :icon="Compass"
                     type="success"
                     >组件市场</el-button
