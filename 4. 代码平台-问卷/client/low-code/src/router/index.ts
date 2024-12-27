@@ -20,6 +20,7 @@ const routes = [
         meta: {
             title: '组件市场'
         },
+        redirect: '/materials/select',
         component: () => import('@/views/materials/index.vue'),
         children: [
             {
@@ -44,7 +45,8 @@ const routes = [
             },
             {
                 path: 'select',
-                component: () => import('@/views/materials/components/select-group.vue')
+                component: () => import('@/views/materials/components/select-group.vue'),
+                children: []
             }
         ]
     }

@@ -4,15 +4,15 @@
     <div class="layout-container flex">
         <!-- 选择业务组件 -->
         <div class="left p-20">
-            <slot></slot>
+            <slot>选择业务组件</slot>
         </div>
         <!-- 展示业务组件 -->
-        <div class="center p-30">
-            <slot name="center"></slot>
+        <div class="center p-20">
+            <slot name="center">展示业务组件</slot>
         </div>
         <!-- 编辑业务组件 -->
         <div class="right p-20">
-            <slot name="right"></slot>
+            <slot name="right">编辑业务组件</slot>
         </div>
     </div>
 </template>
@@ -28,7 +28,7 @@
     border-bottom-right-radius: var(--border-radius-large);
     border-bottom-left-radius: var(--border-radius-large);
     .left {
-        width: 180px;
+        width: 240px;
         height: 100%;
     }
     .center {

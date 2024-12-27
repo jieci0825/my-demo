@@ -1,15 +1,8 @@
 <script setup lang="ts">
 import PageHeader from '@/components/common/page-header/index.vue'
-import { type Component } from 'vue'
 import { CircleCheck, Files, EditPen, ChatLineSquare, User, Message } from '@element-plus/icons-vue'
 
-interface NavItem {
-    to: string
-    icon: Component
-    text: string
-}
-
-const navList: NavItem[] = [
+const navList = [
     { to: '/materials/select', icon: CircleCheck, text: '选择' },
     { to: '/materials/input', icon: Files, text: '文本输入' },
     { to: '/materials/advanced', icon: EditPen, text: '高级题型' },
