@@ -30,8 +30,9 @@ const goBack = () => {
                 ></el-button>
             </slot>
         </div>
-        <div class="page-header-center flex-center flex-1">
-            <h2 class="font-weight-100">{{ innerTitle }}</h2>
+        <div class="page-header-center flex align-items-center flex-1 pl-20 pr-20">
+            <h2 class="font-weight-300">{{ innerTitle }}</h2>
+            <div class="center-actions"></div>
         </div>
         <div class="page-header-right flex-center">
             <slot name="right">
@@ -59,6 +60,12 @@ $border-style: 1px solid var(--border-color);
     }
     .page-header-right {
         border-left: $border-style;
+    }
+    .page-header-center {
+        .center-actions {
+            margin-left: auto;
+            padding-left: 20px;
+        }
     }
 }
 </style>

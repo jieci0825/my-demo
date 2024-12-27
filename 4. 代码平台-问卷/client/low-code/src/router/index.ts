@@ -20,7 +20,33 @@ const routes = [
         meta: {
             title: '组件市场'
         },
-        component: () => import('@/views/materials/index.vue')
+        component: () => import('@/views/materials/index.vue'),
+        children: [
+            {
+                path: 'input',
+                component: () => import('@/views/materials/components/input-group.vue')
+            },
+            {
+                path: 'advanced',
+                component: () => import('@/views/materials/components/advanced-group.vue')
+            },
+            {
+                path: 'contact',
+                component: () => import('@/views/materials/components/contact-group.vue')
+            },
+            {
+                path: 'note',
+                component: () => import('@/views/materials/components/note-group.vue')
+            },
+            {
+                path: 'personal-info',
+                component: () => import('@/views/materials/components/personal-info-group.vue')
+            },
+            {
+                path: 'select',
+                component: () => import('@/views/materials/components/select-group.vue')
+            }
+        ]
     }
 ]
 
