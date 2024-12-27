@@ -11,9 +11,9 @@ const selectLinks = [
 </script>
 
 <template>
-    <div class="select-group-container">
+    <div class="group-container">
         <Layout>
-            <div class="select-wrap flex">
+            <div class="link-wrap flex">
                 <router-link
                     v-for="(item, idx) in selectLinks"
                     :key="idx"
@@ -26,13 +26,4 @@ const selectLinks = [
     </div>
 </template>
 
-<style scoped lang="scss">
-.select-group-container {
-    width: 100%;
-    height: 100%;
-    .select-wrap {
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
-}
-</style>
+<style scoped lang="scss"></style>

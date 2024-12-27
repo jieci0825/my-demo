@@ -1,7 +1,26 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Layout from './layout.vue'
+
+const selectLinks = [
+    { text: '评价/打分', to: '/' },
+    { text: '日期时间', to: '/' }
+]
+</script>
 
 <template>
-    <div class="advanced-group-container">高级题型</div>
+    <div class="group-container">
+        <Layout>
+            <div class="link-wrap flex">
+                <router-link
+                    v-for="(item, idx) in selectLinks"
+                    :key="idx"
+                    :to="item.to"
+                    class="link-item mb-15"
+                    >{{ item.text }}</router-link
+                >
+            </div>
+        </Layout>
+    </div>
 </template>
 
 <style scoped lang="scss"></style>
