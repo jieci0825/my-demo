@@ -1,0 +1,5 @@
+export { default as SingleSelect } from './single-select.vue'
+export { default as MultipleSelect } from './multiple-select.vue'
+export { default as OptionSelect } from './option-select.vue'
+export { default as SinglePicSelect } from './single-pic-select.vue'
+export { default as MultiplePicSelect } from './multiple-pic-select.vue'

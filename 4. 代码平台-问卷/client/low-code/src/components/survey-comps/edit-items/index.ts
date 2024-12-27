@@ -1,0 +1,8 @@
+export { default as TitleEditor } from './title-editor.vue'
+export { default as BlodEditor } from './blod-editor.vue'
+export { default as DescEditor } from './desc-editor.vue'
+export { default as PositionEditor } from './position-editor.vue'
+export { default as OptionEditor } from './option-editor.vue'
+export { default as SizeEditor } from './size-editor.vue'
+export { default as SlantEditor } from './slant-editor.vue'
+export { default as ColorEditor } from './color-editor.vue'
