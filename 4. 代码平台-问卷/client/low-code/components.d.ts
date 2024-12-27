@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BlodEditor: typeof import('./src/components/survey-comps/edit-items/blod-editor.vue')['default']
+    BoldEditor: typeof import('./src/components/survey-comps/edit-items/bold-editor.vue')['default']
     ColorEditor: typeof import('./src/components/survey-comps/edit-items/color-editor.vue')['default']
     DescEditor: typeof import('./src/components/survey-comps/edit-items/desc-editor.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']

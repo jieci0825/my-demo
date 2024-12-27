@@ -3,7 +3,7 @@
 import { SingleSelect } from '@/components/survey-comps/materials/select-comps'
 import {
     TitleEditor,
-    BlodEditor,
+    BoldEditor,
     ColorEditor,
     SizeEditor,
     SlantEditor,
@@ -86,28 +86,32 @@ export default function () {
                 status: ['正常', '加粗'],
                 currentStatus: 0,
                 name: 'bold-editor',
-                isShow: true
+                isShow: true,
+                editComp: markRaw(BoldEditor)
             },
             descBold: {
                 id: uuidv4(),
                 status: ['正常', '加粗'],
                 currentStatus: 0,
                 name: 'bold-editor',
-                isShow: true
+                isShow: true,
+                editComp: markRaw(BoldEditor)
             },
             titleSlant: {
                 id: uuidv4(),
                 status: ['正常', '倾斜'],
                 currentStatus: 0,
                 name: 'slant-editor',
-                isShow: true
+                isShow: true,
+                editComp: markRaw(SlantEditor)
             },
             descSlant: {
                 id: uuidv4(),
                 status: ['正常', '倾斜'],
                 currentStatus: 0,
                 name: 'slant-editor',
-                isShow: true
+                isShow: true,
+                editComp: markRaw(SlantEditor)
             }
         }
     }
