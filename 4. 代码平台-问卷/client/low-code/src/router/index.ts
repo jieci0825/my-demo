@@ -46,7 +46,31 @@ const routes = [
             {
                 path: 'select',
                 component: () => import('@/views/materials/components/select-group.vue'),
-                children: []
+                redirect: '/materials/select/single',
+                children: [
+                    {
+                        path: 'single',
+                        component: () => import('@/components/survey-comps/materials/select-comps/single-select.vue')
+                    },
+                    {
+                        path: 'multiple',
+                        component: () => import('@/components/survey-comps/materials/select-comps/multiple-select.vue')
+                    },
+                    {
+                        path: 'option',
+                        component: () => import('@/components/survey-comps/materials/select-comps/option-select.vue')
+                    },
+                    {
+                        path: 'single-pic',
+                        component: () =>
+                            import('@/components/survey-comps/materials/select-comps/single-pic-select.vue')
+                    },
+                    {
+                        path: 'multiple-pic',
+                        component: () =>
+                            import('@/components/survey-comps/materials/select-comps/multiple-pic-select.vue')
+                    }
+                ]
             }
         ]
     }

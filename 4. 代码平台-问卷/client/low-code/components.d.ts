@@ -12,8 +12,17 @@ declare module 'vue' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     Header: typeof import('./src/components/common/header/index.vue')['default']
+    MuiltpleSelect: typeof import('./src/components/survey-comps/materials/select-comps/muiltple-select.vue')['default']
+    MultiplePicSelect: typeof import('./src/components/survey-comps/materials/select-comps/multiple-pic-select.vue')['default']
+    MultipleSelect: typeof import('./src/components/survey-comps/materials/select-comps/multiple-select.vue')['default']
+    MultpleSelect: typeof import('./src/components/survey-comps/materials/select-comps/multple-select.vue')['default']
+    OptionSelect: typeof import('./src/components/survey-comps/materials/select-comps/option-select.vue')['default']
     PageHeader: typeof import('./src/components/common/page-header/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SelectComps: typeof import('./src/components/survey-comps/materials/select-comps/index.vue')['default']
+    Single: typeof import('./src/components/survey-comps/materials/select-comps/Single.vue')['default']
+    SinglePicSelect: typeof import('./src/components/survey-comps/materials/select-comps/single-pic-select.vue')['default']
+    SingleSelect: typeof import('./src/components/survey-comps/materials/select-comps/single-select.vue')['default']
   }
 }
