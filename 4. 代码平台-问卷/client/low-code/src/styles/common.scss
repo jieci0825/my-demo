@@ -53,6 +53,16 @@
     display: flex;
 }
 
+.flex-1 {
+    flex: 1;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .self-start {
     align-items: self-start;
 }

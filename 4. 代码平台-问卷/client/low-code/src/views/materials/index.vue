@@ -1,7 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import PageHeader from '@/components/common/page-header/index.vue'
+</script>
 
 <template>
-    <div>materials</div>
+    <div class="materials-container">
+        <PageHeader></PageHeader>
+    </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.materials-container {
+    width: 100%;
+}
+</style>
