@@ -47,6 +47,7 @@ const goBack = () => {
 $border-style: 1px solid var(--border-color);
 
 .page-header {
+    width: 100%;
     height: 50px;
     border: $border-style;
     .page-header-left,
