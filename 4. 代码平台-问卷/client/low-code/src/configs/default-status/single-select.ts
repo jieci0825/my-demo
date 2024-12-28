@@ -55,14 +55,14 @@ export default function () {
             },
             titleColor: {
                 id: uuidv4(),
-                state: '#000',
+                state: '#303133',
                 name: 'color-editor',
                 isShow: true,
                 editComp: markRaw(ColorEditor)
             },
             descColor: {
                 id: uuidv4(),
-                state: '#909399',
+                state: '#a8abb2',
                 name: 'color-editor',
                 isShow: true,
                 editComp: markRaw(ColorEditor)
@@ -77,8 +77,8 @@ export default function () {
             },
             descSize: {
                 id: uuidv4(),
-                state: ['12', '14', '16'],
-                currentStage: 0,
+                state: ['16', '14', '12'],
+                currentStage: 1,
                 name: 'size-editor',
                 isShow: true,
                 editComp: markRaw(SizeEditor)

@@ -7,16 +7,33 @@ const {
     sn: number
     title: string
     desc: string
+    titleSize: string
+    descSize: string
+    isTitleBold: boolean
+    isDescBold: boolean
+    isTitleSlant: boolean
+    isDescSlant: boolean
+    titleColor: string
+    descColor: string
 }>()
 </script>
 
 <template>
-    <div class="materials-header mb-15">
-        <h2 class="title font-weight-100">
+    <div class="materials-header mb-10">
+        <h2
+            :style="{ fontSize: `${titleSize}px`, color: `${titleColor}` }"
+            :class="['title', isTitleBold ? 'font-bold' : 'font-weight-100', isTitleSlant ? 'font-italic' : '']"
+        >
             <span class="mr-10">{{ sn }}.</span>
             <span>{{ title }}</span>
         </h2>
-        <div class="description mt-3">{{ desc }}</div>
+        <div
+            v-if="desc"
+            :style="{ fontSize: `${descSize}px`, color: `${descColor}` }"
+            :class="['description', 'mt-3', isDescBold ? 'font-bold' : '', isDescSlant ? 'font-italic' : '']"
+        >
+            {{ desc }}
+        </div>
     </div>
 </template>
 
@@ -24,10 +41,11 @@ const {
 .materials-header {
     h2 {
         font-size: 20px;
+        color: var(--font-color);
     }
     .description {
         font-size: var(--font-size-base);
-        color: var(--font-color-light);
+        color: var(--font-color-lightest);
         text-indent: 5px;
     }
 }

@@ -24,18 +24,23 @@ export interface OptionProps extends BaseEditProps {
     currentStage: number
 }
 
+export interface StringArrOptionProps extends BaseEditProps {
+    state: StringStateArr
+    currentStage: number
+}
+
 // 对应一个业务组件所拥有那些基础的编辑组件配置
 // - 即单选题，多选题、图文选择题等等都具备这些基础编辑组件
 export interface BaseEditCompStatus {
     title: TextProps
     desc: TextProps
     position: OptionProps
-    titleSize: OptionProps
-    descSize: OptionProps
-    titleBold: OptionProps
-    descBold: OptionProps
-    titleSlant: OptionProps
-    descSlant: OptionProps
+    titleSize: StringArrOptionProps
+    descSize: StringArrOptionProps
+    titleBold: StringArrOptionProps
+    descBold: StringArrOptionProps
+    titleSlant: StringArrOptionProps
+    descSlant: StringArrOptionProps
     titleColor: TextProps
     descColor: TextProps
 }

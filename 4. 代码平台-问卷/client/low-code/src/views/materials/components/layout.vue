@@ -53,7 +53,7 @@ const currentComp = computed(() => {
         border-left: 1px solid var(--border-color);
     }
     .right {
-        width: 350px;
+        width: 340px;
         height: 100%;
         border-left: 1px solid var(--border-color);
     }

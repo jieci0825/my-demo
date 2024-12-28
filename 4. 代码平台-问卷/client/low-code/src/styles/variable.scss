@@ -1,12 +1,12 @@
 :root {
-    --center-width: 1200px;
+    --center-width: 1280px;
     // 646cff 747bff
     --primary-color: var(--el-color-primary);
     --success-color: var(--el-color-success);
     --warning-color: var(--el-color-warning);
     --error-color: var(--el-color-error);
     --info-color: #8faac1;
-    --border-color: #ebeef5;
+    --border-color: var(--el-border-color);
     --background-color: #f5f7fa;
     --white: #fff;
     --black: #000;
@@ -14,7 +14,8 @@
     --font-color: #303133;
     --font-color-light: #606266;
     --font-color-lighter: #909399;
-    --font-color-lightest: #d4d9e2;
+    --font-color-lightest: #a8abb2;
+    --font-color-disabled: #d4d9e2;
     --font-size-base: 14px;
     --font-size-small: 12px;
     --font-size-large: 16px;
