@@ -25,7 +25,7 @@ export interface OptionProps extends BaseEditProps {
 }
 
 // 对应一个业务组件所拥有那些基础的编辑组件配置
-// 单选题 --> 编辑单选题组件
+// - 即单选题，多选题、图文选择题等等都具备这些基础编辑组件
 export interface BaseEditCompStatus {
     title: TextProps
     desc: TextProps
@@ -42,5 +42,13 @@ export interface BaseEditCompStatus {
 
 // 选项编辑组件在基础的编辑组件上添加了option属性
 export interface OptionEditCompStatus extends BaseEditCompStatus {
-    option: OptionProps
+    options: OptionProps
+}
+
+// 业务组件
+export interface BaseBusinessComp<T = BaseEditCompStatus> {
+    id: string
+    name: string
+    type: VueCompType
+    editCompConfig: { [k in keyof T]: T[k] }
 }
