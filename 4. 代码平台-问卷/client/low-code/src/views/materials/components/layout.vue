@@ -1,4 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useMaterialStore } from '@/stores/use-material'
+import { computed } from 'vue'
+
+const materialStore = useMaterialStore()
+
+const currentComp = computed(() => {
+    return materialStore.comps[materialStore.currentMaterialComp]
+})
+</script>
 
 <template>
     <div class="layout-container flex">
@@ -8,7 +17,13 @@
         </div>
         <!-- 展示业务组件 -->
         <div class="center p-20">
-            <slot name="center">展示业务组件</slot>
+            <router-view v-slot="{ Component }">
+                <Component
+                    :editCompConfig="currentComp.editCompConfig"
+                    :sn="1"
+                    :is="Component"
+                />
+            </router-view>
         </div>
         <!-- 编辑业务组件 -->
         <div class="right p-20">

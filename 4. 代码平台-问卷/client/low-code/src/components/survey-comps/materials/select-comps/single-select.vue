@@ -1,5 +1,22 @@
 <script setup lang="ts">
 import MaterialsHeader from '../../common/materials-header.vue'
+import { computed } from 'vue'
+import type { OptionEditCompStatus } from '@/types'
+
+interface IProps {
+    editCompConfig: OptionEditCompStatus
+    sn: number
+}
+
+// props.editCompStatus 得到的是
+const { editCompConfig, sn } = defineProps<IProps>()
+
+const computedState = computed(() => {
+    return {
+        title: editCompConfig.title.state
+    }
+})
+console.log(computedState.value)
 </script>
 
 <template>

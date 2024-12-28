@@ -1,0 +1,46 @@
+import type { VueCompType } from './common'
+
+// 一个编辑组件所拥有的基础属性，即一个编辑组件 json schema 中必须包含的属性
+export interface BaseEditProps {
+    id: string
+    isShow: boolean
+    name: string
+    editComp: VueCompType
+}
+
+export type StringStateArr = string[]
+export type ValueStateArr = Array<{ value: string; status: string }>
+export type PicTitleDescStateArr = Array<{ picTitle: string; picDesc: string; status: string }>
+
+// 文本编辑组件在基础的编辑组件上添加了status属性，且为string类型
+//  - 即文本编辑组件的 json schema 拥有string类型的status属性
+export interface TextProps extends BaseEditProps {
+    state: string
+}
+
+// 选项编辑组件在基础的编辑组件上添加了status、currentStatus属性，且类型更加多样化
+export interface OptionProps extends BaseEditProps {
+    state: StringStateArr | ValueStateArr | PicTitleDescStateArr
+    currentStage: number
+}
+
+// 对应一个业务组件所拥有那些基础的编辑组件配置
+// 单选题 --> 编辑单选题组件
+export interface BaseEditCompStatus {
+    title: TextProps
+    desc: TextProps
+    position: OptionProps
+    titleSize: OptionProps
+    descSize: OptionProps
+    titleBold: OptionProps
+    descBold: OptionProps
+    titleSlant: OptionProps
+    descSlant: OptionProps
+    titleColor: TextProps
+    descColor: TextProps
+}
+
+// 选项编辑组件在基础的编辑组件上添加了option属性
+export interface OptionEditCompStatus extends BaseEditCompStatus {
+    option: OptionProps
+}

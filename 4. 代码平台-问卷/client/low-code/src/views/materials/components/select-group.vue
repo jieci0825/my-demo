@@ -23,13 +23,6 @@ const selectLinks = [
                     >{{ item.text }}</router-link
                 >
             </div>
-            <!-- show -->
-            <template #center>
-                <router-view v-slot="{ Component }">
-                    <Component :is="Component" />
-                </router-view>
-            </template>
-            <!-- controller -->
         </Layout>
     </div>
 </template>
