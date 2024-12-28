@@ -1,7 +1,39 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { UPDATE_STATE } from '@/constants'
+import { computed, inject } from 'vue'
+
+interface Props {
+    editConfKey: string
+    state: string
+    id: string
+    isShow: boolean
+}
+const props = defineProps<Props>()
+const updateState = inject(UPDATE_STATE)
+
+const innerValue = computed({
+    get() {
+        return props.state
+    },
+    set(newValue: any) {
+        updateState && updateState(props.editConfKey, newValue)
+    }
+})
+</script>
 
 <template>
-    <div class="desc-editor">描述编辑组件</div>
+    <div class="desc-editor">
+        <div class="sign mb-10 font-weight-500">标题内容</div>
+        <el-input
+            v-model="innerValue"
+            placeholder="请输入题目描述"
+            type="textarea"
+        ></el-input>
+    </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.desc-editor {
+    width: 100%;
+}
+</style>
