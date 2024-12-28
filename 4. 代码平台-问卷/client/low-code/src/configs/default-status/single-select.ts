@@ -13,11 +13,12 @@ import {
 } from '@/components/survey-comps/edit-items'
 import { markRaw } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
+import { SINGLE_SELECT_KEY } from '@/constants'
 
 export default function () {
     return {
         type: markRaw(SingleSelect),
-        name: 'single-select',
+        name: SINGLE_SELECT_KEY,
         id: uuidv4(),
         // 组件状态：组件每一个能够修改的状态都需要对应一个编辑组件
         editCompConfig: {
