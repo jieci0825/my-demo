@@ -14,9 +14,10 @@ import {
 import { markRaw } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import { SINGLE_SELECT_KEY } from '@/constants'
+import type { BaseBusinessComp, OptionEditCompStatus } from '@/types'
 
 export default function () {
-    return {
+    const status: BaseBusinessComp<OptionEditCompStatus> = {
         type: markRaw(SingleSelect),
         name: SINGLE_SELECT_KEY,
         id: uuidv4(),
@@ -68,7 +69,7 @@ export default function () {
             },
             titleSize: {
                 id: uuidv4(),
-                state: [22, 20, 18],
+                state: ['22', '20', '18'],
                 currentStage: 0,
                 name: 'size-editor',
                 isShow: true,
@@ -76,7 +77,7 @@ export default function () {
             },
             descSize: {
                 id: uuidv4(),
-                state: [12, 14, 16],
+                state: ['12', '14', '16'],
                 currentStage: 0,
                 name: 'size-editor',
                 isShow: true,
@@ -116,4 +117,6 @@ export default function () {
             }
         }
     }
+
+    return status
 }
