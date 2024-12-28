@@ -1,4 +1,5 @@
 import type { VueCompType } from './common'
+import type { MaterialKeys } from './materials'
 
 // 一个编辑组件所拥有的基础属性，即一个编辑组件 json schema 中必须包含的属性
 export interface BaseEditProps {
@@ -53,7 +54,7 @@ export interface OptionEditCompStatus extends BaseEditCompStatus {
 // 业务组件
 export interface BaseBusinessComp<T = BaseEditCompStatus> {
     id: string
-    name: string
+    name: MaterialKeys
     type: VueCompType
-    editCompConfig: { [k in keyof T]: T[k] }
+    editCompConfig: T
 }

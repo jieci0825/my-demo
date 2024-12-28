@@ -2,7 +2,8 @@ import { defineStore } from 'pinia'
 import { defaultStatusMap } from '@/configs/default-status/default-status-mpa'
 import { SINGLE_SELECT_KEY } from '@/constants'
 import type { MaterialKeys } from '@/types/materials'
-import type { BaseBusinessComp } from '@/types'
+import type { BaseBusinessComp, BaseEditCompStatus } from '@/types'
+import { setTextState } from './actions'
 
 interface IUseMaterialStore {
     currentMaterialComp: MaterialKeys
@@ -20,5 +21,8 @@ export const useMaterialStore = defineStore('materialStore', {
                 [SINGLE_SELECT_KEY]: defaultStatusMap[SINGLE_SELECT_KEY]()
             }
         } as IUseMaterialStore
+    },
+    actions: {
+        setTextState
     }
 })

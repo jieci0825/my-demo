@@ -8,7 +8,6 @@ interface IProps {
     sn: number
 }
 
-// props.editCompStatus 得到的是
 const { editCompConfig, sn } = defineProps<IProps>()
 
 const computedState = computed(() => {

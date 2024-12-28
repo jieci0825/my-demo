@@ -1,12 +1,30 @@
 <script setup lang="ts">
+import EditPanel from '@/components/survey-comps/edit-items/edit-panel.vue'
+import { UPDATE_STATE } from '@/constants'
 import { useMaterialStore } from '@/stores/use-material'
-import { computed } from 'vue'
+import { isString } from '@/utils'
+import { computed, provide } from 'vue'
 
 const materialStore = useMaterialStore()
+const { setTextState } = materialStore
 
 const currentComp = computed(() => {
     return materialStore.comps[materialStore.currentMaterialComp]
 })
+console.log(currentComp.value)
+
+const updateState = (confKey: string, payload?: string | number | boolean | object) => {
+    switch (confKey) {
+        case 'title':
+        case 'desc':
+            if (isString(payload)) {
+                setTextState(currentComp.value.editCompConfig[confKey], payload as string)
+            }
+            break
+    }
+}
+
+provide(UPDATE_STATE, updateState)
 </script>
 
 <template>
@@ -26,8 +44,8 @@ const currentComp = computed(() => {
             </router-view>
         </div>
         <!-- 编辑业务组件 -->
-        <div class="right p-20">
-            <slot name="right">编辑业务组件</slot>
+        <div class="right">
+            <EditPanel :comp="currentComp"></EditPanel>
         </div>
     </div>
 </template>
