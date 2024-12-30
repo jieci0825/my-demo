@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     BlodEditor: typeof import('./src/components/survey-comps/edit-items/blod-editor.vue')['default']
     BoldEditor: typeof import('./src/components/survey-comps/edit-items/bold-editor.vue')['default']
+    ButtonGroup: typeof import('./src/components/survey-comps/edit-items/button-group.vue')['default']
     ColorEditor: typeof import('./src/components/survey-comps/edit-items/color-editor.vue')['default']
     DescEditor: typeof import('./src/components/survey-comps/edit-items/desc-editor.vue')['default']
     EditPanel: typeof import('./src/components/survey-comps/edit-items/edit-panel.vue')['default']
@@ -16,6 +17,7 @@ declare module 'vue' {
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElRadio: typeof import('element-plus/es')['ElRadio']
+    ElRadioButton: typeof import('element-plus/es')['ElRadioButton']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']

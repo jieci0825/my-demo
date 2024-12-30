@@ -47,7 +47,8 @@ export default function () {
             },
             position: {
                 id: uuidv4(),
-                state: ['左对齐', '居中对齐', '右对齐'],
+                state: ['左', '居中', '右'],
+                icons: ['icon-left-align', 'icon-center-align', 'icon-right-align'],
                 currentStage: 0,
                 name: 'position-editor',
                 isShow: true,

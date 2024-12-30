@@ -33,6 +33,11 @@ const updateState = (confKey: string, payload?: string | number | boolean | obje
                 addOption(curEditCompConf[confKey])
             }
             break
+        case 'position':
+            if (isNumber(payload)) {
+                materialStore.updateCurrentState(currentComp.value.editCompConfig[confKey], payload)
+            }
+            break
     }
 }
 

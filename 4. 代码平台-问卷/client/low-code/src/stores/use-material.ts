@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { defaultStatusMap } from '@/configs/default-status/default-status-mpa'
 import { SINGLE_SELECT_KEY } from '@/constants'
-import { setTextState, addOption, removeOption } from './actions'
+import { setTextState, addOption, removeOption, updateCurrentState } from './actions'
 import type { MaterialKeys } from '@/types/materials'
 import type { BaseBusinessComp } from '@/types'
 
@@ -25,6 +25,7 @@ export const useMaterialStore = defineStore('materialStore', {
     actions: {
         setTextState,
         addOption,
-        removeOption
+        removeOption,
+        updateCurrentState
     }
 })
