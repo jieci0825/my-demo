@@ -10,3 +10,4 @@ export const isBoolean = (value: any): value is boolean => typeof value === 'boo
 export const isFunction = (value: any): value is Function => typeof value === 'function'
 export const isObject = (value: any): value is object => typeof value === 'object' && value !== null
 export const isArray = Array.isArray
+export const extend = Object.assign

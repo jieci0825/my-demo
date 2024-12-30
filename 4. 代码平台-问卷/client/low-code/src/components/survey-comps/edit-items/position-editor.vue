@@ -1,35 +1,18 @@
 <script setup lang="ts">
-import ButtonGroup from './button-group.vue'
-import { computed, inject } from 'vue'
-import { UPDATE_STATE } from '@/constants'
+import { useEditItemButtonGroup } from '@/hooks'
 
 interface Props {
     editConfKey: string
     state: Array<string>
     icons: string[]
+    title: string
     currentStage: number
     id: string
     isShow: boolean
 }
 const props = defineProps<Props>()
 
-const updateState = inject(UPDATE_STATE)
-
-const innerValue = computed({
-    get() {
-        return props.currentStage
-    },
-    set(val) {
-        updateState && updateState(props.editConfKey, val)
-    }
-})
-
-const buttonGroupProps = computed(() => {
-    return {
-        label: '对齐方式',
-        text: props.state[props.currentStage]
-    }
-})
+const { buttonGroupProps, innerValue, ButtonGroup } = useEditItemButtonGroup(props)
 </script>
 
 <template>

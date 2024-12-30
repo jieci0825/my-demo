@@ -9,6 +9,7 @@ export interface BaseEditProps {
     name: string
     editComp: VueCompType
     icons?: string[]
+    title?: string
 }
 
 export type StringStateArr = string[]
