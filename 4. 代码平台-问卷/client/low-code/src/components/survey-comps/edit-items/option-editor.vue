@@ -25,10 +25,6 @@ const addOption = () => {
     updateState && updateState(props.editConfKey)
 }
 const removeOption = (idx: number) => {
-    if (textArr.value.length <= 2) {
-        ElMessage.error('至少保留两个选项')
-        return
-    }
     updateState && updateState(props.editConfKey, idx)
 }
 </script>

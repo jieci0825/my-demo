@@ -1,4 +1,5 @@
 import { type TextProps, type OptionProps, isStringStateArr } from '@/types'
+import { ElMessage } from 'element-plus'
 
 // 设置文本状态
 export function setTextState(textProps: TextProps, text: string) {
@@ -19,7 +20,11 @@ export function addOption() {
 
 // 删除选项
 export function removeOption(textProps: OptionProps, index: number) {
+    if (textProps.state.length <= 2) {
+        return false
+    }
     if (isStringStateArr(textProps.state)) {
         textProps.state.splice(index, 1)
     }
+    return true
 }

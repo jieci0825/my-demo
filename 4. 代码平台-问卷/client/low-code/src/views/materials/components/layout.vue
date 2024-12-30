@@ -5,6 +5,7 @@ import { useMaterialStore } from '@/stores/use-material'
 import { isNumber, isString } from '@/utils'
 import { computed, provide } from 'vue'
 import type { OptionEditCompStatus } from '@/types'
+import { ElMessage } from 'element-plus'
 
 const materialStore = useMaterialStore()
 
@@ -25,7 +26,9 @@ const updateState = (confKey: string, payload?: string | number | boolean | obje
             const addOption = materialStore.addOption()
             // payload 为数值时，表示删除选项
             if (isNumber(payload)) {
-                materialStore.removeOption(curEditCompConf[confKey], payload)
+                const result = materialStore.removeOption(curEditCompConf[confKey], payload)
+                if (result) return ElMessage.success('删除成功')
+                ElMessage.error('至少保留两个选项')
             } else {
                 addOption(curEditCompConf[confKey])
             }
