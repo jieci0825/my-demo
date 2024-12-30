@@ -19,7 +19,7 @@ const innerProps = computed(() => {
 </script>
 
 <template>
-    <div class="edit-panel flex flex-direction-column p-20">
+    <div class="edit-panel p-20">
         <div
             v-for="(v, k) in innerProps.editCompConfig"
             :key="k"
@@ -39,6 +39,11 @@ const innerProps = computed(() => {
 .edit-panel {
     width: 100%;
     height: 100%;
-    gap: 10px;
+    .edit-item {
+        margin-bottom: 20px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
 }
 </style>

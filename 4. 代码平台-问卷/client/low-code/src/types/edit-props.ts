@@ -1,3 +1,4 @@
+import { isString } from '@/utils'
 import type { VueCompType } from './common'
 import type { MaterialKeys } from './materials'
 
@@ -10,8 +11,12 @@ export interface BaseEditProps {
 }
 
 export type StringStateArr = string[]
-export type ValueStateArr = Array<{ value: string; status: string }>
-export type PicTitleDescStateArr = Array<{ picTitle: string; picDesc: string; status: string }>
+
+export type ValueState = { value: string; status: string }
+export type ValueStateArr = ValueState[]
+
+export type PicTitleDescState = { picTitle: string; picDesc: string; status: string }
+export type PicTitleDescStateArr = PicTitleDescState[]
 
 // 文本编辑组件在基础的编辑组件上添加了status属性，且为string类型
 //  - 即文本编辑组件的 json schema 拥有string类型的status属性
@@ -19,9 +24,10 @@ export interface TextProps extends BaseEditProps {
     state: string
 }
 
+export type OptionsStateArr = StringStateArr | ValueStateArr | PicTitleDescStateArr
 // 选项编辑组件在基础的编辑组件上添加了status、currentStatus属性，且类型更加多样化
 export interface OptionProps extends BaseEditProps {
-    state: StringStateArr | ValueStateArr | PicTitleDescStateArr
+    state: OptionsStateArr
     currentStage: number
 }
 
@@ -57,4 +63,8 @@ export interface BaseBusinessComp<T = BaseEditCompStatus> {
     name: MaterialKeys
     type: VueCompType
     editCompConfig: T
+}
+
+export function isStringStateArr(state: OptionsStateArr): state is StringStateArr {
+    return Array.isArray(state) && state.every(item => isString(item))
 }

@@ -22,8 +22,8 @@ const innerValue = computed({
 </script>
 
 <template>
-    <div class="title-editor">
-        <div class="sign mb-10 font-weight-500">标题内容</div>
+    <div class="editor-item-wrap">
+        <div class="sign">标题内容</div>
         <el-input
             v-model="innerValue"
             placeholder="请输入题目标题"
@@ -32,7 +32,7 @@ const innerValue = computed({
 </template>
 
 <style scoped lang="scss">
-.title-editor {
+.editor-item-wrap {
     width: 100%;
 }
 </style>

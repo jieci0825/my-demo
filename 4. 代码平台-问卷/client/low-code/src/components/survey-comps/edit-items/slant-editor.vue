@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-    <div class="slant-editor">倾斜编辑组件</div>
+    <div class="editor-item-wrap">倾斜编辑组件</div>
 </template>
 
 <style scoped lang="scss"></style>

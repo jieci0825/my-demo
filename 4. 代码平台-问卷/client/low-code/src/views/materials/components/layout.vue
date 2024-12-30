@@ -2,23 +2,32 @@
 import EditPanel from '@/components/survey-comps/edit-items/edit-panel.vue'
 import { UPDATE_STATE } from '@/constants'
 import { useMaterialStore } from '@/stores/use-material'
-import { isString } from '@/utils'
+import { isNumber, isString } from '@/utils'
 import { computed, provide } from 'vue'
+import type { OptionEditCompStatus } from '@/types'
 
 const materialStore = useMaterialStore()
-const { setTextState } = materialStore
 
 const currentComp = computed(() => {
     return materialStore.comps[materialStore.currentMaterialComp]
 })
-console.log(currentComp.value)
 
 const updateState = (confKey: string, payload?: string | number | boolean | object) => {
     switch (confKey) {
         case 'title':
         case 'desc':
             if (isString(payload)) {
-                setTextState(currentComp.value.editCompConfig[confKey], payload as string)
+                materialStore.setTextState(currentComp.value.editCompConfig[confKey], payload)
+            }
+            break
+        case 'options':
+            const curEditCompConf = currentComp.value.editCompConfig as OptionEditCompStatus
+            const addOption = materialStore.addOption()
+            // payload 为数值时，表示删除选项
+            if (isNumber(payload)) {
+                materialStore.removeOption(curEditCompConf[confKey], payload)
+            } else {
+                addOption(curEditCompConf[confKey])
             }
             break
     }
@@ -71,7 +80,7 @@ provide(UPDATE_STATE, updateState)
         border-left: 1px solid var(--border-color);
     }
     .right {
-        width: 340px;
+        width: 320px;
         height: 100%;
         border-left: 1px solid var(--border-color);
     }

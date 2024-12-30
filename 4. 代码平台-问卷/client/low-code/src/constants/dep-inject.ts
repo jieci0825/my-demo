@@ -1,3 +1,3 @@
 import type { InjectionKey } from 'vue'
 
-export const UPDATE_STATE: InjectionKey<(key: string, value: any) => void> = Symbol('UPDATE_STATE')
+export const UPDATE_STATE: InjectionKey<(key: string, payload?: any) => void> = Symbol('UPDATE_STATE')
