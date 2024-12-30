@@ -55,20 +55,6 @@ export default function () {
                 isShow: true,
                 editComp: markRaw(PositionEditor)
             },
-            titleColor: {
-                id: uuidv4(),
-                state: '#303133',
-                name: 'color-editor',
-                isShow: true,
-                editComp: markRaw(ColorEditor)
-            },
-            descColor: {
-                id: uuidv4(),
-                state: '#a8abb2',
-                name: 'color-editor',
-                isShow: true,
-                editComp: markRaw(ColorEditor)
-            },
             titleSize: {
                 id: uuidv4(),
                 title: '标题尺寸',
@@ -128,6 +114,20 @@ export default function () {
                 name: 'slant-editor',
                 isShow: true,
                 editComp: markRaw(SlantEditor)
+            },
+            titleColor: {
+                id: uuidv4(),
+                state: '#303133',
+                name: 'color-editor',
+                isShow: true,
+                editComp: markRaw(ColorEditor)
+            },
+            descColor: {
+                id: uuidv4(),
+                state: '#a8abb2',
+                name: 'color-editor',
+                isShow: true,
+                editComp: markRaw(ColorEditor)
             }
         }
     }

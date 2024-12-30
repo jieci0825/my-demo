@@ -22,7 +22,7 @@ const {
     <div class="materials-header mb-10">
         <h2
             :style="{ fontSize: `${titleSize}px`, color: `${titleColor}` }"
-            :class="['title', isTitleBold ? 'font-bold' : 'font-weight-100', isTitleSlant ? 'font-italic' : '']"
+            :class="['title', !isTitleBold ? 'font-bold' : 'font-weight-100', !isTitleSlant ? 'font-italic' : '']"
         >
             <span class="mr-10">{{ sn }}.</span>
             <span>{{ title }}</span>
@@ -30,7 +30,7 @@ const {
         <div
             v-if="desc"
             :style="{ fontSize: `${descSize}px`, color: `${descColor}` }"
-            :class="['description', 'mt-3', isDescBold ? 'font-bold' : '', isDescSlant ? 'font-italic' : '']"
+            :class="['description', 'mt-3', !isDescBold ? 'font-bold' : '', !isDescSlant ? 'font-italic' : '']"
         >
             {{ desc }}
         </div>

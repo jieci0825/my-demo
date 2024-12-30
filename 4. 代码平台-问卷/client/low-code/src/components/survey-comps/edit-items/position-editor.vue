@@ -31,4 +31,10 @@ const { buttonGroupProps, innerValue, ButtonGroup } = useEditItemButtonGroup(pro
     </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.editor-item-wrap {
+    .iconfont {
+        font-size: 20px;
+    }
+}
+</style>

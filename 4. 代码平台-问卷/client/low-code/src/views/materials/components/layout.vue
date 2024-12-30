@@ -34,6 +34,12 @@ const updateState = (confKey: string, payload?: string | number | boolean | obje
             }
             break
         case 'position':
+        case 'titleSize':
+        case 'descSize':
+        case 'titleBold':
+        case 'descBold':
+        case 'titleSlant':
+        case 'descSlant':
             if (isNumber(payload)) {
                 materialStore.updateCurrentState(currentComp.value.editCompConfig[confKey], payload)
             }
