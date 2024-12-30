@@ -70,48 +70,54 @@ export default function () {
             },
             titleSize: {
                 id: uuidv4(),
-                state: ['22', '20', '18'],
-                currentStage: 0,
+                state: ['18', '20', '22'],
+                icons: ['icon-font-size', 'icon-font-size', 'icon-font-size'],
+                currentStage: 2,
                 name: 'size-editor',
                 isShow: true,
                 editComp: markRaw(SizeEditor)
             },
             descSize: {
                 id: uuidv4(),
-                state: ['16', '14', '12'],
-                currentStage: 1,
+                state: ['12', '14', '16'],
+                icons: ['icon-font-size', 'icon-font-size', 'icon-font-size'],
+                currentStage: 2,
                 name: 'size-editor',
                 isShow: true,
                 editComp: markRaw(SizeEditor)
             },
             titleBold: {
                 id: uuidv4(),
-                state: ['正常', '加粗'],
-                currentStage: 0,
+                state: ['加粗', '正常'],
+                icons: ['icon-font-bold', 'icon-font-bold'],
+                currentStage: 1,
                 name: 'bold-editor',
                 isShow: true,
                 editComp: markRaw(BoldEditor)
             },
             descBold: {
                 id: uuidv4(),
-                state: ['正常', '加粗'],
-                currentStage: 0,
+                state: ['加粗', '正常'],
+                currentStage: 1,
+                icons: ['icon-font-bold', 'icon-font-bold'],
                 name: 'bold-editor',
                 isShow: true,
                 editComp: markRaw(BoldEditor)
             },
             titleSlant: {
                 id: uuidv4(),
-                state: ['正常', '倾斜'],
-                currentStage: 0,
+                state: ['倾斜', '正常'],
+                icons: ['icon-font-slant', 'icon-font-slant'],
+                currentStage: 1,
                 name: 'slant-editor',
                 isShow: true,
                 editComp: markRaw(SlantEditor)
             },
             descSlant: {
                 id: uuidv4(),
-                state: ['正常', '倾斜'],
-                currentStage: 0,
+                state: ['倾斜', '正常'],
+                icons: ['icon-font-slant', 'icon-font-slant'],
+                currentStage: 1,
                 name: 'slant-editor',
                 isShow: true,
                 editComp: markRaw(SlantEditor)

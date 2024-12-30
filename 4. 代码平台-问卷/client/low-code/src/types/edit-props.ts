@@ -8,6 +8,7 @@ export interface BaseEditProps {
     isShow: boolean
     name: string
     editComp: VueCompType
+    icons?: string[]
 }
 
 export type StringStateArr = string[]
@@ -28,7 +29,6 @@ export type OptionsStateArr = StringStateArr | ValueStateArr | PicTitleDescState
 // 选项编辑组件在基础的编辑组件上添加了status、currentStatus属性，且类型更加多样化
 export interface OptionProps extends BaseEditProps {
     state: OptionsStateArr
-    icons?: string[]
     currentStage: number
 }
 
