@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EditorMode } from '@/constants'
+import { EditorMode, JC_WEN_JUAN_ACTIVE_VIEW } from '@/constants'
 import { Plus, Compass } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -8,9 +8,13 @@ const tableData = ref([])
 const $router = useRouter()
 
 const goToCreateEditor = () => {
+    // 当前激活视图是编辑器
+    localStorage.setItem(JC_WEN_JUAN_ACTIVE_VIEW, 'editor')
     $router.push(`/editor/${EditorMode.CREATE}`)
 }
 const goToMaterials = () => {
+    // 当前激活视图是组件市场
+    localStorage.setItem(JC_WEN_JUAN_ACTIVE_VIEW, 'materials')
     $router.push('/materials')
 }
 </script>

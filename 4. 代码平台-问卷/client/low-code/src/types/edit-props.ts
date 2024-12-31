@@ -18,7 +18,7 @@ export type StringStateArr = string[]
 export type ValueState = { value: string; status: string }
 export type ValueStateArr = ValueState[]
 
-export type PicTitleDescState = { picTitle: string; picDesc: string; status: string }
+export type PicTitleDescState = { picTitle: string; picDesc: string; value: string }
 export type PicTitleDescStateArr = PicTitleDescState[]
 
 // 文本编辑组件在基础的编辑组件上添加了status属性，且为string类型

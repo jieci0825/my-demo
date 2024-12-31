@@ -1,6 +1,4 @@
-// 单选题的 JSON Schema 配置
-
-import { SingleSelect } from '@/components/survey-comps/materials/select-comps'
+import { SinglePicSelect } from '@/components/survey-comps/materials/select-comps'
 import {
     TitleEditor,
     BoldEditor,
@@ -8,42 +6,52 @@ import {
     SizeEditor,
     SlantEditor,
     PositionEditor,
-    OptionEditor,
+    PicOptionsEditor,
     DescEditor
 } from '@/components/survey-comps/edit-items'
+import { predefineColors, SINGLE_PIC_SELECT_KEY } from '@/constants'
 import { markRaw } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { predefineColors, SINGLE_SELECT_KEY } from '@/constants'
 import type { BaseBusinessComp, OptionEditCompStatus } from '@/types'
 
 export default function () {
     const status: BaseBusinessComp<OptionEditCompStatus> = {
-        type: markRaw(SingleSelect),
-        name: SINGLE_SELECT_KEY,
         id: uuidv4(),
-        // 组件状态：组件每一个能够修改的状态都需要对应一个编辑组件
+        type: markRaw(SinglePicSelect),
+        name: SINGLE_PIC_SELECT_KEY,
         editCompConfig: {
             title: {
                 id: uuidv4(),
-                state: '单选题默认标题',
+                state: '默认图片单选题标题内容',
                 name: 'title-editor',
                 isShow: true,
                 editComp: markRaw(TitleEditor)
             },
             desc: {
                 id: uuidv4(),
-                state: '单选题默认描述',
+                state: '默认图片单选题描述内容',
                 name: 'desc-editor',
                 isShow: true,
                 editComp: markRaw(DescEditor)
             },
             options: {
                 id: uuidv4(),
-                state: ['默认选项1', '默认选项2'],
+                state: [
+                    {
+                        picTitle: '图片标题1',
+                        picDesc: '图片描述1',
+                        value: ''
+                    },
+                    {
+                        picTitle: '图片标题2',
+                        picDesc: '图片描述2',
+                        value: ''
+                    }
+                ],
                 currentStage: 0,
                 name: 'option-editor',
                 isShow: true,
-                editComp: markRaw(OptionEditor)
+                editComp: markRaw(PicOptionsEditor)
             },
             position: {
                 id: uuidv4(),

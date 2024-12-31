@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ArrowLeft, User, House } from '@element-plus/icons-vue'
+import { JC_WEN_JUAN_ACTIVE_VIEW } from '@/constants'
 
 const $route = useRoute()
 const $router = useRouter()
@@ -18,6 +19,7 @@ const goBack = () => {
     $router.back()
 }
 const goHome = () => {
+    localStorage.setItem(JC_WEN_JUAN_ACTIVE_VIEW, 'home')
     $router.push('/')
 }
 </script>

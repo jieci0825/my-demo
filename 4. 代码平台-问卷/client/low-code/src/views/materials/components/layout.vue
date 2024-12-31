@@ -4,8 +4,8 @@ import { UPDATE_STATE } from '@/constants'
 import { useMaterialStore } from '@/stores/use-material'
 import { isNumber, isString } from '@/utils'
 import { computed, provide } from 'vue'
-import type { OptionEditCompStatus } from '@/types'
 import { ElMessage } from 'element-plus'
+import type { OptionEditCompStatus } from '@/types'
 
 const materialStore = useMaterialStore()
 

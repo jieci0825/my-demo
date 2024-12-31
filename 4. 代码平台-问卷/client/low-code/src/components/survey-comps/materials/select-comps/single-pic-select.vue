@@ -1,7 +1,31 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import MaterialsHeader from '../../common/materials-header.vue'
+import { useMaterialHeaderProps } from '@/hooks'
+import type { OptionEditCompStatus } from '@/types'
+
+interface IProps {
+    editCompConfig: OptionEditCompStatus
+    sn: number
+}
+const props = defineProps<IProps>()
+
+const { computedState, materialHeaderProps, alignClassMap } = useMaterialHeaderProps(props)
+</script>
 
 <template>
-    <div class="single-pic-select">图片单选</div>
+    <div :class="['single-pic-select', alignClassMap[computedState.position]]">
+        <MaterialsHeader v-bind="materialHeaderProps"></MaterialsHeader>
+        <div class="radio-wrap">
+            <!-- <el-radio-group>
+                <el-radio
+                    v-for="(item, idx) in computedState.options"
+                    :key="idx"
+                    :value="item"
+                    >{{ item }}</el-radio
+                >
+            </el-radio-group> -->
+        </div>
+    </div>
 </template>
 
 <style scoped lang="scss"></style>

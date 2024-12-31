@@ -31,6 +31,8 @@ declare module 'vue' {
     OptionEditor: typeof import('./src/components/survey-comps/edit-items/option-editor.vue')['default']
     OptionSelect: typeof import('./src/components/survey-comps/materials/select-comps/option-select.vue')['default']
     PageHeader: typeof import('./src/components/common/page-header/index.vue')['default']
+    PicOptions: typeof import('./src/components/survey-comps/edit-items/pic-options.vue')['default']
+    PicOptionsEditor: typeof import('./src/components/survey-comps/edit-items/pic-options-editor.vue')['default']
     PositionEditor: typeof import('./src/components/survey-comps/edit-items/position-editor.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
