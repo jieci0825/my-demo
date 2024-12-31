@@ -16,6 +16,8 @@ import { v4 as uuidv4 } from 'uuid'
 import { SINGLE_SELECT_KEY } from '@/constants'
 import type { BaseBusinessComp, OptionEditCompStatus } from '@/types'
 
+const predefineColors = ['#ff4500', '#ff8c00', '#ffd700', '#90ee90', '#00ced1', '#1e90ff', '#c71585']
+
 export default function () {
     const status: BaseBusinessComp<OptionEditCompStatus> = {
         type: markRaw(SingleSelect),
@@ -117,14 +119,18 @@ export default function () {
             },
             titleColor: {
                 id: uuidv4(),
+                title: '标题颜色',
                 state: '#303133',
+                predefineColors: predefineColors.slice(),
                 name: 'color-editor',
                 isShow: true,
                 editComp: markRaw(ColorEditor)
             },
             descColor: {
                 id: uuidv4(),
+                title: '描述颜色',
                 state: '#a8abb2',
+                predefineColors: predefineColors.slice(),
                 name: 'color-editor',
                 isShow: true,
                 editComp: markRaw(ColorEditor)

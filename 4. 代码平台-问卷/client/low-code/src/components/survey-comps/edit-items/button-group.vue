@@ -9,7 +9,7 @@ const props = defineProps<Props>()
 <template>
     <div class="button-group flex align-items-center">
         <div class="label font-weight-600">{{ props.label }}</div>
-        <div class="text ml-20">{{ text }}</div>
+        <div class="text ml-10">{{ text }}</div>
         <div class="choose">
             <slot> </slot>
         </div>

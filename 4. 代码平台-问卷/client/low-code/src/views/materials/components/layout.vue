@@ -17,6 +17,8 @@ const updateState = (confKey: string, payload?: string | number | boolean | obje
     switch (confKey) {
         case 'title':
         case 'desc':
+        case 'titleColor':
+        case 'descColor':
             if (isString(payload)) {
                 materialStore.setTextState(currentComp.value.editCompConfig[confKey], payload)
             }

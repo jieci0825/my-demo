@@ -14,6 +14,7 @@ declare module 'vue' {
     DescEditor: typeof import('./src/components/survey-comps/edit-items/desc-editor.vue')['default']
     EditPanel: typeof import('./src/components/survey-comps/edit-items/edit-panel.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElRadio: typeof import('element-plus/es')['ElRadio']

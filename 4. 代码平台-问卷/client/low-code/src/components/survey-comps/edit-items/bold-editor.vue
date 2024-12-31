@@ -26,7 +26,7 @@ const { buttonGroupProps, innerValue, ButtonGroup } = useEditItemButtonGroup(pro
                         :title="item"
                     >
                         <span
-                            :style="{ '--idx': idx }"
+                            :style="{ '--idx': props.state.length - idx }"
                             :class="['iconfont', props.icons[idx]]"
                         ></span>
                     </el-radio-button>
