@@ -1,6 +1,7 @@
 dist
 .DS_Store
 node_modules
+/uploads/*
 coverage
 temp
 explorations
@@ -11,3 +12,4 @@ TODOs.md
 dts-build/packages
 *.tsbuildinfo
 *.tgz
+

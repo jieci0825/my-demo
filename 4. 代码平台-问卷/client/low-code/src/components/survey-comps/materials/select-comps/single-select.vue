@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MaterialsHeader from '../../common/materials-header.vue'
-import { useMaterialHeaderProps } from '@/hooks'
+import { useMaterialProps } from '@/hooks'
 import type { OptionEditCompStatus } from '@/types'
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IProps {
 }
 const props = defineProps<IProps>()
 
-const { computedState, materialHeaderProps, alignClassMap } = useMaterialHeaderProps(props)
+const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps(props)
 </script>
 
 <template>
