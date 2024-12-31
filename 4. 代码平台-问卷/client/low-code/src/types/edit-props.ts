@@ -1,4 +1,4 @@
-import { isString } from '@/utils'
+import { isObject, isString } from '@/utils'
 import type { VueCompType } from './common'
 import type { MaterialKeys } from './materials'
 
@@ -15,7 +15,7 @@ export interface BaseEditProps {
 
 export type StringStateArr = string[]
 
-export type ValueState = { value: string; status: string }
+export type ValueState = { value: string; state: string }
 export type ValueStateArr = ValueState[]
 
 export type PicTitleDescState = { picTitle: string; picDesc: string; value: string }
@@ -70,4 +70,15 @@ export interface BaseBusinessComp<T = BaseEditCompStatus> {
 
 export function isStringStateArr(state: OptionsStateArr): state is StringStateArr {
     return Array.isArray(state) && state.every(item => isString(item))
+}
+
+export function isValueStateArr(state: OptionsStateArr): state is ValueStateArr {
+    return Array.isArray(state) && state.every(item => isObject(item) && 'value' in item && 'state' in item)
+}
+
+export function isPicTitleDescStateArr(state: OptionsStateArr): state is PicTitleDescStateArr {
+    return (
+        Array.isArray(state) &&
+        state.every(item => isObject(item) && 'picTitle' in item && 'picDesc' in item && 'value' in item)
+    )
 }

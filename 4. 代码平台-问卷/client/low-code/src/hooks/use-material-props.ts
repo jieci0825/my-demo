@@ -6,7 +6,7 @@ interface MaterialHeaderProps {
     sn: number
 }
 
-export function useMaterialHeaderProps(props: MaterialHeaderProps) {
+export function useMaterialProps(props: MaterialHeaderProps) {
     const { editCompConfig, sn } = props
 
     const alignClassMap: any = {
