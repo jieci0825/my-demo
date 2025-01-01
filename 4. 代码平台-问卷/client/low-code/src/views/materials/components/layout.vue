@@ -42,7 +42,7 @@ const updateState = (confKey: string, payload?: string | number | boolean | PicL
         case 'type':
             if (isNumber(payload)) {
                 const curEditCompConf = currentComp.value.editCompConfig as TypeEditCompStatus
-                materialStore.toggleRemarkType(curEditCompConf, payload)
+                materialStore.toggleType(curEditCompConf, payload)
             }
             break
         case 'position':

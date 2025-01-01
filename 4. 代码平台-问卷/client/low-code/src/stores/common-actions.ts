@@ -46,7 +46,7 @@ export function updateCurrentState(optionProps: OptionProps, index: number) {
 }
 
 // 切换备注说明类型
-export function toggleRemarkType(editCompConf: TypeEditCompStatus, index: number) {
+export function toggleType(editCompConf: TypeEditCompStatus, index: number) {
     const remarkProps: OptionProps = editCompConf.type
     updateCurrentState(remarkProps, index)
 

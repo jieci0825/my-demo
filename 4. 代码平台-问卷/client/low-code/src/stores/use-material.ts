@@ -7,7 +7,7 @@ import {
     removeOption,
     updateCurrentState,
     setPicLinkByIndex,
-    toggleRemarkType
+    toggleType
 } from './common-actions'
 import { isEmpty } from 'element-plus/es/utils/types.mjs'
 import type { MaterialKeys } from '@/types/materials'
@@ -38,7 +38,7 @@ export const useMaterialStore = defineStore('materialStore', {
         removeOption,
         updateCurrentState,
         setPicLinkByIndex,
-        toggleRemarkType,
+        toggleType,
         changeCurrentMaterialComp(curMaterialComp: MaterialKeys) {
             if (isEmpty(curMaterialComp)) return
             this.currentMaterialComp = curMaterialComp
