@@ -1,7 +1,14 @@
 import { defineStore } from 'pinia'
 import { defaultStatusMap } from '@/configs/default-status/default-status-mpa'
 import { SINGLE_PIC_SELECT_KEY, SINGLE_SELECT_KEY, TEXT_NODE_KEY } from '@/constants'
-import { setTextState, addOption, removeOption, updateCurrentState, setPicLinkByIndex } from './common-actions'
+import {
+    setTextState,
+    addOption,
+    removeOption,
+    updateCurrentState,
+    setPicLinkByIndex,
+    toggleRemarkType
+} from './common-actions'
 import { isEmpty } from 'element-plus/es/utils/types.mjs'
 import type { MaterialKeys } from '@/types/materials'
 import type { BaseBusinessComp } from '@/types'
@@ -31,6 +38,7 @@ export const useMaterialStore = defineStore('materialStore', {
         removeOption,
         updateCurrentState,
         setPicLinkByIndex,
+        toggleRemarkType,
         changeCurrentMaterialComp(curMaterialComp: MaterialKeys) {
             if (isEmpty(curMaterialComp)) return
             this.currentMaterialComp = curMaterialComp

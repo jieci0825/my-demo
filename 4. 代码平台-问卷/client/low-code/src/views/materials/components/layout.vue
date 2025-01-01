@@ -5,7 +5,7 @@ import { useMaterialStore } from '@/stores/use-material'
 import { isNumber, isObjectWithKeys, isString } from '@/utils'
 import { computed, provide } from 'vue'
 import { ElMessage } from 'element-plus'
-import type { OptionEditCompStatus, PicLink } from '@/types'
+import type { OptionEditCompStatus, PicLink, TypeEditCompStatus } from '@/types'
 
 const materialStore = useMaterialStore()
 
@@ -37,6 +37,12 @@ const updateState = (confKey: string, payload?: string | number | boolean | PicL
                 materialStore.setPicLinkByIndex(curEditCompConf[confKey], payload)
             } else {
                 addOption(curEditCompConf[confKey], payload)
+            }
+            break
+        case 'type':
+            if (isNumber(payload)) {
+                const curEditCompConf = currentComp.value.editCompConfig as TypeEditCompStatus
+                materialStore.toggleRemarkType(curEditCompConf, payload)
             }
             break
         case 'position':

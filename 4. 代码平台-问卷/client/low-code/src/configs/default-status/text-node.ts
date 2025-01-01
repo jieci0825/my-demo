@@ -23,7 +23,9 @@ export default function () {
         editCompConfig: {
             type: {
                 id: uuidv4(),
+                title: '说明类型',
                 state: ['标题', '段落'],
+                icons: ['icon-title', 'icon-paragraph'],
                 currentStage: 1,
                 name: 'type-editor',
                 isShow: true,

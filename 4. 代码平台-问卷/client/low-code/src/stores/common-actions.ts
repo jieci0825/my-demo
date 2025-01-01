@@ -4,8 +4,11 @@ import {
     type PicLink,
     isStringStateArr,
     isPicTitleDescStateArr,
-    isPicTitleDescStateObject
+    isPicTitleDescStateObject,
+    type BaseEditCompStatus,
+    type TypeEditCompStatus
 } from '@/types'
+import type { KeysOfT } from '@/utils'
 
 // 设置文本状态
 export function setTextState(textProps: TextProps, text: string) {
@@ -40,6 +43,28 @@ export function removeOption(optionProps: OptionProps, index: number) {
 // 更新当前选项状态
 export function updateCurrentState(optionProps: OptionProps, index: number) {
     optionProps.currentStage = index
+}
+
+// 切换备注说明类型
+export function toggleRemarkType(editCompConf: TypeEditCompStatus, index: number) {
+    const remarkProps: OptionProps = editCompConf.type
+    updateCurrentState(remarkProps, index)
+
+    // 切换显示隐藏
+    const titleField: KeysOfT<BaseEditCompStatus>[] = ['title', 'titleBold', 'titleColor', 'titleSlant', 'titleSize']
+    const descField: KeysOfT<BaseEditCompStatus>[] = ['desc', 'descBold', 'descColor', 'descSlant', 'descSize']
+
+    // 是否是标题
+    const isTitle = index === 0
+    const visibleFields = isTitle ? titleField : descField
+    const hiddenFields = isTitle ? descField : titleField
+
+    for (const key of visibleFields) {
+        editCompConf[key].isShow = true
+    }
+    for (const key of hiddenFields) {
+        editCompConf[key].isShow = false
+    }
 }
 
 // 根据index设置图片选项
