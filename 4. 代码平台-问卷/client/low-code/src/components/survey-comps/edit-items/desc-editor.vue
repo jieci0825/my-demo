@@ -23,7 +23,7 @@ const innerValue = computed({
 
 <template>
     <div class="editor-item-wrap">
-        <div class="sign">标题内容</div>
+        <div class="sign">描述内容</div>
         <el-input
             v-model="innerValue"
             placeholder="请输入题目描述"

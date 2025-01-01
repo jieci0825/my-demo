@@ -1,4 +1,11 @@
-import { type TextProps, type OptionProps, isStringStateArr, type PicLink, isPicTitleDescStateArr } from '@/types'
+import {
+    type TextProps,
+    type OptionProps,
+    isStringStateArr,
+    type PicLink,
+    isPicTitleDescStateArr,
+    isPicTitleDescStateObject
+} from '@/types'
 
 // 设置文本状态
 export function setTextState(textProps: TextProps, text: string) {
@@ -8,11 +15,15 @@ export function setTextState(textProps: TextProps, text: string) {
 // 新增选项
 export function addOption() {
     let prevCount = 0
-    return function (optionProps: OptionProps) {
-        if (isStringStateArr(optionProps.state)) {
+    return function (optionProps: OptionProps, payload?: string | number | boolean | object) {
+        if (payload === undefined && isStringStateArr(optionProps.state)) {
             prevCount = optionProps.state.length
             const content = `默认选项${prevCount + 1}`
             optionProps.state.push(content)
+        } else if (payload && isPicTitleDescStateArr(optionProps.state)) {
+            if (isPicTitleDescStateObject(payload)) {
+                optionProps.state.push(payload)
+            }
         }
     }
 }
@@ -22,9 +33,7 @@ export function removeOption(optionProps: OptionProps, index: number) {
     if (optionProps.state.length <= 2) {
         return false
     }
-    if (isStringStateArr(optionProps.state)) {
-        optionProps.state.splice(index, 1)
-    }
+    optionProps.state.splice(index, 1)
     return true
 }
 

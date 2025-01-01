@@ -52,3 +52,24 @@ h6 {
         font-size: 18px;
     }
 }
+
+/* 整体滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px; /* 滚动条宽度 */
+}
+
+/* 滚动条轨道 */
+::-webkit-scrollbar-track {
+    border-radius: 10px; /* 圆角 */
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    background: var(--el-color-info-light-5); /* 滑块颜色 */
+    border-radius: 10px; /* 圆角 */
+}
+
+/* 滑块在悬停时的样式 */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--el-color-info); /* 悬停时的颜色 */
+}

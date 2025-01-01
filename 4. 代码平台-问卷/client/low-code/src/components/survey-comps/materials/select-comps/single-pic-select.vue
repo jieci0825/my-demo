@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import MaterialsHeader from '../../common/materials-header.vue'
 import PicItem from '../../common/pic-item.vue'
-import { computed, inject } from 'vue'
+import { computed } from 'vue'
 import { useMaterialProps } from '@/hooks'
 import type { OptionEditCompStatus, PicTitleDescState } from '@/types'
 
@@ -32,7 +32,7 @@ const innerValue = computed({
                     v-for="(item, idx) in (computedState.options as PicTitleDescState[])"
                     :key="idx"
                     :value="idx"
-                    class="pic-item-wrap"
+                    class="pic-item-wrap mb-15"
                 >
                     <PicItem
                         v-bind="item"

@@ -2,7 +2,7 @@
 import EditPanel from '@/components/survey-comps/edit-items/edit-panel.vue'
 import { GET_PIC_LINK, UPDATE_STATE } from '@/constants'
 import { useMaterialStore } from '@/stores/use-material'
-import { isNumber, isObject, isObjectWithKeys, isString } from '@/utils'
+import { isNumber, isObjectWithKeys, isString } from '@/utils'
 import { computed, provide } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { OptionEditCompStatus, PicLink } from '@/types'
@@ -35,8 +35,8 @@ const updateState = (confKey: string, payload?: string | number | boolean | obje
             // 限定为图片链接类型
             else if (isObjectWithKeys<PicLink>(payload, ['link', 'idx'])) {
                 materialStore.setPicLinkByIndex(curEditCompConf[confKey], payload)
-            } else if (payload === undefined) {
-                addOption(curEditCompConf[confKey])
+            } else {
+                addOption(curEditCompConf[confKey], payload)
             }
             break
         case 'position':
@@ -87,7 +87,7 @@ provide(GET_PIC_LINK, getPicLink)
 <style scoped lang="scss">
 .layout-container {
     height: 100%;
-    height: 100%;
+    height: calc(100vh - 60px - 40px);
     overflow: hidden;
     align-items: flex-start;
     border: 1px solid var(--border-color);
@@ -108,6 +108,7 @@ provide(GET_PIC_LINK, getPicLink)
         width: 320px;
         height: 100%;
         border-left: 1px solid var(--border-color);
+        overflow-y: auto;
     }
 }
 </style>

@@ -1,4 +1,4 @@
-import { isObject, isString } from '@/utils'
+import { isObject, isObjectWithKeys, isString } from '@/utils'
 import type { VueCompType } from './common'
 import type { MaterialKeys } from './materials'
 
@@ -77,13 +77,16 @@ export function isStringStateArr(state: OptionsStateArr): state is StringStateAr
     return Array.isArray(state) && state.every(item => isString(item))
 }
 
+export function isValueStateObject(state: any) {
+    return isObjectWithKeys<ValueState>(state, ['value', 'state'])
+}
 export function isValueStateArr(state: OptionsStateArr): state is ValueStateArr {
-    return Array.isArray(state) && state.every(item => isObject(item) && 'value' in item && 'state' in item)
+    return Array.isArray(state) && state.every(item => isValueStateObject(item))
 }
 
+export function isPicTitleDescStateObject(state: any) {
+    return isObjectWithKeys<PicTitleDescState>(state, ['picTitle', 'picDesc', 'value'])
+}
 export function isPicTitleDescStateArr(state: OptionsStateArr): state is PicTitleDescStateArr {
-    return (
-        Array.isArray(state) &&
-        state.every(item => isObject(item) && 'picTitle' in item && 'picDesc' in item && 'value' in item)
-    )
+    return Array.isArray(state) && state.every(item => isPicTitleDescStateObject(item))
 }

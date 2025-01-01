@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Upload } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
-import { inject, ref, watchEffect } from 'vue'
+import { inject } from 'vue'
 import { GET_PIC_LINK } from '@/constants'
 import type { UploadProps } from 'element-plus'
 
