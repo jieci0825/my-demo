@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import EditPanel from '@/components/survey-comps/edit-items/edit-panel.vue'
-import { UPDATE_STATE } from '@/constants'
+import { GET_PIC_LINK, UPDATE_STATE } from '@/constants'
 import { useMaterialStore } from '@/stores/use-material'
-import { isNumber, isString } from '@/utils'
+import { isNumber, isObject, isObjectWithKeys, isString } from '@/utils'
 import { computed, provide } from 'vue'
 import { ElMessage } from 'element-plus'
-import type { OptionEditCompStatus } from '@/types'
+import type { OptionEditCompStatus, PicLink } from '@/types'
 
 const materialStore = useMaterialStore()
 
@@ -26,12 +26,16 @@ const updateState = (confKey: string, payload?: string | number | boolean | obje
         case 'options':
             const curEditCompConf = currentComp.value.editCompConfig as OptionEditCompStatus
             const addOption = materialStore.addOption()
-            // payload 为数值时，表示删除选项
+            // payload 为数值时，表示为索引，进行删除选项
             if (isNumber(payload)) {
                 const result = materialStore.removeOption(curEditCompConf[confKey], payload)
                 if (result) return ElMessage.success('删除成功')
                 ElMessage.error('至少保留两个选项')
-            } else {
+            }
+            // 限定为图片链接类型
+            else if (isObjectWithKeys<PicLink>(payload, ['link', 'idx'])) {
+                materialStore.setPicLinkByIndex(curEditCompConf[confKey], payload)
+            } else if (payload === undefined) {
                 addOption(curEditCompConf[confKey])
             }
             break
@@ -49,7 +53,12 @@ const updateState = (confKey: string, payload?: string | number | boolean | obje
     }
 }
 
+const getPicLink = (payload: PicLink) => {
+    updateState('options', payload)
+}
+
 provide(UPDATE_STATE, updateState)
+provide(GET_PIC_LINK, getPicLink)
 </script>
 
 <template>

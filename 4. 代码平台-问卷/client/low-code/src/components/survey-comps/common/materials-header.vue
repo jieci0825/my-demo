@@ -19,7 +19,7 @@ const {
 </script>
 
 <template>
-    <div class="materials-header mb-10">
+    <div class="materials-header mb-15">
         <h2
             :style="{ fontSize: `${titleSize}px`, color: `${titleColor}` }"
             :class="['title', !isTitleBold ? 'font-bold' : 'font-weight-100', !isTitleSlant ? 'font-italic' : '']"

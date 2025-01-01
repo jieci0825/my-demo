@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import { Upload } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
-import { ref } from 'vue'
+import { inject, ref, watchEffect } from 'vue'
+import { GET_PIC_LINK } from '@/constants'
 import type { UploadProps } from 'element-plus'
 
 interface Props {
     picTitle: string
     picDesc: string
     value: string
+    idx: number
 }
 const props = defineProps<Props>()
 
-const imageUrl = ref(props.value || '')
+const getPickLink = inject(GET_PIC_LINK)
 
-const handleSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
-    imageUrl.value = response.url
+const handleSuccess: UploadProps['onSuccess'] = response => {
+    getPickLink &&
+        getPickLink({
+            idx: props.idx,
+            link: response.url
+        })
     ElMessage.success('上传成功')
 }
 
@@ -36,13 +42,14 @@ const beforeUpload: UploadProps['beforeUpload'] = rawFile => {
             <el-upload
                 class="image-uploader flex-center"
                 action="http://localhost:3000/api/upload"
+                name="file"
                 :show-file-list="false"
                 :on-success="handleSuccess"
                 :before-upload="beforeUpload"
             >
                 <img
-                    v-if="imageUrl"
-                    :src="imageUrl"
+                    v-if="props.value"
+                    :src="props.value"
                     class="imgae"
                 />
                 <div

@@ -1,4 +1,4 @@
-import { type TextProps, type OptionProps, isStringStateArr } from '@/types'
+import { type TextProps, type OptionProps, isStringStateArr, type PicLink, isPicTitleDescStateArr } from '@/types'
 
 // 设置文本状态
 export function setTextState(textProps: TextProps, text: string) {
@@ -31,4 +31,11 @@ export function removeOption(optionProps: OptionProps, index: number) {
 // 更新当前选项状态
 export function updateCurrentState(optionProps: OptionProps, index: number) {
     optionProps.currentStage = index
+}
+
+// 根据index设置图片选项
+export function setPicLinkByIndex(optionProps: OptionProps, payload: PicLink) {
+    if (isPicTitleDescStateArr(optionProps.state)) {
+        optionProps.state[payload.idx].value = payload.link
+    }
 }

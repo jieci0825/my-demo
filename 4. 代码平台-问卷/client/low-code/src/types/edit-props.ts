@@ -68,6 +68,11 @@ export interface BaseBusinessComp<T = BaseEditCompStatus> {
     editCompConfig: T
 }
 
+export type PicLink = {
+    link: string
+    idx: number
+}
+
 export function isStringStateArr(state: OptionsStateArr): state is StringStateArr {
     return Array.isArray(state) && state.every(item => isString(item))
 }

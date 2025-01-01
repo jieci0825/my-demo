@@ -34,7 +34,10 @@ const innerValue = computed({
                     :value="idx"
                     class="pic-item-wrap"
                 >
-                    <PicItem v-bind="item"></PicItem>
+                    <PicItem
+                        v-bind="item"
+                        :idx="idx"
+                    ></PicItem>
                 </el-radio>
             </el-radio-group>
         </div>
