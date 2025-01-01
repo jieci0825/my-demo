@@ -3,6 +3,7 @@ import { UPDATE_STATE } from '@/constants'
 import { Minus, Plus } from '@element-plus/icons-vue'
 import { inject } from 'vue'
 import type { PicLink, PicTitleDescState, PicTitleDescStateArr } from '@/types'
+import { ElMessageBox } from 'element-plus'
 
 interface Props {
     editConfKey: string
@@ -31,11 +32,15 @@ const addOption = () => {
 }
 
 const removeImage = (idx: number) => {
-    const picLink: PicLink = {
-        link: '',
-        idx
-    }
-    updateState && updateState(props.editConfKey, picLink)
+    ElMessageBox.confirm('确定要删除该图片吗？', '提示')
+        .then(() => {
+            const picLink: PicLink = {
+                link: '',
+                idx
+            }
+            updateState && updateState(props.editConfKey, picLink)
+        })
+        .catch(() => true)
 }
 </script>
 

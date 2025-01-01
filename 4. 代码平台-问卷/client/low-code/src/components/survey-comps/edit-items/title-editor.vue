@@ -15,7 +15,7 @@ const innerValue = computed({
     get() {
         return props.state
     },
-    set(newValue: any) {
+    set(newValue: string) {
         updateState && updateState(props.editConfKey, newValue)
     }
 })
