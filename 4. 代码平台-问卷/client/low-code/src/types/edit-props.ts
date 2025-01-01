@@ -1,4 +1,4 @@
-import { isObject, isObjectWithKeys, isString } from '@/utils'
+import { isObjectWithKeys, isString } from '@/utils'
 import type { VueCompType } from './common'
 import type { MaterialKeys } from './materials'
 
@@ -54,10 +54,35 @@ export interface BaseEditCompStatus {
     titleColor: TextProps
     descColor: TextProps
 }
+export function isBaseEditCompStatusObject(state: any) {
+    return isObjectWithKeys<BaseEditCompStatus>(state, [
+        'title',
+        'desc',
+        'position',
+        'titleSize',
+        'descSize',
+        'titleBold',
+        'descBold',
+        'titleSlant',
+        'descSlant',
+        'titleColor',
+        'descColor'
+    ])
+}
 
 // 选项编辑组件在基础的编辑组件上添加了option属性
 export interface OptionEditCompStatus extends BaseEditCompStatus {
     options: OptionProps
+}
+export function isOptionEditCompStatusObject(state: any) {
+    return isObjectWithKeys<OptionEditCompStatus>(state, ['options'])
+}
+
+export interface TypeEditCompStatus extends BaseEditCompStatus {
+    type: OptionProps
+}
+export function isTypeEditCompStatusObject(state: any) {
+    return isObjectWithKeys<TypeEditCompStatus>(state, ['type'])
 }
 
 // 业务组件

@@ -46,8 +46,10 @@ declare module 'vue' {
     SingleSelect: typeof import('./src/components/survey-comps/materials/select-comps/single-select.vue')['default']
     SizeEditor: typeof import('./src/components/survey-comps/edit-items/size-editor.vue')['default']
     SlantEditor: typeof import('./src/components/survey-comps/edit-items/slant-editor.vue')['default']
+    TextNode: typeof import('./src/components/survey-comps/materials/node-comps/text-node.vue')['default']
     Title: typeof import('./src/components/survey-comps/edit-items/title.vue')['default']
     'Title.editor': typeof import('./src/components/survey-comps/edit-items/title.editor.vue')['default']
     TitleEditor: typeof import('./src/components/survey-comps/edit-items/title-editor.vue')['default']
+    TypeEditor: typeof import('./src/components/survey-comps/edit-items/type-editor.vue')['default']
   }
 }

@@ -1,12 +1,18 @@
 import { computed } from 'vue'
-import type { OptionEditCompStatus } from '@/types'
+import {
+    isOptionEditCompStatusObject,
+    isTypeEditCompStatusObject,
+    type BaseEditCompStatus,
+    type OptionEditCompStatus,
+    type TypeEditCompStatus
+} from '@/types'
 
-interface MaterialHeaderProps {
-    editCompConfig: OptionEditCompStatus
+interface MaterialHeaderProps<T> {
+    editCompConfig: T
     sn: number
 }
 
-export function useMaterialProps(props: MaterialHeaderProps) {
+export function useMaterialProps<T extends BaseEditCompStatus>(props: MaterialHeaderProps<T>) {
     const { editCompConfig, sn } = props
 
     const alignClassMap: any = {
@@ -19,7 +25,6 @@ export function useMaterialProps(props: MaterialHeaderProps) {
         const {
             title,
             desc,
-            options,
             position,
             titleSize,
             descSize,
@@ -30,10 +35,26 @@ export function useMaterialProps(props: MaterialHeaderProps) {
             titleColor,
             descColor
         } = editCompConfig
-        return {
+
+        interface MaterialProps {
+            title: string
+            desc: string
+            position: number
+            titleSize: string
+            descSize: string
+            isTitleBold: boolean
+            isDescBold: boolean
+            isTitleSlant: boolean
+            isDescSlant: boolean
+            titleColor: string
+            descColor: string
+            options?: OptionEditCompStatus['options']['state']
+            type?: TypeEditCompStatus['type']['state']
+        }
+
+        const base: MaterialProps = {
             title: title.state,
             desc: desc.state,
-            options: options.state,
             position: position.currentStage,
             titleSize: titleSize.state[titleSize.currentStage],
             descSize: descSize.state[descSize.currentStage],
@@ -44,6 +65,14 @@ export function useMaterialProps(props: MaterialHeaderProps) {
             titleColor: titleColor.state,
             descColor: descColor.state
         }
+
+        if (isOptionEditCompStatusObject(editCompConfig)) {
+            base.options = editCompConfig.options.state
+        } else if (isTypeEditCompStatusObject(editCompConfig)) {
+            base.type = editCompConfig.type.state
+        }
+
+        return base
     })
 
     const materialHeaderProps = computed(() => {

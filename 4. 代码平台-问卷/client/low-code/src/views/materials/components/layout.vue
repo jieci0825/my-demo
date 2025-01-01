@@ -13,7 +13,7 @@ const currentComp = computed(() => {
     return materialStore.comps[materialStore.currentMaterialComp]
 })
 
-const updateState = (confKey: string, payload?: string | number | boolean | object) => {
+const updateState = (confKey: string, payload?: string | number | boolean | PicLink) => {
     switch (confKey) {
         case 'title':
         case 'desc':

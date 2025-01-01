@@ -9,7 +9,7 @@ interface IProps {
 }
 const props = defineProps<IProps>()
 
-const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps(props)
+const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps<OptionEditCompStatus>(props)
 </script>
 
 <template>

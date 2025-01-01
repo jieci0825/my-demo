@@ -42,6 +42,7 @@ export const routes = [
                 path: 'note',
                 name: 'materials-note',
                 component: () => import('@/views/materials/components/note-group.vue'),
+                redirect: '/materials/note/text',
                 children: [
                     {
                         path: 'text',

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Layout from './layout.vue'
 
-const selectLinks = [{ text: '备注说明', to: '/' }]
+const selectLinks = [{ text: '备注说明', to: '/materials/note/text' }]
 </script>
 
 <template>
@@ -13,6 +13,7 @@ const selectLinks = [{ text: '备注说明', to: '/' }]
                     :key="idx"
                     :to="item.to"
                     class="link-item mb-15"
+                    exact-active-class="link-item-active"
                     >{{ item.text }}</router-link
                 >
             </div>

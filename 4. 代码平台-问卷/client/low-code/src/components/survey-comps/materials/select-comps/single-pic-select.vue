@@ -11,7 +11,7 @@ interface IProps {
 }
 const props = defineProps<IProps>()
 
-const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps(props)
+const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps<OptionEditCompStatus>(props)
 
 const innerValue = computed({
     get() {

@@ -1,8 +1,8 @@
 import {
     type TextProps,
     type OptionProps,
-    isStringStateArr,
     type PicLink,
+    isStringStateArr,
     isPicTitleDescStateArr,
     isPicTitleDescStateObject
 } from '@/types'
@@ -15,7 +15,7 @@ export function setTextState(textProps: TextProps, text: string) {
 // 新增选项
 export function addOption() {
     let prevCount = 0
-    return function (optionProps: OptionProps, payload?: string | number | boolean | object) {
+    return function (optionProps: OptionProps, payload?: string | number | boolean | PicLink) {
         if (payload === undefined && isStringStateArr(optionProps.state)) {
             prevCount = optionProps.state.length
             const content = `默认选项${prevCount + 1}`
