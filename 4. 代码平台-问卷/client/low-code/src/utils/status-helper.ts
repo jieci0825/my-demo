@@ -52,6 +52,7 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
                 comStatus.editCompConfig.type.icons = typeIcons
                 comStatus.editCompConfig.type.state = typeOptions
                 comStatus.editCompConfig.type.isTooggle = false
+                comStatus.editCompConfig.position.currentStage = 0
                 for (const key in comStatus.editCompConfig) {
                     const config = comStatus.editCompConfig[key as keyof BaseBusinessComp['editCompConfig']]
                     config.isShow = true

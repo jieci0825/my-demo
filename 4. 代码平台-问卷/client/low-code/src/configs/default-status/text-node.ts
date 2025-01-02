@@ -51,7 +51,7 @@ export default function () {
                 title: '对齐方式',
                 state: ['左', '居中', '右'],
                 icons: ['icon-left-align', 'icon-center-align', 'icon-right-align'],
-                currentStage: 0,
+                currentStage: 1,
                 name: 'position-editor',
                 isShow: true,
                 editComp: markRaw(PositionEditor)
