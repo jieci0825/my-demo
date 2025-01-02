@@ -30,7 +30,7 @@ const {
         <div
             v-if="desc"
             :style="{ fontSize: `${descSize}px`, color: `${descColor}` }"
-            :class="['description', 'mt-3', !isDescBold ? 'font-bold' : '', !isDescSlant ? 'font-italic' : '']"
+            :class="['description', 'mt-8', !isDescBold ? 'font-bold' : '', !isDescSlant ? 'font-italic' : '']"
         >
             {{ desc }}
         </div>

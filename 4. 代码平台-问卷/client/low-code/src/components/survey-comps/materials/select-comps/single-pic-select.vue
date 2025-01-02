@@ -17,7 +17,7 @@ const innerValue = computed({
     get() {
         return props.editCompConfig.options.currentStage
     },
-    set(val) {
+    set(_) {
         // todo: 修改当前选中项
     }
 })

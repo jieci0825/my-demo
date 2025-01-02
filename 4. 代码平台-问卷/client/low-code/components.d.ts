@@ -15,6 +15,8 @@ declare module 'vue' {
     EditPanel: typeof import('./src/components/survey-comps/edit-items/edit-panel.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElButtt: typeof import('element-plus/es')['ElButtt']
+    ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
+    ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']
     ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
