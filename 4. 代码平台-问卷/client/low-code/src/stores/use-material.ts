@@ -7,6 +7,7 @@ import {
     PRESET_PERSONAL_INFO_GENDER_KEY,
     SINGLE_PIC_SELECT_KEY,
     SINGLE_SELECT_KEY,
+    TEXT_INPUT_KEY,
     TEXT_NODE_KEY
 } from '@/constants'
 import {
@@ -40,7 +41,8 @@ export const useMaterialStore = defineStore('materialStore', {
                 [SINGLE_PIC_SELECT_KEY]: defaultStatusMap[SINGLE_PIC_SELECT_KEY],
                 [MULTIPLE_PIC_SELECT_KEY]: defaultStatusMap[MULTIPLE_PIC_SELECT_KEY],
                 [TEXT_NODE_KEY]: defaultStatusMap[TEXT_NODE_KEY],
-                [PRESET_PERSONAL_INFO_GENDER_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_GENDER_KEY]
+                [PRESET_PERSONAL_INFO_GENDER_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_GENDER_KEY],
+                [TEXT_INPUT_KEY]: defaultStatusMap[TEXT_INPUT_KEY]
             }
         } as IUseMaterialStore
     },

@@ -50,20 +50,14 @@ export function toggleType(editCompConf: TypeEditCompStatus, index: number) {
     const remarkProps: OptionProps = editCompConf.type
     updateCurrentState(remarkProps, index)
 
-    // 切换显示隐藏
+    // 切换显示隐藏字段
     const titleField: KeysOfT<BaseEditCompStatus>[] = ['title', 'titleBold', 'titleColor', 'titleSlant', 'titleSize']
     const descField: KeysOfT<BaseEditCompStatus>[] = ['desc', 'descBold', 'descColor', 'descSlant', 'descSize']
+    const totalFields: KeysOfT<BaseEditCompStatus>[] = [...titleField, ...descField]
 
-    // 是否是标题
-    const isTitle = index === 0
-    const visibleFields = isTitle ? titleField : descField
-    const hiddenFields = isTitle ? descField : titleField
-
-    for (const key of visibleFields) {
-        editCompConf[key].isShow = true
-    }
-    for (const key of hiddenFields) {
-        editCompConf[key].isShow = false
+    // 将字段取反进行切换
+    for (const key of totalFields) {
+        editCompConf[key].isShow = !editCompConf[key].isShow
     }
 }
 
