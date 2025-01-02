@@ -22,3 +22,10 @@ export const multiplePicSelectStatus = () => {
         desc: '默认图片多选题描述内容'
     }
 }
+
+export const optionSelectStatus = () => {
+    return {
+        title: '默认下拉选择题标题内容',
+        desc: '默认下拉选择题描述内容'
+    }
+}

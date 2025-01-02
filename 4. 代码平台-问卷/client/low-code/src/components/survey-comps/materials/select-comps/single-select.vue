@@ -20,7 +20,7 @@ const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps<O
                 <el-radio
                     v-for="(item, idx) in computedState.options"
                     :key="idx"
-                    :value="item"
+                    :value="idx"
                     >{{ item }}</el-radio
                 >
             </el-radio-group>

@@ -2,6 +2,7 @@ import {
     JC_WEN_JUAN_ACTIVE_VIEW,
     MULTIPLE_PIC_SELECT_KEY,
     MULTIPLE_SELECT_KEY,
+    OPTION_SELECT_KEY,
     PRESET_PERSONAL_INFO_GENDER_KEY,
     SINGLE_PIC_SELECT_KEY,
     SINGLE_SELECT_KEY,
@@ -20,6 +21,7 @@ const router = createRouter({
 const routeNameToMaterialCompKeyMap: { [key: string]: MaterialKeys } = {
     'materials-select-single': SINGLE_SELECT_KEY,
     'materials-select-multiple': MULTIPLE_SELECT_KEY,
+    'materials-select-option': OPTION_SELECT_KEY,
     'materials-select-single-pic': SINGLE_PIC_SELECT_KEY,
     'materials-select-multiple-pic': MULTIPLE_PIC_SELECT_KEY,
     'materials-node-text': TEXT_NODE_KEY,

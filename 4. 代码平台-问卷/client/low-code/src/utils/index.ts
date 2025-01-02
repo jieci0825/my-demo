@@ -1,5 +1,15 @@
-import { genderInitStatus, multiplePicSelectStatus, multipleSelectStatus } from '@/configs/default-status/init-status'
-import { MULTIPLE_PIC_SELECT_KEY, MULTIPLE_SELECT_KEY, PRESET_PERSONAL_INFO_GENDER_KEY } from '@/constants'
+import {
+    genderInitStatus,
+    multiplePicSelectStatus,
+    multipleSelectStatus,
+    optionSelectStatus
+} from '@/configs/default-status/init-status'
+import {
+    MULTIPLE_PIC_SELECT_KEY,
+    MULTIPLE_SELECT_KEY,
+    OPTION_SELECT_KEY,
+    PRESET_PERSONAL_INFO_GENDER_KEY
+} from '@/constants'
 import { isOptionEditCompStatusObject, type BaseBusinessComp, type TextProps } from '@/types'
 import type { MaterialKeys } from '@/types/materials'
 
@@ -27,9 +37,9 @@ export const isObjectWithKeys = <T>(value: any, keys: KeysOfT<T>[]): value is T 
 
 // 更新初始化状态，在状态添加之前
 export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMaterialName: MaterialKeys) => {
+    comStatus.name = newMaterialName
     switch (newMaterialName) {
         case PRESET_PERSONAL_INFO_GENDER_KEY:
-            comStatus.name = newMaterialName
             if (isOptionEditCompStatusObject(comStatus.editCompConfig)) {
                 const { title, desc, options, currentStage } = genderInitStatus()
                 comStatus.editCompConfig.title.state = title
@@ -39,7 +49,6 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
             }
             break
         case MULTIPLE_SELECT_KEY:
-            comStatus.name = newMaterialName
             if (isOptionEditCompStatusObject(comStatus.editCompConfig)) {
                 const { title, desc } = multipleSelectStatus()
                 comStatus.editCompConfig.title.state = title
@@ -47,12 +56,16 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
             }
             break
         case MULTIPLE_PIC_SELECT_KEY:
-            comStatus.name = newMaterialName
             if (isOptionEditCompStatusObject(comStatus.editCompConfig)) {
                 const { title, desc } = multiplePicSelectStatus()
                 comStatus.editCompConfig.title.state = title
                 comStatus.editCompConfig.desc.state = desc
             }
+            break
+        case OPTION_SELECT_KEY:
+            const { title, desc } = optionSelectStatus()
+            comStatus.editCompConfig.title.state = title
+            comStatus.editCompConfig.desc.state = desc
             break
     }
 
