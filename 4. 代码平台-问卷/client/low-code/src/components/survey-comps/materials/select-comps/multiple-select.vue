@@ -15,7 +15,7 @@ const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps<O
 <template>
     <div :class="['multiple-select', alignClassMap[computedState.position]]">
         <MaterialsHeader v-bind="materialHeaderProps"></MaterialsHeader>
-        <div class="radio-wrap">
+        <div class="choose-wrap">
             <el-checkbox-group>
                 <el-checkbox
                     v-for="(item, idx) in computedState.options"

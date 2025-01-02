@@ -26,7 +26,7 @@ const innerValue = computed({
 <template>
     <div :class="['single-pic-select', alignClassMap[computedState.position]]">
         <MaterialsHeader v-bind="materialHeaderProps"></MaterialsHeader>
-        <div class="radio-wrap">
+        <div class="choose-wrap">
             <el-radio-group v-model="innerValue">
                 <el-radio
                     v-for="(item, idx) in (computedState.options as PicTitleDescState[])"
