@@ -19,6 +19,7 @@ export const RATE_SCORE_KEY = 'rate-score'
 export const DATE_TIME_KEY = 'date-time'
 
 // 预设
+export const PRESET_PERSONAL_INFO_NAME_KEY = 'preset-personal-info-name'
 export const PRESET_PERSONAL_INFO_GENDER_KEY = 'preset-personal-info-gender'
 
 export const predefineColors = ['#ff4500', '#ff8c00', '#ffd700', '#90ee90', '#00ced1', '#1e90ff', '#c71585']

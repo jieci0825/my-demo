@@ -20,12 +20,10 @@ const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps<T
             <el-input
                 v-if="editCompConfig.type.currentStage === 0"
                 type="text"
-                placeholder="请输入"
             />
             <el-input
                 v-else
                 type="textarea"
-                placeholder="请输入"
                 resize="none"
                 :rows="4"
             ></el-input>

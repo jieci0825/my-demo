@@ -13,17 +13,19 @@ import {
     OPTION_SELECT_KEY,
     TEXT_INPUT_KEY,
     RATE_SCORE_KEY,
-    DATE_TIME_KEY
+    DATE_TIME_KEY,
+    PRESET_PERSONAL_INFO_NAME_KEY
 } from '@/constants'
 import { updateInitStatusBeforeAdd } from '@/utils'
 import type { MaterialKeys } from '@/types/materials'
 
 const keyToInit: MaterialKeys[] = [
-    PRESET_PERSONAL_INFO_GENDER_KEY,
     MULTIPLE_SELECT_KEY,
     MULTIPLE_PIC_SELECT_KEY,
     OPTION_SELECT_KEY,
-    TEXT_INPUT_KEY
+    TEXT_INPUT_KEY,
+    PRESET_PERSONAL_INFO_NAME_KEY,
+    PRESET_PERSONAL_INFO_GENDER_KEY
 ]
 
 export const defaultStatusMap = (() => {
@@ -34,10 +36,11 @@ export const defaultStatusMap = (() => {
         [SINGLE_PIC_SELECT_KEY]: singlePicSelectDefaultStatus(),
         [MULTIPLE_PIC_SELECT_KEY]: singlePicSelectDefaultStatus(),
         [TEXT_NODE_KEY]: textNodeDefaultStatus(),
-        [PRESET_PERSONAL_INFO_GENDER_KEY]: singleSelectDefaultStatus(),
         [TEXT_INPUT_KEY]: textNodeDefaultStatus(),
         [RATE_SCORE_KEY]: rateScoreDefaultStatus(),
-        [DATE_TIME_KEY]: dateTimeDefaultStatus()
+        [DATE_TIME_KEY]: dateTimeDefaultStatus(),
+        [PRESET_PERSONAL_INFO_NAME_KEY]: textNodeDefaultStatus(),
+        [PRESET_PERSONAL_INFO_GENDER_KEY]: singleSelectDefaultStatus()
     }
 
     for (const key of keyToInit) {

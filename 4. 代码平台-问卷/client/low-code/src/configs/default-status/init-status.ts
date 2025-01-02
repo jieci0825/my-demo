@@ -9,28 +9,35 @@ export const genderInitStatus = () => {
     }
 }
 
-export const multipleSelectStatus = () => {
+export const nameInitStatus = () => {
+    return {
+        title: '您的姓名是？',
+        desc: '请输入您的姓名'
+    }
+}
+
+export const multipleSelectInitStatus = () => {
     return {
         title: '默认多选题标题内容',
         desc: '默认多选题描述内容'
     }
 }
 
-export const multiplePicSelectStatus = () => {
+export const multiplePicSelectInitStatus = () => {
     return {
         title: '默认图片多选题标题内容',
         desc: '默认图片多选题描述内容'
     }
 }
 
-export const optionSelectStatus = () => {
+export const optionSelectInitStatus = () => {
     return {
         title: '默认下拉选择题标题内容',
         desc: '默认下拉选择题描述内容'
     }
 }
 
-export const textInputStatus = () => {
+export const textInputInitStatus = () => {
     return {
         title: '默认标题内容',
         desc: '默认描述内容',

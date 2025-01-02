@@ -8,7 +8,8 @@ import {
     OPTION_SELECT_KEY,
     TEXT_INPUT_KEY,
     RATE_SCORE_KEY,
-    DATE_TIME_KEY
+    DATE_TIME_KEY,
+    PRESET_PERSONAL_INFO_NAME_KEY
 } from '@/constants'
 
 const materialKyes = [
@@ -21,7 +22,8 @@ const materialKyes = [
     OPTION_SELECT_KEY,
     TEXT_INPUT_KEY,
     RATE_SCORE_KEY,
-    DATE_TIME_KEY
+    DATE_TIME_KEY,
+    PRESET_PERSONAL_INFO_NAME_KEY
 ] as const
 
 export type MaterialKeys = (typeof materialKyes)[number]

@@ -76,7 +76,13 @@ export const routes = [
                 path: 'personal-info',
                 name: 'materials-personal-info',
                 component: () => import('@/views/materials/components/personal-info-group.vue'),
+                redirect: '/materials/personal-info/name',
                 children: [
+                    {
+                        path: 'name',
+                        name: 'materials-personal-info-name',
+                        component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
+                    },
                     {
                         path: 'gender',
                         name: 'materials-personal-info-gender',
