@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import MaterialsHeader from '../../common/materials-header.vue'
 import PicItem from '../../common/pic-item.vue'
-import { computed } from 'vue'
 import { useMaterialProps } from '@/hooks'
 import type { OptionEditCompStatus, PicTitleDescState } from '@/types'
 
@@ -12,44 +11,37 @@ interface IProps {
 const props = defineProps<IProps>()
 
 const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps<OptionEditCompStatus>(props)
-
-const innerValue = computed({
-    get() {
-        return props.editCompConfig.options.currentStage
-    },
-    set(_) {
-        // todo: 修改当前选中项
-    }
-})
 </script>
 
 <template>
     <div :class="['multiple-pic-select', alignClassMap[computedState.position]]">
         <MaterialsHeader v-bind="materialHeaderProps"></MaterialsHeader>
-        <div class="choose-wrap">
-            <el-radio-group v-model="innerValue">
-                <el-radio
+        <div class="choose-wrap flex wrap">
+            <el-checkbox-group class="flex wrap">
+                <el-checkbox
+                    class="pic-item-wrap flex mb-15"
                     v-for="(item, idx) in (computedState.options as PicTitleDescState[])"
                     :key="idx"
                     :value="idx"
-                    class="pic-item-wrap mb-15"
                 >
                     <PicItem
-                        v-bind="item"
                         :idx="idx"
+                        v-bind="item"
                     ></PicItem>
-                </el-radio>
-            </el-radio-group>
+                </el-checkbox>
+            </el-checkbox-group>
         </div>
     </div>
 </template>
 
 <style scoped lang="scss">
-.single-pic-select {
+.multiple-pic-select {
     width: 100%;
-    .pic-item-wrap {
-        height: auto;
-        flex-direction: column-reverse;
+    .choose-wrap {
+        .pic-item-wrap {
+            height: auto;
+            flex-direction: column-reverse;
+        }
     }
 }
 </style>

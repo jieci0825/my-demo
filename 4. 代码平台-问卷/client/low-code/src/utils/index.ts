@@ -1,5 +1,6 @@
-import { genderInitStatus } from '@/configs/default-status/init-status'
-import { isOptionEditCompStatusObject, type BaseBusinessComp, type OptionEditCompStatus, type TextProps } from '@/types'
+import { genderInitStatus, multiplePicSelectStatus } from '@/configs/default-status/init-status'
+import { MULTIPLE_PIC_SELECT_KEY, PRESET_PERSONAL_INFO_GENDER_KEY } from '@/constants'
+import { isOptionEditCompStatusObject, type BaseBusinessComp, type TextProps } from '@/types'
 import type { MaterialKeys } from '@/types/materials'
 
 export function getTextEditCompStatus(props: TextProps) {
@@ -27,7 +28,7 @@ export const isObjectWithKeys = <T>(value: any, keys: KeysOfT<T>[]): value is T 
 // 更新初始化状态，在状态添加之前
 export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMaterialName: MaterialKeys) => {
     switch (newMaterialName) {
-        case 'preset-personal-info-gender':
+        case PRESET_PERSONAL_INFO_GENDER_KEY:
             comStatus.name = newMaterialName
             if (isOptionEditCompStatusObject(comStatus.editCompConfig)) {
                 const { title, desc, options, currentStage } = genderInitStatus()
@@ -37,5 +38,15 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
                 comStatus.editCompConfig.options.currentStage = currentStage
             }
             break
+        case MULTIPLE_PIC_SELECT_KEY:
+            comStatus.name = newMaterialName
+            if (isOptionEditCompStatusObject(comStatus.editCompConfig)) {
+                const { title, desc } = multiplePicSelectStatus()
+                comStatus.editCompConfig.title.state = title
+                comStatus.editCompConfig.desc.state = desc
+            }
+            break
     }
+
+    return comStatus
 }
