@@ -26,7 +26,15 @@ export const routes = [
             {
                 path: 'input',
                 name: 'materials-input',
-                component: () => import('@/views/materials/components/input-group.vue')
+                component: () => import('@/views/materials/components/input-group.vue'),
+                redirect: '/materials/input/text',
+                children: [
+                    {
+                        path: 'text',
+                        name: 'materials-input-text',
+                        component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
+                    }
+                ]
             },
             {
                 path: 'advanced',

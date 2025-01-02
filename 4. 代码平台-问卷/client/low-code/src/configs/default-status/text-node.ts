@@ -28,6 +28,7 @@ export default function () {
                 icons: ['icon-title', 'icon-paragraph'],
                 currentStage: 1,
                 name: 'type-editor',
+                isTooggle: true,
                 isShow: true,
                 editComp: markRaw(TypeEditor)
             },

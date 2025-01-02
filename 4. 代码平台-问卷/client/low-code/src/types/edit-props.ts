@@ -34,6 +34,12 @@ export interface OptionProps extends BaseEditProps {
     currentStage: number
 }
 
+export interface TypeProps extends BaseEditProps {
+    state: OptionsStateArr
+    currentStage: number
+    isTooggle: boolean
+}
+
 export interface StringArrOptionProps extends BaseEditProps {
     state: StringStateArr
     currentStage: number
@@ -79,7 +85,7 @@ export function isOptionEditCompStatusObject(state: any) {
 }
 
 export interface TypeEditCompStatus extends BaseEditCompStatus {
-    type: OptionProps
+    type: TypeProps
 }
 export function isTypeEditCompStatusObject(state: any) {
     return isObjectWithKeys<TypeEditCompStatus>(state, ['type'])

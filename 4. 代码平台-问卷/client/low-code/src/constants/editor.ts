@@ -14,6 +14,8 @@ export const OPTION_SELECT_KEY = 'option-select'
 export const SINGLE_PIC_SELECT_KEY = 'single-pic-select'
 export const MULTIPLE_PIC_SELECT_KEY = 'multiple-pic-select'
 export const TEXT_NODE_KEY = 'text-node'
+export const TEXT_INPUT_KEY = 'text-input'
+
 // 预设
 export const PRESET_PERSONAL_INFO_GENDER_KEY = 'preset-personal-info-gender'
 

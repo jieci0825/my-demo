@@ -29,3 +29,13 @@ export const optionSelectStatus = () => {
         desc: '默认下拉选择题描述内容'
     }
 }
+
+export const textInputStatus = () => {
+    return {
+        title: '默认标题内容',
+        desc: '默认描述内容',
+        typeTitle: '文本类型',
+        typeOptions: ['单行文本', '多行文本'],
+        typeIcons: ['icon-single-line', 'icon-multiple-line']
+    }
+}

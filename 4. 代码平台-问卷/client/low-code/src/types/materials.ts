@@ -5,7 +5,8 @@ import {
     PRESET_PERSONAL_INFO_GENDER_KEY,
     MULTIPLE_SELECT_KEY,
     MULTIPLE_PIC_SELECT_KEY,
-    OPTION_SELECT_KEY
+    OPTION_SELECT_KEY,
+    TEXT_INPUT_KEY
 } from '@/constants'
 
 const materialKyes = [
@@ -15,7 +16,8 @@ const materialKyes = [
     PRESET_PERSONAL_INFO_GENDER_KEY,
     MULTIPLE_SELECT_KEY,
     MULTIPLE_PIC_SELECT_KEY,
-    OPTION_SELECT_KEY
+    OPTION_SELECT_KEY,
+    TEXT_INPUT_KEY
 ] as const
 
 export type MaterialKeys = (typeof materialKyes)[number]

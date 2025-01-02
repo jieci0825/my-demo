@@ -8,17 +8,18 @@ import {
     PRESET_PERSONAL_INFO_GENDER_KEY,
     MULTIPLE_SELECT_KEY,
     MULTIPLE_PIC_SELECT_KEY,
-    OPTION_SELECT_KEY
+    OPTION_SELECT_KEY,
+    TEXT_INPUT_KEY
 } from '@/constants'
 import { updateInitStatusBeforeAdd } from '@/utils'
 import type { MaterialKeys } from '@/types/materials'
 
-// 需要初始化的业务组件key
 const keyToInit: MaterialKeys[] = [
     PRESET_PERSONAL_INFO_GENDER_KEY,
     MULTIPLE_SELECT_KEY,
     MULTIPLE_PIC_SELECT_KEY,
-    OPTION_SELECT_KEY
+    OPTION_SELECT_KEY,
+    TEXT_INPUT_KEY
 ]
 
 export const defaultStatusMap = (() => {
@@ -29,11 +30,11 @@ export const defaultStatusMap = (() => {
         [SINGLE_PIC_SELECT_KEY]: singlePicSelectDefaultStatus(),
         [MULTIPLE_PIC_SELECT_KEY]: singlePicSelectDefaultStatus(),
         [TEXT_NODE_KEY]: textNodeDefaultStatus(),
-        [PRESET_PERSONAL_INFO_GENDER_KEY]: singleSelectDefaultStatus()
+        [PRESET_PERSONAL_INFO_GENDER_KEY]: singleSelectDefaultStatus(),
+        [TEXT_INPUT_KEY]: textNodeDefaultStatus()
     }
 
     for (const key of keyToInit) {
-        // 如果有值才进行初始化
         if (map[key]) {
             updateInitStatusBeforeAdd(map[key], key)
         }

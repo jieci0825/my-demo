@@ -42,7 +42,15 @@ const updateState = (confKey: string, payload?: string | number | boolean | PicL
         case 'type':
             if (isNumber(payload)) {
                 const curEditCompConf = currentComp.value.editCompConfig as TypeEditCompStatus
-                materialStore.toggleType(curEditCompConf, payload)
+
+                // 存在切换标志时，进行切换
+                if (curEditCompConf[confKey].isTooggle === true) {
+                    materialStore.toggleType(curEditCompConf, payload)
+                    return
+                }
+
+                // 不存在切换标志时，进行状态更新
+                materialStore.updateCurrentState(curEditCompConf[confKey], payload)
             }
             break
         case 'position':

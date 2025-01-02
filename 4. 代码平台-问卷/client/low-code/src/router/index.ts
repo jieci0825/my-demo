@@ -6,6 +6,7 @@ import {
     PRESET_PERSONAL_INFO_GENDER_KEY,
     SINGLE_PIC_SELECT_KEY,
     SINGLE_SELECT_KEY,
+    TEXT_INPUT_KEY,
     TEXT_NODE_KEY
 } from '@/constants'
 import { useMaterialStore } from '@/stores/use-material'
@@ -25,7 +26,8 @@ const routeNameToMaterialCompKeyMap: { [key: string]: MaterialKeys } = {
     'materials-select-single-pic': SINGLE_PIC_SELECT_KEY,
     'materials-select-multiple-pic': MULTIPLE_PIC_SELECT_KEY,
     'materials-node-text': TEXT_NODE_KEY,
-    'materials-personal-info-gender': PRESET_PERSONAL_INFO_GENDER_KEY
+    'materials-personal-info-gender': PRESET_PERSONAL_INFO_GENDER_KEY,
+    'materials-input-text': TEXT_INPUT_KEY
 }
 
 router.beforeEach((to, _, next) => {
