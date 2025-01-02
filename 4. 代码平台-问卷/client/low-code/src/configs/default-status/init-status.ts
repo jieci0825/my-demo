@@ -9,6 +9,13 @@ export const genderInitStatus = () => {
     }
 }
 
+export const multipleSelectStatus = () => {
+    return {
+        title: '默认多选题标题内容',
+        desc: '默认多选题描述内容'
+    }
+}
+
 export const multiplePicSelectStatus = () => {
     return {
         title: '默认图片多选题标题内容',

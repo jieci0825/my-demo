@@ -1,5 +1,5 @@
-import { genderInitStatus, multiplePicSelectStatus } from '@/configs/default-status/init-status'
-import { MULTIPLE_PIC_SELECT_KEY, PRESET_PERSONAL_INFO_GENDER_KEY } from '@/constants'
+import { genderInitStatus, multiplePicSelectStatus, multipleSelectStatus } from '@/configs/default-status/init-status'
+import { MULTIPLE_PIC_SELECT_KEY, MULTIPLE_SELECT_KEY, PRESET_PERSONAL_INFO_GENDER_KEY } from '@/constants'
 import { isOptionEditCompStatusObject, type BaseBusinessComp, type TextProps } from '@/types'
 import type { MaterialKeys } from '@/types/materials'
 
@@ -36,6 +36,14 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
                 comStatus.editCompConfig.desc.state = desc
                 comStatus.editCompConfig.options.state = options
                 comStatus.editCompConfig.options.currentStage = currentStage
+            }
+            break
+        case MULTIPLE_SELECT_KEY:
+            comStatus.name = newMaterialName
+            if (isOptionEditCompStatusObject(comStatus.editCompConfig)) {
+                const { title, desc } = multipleSelectStatus()
+                comStatus.editCompConfig.title.state = title
+                comStatus.editCompConfig.desc.state = desc
             }
             break
         case MULTIPLE_PIC_SELECT_KEY:
