@@ -62,12 +62,13 @@ const removeImage = (idx: number) => {
                 v-for="(item, idx) in props.state"
                 :key="idx"
             >
-                <div class="flex align-items-center mb-8">
+                <div class="flex align-items-center mb-15">
                     <span>选项{{ idx + 1 }}</span>
                     <el-button
                         class="ml-5"
-                        type="primary"
+                        type="danger"
                         size="small"
+                        plain
                         circle
                         :icon="Minus"
                         @click="removeOption(idx)"
@@ -83,7 +84,7 @@ const removeImage = (idx: number) => {
                         >删除图片</el-link
                     >
                 </div>
-                <div class="mb-5">
+                <div class="mb-8">
                     <el-input
                         placeholder="请输入选项的标题"
                         v-model="item.picTitle"
@@ -108,7 +109,7 @@ const removeImage = (idx: number) => {
     .options-list {
         font-size: 14px;
         .option-item {
-            margin-bottom: 12px;
+            margin-bottom: 20px;
             gap: 5px;
             &:last-child {
                 margin-bottom: 0;
