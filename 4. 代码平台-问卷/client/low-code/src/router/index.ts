@@ -1,4 +1,10 @@
-import { JC_WEN_JUAN_ACTIVE_VIEW, SINGLE_PIC_SELECT_KEY, SINGLE_SELECT_KEY, TEXT_NODE_KEY } from '@/constants'
+import {
+    JC_WEN_JUAN_ACTIVE_VIEW,
+    PRESET_PERSONAL_INFO_GENDER_KEY,
+    SINGLE_PIC_SELECT_KEY,
+    SINGLE_SELECT_KEY,
+    TEXT_NODE_KEY
+} from '@/constants'
 import { useMaterialStore } from '@/stores/use-material'
 import { createWebHistory, createRouter } from 'vue-router'
 import { routes } from './routes'
@@ -12,7 +18,8 @@ const router = createRouter({
 const routeNameToMaterialCompKeyMap: { [key: string]: MaterialKeys } = {
     'materials-select-single': SINGLE_SELECT_KEY,
     'materials-select-single-pic': SINGLE_PIC_SELECT_KEY,
-    'materials-node-text': TEXT_NODE_KEY
+    'materials-node-text': TEXT_NODE_KEY,
+    'materials-personal-info-gender': PRESET_PERSONAL_INFO_GENDER_KEY
 }
 
 router.beforeEach((to, _, next) => {

@@ -54,7 +54,14 @@ export const routes = [
             {
                 path: 'personal-info',
                 name: 'materials-personal-info',
-                component: () => import('@/views/materials/components/personal-info-group.vue')
+                component: () => import('@/views/materials/components/personal-info-group.vue'),
+                children: [
+                    {
+                        path: 'gender',
+                        name: 'materials-personal-info-gender',
+                        component: () => import('@/components/survey-comps/materials/select-comps/single-select.vue')
+                    }
+                ]
             },
             {
                 path: 'select',

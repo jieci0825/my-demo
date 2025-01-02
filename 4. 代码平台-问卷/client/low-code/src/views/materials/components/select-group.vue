@@ -15,11 +15,11 @@ const selectLinks = [
         <Layout>
             <div class="link-wrap flex">
                 <router-link
+                    exact-active-class="link-item-active"
+                    class="link-item mb-15"
                     v-for="(item, idx) in selectLinks"
                     :key="idx"
                     :to="item.to"
-                    exact-active-class="link-item-active"
-                    class="link-item mb-15"
                     >{{ item.text }}</router-link
                 >
             </div>

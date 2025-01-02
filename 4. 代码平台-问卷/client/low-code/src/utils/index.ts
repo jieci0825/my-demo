@@ -1,4 +1,6 @@
-import type { TextProps } from '@/types'
+import { genderInitStatus } from '@/configs/default-status/init-status'
+import { isOptionEditCompStatusObject, type BaseBusinessComp, type OptionEditCompStatus, type TextProps } from '@/types'
+import type { MaterialKeys } from '@/types/materials'
 
 export function getTextEditCompStatus(props: TextProps) {
     return props.state
@@ -20,4 +22,20 @@ export const isObjectWithKeys = <T>(value: any, keys: KeysOfT<T>[]): value is T 
         if (!(key in value)) return false
     }
     return true
+}
+
+// 更新初始化状态，在状态添加之前
+export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMaterialName: MaterialKeys) => {
+    switch (newMaterialName) {
+        case 'preset-personal-info-gender':
+            comStatus.name = newMaterialName
+            if (isOptionEditCompStatusObject(comStatus.editCompConfig)) {
+                const { title, desc, options, currentStage } = genderInitStatus()
+                comStatus.editCompConfig.title.state = title
+                comStatus.editCompConfig.desc.state = desc
+                comStatus.editCompConfig.options.state = options
+                comStatus.editCompConfig.options.currentStage = currentStage
+            }
+            break
+    }
 }

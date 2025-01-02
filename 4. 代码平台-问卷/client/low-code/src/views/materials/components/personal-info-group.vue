@@ -5,7 +5,7 @@ const selectLinks = [
     { text: '姓名', to: '/' },
     { text: '身份证', to: '/' },
     { text: '出生日期', to: '/' },
-    { text: '性别', to: '/' },
+    { text: '性别', to: '/materials/personal-info/gender' },
     { text: '年龄', to: '/' },
     { text: '学历', to: '/' },
     { text: '大学', to: '/' },
@@ -22,10 +22,11 @@ const selectLinks = [
         <Layout>
             <div class="link-wrap flex">
                 <router-link
+                    exact-active-class="link-item-active"
+                    class="link-item mb-15"
                     v-for="(item, idx) in selectLinks"
                     :key="idx"
                     :to="item.to"
-                    class="link-item mb-15"
                     >{{ item.text }}</router-link
                 >
             </div>

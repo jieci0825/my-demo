@@ -25,6 +25,7 @@ declare module 'vue' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    Gender: typeof import('./src/components/survey-comps/materials/personal-info-comps/gender.vue')['default']
     Header: typeof import('./src/components/common/header/index.vue')['default']
     MaterialsHeader: typeof import('./src/components/survey-comps/common/materials-header.vue')['default']
     MuiltpleSelect: typeof import('./src/components/survey-comps/materials/select-comps/muiltple-select.vue')['default']
