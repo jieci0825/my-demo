@@ -39,7 +39,20 @@ export const routes = [
             {
                 path: 'advanced',
                 name: 'materials-advanced',
-                component: () => import('@/views/materials/components/advanced-group.vue')
+                component: () => import('@/views/materials/components/advanced-group.vue'),
+                redirect: '/materials/advanced/rate-score',
+                children: [
+                    {
+                        path: 'rate-score',
+                        name: 'materials-advanced-rate-score',
+                        component: () => import('@/components/survey-comps/materials/advanced-comps/rate-score.vue')
+                    },
+                    {
+                        path: 'date-time',
+                        name: 'materials-advanced-date-time',
+                        component: () => import('@/components/survey-comps/materials/advanced-comps/date-time.vue')
+                    }
+                ]
             },
             {
                 path: 'contact',

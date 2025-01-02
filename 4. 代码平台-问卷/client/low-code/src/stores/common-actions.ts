@@ -51,14 +51,27 @@ export function toggleType(editCompConf: TypeEditCompStatus, index: number) {
     updateCurrentState(remarkProps, index)
 
     // 切换显示隐藏字段
-    const titleField: KeysOfT<BaseEditCompStatus>[] = ['title', 'titleBold', 'titleColor', 'titleSlant', 'titleSize']
-    const descField: KeysOfT<BaseEditCompStatus>[] = ['desc', 'descBold', 'descColor', 'descSlant', 'descSize']
-    const totalFields: KeysOfT<BaseEditCompStatus>[] = [...titleField, ...descField]
+    const totalFields: KeysOfT<BaseEditCompStatus>[] = [
+        'title',
+        'titleBold',
+        'titleColor',
+        'titleSlant',
+        'titleSize',
+        'desc',
+        'descBold',
+        'descColor',
+        'descSlant',
+        'descSize'
+    ]
 
     // 将字段取反进行切换
     for (const key of totalFields) {
         editCompConf[key].isShow = !editCompConf[key].isShow
     }
+}
+
+export function setUse(optionProps: OptionProps, payload: boolean) {
+    optionProps.isUse = payload
 }
 
 // 根据index设置图片选项

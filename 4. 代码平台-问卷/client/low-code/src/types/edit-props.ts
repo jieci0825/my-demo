@@ -32,6 +32,7 @@ export type OptionsStateArr = StringStateArr | ValueStateArr | PicTitleDescState
 export interface OptionProps extends BaseEditProps {
     state: OptionsStateArr
     currentStage: number
+    isUse?: boolean
 }
 
 export interface TypeProps extends BaseEditProps {

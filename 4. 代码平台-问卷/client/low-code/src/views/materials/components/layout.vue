@@ -2,10 +2,11 @@
 import EditPanel from '@/components/survey-comps/edit-items/edit-panel.vue'
 import { GET_PIC_LINK, UPDATE_STATE } from '@/constants'
 import { useMaterialStore } from '@/stores/use-material'
-import { isNumber, isObjectWithKeys, isString } from '@/utils'
+import { isBoolean, isNumber, isObjectWithKeys, isString } from '@/utils'
 import { computed, provide } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { OptionEditCompStatus, PicLink, TypeEditCompStatus } from '@/types'
+import { setUse } from '@/stores/common-actions'
 
 const materialStore = useMaterialStore()
 
@@ -35,6 +36,8 @@ const updateState = (confKey: string, payload?: string | number | boolean | PicL
             // 限定为图片链接类型
             else if (isObjectWithKeys<PicLink>(payload, ['link', 'idx'])) {
                 materialStore.setPicLinkByIndex(curEditCompConf[confKey], payload)
+            } else if (isBoolean(payload)) {
+                setUse(curEditCompConf[confKey], payload)
             } else {
                 addOption(curEditCompConf[confKey], payload)
             }

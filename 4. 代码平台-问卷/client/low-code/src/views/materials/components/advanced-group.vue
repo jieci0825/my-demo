@@ -2,8 +2,8 @@
 import Layout from './layout.vue'
 
 const selectLinks = [
-    { text: '评价/打分', to: '/' },
-    { text: '日期时间', to: '/' }
+    { text: '评价/打分', to: '/materials/advanced/rate-score' },
+    { text: '日期时间', to: '/materials/advanced/date-time' }
 ]
 </script>
 
@@ -12,10 +12,11 @@ const selectLinks = [
         <Layout>
             <div class="link-wrap flex">
                 <router-link
+                    exact-active-class="link-item-active"
+                    class="link-item mb-15"
                     v-for="(item, idx) in selectLinks"
                     :key="idx"
                     :to="item.to"
-                    class="link-item mb-15"
                     >{{ item.text }}</router-link
                 >
             </div>

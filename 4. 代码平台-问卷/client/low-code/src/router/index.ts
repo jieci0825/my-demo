@@ -4,6 +4,7 @@ import {
     MULTIPLE_SELECT_KEY,
     OPTION_SELECT_KEY,
     PRESET_PERSONAL_INFO_GENDER_KEY,
+    RATE_SCORE_KEY,
     SINGLE_PIC_SELECT_KEY,
     SINGLE_SELECT_KEY,
     TEXT_INPUT_KEY,
@@ -27,7 +28,8 @@ const routeNameToMaterialCompKeyMap: { [key: string]: MaterialKeys } = {
     'materials-select-multiple-pic': MULTIPLE_PIC_SELECT_KEY,
     'materials-node-text': TEXT_NODE_KEY,
     'materials-personal-info-gender': PRESET_PERSONAL_INFO_GENDER_KEY,
-    'materials-input-text': TEXT_INPUT_KEY
+    'materials-input-text': TEXT_INPUT_KEY,
+    'materials-advanced-rate-score': RATE_SCORE_KEY
 }
 
 router.beforeEach((to, _, next) => {
