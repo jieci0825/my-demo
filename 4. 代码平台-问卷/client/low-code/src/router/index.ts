@@ -1,4 +1,5 @@
 import {
+    DATE_TIME_KEY,
     JC_WEN_JUAN_ACTIVE_VIEW,
     MULTIPLE_PIC_SELECT_KEY,
     MULTIPLE_SELECT_KEY,
@@ -29,7 +30,8 @@ const routeNameToMaterialCompKeyMap: { [key: string]: MaterialKeys } = {
     'materials-node-text': TEXT_NODE_KEY,
     'materials-personal-info-gender': PRESET_PERSONAL_INFO_GENDER_KEY,
     'materials-input-text': TEXT_INPUT_KEY,
-    'materials-advanced-rate-score': RATE_SCORE_KEY
+    'materials-advanced-rate-score': RATE_SCORE_KEY,
+    'materials-advanced-date-time': DATE_TIME_KEY
 }
 
 router.beforeEach((to, _, next) => {

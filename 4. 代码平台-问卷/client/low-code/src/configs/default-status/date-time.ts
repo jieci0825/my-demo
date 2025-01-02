@@ -9,15 +9,15 @@ import {
     SlantEditor,
     PositionEditor,
     DescEditor,
-    RateScoreEditor
+    DateTimeEditor
 } from '@/components/survey-comps/edit-items'
 import { markRaw } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import { predefineColors, SINGLE_SELECT_KEY } from '@/constants'
-import type { BaseBusinessComp, OptionEditCompStatus } from '@/types'
+import type { BaseBusinessComp, TypeEditCompStatus } from '@/types'
 
 export default function () {
-    const status: BaseBusinessComp<OptionEditCompStatus> = {
+    const status: BaseBusinessComp<TypeEditCompStatus> = {
         type: markRaw(RateScore),
         name: SINGLE_SELECT_KEY,
         id: uuidv4(),
@@ -37,14 +37,20 @@ export default function () {
                 isShow: true,
                 editComp: markRaw(DescEditor)
             },
-            options: {
+            type: {
                 id: uuidv4(),
-                state: ['非常不满意', '不满意', '一般', '满意', '非常满意'],
-                currentStage: 0,
-                name: 'rate-score-editor',
+                title: '日期类型',
+                currentStage: 3,
+                state: [
+                    { value: 'week', state: '周' },
+                    { value: 'year', state: '年' },
+                    { value: 'month', state: '月' },
+                    { value: 'date', state: '日期' }
+                ],
                 isShow: true,
-                isUse: false,
-                editComp: markRaw(RateScoreEditor)
+                name: 'date-time-editor',
+                editComp: markRaw(DateTimeEditor),
+                isTooggle: false
             },
             position: {
                 id: uuidv4(),

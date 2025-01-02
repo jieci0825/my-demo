@@ -18,7 +18,7 @@ const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps<O
         <div>
             <el-rate
                 :texts="computedState.options"
-                :show-text="editCompConfig.options.isUse"
+                :show-text="editCompConfig.options?.isUse"
             />
         </div>
     </div>

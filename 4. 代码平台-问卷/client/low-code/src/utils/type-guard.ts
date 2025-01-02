@@ -6,6 +6,10 @@ export const isObject = (value: any): value is object => typeof value === 'objec
 export const isArray = Array.isArray
 export const extend = Object.assign
 
+export const isArrayString = (value: any): value is string[] => {
+    return Array.isArray(value) && value.every(item => isString(item))
+}
+
 export type KeysOfT<T> = keyof T
 // 确定一个值是一个对象，且具备指定的属性
 export const isObjectWithKeys = <T>(value: any, keys: KeysOfT<T>[]): value is T => {

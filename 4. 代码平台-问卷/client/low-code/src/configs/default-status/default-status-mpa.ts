@@ -2,6 +2,7 @@ import singleSelectDefaultStatus from './single-select'
 import singlePicSelectDefaultStatus from './single-pic-select'
 import textNodeDefaultStatus from './text-node'
 import rateScoreDefaultStatus from './rate-score'
+import dateTimeDefaultStatus from './date-time'
 import {
     SINGLE_PIC_SELECT_KEY,
     SINGLE_SELECT_KEY,
@@ -11,7 +12,8 @@ import {
     MULTIPLE_PIC_SELECT_KEY,
     OPTION_SELECT_KEY,
     TEXT_INPUT_KEY,
-    RATE_SCORE_KEY
+    RATE_SCORE_KEY,
+    DATE_TIME_KEY
 } from '@/constants'
 import { updateInitStatusBeforeAdd } from '@/utils'
 import type { MaterialKeys } from '@/types/materials'
@@ -34,7 +36,8 @@ export const defaultStatusMap = (() => {
         [TEXT_NODE_KEY]: textNodeDefaultStatus(),
         [PRESET_PERSONAL_INFO_GENDER_KEY]: singleSelectDefaultStatus(),
         [TEXT_INPUT_KEY]: textNodeDefaultStatus(),
-        [RATE_SCORE_KEY]: rateScoreDefaultStatus()
+        [RATE_SCORE_KEY]: rateScoreDefaultStatus(),
+        [DATE_TIME_KEY]: dateTimeDefaultStatus()
     }
 
     for (const key of keyToInit) {

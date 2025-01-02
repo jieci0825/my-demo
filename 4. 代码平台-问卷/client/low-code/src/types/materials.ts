@@ -20,7 +20,8 @@ const materialKyes = [
     MULTIPLE_PIC_SELECT_KEY,
     OPTION_SELECT_KEY,
     TEXT_INPUT_KEY,
-    RATE_SCORE_KEY
+    RATE_SCORE_KEY,
+    DATE_TIME_KEY
 ] as const
 
 export type MaterialKeys = (typeof materialKyes)[number]

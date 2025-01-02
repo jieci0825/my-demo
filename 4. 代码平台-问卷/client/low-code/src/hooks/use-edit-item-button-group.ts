@@ -2,10 +2,12 @@ import ButtonGroup from '@/components/survey-comps/edit-items/button-group.vue'
 import { computed, inject } from 'vue'
 import { UPDATE_STATE } from '@/constants'
 import { isEmpty } from 'element-plus/es/utils/types.mjs'
+import { isValueStateArr } from '@/types'
+import { isArrayString } from '@/utils'
 
 interface EditItemButtonGroupProps {
     editConfKey: string
-    state: string | Array<string>
+    state: any
     icons?: string[]
     title: string
     currentStage?: number
@@ -25,16 +27,27 @@ export function useEditItemButtonGroup(props: EditItemButtonGroupProps) {
         }
     })
 
+    const text = computed<string>(() => {
+        if (isValueStateArr(props.state)) {
+            return props.state[props.currentStage!].state
+        } else if (isArrayString(props.state)) {
+            return props.state[props.currentStage!]
+        } else {
+            return props.state
+        }
+    })
+
     const buttonGroupProps = computed(() => {
         return {
             label: props.title,
-            text: isEmpty(props.currentStage) ? (props.state as string) : props.state[props.currentStage!]
+            text: text.value
         }
     })
 
     return {
         ButtonGroup,
         innerValue,
-        buttonGroupProps
+        buttonGroupProps,
+        updateState
     }
 }

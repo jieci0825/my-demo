@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { defaultStatusMap } from '@/configs/default-status/default-status-mpa'
 import {
+    DATE_TIME_KEY,
     MULTIPLE_PIC_SELECT_KEY,
     MULTIPLE_SELECT_KEY,
     OPTION_SELECT_KEY,
@@ -44,7 +45,8 @@ export const useMaterialStore = defineStore('materialStore', {
                 [TEXT_NODE_KEY]: defaultStatusMap[TEXT_NODE_KEY],
                 [PRESET_PERSONAL_INFO_GENDER_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_GENDER_KEY],
                 [TEXT_INPUT_KEY]: defaultStatusMap[TEXT_INPUT_KEY],
-                [RATE_SCORE_KEY]: defaultStatusMap[RATE_SCORE_KEY]
+                [RATE_SCORE_KEY]: defaultStatusMap[RATE_SCORE_KEY],
+                [DATE_TIME_KEY]: defaultStatusMap[DATE_TIME_KEY]
             }
         } as IUseMaterialStore
     },

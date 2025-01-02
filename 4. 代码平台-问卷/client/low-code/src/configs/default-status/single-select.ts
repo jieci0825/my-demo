@@ -1,4 +1,4 @@
-// 单选题的 JSON Schema 配置
+// JSON Schema 配置
 
 import { SingleSelect } from '@/components/survey-comps/materials/select-comps'
 import {
