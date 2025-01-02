@@ -46,13 +46,14 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
             break
         case TEXT_INPUT_KEY:
             if (isTypeEditCompStatusObject(comStatus.editCompConfig)) {
-                const { title, desc, typeIcons, typeOptions, typeTitle } = textInputStatus()
+                const { title, desc, typeIcons, typeOptions, typeTitle, titleSizeOptions } = textInputStatus()
                 updateTitleAndDesc(comStatus, title, desc)
                 comStatus.editCompConfig.type.title = typeTitle
                 comStatus.editCompConfig.type.icons = typeIcons
                 comStatus.editCompConfig.type.state = typeOptions
                 comStatus.editCompConfig.type.isTooggle = false
                 comStatus.editCompConfig.position.currentStage = 0
+                comStatus.editCompConfig.titleSize.state = titleSizeOptions
                 for (const key in comStatus.editCompConfig) {
                     const config = comStatus.editCompConfig[key as keyof BaseBusinessComp['editCompConfig']]
                     config.isShow = true

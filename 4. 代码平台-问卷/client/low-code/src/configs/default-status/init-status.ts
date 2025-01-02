@@ -36,6 +36,7 @@ export const textInputStatus = () => {
         desc: '默认描述内容',
         typeTitle: '文本类型',
         typeOptions: ['单行文本', '多行文本'],
-        typeIcons: ['icon-single-line', 'icon-multiple-line']
+        typeIcons: ['icon-single-line', 'icon-multiple-line'],
+        titleSizeOptions: ['18', '20', '22']
     }
 }

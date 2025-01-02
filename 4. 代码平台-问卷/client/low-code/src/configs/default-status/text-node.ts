@@ -59,7 +59,7 @@ export default function () {
             titleSize: {
                 id: uuidv4(),
                 title: '标题尺寸',
-                state: ['18', '20', '22'],
+                state: ['22', '26', '30'],
                 icons: ['icon-font-size', 'icon-font-size', 'icon-font-size'],
                 currentStage: 2,
                 name: 'size-editor',
