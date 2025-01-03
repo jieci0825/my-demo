@@ -99,6 +99,41 @@ export const positionInitStatus = () => {
     }
 }
 
+export const phoneInitStatus = () => {
+    return {
+        title: '您的手机号是？',
+        desc: '请输入您的手机号'
+    }
+}
+
+export const emailInitStatus = () => {
+    return {
+        title: '您的邮箱是？',
+        desc: '请输入您的邮箱'
+    }
+}
+
+export const qqInitStatus = () => {
+    return {
+        title: '您的QQ是？',
+        desc: '请输入您的QQ'
+    }
+}
+
+export const wechatInitStatus = () => {
+    return {
+        title: '您的微信是？',
+        desc: '请输入您的微信'
+    }
+}
+
+export const addressInitStatus = () => {
+    return {
+        title: '您的地址是？',
+        desc: '请输入您的地址'
+    }
+}
+
 export const multipleSelectInitStatus = () => {
     return {
         title: '默认多选题标题内容',

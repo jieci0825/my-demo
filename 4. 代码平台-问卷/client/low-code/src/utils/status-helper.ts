@@ -1,10 +1,12 @@
 import {
+    addressInitStatus,
     ageInitStatus,
     birthInitStatus,
     careerInitStatus,
     collageInitStatus,
     companyInitStatus,
     educationInitStatus,
+    emailInitStatus,
     genderInitStatus,
     idInitStatus,
     industryInitStatus,
@@ -13,8 +15,11 @@ import {
     multipleSelectInitStatus,
     nameInitStatus,
     optionSelectInitStatus,
+    phoneInitStatus,
     positionInitStatus,
-    textInputInitStatus
+    qqInitStatus,
+    textInputInitStatus,
+    wechatInitStatus
 } from '@/configs/default-status/init-status'
 import {
     MULTIPLE_PIC_SELECT_KEY,
@@ -32,7 +37,12 @@ import {
     PRESET_PERSONAL_INFO_POSITION_KEY,
     PRESET_PERSONAL_INFO_AGE_KEY,
     PRESET_PERSONAL_INFO_CAREER_KEY,
-    PRESET_PERSONAL_INFO_EDUCATION_KEY
+    PRESET_PERSONAL_INFO_EDUCATION_KEY,
+    PRESET_CONTACT_PHONE_KEY,
+    PRESET_CONTACT_EMAIL_KEY,
+    PRESET_CONTACT_QQ_KEY,
+    PRESET_CONTACT_WECHAT_KEY,
+    PRESET_CONTACT_ADDRESS_KEY
 } from '@/constants'
 import { isOptionEditCompStatusObject, isTypeEditCompStatusObject, type BaseBusinessComp } from '@/types'
 import type { MaterialKeys } from '@/types/materials'
@@ -63,7 +73,12 @@ const personalInfoTextInputInitStatusMap = {
     [PRESET_PERSONAL_INFO_MAJOR_KEY]: majorInitStatus,
     [PRESET_PERSONAL_INFO_INDUSTRY_KEY]: industryInitStatus,
     [PRESET_PERSONAL_INFO_COMPANY_KEY]: companyInitStatus,
-    [PRESET_PERSONAL_INFO_POSITION_KEY]: positionInitStatus
+    [PRESET_PERSONAL_INFO_POSITION_KEY]: positionInitStatus,
+    [PRESET_CONTACT_PHONE_KEY]: phoneInitStatus,
+    [PRESET_CONTACT_EMAIL_KEY]: emailInitStatus,
+    [PRESET_CONTACT_QQ_KEY]: qqInitStatus,
+    [PRESET_CONTACT_WECHAT_KEY]: wechatInitStatus,
+    [PRESET_CONTACT_ADDRESS_KEY]: addressInitStatus
 }
 
 const personalInfoSingleSelectInitStatusMap = {
@@ -117,6 +132,11 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
         case PRESET_PERSONAL_INFO_INDUSTRY_KEY:
         case PRESET_PERSONAL_INFO_COMPANY_KEY:
         case PRESET_PERSONAL_INFO_POSITION_KEY:
+        case PRESET_CONTACT_PHONE_KEY:
+        case PRESET_CONTACT_EMAIL_KEY:
+        case PRESET_CONTACT_QQ_KEY:
+        case PRESET_CONTACT_WECHAT_KEY:
+        case PRESET_CONTACT_ADDRESS_KEY:
             if (isTypeEditCompStatusObject(comStatus.editCompConfig)) {
                 const { title, desc } = personalInfoTextInputInitStatusMap[newMaterialName]()
                 updateTitleAndDesc(comStatus, title, desc)

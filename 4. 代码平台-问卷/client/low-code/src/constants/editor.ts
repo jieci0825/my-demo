@@ -35,4 +35,11 @@ export const PRESET_PERSONAL_INFO_AGE_KEY = 'preset-personal-age-position'
 export const PRESET_PERSONAL_INFO_EDUCATION_KEY = 'preset-personal-education-position'
 export const PRESET_PERSONAL_INFO_CAREER_KEY = 'preset-personal-career-position'
 
+// 联系方式预设
+export const PRESET_CONTACT_PHONE_KEY = 'preset-contact-phone'
+export const PRESET_CONTACT_EMAIL_KEY = 'preset-contact-email'
+export const PRESET_CONTACT_QQ_KEY = 'preset-contact-qq'
+export const PRESET_CONTACT_WECHAT_KEY = 'preset-contact-wechat'
+export const PRESET_CONTACT_ADDRESS_KEY = 'preset-contact-address'
+
 export const predefineColors = ['#ff4500', '#ff8c00', '#ffd700', '#90ee90', '#00ced1', '#1e90ff', '#c71585']

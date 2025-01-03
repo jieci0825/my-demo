@@ -20,7 +20,12 @@ import {
     PRESET_PERSONAL_INFO_AGE_KEY,
     PRESET_PERSONAL_INFO_EDUCATION_KEY,
     PRESET_PERSONAL_INFO_CAREER_KEY,
-    PRESET_PERSONAL_INFO_BIRTH_KEY
+    PRESET_PERSONAL_INFO_BIRTH_KEY,
+    PRESET_CONTACT_PHONE_KEY,
+    PRESET_CONTACT_EMAIL_KEY,
+    PRESET_CONTACT_QQ_KEY,
+    PRESET_CONTACT_WECHAT_KEY,
+    PRESET_CONTACT_ADDRESS_KEY
 } from '@/constants'
 import { useMaterialStore } from '@/stores/use-material'
 import { createWebHistory, createRouter } from 'vue-router'
@@ -53,7 +58,12 @@ const routeNameToMaterialCompKeyMap: { [key: string]: MaterialKeys } = {
     'materials-personal-info-age': PRESET_PERSONAL_INFO_AGE_KEY,
     'materials-personal-info-education': PRESET_PERSONAL_INFO_EDUCATION_KEY,
     'materials-personal-info-career': PRESET_PERSONAL_INFO_CAREER_KEY,
-    'materials-personal-info-birth': PRESET_PERSONAL_INFO_BIRTH_KEY
+    'materials-personal-info-birth': PRESET_PERSONAL_INFO_BIRTH_KEY,
+    'materials-contact-phone': PRESET_CONTACT_PHONE_KEY,
+    'materials-contact-email': PRESET_CONTACT_EMAIL_KEY,
+    'materials-contact-qq': PRESET_CONTACT_QQ_KEY,
+    'materials-contact-wechat': PRESET_CONTACT_WECHAT_KEY,
+    'materials-contact-address': PRESET_CONTACT_ADDRESS_KEY
 }
 
 router.beforeEach((to, _, next) => {

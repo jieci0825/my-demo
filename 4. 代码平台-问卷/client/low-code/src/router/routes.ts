@@ -57,7 +57,35 @@ export const routes = [
             {
                 path: 'contact',
                 name: 'materials-contact',
-                component: () => import('@/views/materials/components/contact-group.vue')
+                component: () => import('@/views/materials/components/contact-group.vue'),
+                redirect: '/materials/contact/phone',
+                children: [
+                    {
+                        path: 'phone',
+                        name: 'materials-contact-phone',
+                        component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
+                    },
+                    {
+                        path: 'email',
+                        name: 'materials-contact-email',
+                        component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
+                    },
+                    {
+                        path: 'qq',
+                        name: 'materials-contact-qq',
+                        component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
+                    },
+                    {
+                        path: 'wechat',
+                        name: 'materials-contact-wechat',
+                        component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
+                    },
+                    {
+                        path: 'address',
+                        name: 'materials-contact-address',
+                        component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
+                    }
+                ]
             },
             {
                 path: 'note',
