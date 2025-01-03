@@ -3,7 +3,7 @@ import Layout from './layout.vue'
 
 const selectLinks = [
     { text: '姓名', to: '/materials/personal-info/name' },
-    { text: '身份证', to: '/' },
+    { text: '身份证', to: '/materials/personal-info/id' },
     { text: '出生日期', to: '/' },
     { text: '性别', to: '/materials/personal-info/gender' },
     { text: '年龄', to: '/' },

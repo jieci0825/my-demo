@@ -6,6 +6,7 @@ import {
     MULTIPLE_SELECT_KEY,
     OPTION_SELECT_KEY,
     PRESET_PERSONAL_INFO_GENDER_KEY,
+    PRESET_PERSONAL_INFO_ID_KEY,
     PRESET_PERSONAL_INFO_NAME_KEY,
     RATE_SCORE_KEY,
     SINGLE_PIC_SELECT_KEY,
@@ -48,6 +49,7 @@ export const useMaterialStore = defineStore('materialStore', {
                 [RATE_SCORE_KEY]: defaultStatusMap[RATE_SCORE_KEY],
                 [DATE_TIME_KEY]: defaultStatusMap[DATE_TIME_KEY],
                 [PRESET_PERSONAL_INFO_NAME_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_NAME_KEY],
+                [PRESET_PERSONAL_INFO_ID_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_ID_KEY],
                 [PRESET_PERSONAL_INFO_GENDER_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_GENDER_KEY]
             }
         } as IUseMaterialStore

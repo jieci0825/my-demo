@@ -84,6 +84,11 @@ export const routes = [
                         component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
                     },
                     {
+                        path: 'id',
+                        name: 'materials-personal-info-id',
+                        component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
+                    },
+                    {
                         path: 'gender',
                         name: 'materials-personal-info-gender',
                         component: () => import('@/components/survey-comps/materials/select-comps/single-select.vue')

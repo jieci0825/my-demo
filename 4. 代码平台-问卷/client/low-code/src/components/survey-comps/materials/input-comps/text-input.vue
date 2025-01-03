@@ -18,7 +18,7 @@ const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps<T
 
         <div class="input-wrap">
             <el-input
-                v-if="editCompConfig.type.currentStage === 0"
+                v-if="computedState.type === 0"
                 type="text"
             />
             <el-input

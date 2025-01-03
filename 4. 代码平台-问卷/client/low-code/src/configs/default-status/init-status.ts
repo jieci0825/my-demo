@@ -16,6 +16,13 @@ export const nameInitStatus = () => {
     }
 }
 
+export const idInitStatus = () => {
+    return {
+        title: '您的身份证号是？',
+        desc: '请输入您的身份证号'
+    }
+}
+
 export const multipleSelectInitStatus = () => {
     return {
         title: '默认多选题标题内容',

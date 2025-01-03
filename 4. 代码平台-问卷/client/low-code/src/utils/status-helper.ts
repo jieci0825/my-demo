@@ -1,5 +1,6 @@
 import {
     genderInitStatus,
+    idInitStatus,
     multiplePicSelectInitStatus,
     multipleSelectInitStatus,
     nameInitStatus,
@@ -11,6 +12,7 @@ import {
     MULTIPLE_SELECT_KEY,
     OPTION_SELECT_KEY,
     PRESET_PERSONAL_INFO_GENDER_KEY,
+    PRESET_PERSONAL_INFO_ID_KEY,
     PRESET_PERSONAL_INFO_NAME_KEY,
     TEXT_INPUT_KEY
 } from '@/constants'
@@ -33,6 +35,11 @@ const onlyTitleAndDescMap = {
     [OPTION_SELECT_KEY]: optionSelectInitStatus,
     [MULTIPLE_PIC_SELECT_KEY]: multiplePicSelectInitStatus,
     [MULTIPLE_SELECT_KEY]: multipleSelectInitStatus
+}
+
+const personalInfoTextInputInitStatusMap = {
+    [PRESET_PERSONAL_INFO_ID_KEY]: idInitStatus,
+    [PRESET_PERSONAL_INFO_NAME_KEY]: nameInitStatus
 }
 
 // 更新初始化状态，在状态添加之前
@@ -68,9 +75,10 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
                 comStatus.editCompConfig.titleSize.state = titleSizeOptions
             }
             break
+        case PRESET_PERSONAL_INFO_ID_KEY:
         case PRESET_PERSONAL_INFO_NAME_KEY:
             if (isTypeEditCompStatusObject(comStatus.editCompConfig)) {
-                const { title, desc } = nameInitStatus()
+                const { title, desc } = personalInfoTextInputInitStatusMap[newMaterialName]()
                 updateTitleAndDesc(comStatus, title, desc)
                 allShowInitStatus(comStatus)
 

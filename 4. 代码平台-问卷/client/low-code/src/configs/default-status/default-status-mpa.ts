@@ -14,7 +14,8 @@ import {
     TEXT_INPUT_KEY,
     RATE_SCORE_KEY,
     DATE_TIME_KEY,
-    PRESET_PERSONAL_INFO_NAME_KEY
+    PRESET_PERSONAL_INFO_NAME_KEY,
+    PRESET_PERSONAL_INFO_ID_KEY
 } from '@/constants'
 import { updateInitStatusBeforeAdd } from '@/utils'
 import type { MaterialKeys } from '@/types/materials'
@@ -25,6 +26,7 @@ const keyToInit: MaterialKeys[] = [
     OPTION_SELECT_KEY,
     TEXT_INPUT_KEY,
     PRESET_PERSONAL_INFO_NAME_KEY,
+    PRESET_PERSONAL_INFO_ID_KEY,
     PRESET_PERSONAL_INFO_GENDER_KEY
 ]
 
@@ -40,6 +42,7 @@ export const defaultStatusMap = (() => {
         [RATE_SCORE_KEY]: rateScoreDefaultStatus(),
         [DATE_TIME_KEY]: dateTimeDefaultStatus(),
         [PRESET_PERSONAL_INFO_NAME_KEY]: textNodeDefaultStatus(),
+        [PRESET_PERSONAL_INFO_ID_KEY]: textNodeDefaultStatus(),
         [PRESET_PERSONAL_INFO_GENDER_KEY]: singleSelectDefaultStatus()
     }
 
