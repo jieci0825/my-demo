@@ -120,6 +120,13 @@ export const optionSelectInitStatus = () => {
     }
 }
 
+export const birthInitStatus = () => {
+    return {
+        title: '您的出生日期是？',
+        desc: '请选择您的出生日期'
+    }
+}
+
 export const textInputInitStatus = () => {
     return {
         title: '默认标题内容',

@@ -52,7 +52,8 @@ const routeNameToMaterialCompKeyMap: { [key: string]: MaterialKeys } = {
     'materials-personal-info-gender': PRESET_PERSONAL_INFO_GENDER_KEY,
     'materials-personal-info-age': PRESET_PERSONAL_INFO_AGE_KEY,
     'materials-personal-info-education': PRESET_PERSONAL_INFO_EDUCATION_KEY,
-    'materials-personal-info-career': PRESET_PERSONAL_INFO_CAREER_KEY
+    'materials-personal-info-career': PRESET_PERSONAL_INFO_CAREER_KEY,
+    'materials-personal-info-birth': PRESET_PERSONAL_INFO_BIRTH_KEY
 }
 
 router.beforeEach((to, _, next) => {

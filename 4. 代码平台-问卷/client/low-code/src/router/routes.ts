@@ -132,6 +132,11 @@ export const routes = [
                         path: 'career',
                         name: 'materials-personal-info-career',
                         component: () => import('@/components/survey-comps/materials/select-comps/single-select.vue')
+                    },
+                    {
+                        path: 'birth',
+                        name: 'materials-personal-info-birth',
+                        component: () => import('@/components/survey-comps/materials/advanced-comps/date-time.vue')
                     }
                 ]
             },

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import MaterialsHeader from '../../common/materials-header.vue'
+import { computed } from 'vue'
 import { useMaterialProps } from '@/hooks'
 import type { TypeEditCompStatus, ValueState } from '@/types'
-import { computed } from 'vue'
 
 interface IProps {
     editCompConfig: TypeEditCompStatus
@@ -13,7 +13,7 @@ const props = defineProps<IProps>()
 const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps<TypeEditCompStatus>(props)
 
 const type = computed(() => {
-    return props.editCompConfig.type.state[props.editCompConfig.type.currentStage] as ValueState
+    return props.editCompConfig.type?.state[computedState?.value.type!] as ValueState
 })
 </script>
 
@@ -23,7 +23,7 @@ const type = computed(() => {
         <div>
             <el-date-picker
                 placeholder="请选择日期"
-                :type="type.value"
+                :type="type?.value"
                 @click.stop
             />
         </div>

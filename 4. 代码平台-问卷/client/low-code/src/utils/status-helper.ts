@@ -1,5 +1,6 @@
 import {
     ageInitStatus,
+    birthInitStatus,
     careerInitStatus,
     collageInitStatus,
     companyInitStatus,
@@ -51,7 +52,8 @@ function allShowInitStatus(comStatus: BaseBusinessComp) {
 const onlyTitleAndDescMap = {
     [OPTION_SELECT_KEY]: optionSelectInitStatus,
     [MULTIPLE_PIC_SELECT_KEY]: multiplePicSelectInitStatus,
-    [MULTIPLE_SELECT_KEY]: multipleSelectInitStatus
+    [MULTIPLE_SELECT_KEY]: multipleSelectInitStatus,
+    [PRESET_PERSONAL_INFO_BIRTH_KEY]: birthInitStatus
 }
 
 const personalInfoTextInputInitStatusMap = {
@@ -90,6 +92,7 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
         case MULTIPLE_SELECT_KEY:
         case MULTIPLE_PIC_SELECT_KEY:
         case OPTION_SELECT_KEY:
+        case PRESET_PERSONAL_INFO_BIRTH_KEY:
             const { title, desc } = onlyTitleAndDescMap[newMaterialName]()
             updateTitleAndDesc(comStatus, title, desc)
             break
