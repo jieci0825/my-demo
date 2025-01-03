@@ -138,7 +138,7 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
         case PRESET_CONTACT_WECHAT_KEY:
         case PRESET_CONTACT_ADDRESS_KEY:
             if (isTypeEditCompStatusObject(comStatus.editCompConfig)) {
-                const { title, desc } = personalInfoTextInputInitStatusMap[newMaterialName]()
+                const { title, desc, titleSizeOptions } = personalInfoTextInputInitStatusMap[newMaterialName]()
                 updateTitleAndDesc(comStatus, title, desc)
                 allShowInitStatus(comStatus)
 
@@ -146,6 +146,7 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
                 comStatus.editCompConfig.type.isShow = false
                 comStatus.editCompConfig.type.currentStage = 0
                 comStatus.editCompConfig.position.currentStage = 0
+                comStatus.editCompConfig.titleSize.state = titleSizeOptions
             }
             break
     }

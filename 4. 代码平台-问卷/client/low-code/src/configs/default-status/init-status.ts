@@ -53,84 +53,96 @@ export const educationInitStatus = () => {
 export const nameInitStatus = () => {
     return {
         title: '您的姓名是？',
-        desc: '请输入您的姓名'
+        desc: '请输入您的姓名',
+        titleSizeOptions: ['18', '20', '22']
     }
 }
 
 export const idInitStatus = () => {
     return {
         title: '您的身份证号是？',
-        desc: '请输入您的身份证号'
+        desc: '请输入您的身份证号',
+        titleSizeOptions: ['18', '20', '22']
     }
 }
 
 export const collageInitStatus = () => {
     return {
         title: '您的学校是？',
-        desc: '请输入您的学校'
+        desc: '请输入您的学校',
+        titleSizeOptions: ['18', '20', '22']
     }
 }
 
 export const majorInitStatus = () => {
     return {
         title: '您的专业是？',
-        desc: '请输入您的专业'
+        desc: '请输入您的专业',
+        titleSizeOptions: ['18', '20', '22']
     }
 }
 
 export const industryInitStatus = () => {
     return {
         title: '您的行业是？',
-        desc: '请选择您的行业'
+        desc: '请选择您的行业',
+        titleSizeOptions: ['18', '20', '22']
     }
 }
 
 export const companyInitStatus = () => {
     return {
         title: '您的公司是？',
-        desc: '请输入您的公司'
+        desc: '请输入您的公司',
+        titleSizeOptions: ['18', '20', '22']
     }
 }
 
 export const positionInitStatus = () => {
     return {
         title: '您的职位是？',
-        desc: '请输入您的职位'
+        desc: '请输入您的职位',
+        titleSizeOptions: ['18', '20', '22']
     }
 }
 
 export const phoneInitStatus = () => {
     return {
         title: '您的手机号是？',
-        desc: '请输入您的手机号'
+        desc: '请输入您的手机号',
+        titleSizeOptions: ['18', '20', '22']
     }
 }
 
 export const emailInitStatus = () => {
     return {
         title: '您的邮箱是？',
-        desc: '请输入您的邮箱'
+        desc: '请输入您的邮箱',
+        titleSizeOptions: ['18', '20', '22']
     }
 }
 
 export const qqInitStatus = () => {
     return {
         title: '您的QQ是？',
-        desc: '请输入您的QQ'
+        desc: '请输入您的QQ',
+        titleSizeOptions: ['18', '20', '22']
     }
 }
 
 export const wechatInitStatus = () => {
     return {
         title: '您的微信是？',
-        desc: '请输入您的微信'
+        desc: '请输入您的微信',
+        titleSizeOptions: ['18', '20', '22']
     }
 }
 
 export const addressInitStatus = () => {
     return {
         title: '您的地址是？',
-        desc: '请输入您的地址'
+        desc: '请输入您的地址',
+        titleSizeOptions: ['18', '20', '22']
     }
 }
 
