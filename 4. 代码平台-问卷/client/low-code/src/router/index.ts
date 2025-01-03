@@ -11,7 +11,12 @@ import {
     SINGLE_PIC_SELECT_KEY,
     SINGLE_SELECT_KEY,
     TEXT_INPUT_KEY,
-    TEXT_NODE_KEY
+    TEXT_NODE_KEY,
+    PRESET_PERSONAL_INFO_COLLAGE_KEY,
+    PRESET_PERSONAL_INFO_MAJOR_KEY,
+    PRESET_PERSONAL_INFO_INDUSTRY_KEY,
+    PRESET_PERSONAL_INFO_COMPANY_KEY,
+    PRESET_PERSONAL_INFO_POSITION_KEY
 } from '@/constants'
 import { useMaterialStore } from '@/stores/use-material'
 import { createWebHistory, createRouter } from 'vue-router'
@@ -35,6 +40,11 @@ const routeNameToMaterialCompKeyMap: { [key: string]: MaterialKeys } = {
     'materials-advanced-date-time': DATE_TIME_KEY,
     'materials-personal-info-name': PRESET_PERSONAL_INFO_NAME_KEY,
     'materials-personal-info-id': PRESET_PERSONAL_INFO_ID_KEY,
+    'materials-personal-info-collage': PRESET_PERSONAL_INFO_COLLAGE_KEY,
+    'materials-personal-info-major': PRESET_PERSONAL_INFO_MAJOR_KEY,
+    'materials-personal-info-industry': PRESET_PERSONAL_INFO_INDUSTRY_KEY,
+    'materials-personal-info-company': PRESET_PERSONAL_INFO_COMPANY_KEY,
+    'materials-personal-info-position': PRESET_PERSONAL_INFO_POSITION_KEY,
     'materials-personal-info-gender': PRESET_PERSONAL_INFO_GENDER_KEY
 }
 

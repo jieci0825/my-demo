@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { defaultStatusMap } from '@/configs/default-status/default-status-mpa'
+import { defaultStatusMap } from '@/configs/default-status/default-status-map'
 import {
     DATE_TIME_KEY,
     MULTIPLE_PIC_SELECT_KEY,
@@ -12,7 +12,12 @@ import {
     SINGLE_PIC_SELECT_KEY,
     SINGLE_SELECT_KEY,
     TEXT_INPUT_KEY,
-    TEXT_NODE_KEY
+    TEXT_NODE_KEY,
+    PRESET_PERSONAL_INFO_COLLAGE_KEY,
+    PRESET_PERSONAL_INFO_MAJOR_KEY,
+    PRESET_PERSONAL_INFO_INDUSTRY_KEY,
+    PRESET_PERSONAL_INFO_COMPANY_KEY,
+    PRESET_PERSONAL_INFO_POSITION_KEY
 } from '@/constants'
 import {
     setTextState,
@@ -50,7 +55,12 @@ export const useMaterialStore = defineStore('materialStore', {
                 [DATE_TIME_KEY]: defaultStatusMap[DATE_TIME_KEY],
                 [PRESET_PERSONAL_INFO_NAME_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_NAME_KEY],
                 [PRESET_PERSONAL_INFO_ID_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_ID_KEY],
-                [PRESET_PERSONAL_INFO_GENDER_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_GENDER_KEY]
+                [PRESET_PERSONAL_INFO_GENDER_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_GENDER_KEY],
+                [PRESET_PERSONAL_INFO_COLLAGE_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_COLLAGE_KEY],
+                [PRESET_PERSONAL_INFO_MAJOR_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_MAJOR_KEY],
+                [PRESET_PERSONAL_INFO_INDUSTRY_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_INDUSTRY_KEY],
+                [PRESET_PERSONAL_INFO_COMPANY_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_COMPANY_KEY],
+                [PRESET_PERSONAL_INFO_POSITION_KEY]: defaultStatusMap[PRESET_PERSONAL_INFO_POSITION_KEY]
             }
         } as IUseMaterialStore
     },

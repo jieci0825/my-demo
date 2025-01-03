@@ -23,6 +23,41 @@ export const idInitStatus = () => {
     }
 }
 
+export const collageInitStatus = () => {
+    return {
+        title: '您的学校是？',
+        desc: '请输入您的学校'
+    }
+}
+
+export const majorInitStatus = () => {
+    return {
+        title: '您的专业是？',
+        desc: '请输入您的专业'
+    }
+}
+
+export const industryInitStatus = () => {
+    return {
+        title: '您的行业是？',
+        desc: '请选择您的行业'
+    }
+}
+
+export const companyInitStatus = () => {
+    return {
+        title: '您的公司是？',
+        desc: '请输入您的公司'
+    }
+}
+
+export const positionInitStatus = () => {
+    return {
+        title: '您的职位是？',
+        desc: '请输入您的职位'
+    }
+}
+
 export const multipleSelectInitStatus = () => {
     return {
         title: '默认多选题标题内容',

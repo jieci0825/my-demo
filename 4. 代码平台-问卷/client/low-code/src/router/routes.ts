@@ -89,6 +89,31 @@ export const routes = [
                         component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
                     },
                     {
+                        path: 'collage',
+                        name: 'materials-personal-info-collage',
+                        component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
+                    },
+                    {
+                        path: 'major',
+                        name: 'materials-personal-info-major',
+                        component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
+                    },
+                    {
+                        path: 'industry',
+                        name: 'materials-personal-info-industry',
+                        component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
+                    },
+                    {
+                        path: 'company',
+                        name: 'materials-personal-info-company',
+                        component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
+                    },
+                    {
+                        path: 'position',
+                        name: 'materials-personal-info-position',
+                        component: () => import('@/components/survey-comps/materials/input-comps/text-input.vue')
+                    },
+                    {
                         path: 'gender',
                         name: 'materials-personal-info-gender',
                         component: () => import('@/components/survey-comps/materials/select-comps/single-select.vue')

@@ -15,7 +15,12 @@ import {
     RATE_SCORE_KEY,
     DATE_TIME_KEY,
     PRESET_PERSONAL_INFO_NAME_KEY,
-    PRESET_PERSONAL_INFO_ID_KEY
+    PRESET_PERSONAL_INFO_ID_KEY,
+    PRESET_PERSONAL_INFO_COLLAGE_KEY,
+    PRESET_PERSONAL_INFO_MAJOR_KEY,
+    PRESET_PERSONAL_INFO_INDUSTRY_KEY,
+    PRESET_PERSONAL_INFO_COMPANY_KEY,
+    PRESET_PERSONAL_INFO_POSITION_KEY
 } from '@/constants'
 import { updateInitStatusBeforeAdd } from '@/utils'
 import type { MaterialKeys } from '@/types/materials'
@@ -27,7 +32,12 @@ const keyToInit: MaterialKeys[] = [
     TEXT_INPUT_KEY,
     PRESET_PERSONAL_INFO_NAME_KEY,
     PRESET_PERSONAL_INFO_ID_KEY,
-    PRESET_PERSONAL_INFO_GENDER_KEY
+    PRESET_PERSONAL_INFO_GENDER_KEY,
+    PRESET_PERSONAL_INFO_COLLAGE_KEY,
+    PRESET_PERSONAL_INFO_MAJOR_KEY,
+    PRESET_PERSONAL_INFO_INDUSTRY_KEY,
+    PRESET_PERSONAL_INFO_COMPANY_KEY,
+    PRESET_PERSONAL_INFO_POSITION_KEY
 ]
 
 export const defaultStatusMap = (() => {
@@ -43,6 +53,11 @@ export const defaultStatusMap = (() => {
         [DATE_TIME_KEY]: dateTimeDefaultStatus(),
         [PRESET_PERSONAL_INFO_NAME_KEY]: textNodeDefaultStatus(),
         [PRESET_PERSONAL_INFO_ID_KEY]: textNodeDefaultStatus(),
+        [PRESET_PERSONAL_INFO_COLLAGE_KEY]: textNodeDefaultStatus(),
+        [PRESET_PERSONAL_INFO_MAJOR_KEY]: textNodeDefaultStatus(),
+        [PRESET_PERSONAL_INFO_INDUSTRY_KEY]: textNodeDefaultStatus(),
+        [PRESET_PERSONAL_INFO_COMPANY_KEY]: textNodeDefaultStatus(),
+        [PRESET_PERSONAL_INFO_POSITION_KEY]: textNodeDefaultStatus(),
         [PRESET_PERSONAL_INFO_GENDER_KEY]: singleSelectDefaultStatus()
     }
 

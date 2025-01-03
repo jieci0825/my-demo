@@ -1,10 +1,15 @@
 import {
+    collageInitStatus,
+    companyInitStatus,
     genderInitStatus,
     idInitStatus,
+    industryInitStatus,
+    majorInitStatus,
     multiplePicSelectInitStatus,
     multipleSelectInitStatus,
     nameInitStatus,
     optionSelectInitStatus,
+    positionInitStatus,
     textInputInitStatus
 } from '@/configs/default-status/init-status'
 import {
@@ -14,7 +19,12 @@ import {
     PRESET_PERSONAL_INFO_GENDER_KEY,
     PRESET_PERSONAL_INFO_ID_KEY,
     PRESET_PERSONAL_INFO_NAME_KEY,
-    TEXT_INPUT_KEY
+    TEXT_INPUT_KEY,
+    PRESET_PERSONAL_INFO_COLLAGE_KEY,
+    PRESET_PERSONAL_INFO_MAJOR_KEY,
+    PRESET_PERSONAL_INFO_INDUSTRY_KEY,
+    PRESET_PERSONAL_INFO_COMPANY_KEY,
+    PRESET_PERSONAL_INFO_POSITION_KEY
 } from '@/constants'
 import { isOptionEditCompStatusObject, isTypeEditCompStatusObject, type BaseBusinessComp } from '@/types'
 import type { MaterialKeys } from '@/types/materials'
@@ -39,7 +49,12 @@ const onlyTitleAndDescMap = {
 
 const personalInfoTextInputInitStatusMap = {
     [PRESET_PERSONAL_INFO_ID_KEY]: idInitStatus,
-    [PRESET_PERSONAL_INFO_NAME_KEY]: nameInitStatus
+    [PRESET_PERSONAL_INFO_NAME_KEY]: nameInitStatus,
+    [PRESET_PERSONAL_INFO_COLLAGE_KEY]: collageInitStatus,
+    [PRESET_PERSONAL_INFO_MAJOR_KEY]: majorInitStatus,
+    [PRESET_PERSONAL_INFO_INDUSTRY_KEY]: industryInitStatus,
+    [PRESET_PERSONAL_INFO_COMPANY_KEY]: companyInitStatus,
+    [PRESET_PERSONAL_INFO_POSITION_KEY]: positionInitStatus
 }
 
 // 更新初始化状态，在状态添加之前
@@ -77,6 +92,11 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
             break
         case PRESET_PERSONAL_INFO_ID_KEY:
         case PRESET_PERSONAL_INFO_NAME_KEY:
+        case PRESET_PERSONAL_INFO_COLLAGE_KEY:
+        case PRESET_PERSONAL_INFO_MAJOR_KEY:
+        case PRESET_PERSONAL_INFO_INDUSTRY_KEY:
+        case PRESET_PERSONAL_INFO_COMPANY_KEY:
+        case PRESET_PERSONAL_INFO_POSITION_KEY:
             if (isTypeEditCompStatusObject(comStatus.editCompConfig)) {
                 const { title, desc } = personalInfoTextInputInitStatusMap[newMaterialName]()
                 updateTitleAndDesc(comStatus, title, desc)

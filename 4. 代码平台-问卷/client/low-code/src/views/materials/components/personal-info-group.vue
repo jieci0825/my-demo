@@ -8,12 +8,12 @@ const selectLinks = [
     { text: '性别', to: '/materials/personal-info/gender' },
     { text: '年龄', to: '/' },
     { text: '学历', to: '/' },
-    { text: '大学', to: '/' },
-    { text: '专业', to: '/' },
-    { text: '行业', to: '/' },
+    { text: '大学', to: '/materials/personal-info/collage' },
+    { text: '专业', to: '/materials/personal-info/major' },
+    { text: '行业', to: '/materials/personal-info/industry' },
     { text: '职业', to: '/' },
-    { text: '公司', to: '/' },
-    { text: '职位', to: '/' }
+    { text: '公司', to: '/materials/personal-info/company' },
+    { text: '职位', to: '/materials/personal-info/position' }
 ]
 </script>
 
