@@ -4,14 +4,14 @@ import Layout from './layout.vue'
 const selectLinks = [
     { text: '姓名', to: '/materials/personal-info/name' },
     { text: '身份证', to: '/materials/personal-info/id' },
-    { text: '出生日期', to: '/' },
+    // { text: '出生日期', to: '/materials/personal-info/birth' },
     { text: '性别', to: '/materials/personal-info/gender' },
-    { text: '年龄', to: '/' },
-    { text: '学历', to: '/' },
+    { text: '年龄', to: '/materials/personal-info/age' },
+    { text: '学历', to: '/materials/personal-info/education' },
     { text: '大学', to: '/materials/personal-info/collage' },
     { text: '专业', to: '/materials/personal-info/major' },
     { text: '行业', to: '/materials/personal-info/industry' },
-    { text: '职业', to: '/' },
+    { text: '职业', to: '/materials/personal-info/career' },
     { text: '公司', to: '/materials/personal-info/company' },
     { text: '职位', to: '/materials/personal-info/position' }
 ]

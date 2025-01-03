@@ -1,6 +1,9 @@
 import {
+    ageInitStatus,
+    careerInitStatus,
     collageInitStatus,
     companyInitStatus,
+    educationInitStatus,
     genderInitStatus,
     idInitStatus,
     industryInitStatus,
@@ -24,7 +27,11 @@ import {
     PRESET_PERSONAL_INFO_MAJOR_KEY,
     PRESET_PERSONAL_INFO_INDUSTRY_KEY,
     PRESET_PERSONAL_INFO_COMPANY_KEY,
-    PRESET_PERSONAL_INFO_POSITION_KEY
+    PRESET_PERSONAL_INFO_BIRTH_KEY,
+    PRESET_PERSONAL_INFO_POSITION_KEY,
+    PRESET_PERSONAL_INFO_AGE_KEY,
+    PRESET_PERSONAL_INFO_CAREER_KEY,
+    PRESET_PERSONAL_INFO_EDUCATION_KEY
 } from '@/constants'
 import { isOptionEditCompStatusObject, isTypeEditCompStatusObject, type BaseBusinessComp } from '@/types'
 import type { MaterialKeys } from '@/types/materials'
@@ -57,13 +64,23 @@ const personalInfoTextInputInitStatusMap = {
     [PRESET_PERSONAL_INFO_POSITION_KEY]: positionInitStatus
 }
 
+const personalInfoSingleSelectInitStatusMap = {
+    [PRESET_PERSONAL_INFO_GENDER_KEY]: genderInitStatus,
+    [PRESET_PERSONAL_INFO_AGE_KEY]: ageInitStatus,
+    [PRESET_PERSONAL_INFO_CAREER_KEY]: careerInitStatus,
+    [PRESET_PERSONAL_INFO_EDUCATION_KEY]: educationInitStatus
+}
+
 // 更新初始化状态，在状态添加之前
 export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMaterialName: MaterialKeys) => {
     comStatus.name = newMaterialName
     switch (newMaterialName) {
         case PRESET_PERSONAL_INFO_GENDER_KEY:
+        case PRESET_PERSONAL_INFO_AGE_KEY:
+        case PRESET_PERSONAL_INFO_CAREER_KEY:
+        case PRESET_PERSONAL_INFO_EDUCATION_KEY:
             if (isOptionEditCompStatusObject(comStatus.editCompConfig)) {
-                const { title, desc, options, currentStage } = genderInitStatus()
+                const { title, desc, options, currentStage } = personalInfoSingleSelectInitStatusMap[newMaterialName]()
                 updateTitleAndDesc(comStatus, title, desc)
 
                 comStatus.editCompConfig.options.state = options

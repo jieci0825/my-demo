@@ -117,6 +117,21 @@ export const routes = [
                         path: 'gender',
                         name: 'materials-personal-info-gender',
                         component: () => import('@/components/survey-comps/materials/select-comps/single-select.vue')
+                    },
+                    {
+                        path: 'age',
+                        name: 'materials-personal-info-age',
+                        component: () => import('@/components/survey-comps/materials/select-comps/single-select.vue')
+                    },
+                    {
+                        path: 'education',
+                        name: 'materials-personal-info-education',
+                        component: () => import('@/components/survey-comps/materials/select-comps/single-select.vue')
+                    },
+                    {
+                        path: 'career',
+                        name: 'materials-personal-info-career',
+                        component: () => import('@/components/survey-comps/materials/select-comps/single-select.vue')
                     }
                 ]
             },

@@ -16,7 +16,11 @@ import {
     PRESET_PERSONAL_INFO_MAJOR_KEY,
     PRESET_PERSONAL_INFO_INDUSTRY_KEY,
     PRESET_PERSONAL_INFO_COMPANY_KEY,
-    PRESET_PERSONAL_INFO_POSITION_KEY
+    PRESET_PERSONAL_INFO_POSITION_KEY,
+    PRESET_PERSONAL_INFO_AGE_KEY,
+    PRESET_PERSONAL_INFO_EDUCATION_KEY,
+    PRESET_PERSONAL_INFO_CAREER_KEY,
+    PRESET_PERSONAL_INFO_BIRTH_KEY
 } from '@/constants'
 import { useMaterialStore } from '@/stores/use-material'
 import { createWebHistory, createRouter } from 'vue-router'
@@ -45,7 +49,10 @@ const routeNameToMaterialCompKeyMap: { [key: string]: MaterialKeys } = {
     'materials-personal-info-industry': PRESET_PERSONAL_INFO_INDUSTRY_KEY,
     'materials-personal-info-company': PRESET_PERSONAL_INFO_COMPANY_KEY,
     'materials-personal-info-position': PRESET_PERSONAL_INFO_POSITION_KEY,
-    'materials-personal-info-gender': PRESET_PERSONAL_INFO_GENDER_KEY
+    'materials-personal-info-gender': PRESET_PERSONAL_INFO_GENDER_KEY,
+    'materials-personal-info-age': PRESET_PERSONAL_INFO_AGE_KEY,
+    'materials-personal-info-education': PRESET_PERSONAL_INFO_EDUCATION_KEY,
+    'materials-personal-info-career': PRESET_PERSONAL_INFO_CAREER_KEY
 }
 
 router.beforeEach((to, _, next) => {
