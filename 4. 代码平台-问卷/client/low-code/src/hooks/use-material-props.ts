@@ -13,8 +13,6 @@ interface MaterialHeaderProps<T> {
 }
 
 export function useMaterialProps<T extends BaseEditCompStatus>(props: MaterialHeaderProps<T>) {
-    const { editCompConfig, sn } = props
-
     const alignClassMap: any = {
         0: '',
         1: 'text-center',
@@ -34,7 +32,7 @@ export function useMaterialProps<T extends BaseEditCompStatus>(props: MaterialHe
             descSlant,
             titleColor,
             descColor
-        } = editCompConfig
+        } = props.editCompConfig
 
         interface MaterialProps {
             title: string
@@ -49,7 +47,7 @@ export function useMaterialProps<T extends BaseEditCompStatus>(props: MaterialHe
             titleColor: string
             descColor: string
             options?: OptionEditCompStatus['options']['state']
-            type?: TypeEditCompStatus['type']['state']
+            type?: TypeEditCompStatus['type']['currentStage']
         }
 
         const base: MaterialProps = {
@@ -66,10 +64,10 @@ export function useMaterialProps<T extends BaseEditCompStatus>(props: MaterialHe
             descColor: descColor.state
         }
 
-        if (isOptionEditCompStatusObject(editCompConfig)) {
-            base.options = editCompConfig.options.state
-        } else if (isTypeEditCompStatusObject(editCompConfig)) {
-            base.type = editCompConfig.type.state
+        if (isOptionEditCompStatusObject(props.editCompConfig)) {
+            base.options = props.editCompConfig.options.state
+        } else if (isTypeEditCompStatusObject(props.editCompConfig)) {
+            base.type = props.editCompConfig.type.currentStage
         }
 
         return base
@@ -89,7 +87,7 @@ export function useMaterialProps<T extends BaseEditCompStatus>(props: MaterialHe
             descColor
         } = computedState.value
         return {
-            sn,
+            sn: props.sn,
             title,
             desc,
             titleSize,
