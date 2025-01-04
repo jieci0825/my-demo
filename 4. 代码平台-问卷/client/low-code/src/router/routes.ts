@@ -12,7 +12,20 @@ export const routes = [
         meta: {
             title: '问卷'
         },
-        component: () => import('@/views/editor/index.vue')
+        component: () => import('@/views/editor/index.vue'),
+        redirect: '/editor/:mode/survey-type',
+        children: [
+            {
+                path: 'outline',
+                name: 'editor-outline',
+                component: () => import('@/views/editor/left-side/outline.vue')
+            },
+            {
+                path: 'survey-type',
+                name: 'editor-survey-type',
+                component: () => import('@/views/editor/left-side/survey-type.vue')
+            }
+        ]
     },
     {
         path: '/materials',
