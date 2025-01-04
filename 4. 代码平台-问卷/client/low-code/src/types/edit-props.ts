@@ -122,3 +122,16 @@ export function isPicTitleDescStateObject(state: any) {
 export function isPicTitleDescStateArr(state: OptionsStateArr): state is PicTitleDescStateArr {
     return Array.isArray(state) && state.every(item => isPicTitleDescStateObject(item))
 }
+
+export type MaterialItem = {
+    materialName: MaterialKeys
+    comName: string
+}
+
+export type MaterialItemList = Array<MaterialItem>
+
+export interface MaterialGroup {
+    title: string
+    icon: VueCompType
+    list: MaterialItemList
+}

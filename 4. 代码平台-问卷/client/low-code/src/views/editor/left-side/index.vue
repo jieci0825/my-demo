@@ -26,7 +26,7 @@ const $router = useRouter()
                 <span class="mt-5">{{ tab.text }}</span>
             </div>
         </div>
-        <div class="flex-1 p-15">
+        <div class="flex-1">
             <RouterView></RouterView>
         </div>
     </div>
@@ -43,6 +43,7 @@ const $router = useRouter()
     height: 100%;
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-base);
+    overflow: hidden;
     .tabs {
         width: 80px;
         height: 100%;
