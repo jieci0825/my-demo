@@ -31,68 +31,32 @@ import {
     PRESET_CONTACT_WECHAT_KEY,
     PRESET_CONTACT_ADDRESS_KEY
 } from '@/constants'
-import { updateInitStatusBeforeAdd } from '@/utils'
-import type { MaterialKeys } from '@/types/materials'
 
-const keyToInit: MaterialKeys[] = [
-    MULTIPLE_SELECT_KEY,
-    MULTIPLE_PIC_SELECT_KEY,
-    OPTION_SELECT_KEY,
-    TEXT_INPUT_KEY,
-    PRESET_PERSONAL_INFO_NAME_KEY,
-    PRESET_PERSONAL_INFO_ID_KEY,
-    PRESET_PERSONAL_INFO_GENDER_KEY,
-    PRESET_PERSONAL_INFO_COLLAGE_KEY,
-    PRESET_PERSONAL_INFO_MAJOR_KEY,
-    PRESET_PERSONAL_INFO_INDUSTRY_KEY,
-    PRESET_PERSONAL_INFO_COMPANY_KEY,
-    PRESET_PERSONAL_INFO_POSITION_KEY,
-    PRESET_PERSONAL_INFO_BIRTH_KEY,
-    PRESET_PERSONAL_INFO_AGE_KEY,
-    PRESET_PERSONAL_INFO_EDUCATION_KEY,
-    PRESET_PERSONAL_INFO_CAREER_KEY,
-    PRESET_CONTACT_PHONE_KEY,
-    PRESET_CONTACT_EMAIL_KEY,
-    PRESET_CONTACT_QQ_KEY,
-    PRESET_CONTACT_WECHAT_KEY,
-    PRESET_CONTACT_ADDRESS_KEY
-]
-
-export const defaultStatusMap = (() => {
-    const map = {
-        [OPTION_SELECT_KEY]: singleSelectDefaultStatus(),
-        [SINGLE_SELECT_KEY]: singleSelectDefaultStatus(),
-        [MULTIPLE_SELECT_KEY]: singleSelectDefaultStatus(),
-        [PRESET_PERSONAL_INFO_GENDER_KEY]: singleSelectDefaultStatus(),
-        [PRESET_PERSONAL_INFO_AGE_KEY]: singleSelectDefaultStatus(),
-        [PRESET_PERSONAL_INFO_EDUCATION_KEY]: singleSelectDefaultStatus(),
-        [PRESET_PERSONAL_INFO_CAREER_KEY]: singleSelectDefaultStatus(),
-        [SINGLE_PIC_SELECT_KEY]: singlePicSelectDefaultStatus(),
-        [MULTIPLE_PIC_SELECT_KEY]: singlePicSelectDefaultStatus(),
-        [RATE_SCORE_KEY]: rateScoreDefaultStatus(),
-        [DATE_TIME_KEY]: dateTimeDefaultStatus(),
-        [PRESET_PERSONAL_INFO_BIRTH_KEY]: dateTimeDefaultStatus(),
-        [TEXT_NODE_KEY]: textNodeDefaultStatus(),
-        [TEXT_INPUT_KEY]: textNodeDefaultStatus(),
-        [PRESET_PERSONAL_INFO_NAME_KEY]: textNodeDefaultStatus(),
-        [PRESET_PERSONAL_INFO_ID_KEY]: textNodeDefaultStatus(),
-        [PRESET_PERSONAL_INFO_COLLAGE_KEY]: textNodeDefaultStatus(),
-        [PRESET_PERSONAL_INFO_MAJOR_KEY]: textNodeDefaultStatus(),
-        [PRESET_PERSONAL_INFO_INDUSTRY_KEY]: textNodeDefaultStatus(),
-        [PRESET_PERSONAL_INFO_COMPANY_KEY]: textNodeDefaultStatus(),
-        [PRESET_PERSONAL_INFO_POSITION_KEY]: textNodeDefaultStatus(),
-        [PRESET_CONTACT_PHONE_KEY]: textNodeDefaultStatus(),
-        [PRESET_CONTACT_EMAIL_KEY]: textNodeDefaultStatus(),
-        [PRESET_CONTACT_QQ_KEY]: textNodeDefaultStatus(),
-        [PRESET_CONTACT_WECHAT_KEY]: textNodeDefaultStatus(),
-        [PRESET_CONTACT_ADDRESS_KEY]: textNodeDefaultStatus()
-    }
-
-    for (const key of keyToInit) {
-        if (map[key]) {
-            updateInitStatusBeforeAdd(map[key], key)
-        }
-    }
-
-    return map
-})()
+export const defaultStatusMap = {
+    [OPTION_SELECT_KEY]: singleSelectDefaultStatus,
+    [SINGLE_SELECT_KEY]: singleSelectDefaultStatus,
+    [MULTIPLE_SELECT_KEY]: singleSelectDefaultStatus,
+    [PRESET_PERSONAL_INFO_GENDER_KEY]: singleSelectDefaultStatus,
+    [PRESET_PERSONAL_INFO_AGE_KEY]: singleSelectDefaultStatus,
+    [PRESET_PERSONAL_INFO_EDUCATION_KEY]: singleSelectDefaultStatus,
+    [PRESET_PERSONAL_INFO_CAREER_KEY]: singleSelectDefaultStatus,
+    [SINGLE_PIC_SELECT_KEY]: singlePicSelectDefaultStatus,
+    [MULTIPLE_PIC_SELECT_KEY]: singlePicSelectDefaultStatus,
+    [RATE_SCORE_KEY]: rateScoreDefaultStatus,
+    [DATE_TIME_KEY]: dateTimeDefaultStatus,
+    [PRESET_PERSONAL_INFO_BIRTH_KEY]: dateTimeDefaultStatus,
+    [TEXT_NODE_KEY]: textNodeDefaultStatus,
+    [TEXT_INPUT_KEY]: textNodeDefaultStatus,
+    [PRESET_PERSONAL_INFO_NAME_KEY]: textNodeDefaultStatus,
+    [PRESET_PERSONAL_INFO_ID_KEY]: textNodeDefaultStatus,
+    [PRESET_PERSONAL_INFO_COLLAGE_KEY]: textNodeDefaultStatus,
+    [PRESET_PERSONAL_INFO_MAJOR_KEY]: textNodeDefaultStatus,
+    [PRESET_PERSONAL_INFO_INDUSTRY_KEY]: textNodeDefaultStatus,
+    [PRESET_PERSONAL_INFO_COMPANY_KEY]: textNodeDefaultStatus,
+    [PRESET_PERSONAL_INFO_POSITION_KEY]: textNodeDefaultStatus,
+    [PRESET_CONTACT_PHONE_KEY]: textNodeDefaultStatus,
+    [PRESET_CONTACT_EMAIL_KEY]: textNodeDefaultStatus,
+    [PRESET_CONTACT_QQ_KEY]: textNodeDefaultStatus,
+    [PRESET_CONTACT_WECHAT_KEY]: textNodeDefaultStatus,
+    [PRESET_CONTACT_ADDRESS_KEY]: textNodeDefaultStatus
+}
