@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { defaultStatusMap } from '@/configs/default-status/default-status-map'
+import { updateInitStatusBeforeAdd } from '@/utils'
+import { useEditorStore } from '@/stores/use-editor'
 import type { MaterialKeys } from '@/types'
 
 interface Props {
@@ -7,10 +10,21 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+const editorStore = useEditorStore()
+
+const addSurveyComp = () => {
+    const status = defaultStatusMap[props.materialName]()
+    // 初始化状态
+    updateInitStatusBeforeAdd(status, props.materialName)
+    editorStore.addComp(status)
+}
 </script>
 
 <template>
-    <div class="survey-comp-item">
+    <div
+        class="survey-comp-item"
+        @click="addSurveyComp"
+    >
         <span>{{ props.comName }}</span>
     </div>
 </template>

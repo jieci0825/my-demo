@@ -5,6 +5,7 @@ export const isFunction = (value: any): value is Function => typeof value === 'f
 export const isObject = (value: any): value is object => typeof value === 'object' && value !== null
 export const isArray = Array.isArray
 export const extend = Object.assign
+export const isEmpty = (value: any): value is null | undefined => value === null || value === undefined
 
 export const isArrayString = (value: any): value is string[] => {
     return Array.isArray(value) && value.every(item => isString(item))

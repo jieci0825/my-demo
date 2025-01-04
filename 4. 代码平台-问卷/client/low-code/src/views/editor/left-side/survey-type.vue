@@ -4,7 +4,7 @@ import { SurveyComsList } from '@/configs/survey-group-config'
 </script>
 
 <template>
-    <div class="survey-type-container p-15">
+    <div class="survey-type-container hide-scrollbar p-15">
         <SurveyCompGroup
             v-for="(item, idx) in SurveyComsList"
             v-bind="item"

@@ -53,6 +53,11 @@ h6 {
     }
 }
 
+// 隐藏滚动样式
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
 /* 整体滚动条样式 */
 ::-webkit-scrollbar {
     width: 8px; /* 滚动条宽度 */

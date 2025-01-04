@@ -90,7 +90,9 @@ const personalInfoSingleSelectInitStatusMap = {
 
 // 更新初始化状态，在状态添加之前
 export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMaterialName: MaterialKeys) => {
+    // 更新 name
     comStatus.name = newMaterialName
+
     switch (newMaterialName) {
         case PRESET_PERSONAL_INFO_GENDER_KEY:
         case PRESET_PERSONAL_INFO_AGE_KEY:
