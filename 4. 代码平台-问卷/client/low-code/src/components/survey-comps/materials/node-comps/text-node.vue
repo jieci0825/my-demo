@@ -10,7 +10,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const currentType = computed(() => {
-    return props.editCompConfig.type.currentStage
+    return props.editCompConfig.type?.currentStage
 })
 
 const { computedState, alignClassMap } = useMaterialProps<TypeEditCompStatus>(props)
