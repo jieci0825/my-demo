@@ -14,6 +14,9 @@ importers:
       element-plus:
         specifier: ^2.9.1
         version: 2.9.1(vue@3.5.13(typescript@5.6.3))
+      mitt:
+        specifier: ^3.0.1
+        version: 3.0.1
       pinia:
         specifier: ^2.3.0
         version: 2.3.0(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))
@@ -645,6 +648,9 @@ packages:
   minimatch@9.0.5:
     resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
     engines: {node: '>=16 || 14 >=14.17'}
+
+  mitt@3.0.1:
+    resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
 
   mlly@1.7.3:
     resolution: {integrity: sha512-xUsx5n/mN0uQf4V548PKQ+YShA4/IW0KI1dZhrNrPCLG+xizETbHTkOa1f8/xut9JRPp8kQuMnz0oqwkTiLo/A==}
@@ -1512,6 +1518,8 @@ snapshots:
   minimatch@9.0.5:
     dependencies:
       brace-expansion: 2.0.1
+
+  mitt@3.0.1: {}
 
   mlly@1.7.3:
     dependencies:
