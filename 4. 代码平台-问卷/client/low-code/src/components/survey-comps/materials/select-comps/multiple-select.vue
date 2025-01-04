@@ -21,7 +21,7 @@ const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps<O
                     v-for="(item, idx) in computedState.options"
                     :key="idx"
                     :value="item"
-                    :label="item"
+                    :label="item as string"
                 />
             </el-checkbox-group>
         </div>
