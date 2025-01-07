@@ -2,11 +2,9 @@
 import EditPanel from '@/components/survey-comps/edit-items/edit-panel.vue'
 import { GET_PIC_LINK, UPDATE_STATE } from '@/constants'
 import { useMaterialStore } from '@/stores/use-material'
-import { isBoolean, isNumber, isObjectWithKeys, isString } from '@/utils'
 import { computed, provide } from 'vue'
-import { ElMessage } from 'element-plus'
-import type { OptionEditCompStatus, PicLink, TypeEditCompStatus } from '@/types'
-import { setUse } from '@/stores/common-actions'
+import { dispatchStatus } from '@/stores/common-dispatch'
+import type { FullEditCompStatus, PicLink } from '@/types'
 
 const materialStore = useMaterialStore()
 
@@ -14,61 +12,7 @@ const currentComp = computed(() => {
     return materialStore.comps[materialStore.currentMaterialComp]
 })
 
-const updateState = (confKey: string, payload?: string | number | boolean | PicLink) => {
-    switch (confKey) {
-        case 'title':
-        case 'desc':
-        case 'titleColor':
-        case 'descColor':
-            if (isString(payload)) {
-                materialStore.setTextState(currentComp.value.editCompConfig[confKey], payload)
-            }
-            break
-        case 'options':
-            const curEditCompConf = currentComp.value.editCompConfig as OptionEditCompStatus
-            const addOption = materialStore.addOption()
-            // payload 为数值时，表示为索引，进行删除选项
-            if (isNumber(payload)) {
-                const result = materialStore.removeOption(curEditCompConf[confKey], payload)
-                if (result) return ElMessage.success('删除成功')
-                ElMessage.error('至少保留两个选项')
-            }
-            // 限定为图片链接类型
-            else if (isObjectWithKeys<PicLink>(payload, ['link', 'idx'])) {
-                materialStore.setPicLinkByIndex(curEditCompConf[confKey], payload)
-            } else if (isBoolean(payload)) {
-                setUse(curEditCompConf[confKey], payload)
-            } else {
-                addOption(curEditCompConf[confKey], payload)
-            }
-            break
-        case 'type':
-            if (isNumber(payload)) {
-                const curEditCompConf = currentComp.value.editCompConfig as TypeEditCompStatus
-
-                // 存在切换标志时，进行切换
-                if (curEditCompConf[confKey].isTooggle === true) {
-                    materialStore.toggleType(curEditCompConf, payload)
-                    return
-                }
-
-                // 不存在切换标志时，进行状态更新
-                materialStore.updateCurrentState(curEditCompConf[confKey], payload)
-            }
-            break
-        case 'position':
-        case 'titleSize':
-        case 'descSize':
-        case 'titleBold':
-        case 'descBold':
-        case 'titleSlant':
-        case 'descSlant':
-            if (isNumber(payload)) {
-                materialStore.updateCurrentState(currentComp.value.editCompConfig[confKey], payload)
-            }
-            break
-    }
-}
+const updateState = dispatchStatus(materialStore, currentComp.value.editCompConfig as FullEditCompStatus)
 
 const getPicLink = (payload: PicLink) => {
     updateState('options', payload)

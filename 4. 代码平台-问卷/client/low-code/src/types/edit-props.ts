@@ -92,6 +92,8 @@ export function isTypeEditCompStatusObject(state: any) {
     return isObjectWithKeys<TypeEditCompStatus>(state, ['type'])
 }
 
+export type FullEditCompStatus = OptionEditCompStatus | TypeEditCompStatus
+
 // 业务组件
 export interface BaseBusinessComp<T = BaseEditCompStatus> {
     id: string

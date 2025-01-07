@@ -55,3 +55,5 @@ export const useEditorStore = defineStore('editor', {
         }
     }
 })
+
+export type EditorStoreInstance = ReturnType<typeof useEditorStore>

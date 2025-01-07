@@ -37,9 +37,9 @@ import {
     toggleType
 } from './common-actions'
 import { isEmpty } from 'element-plus/es/utils/types.mjs'
+import { updateInitStatusBeforeAdd } from '@/utils'
 import type { MaterialKeys } from '@/types/materials'
 import type { BaseBusinessComp } from '@/types'
-import { updateInitStatusBeforeAdd } from '@/utils'
 
 interface IUseMaterialStore {
     currentMaterialComp: MaterialKeys
