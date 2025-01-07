@@ -3,10 +3,11 @@ import { ElMessage } from 'element-plus'
 import { setUse } from '@/stores/common-actions'
 import type { OptionEditCompStatus, PicLink, TypeEditCompStatus, FullEditCompStatus } from '@/types'
 import type { MaterialStoreInstance, EditorStoreInstance } from '@/types'
+import type { ComputedRef } from 'vue'
 
 export const dispatchStatus = (
     store: MaterialStoreInstance | EditorStoreInstance,
-    currentEditCompStatusConfig: FullEditCompStatus
+    currentEditCompStatusConfig: ComputedRef<FullEditCompStatus>
 ) => {
     return function (confKey: string, payload?: string | number | boolean | PicLink) {
         switch (confKey) {
@@ -15,11 +16,11 @@ export const dispatchStatus = (
             case 'titleColor':
             case 'descColor':
                 if (isString(payload)) {
-                    store.setTextState(currentEditCompStatusConfig[confKey], payload)
+                    store.setTextState(currentEditCompStatusConfig.value[confKey], payload)
                 }
                 break
             case 'options':
-                const curEditCompConf = currentEditCompStatusConfig as OptionEditCompStatus
+                const curEditCompConf = currentEditCompStatusConfig.value as OptionEditCompStatus
                 const addOption = store.addOption()
                 // payload 为数值时，表示为索引，进行删除选项
                 if (isNumber(payload)) {
@@ -38,7 +39,7 @@ export const dispatchStatus = (
                 break
             case 'type':
                 if (isNumber(payload)) {
-                    const curEditCompConf = currentEditCompStatusConfig as TypeEditCompStatus
+                    const curEditCompConf = currentEditCompStatusConfig.value as TypeEditCompStatus
 
                     // 存在切换标志时，进行切换
                     if (curEditCompConf[confKey].isTooggle === true) {
@@ -58,7 +59,7 @@ export const dispatchStatus = (
             case 'titleSlant':
             case 'descSlant':
                 if (isNumber(payload)) {
-                    store.updateCurrentState(currentEditCompStatusConfig[confKey], payload)
+                    store.updateCurrentState(currentEditCompStatusConfig.value[confKey], payload)
                 }
                 break
         }
