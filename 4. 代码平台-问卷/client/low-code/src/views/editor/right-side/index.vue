@@ -11,7 +11,7 @@ const comps = computed(() => {
 </script>
 
 <template>
-    <div class="right-side-container p-15">
+    <div class="right-side-container">
         <!-- tips -->
         <template v-if="editorStore.currentCompIndex === -1">
             <div class="tips mt-20">点击题型进行编辑</div>

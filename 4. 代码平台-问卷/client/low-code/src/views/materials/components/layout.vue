@@ -2,7 +2,7 @@
 import EditPanel from '@/components/survey-comps/edit-items/edit-panel.vue'
 import { GET_PIC_LINK, UPDATE_STATE } from '@/constants'
 import { useMaterialStore } from '@/stores/use-material'
-import { computed, provide } from 'vue'
+import { computed, provide, type ComputedRef } from 'vue'
 import { dispatchStatus } from '@/stores/common-dispatch'
 import type { FullEditCompStatus, PicLink } from '@/types'
 
@@ -12,7 +12,11 @@ const currentComp = computed(() => {
     return materialStore.comps[materialStore.currentMaterialComp]
 })
 
-const updateState = dispatchStatus(materialStore, currentComp.value.editCompConfig as FullEditCompStatus)
+const editCompConfig = computed(() => {
+    return currentComp.value.editCompConfig
+})
+
+const updateState = dispatchStatus(materialStore, editCompConfig as ComputedRef<FullEditCompStatus>)
 
 const getPicLink = (payload: PicLink) => {
     updateState('options', payload)
