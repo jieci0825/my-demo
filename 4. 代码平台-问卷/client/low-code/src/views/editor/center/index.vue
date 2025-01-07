@@ -87,18 +87,21 @@ const handleRemove = (idx: number) => {
             transform: scale(1.01);
             transition: 0.5s;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        &.active {
-            transition: 0.3s;
-            border: 1px solid var(--border-color);
-            .close-btn {
-                display: block;
+            &.active {
+                border: 1px solid var(--border-color);
+                .close-btn {
+                    transform: scale(1);
+                    transition: 0.3s;
+                    opacity: 1;
+                }
             }
         }
+
         .close-btn {
             top: 10px;
             right: 10px;
-            display: none;
+            opacity: 0;
+            transform: scale(0);
         }
     }
 }
