@@ -1,6 +1,4 @@
-// JSON Schema 配置
-
-import { DateTime } from '@/components/survey-comps/materials/advanced-comps'
+import TextInput from '@/components/survey-comps/materials/input-comps/text-input.vue'
 import {
     TitleEditor,
     BoldEditor,
@@ -9,55 +7,51 @@ import {
     SlantEditor,
     PositionEditor,
     DescEditor,
-    DateTimeEditor
+    TypeEditor
 } from '@/components/survey-comps/edit-items'
 import { markRaw } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { predefineColors, DATE_TIME_KEY } from '@/constants'
+import { predefineColors, TEXT_INPUT_KEY } from '@/constants'
 import type { BaseBusinessComp, TypeEditCompStatus } from '@/types'
 
 export default function () {
     const status: BaseBusinessComp<TypeEditCompStatus> = {
-        type: markRaw(DateTime),
-        name: DATE_TIME_KEY,
+        type: markRaw(TextInput),
+        name: TEXT_INPUT_KEY,
         id: uuidv4(),
         // 组件状态：组件每一个能够修改的状态都需要对应一个编辑组件
         editCompConfig: {
+            type: {
+                id: uuidv4(),
+                title: '输入类型',
+                state: ['单行', '多行'],
+                icons: ['icon-single-line', 'icon-multiple-line'],
+                currentStage: 1,
+                name: 'type-editor',
+                isTooggle: true,
+                isShow: true,
+                editComp: markRaw(TypeEditor)
+            },
             title: {
                 id: uuidv4(),
-                state: '默认日期/时间题目标题',
+                state: '默认标题内容',
                 name: 'title-editor',
-                isShow: true,
+                isShow: false,
                 editComp: markRaw(TitleEditor)
             },
             desc: {
                 id: uuidv4(),
-                state: '默认日期/时间题目描述',
+                state: '默认描述内容',
                 name: 'desc-editor',
                 isShow: true,
                 editComp: markRaw(DescEditor)
-            },
-            type: {
-                id: uuidv4(),
-                title: '日期类型',
-                currentStage: 3,
-                state: [
-                    { value: 'week', state: '周' },
-                    { value: 'year', state: '年' },
-                    { value: 'month', state: '月' },
-                    { value: 'date', state: '日期' }
-                ],
-                isShow: true,
-                name: 'date-time-editor',
-                editComp: markRaw(DateTimeEditor),
-                isTooggle: false
             },
             position: {
                 id: uuidv4(),
                 title: '对齐方式',
                 state: ['左', '居中', '右'],
                 icons: ['icon-left-align', 'icon-center-align', 'icon-right-align'],
-                currentStage: 0,
+                currentStage: 1,
                 name: 'position-editor',
                 isShow: true,
                 editComp: markRaw(PositionEditor)
@@ -69,7 +63,7 @@ export default function () {
                 icons: ['icon-font-size', 'icon-font-size', 'icon-font-size'],
                 currentStage: 2,
                 name: 'size-editor',
-                isShow: true,
+                isShow: false,
                 editComp: markRaw(SizeEditor)
             },
             descSize: {
@@ -89,7 +83,7 @@ export default function () {
                 icons: ['icon-font-bold', 'icon-font-bold'],
                 currentStage: 1,
                 name: 'bold-editor',
-                isShow: true,
+                isShow: false,
                 editComp: markRaw(BoldEditor)
             },
             descBold: {
@@ -109,7 +103,7 @@ export default function () {
                 icons: ['icon-font-slant', 'icon-font-slant'],
                 currentStage: 1,
                 name: 'slant-editor',
-                isShow: true,
+                isShow: false,
                 editComp: markRaw(SlantEditor)
             },
             descSlant: {
@@ -128,7 +122,7 @@ export default function () {
                 state: '#303133',
                 predefineColors: predefineColors.slice(),
                 name: 'color-editor',
-                isShow: true,
+                isShow: false,
                 editComp: markRaw(ColorEditor)
             },
             descColor: {

@@ -1,6 +1,6 @@
 // JSON Schema 配置
 
-import { DateTime } from '@/components/survey-comps/materials/advanced-comps'
+import { MultipleSelect } from '@/components/survey-comps/materials/select-comps'
 import {
     TitleEditor,
     BoldEditor,
@@ -8,49 +8,42 @@ import {
     SizeEditor,
     SlantEditor,
     PositionEditor,
-    DescEditor,
-    DateTimeEditor
+    OptionEditor,
+    DescEditor
 } from '@/components/survey-comps/edit-items'
 import { markRaw } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { predefineColors, DATE_TIME_KEY } from '@/constants'
-import type { BaseBusinessComp, TypeEditCompStatus } from '@/types'
+import { predefineColors, MULTIPLE_SELECT_KEY } from '@/constants'
+import type { BaseBusinessComp, OptionEditCompStatus } from '@/types'
 
 export default function () {
-    const status: BaseBusinessComp<TypeEditCompStatus> = {
-        type: markRaw(DateTime),
-        name: DATE_TIME_KEY,
+    const status: BaseBusinessComp<OptionEditCompStatus> = {
+        type: markRaw(MultipleSelect),
+        name: MULTIPLE_SELECT_KEY,
         id: uuidv4(),
         // 组件状态：组件每一个能够修改的状态都需要对应一个编辑组件
         editCompConfig: {
             title: {
                 id: uuidv4(),
-                state: '默认日期/时间题目标题',
+                state: '多选题默认标题',
                 name: 'title-editor',
                 isShow: true,
                 editComp: markRaw(TitleEditor)
             },
             desc: {
                 id: uuidv4(),
-                state: '默认日期/时间题目描述',
+                state: '多选题默认描述',
                 name: 'desc-editor',
                 isShow: true,
                 editComp: markRaw(DescEditor)
             },
-            type: {
+            options: {
                 id: uuidv4(),
-                title: '日期类型',
-                currentStage: 3,
-                state: [
-                    { value: 'week', state: '周' },
-                    { value: 'year', state: '年' },
-                    { value: 'month', state: '月' },
-                    { value: 'date', state: '日期' }
-                ],
+                state: ['默认选项1', '默认选项2'],
+                currentStage: 0,
+                name: 'option-editor',
                 isShow: true,
-                name: 'date-time-editor',
-                editComp: markRaw(DateTimeEditor),
-                isTooggle: false
+                editComp: markRaw(OptionEditor)
             },
             position: {
                 id: uuidv4(),

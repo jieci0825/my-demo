@@ -1,6 +1,4 @@
-// JSON Schema 配置
-
-import { DateTime } from '@/components/survey-comps/materials/advanced-comps'
+import { MultiplePicSelect } from '@/components/survey-comps/materials/select-comps'
 import {
     TitleEditor,
     BoldEditor,
@@ -8,49 +6,52 @@ import {
     SizeEditor,
     SlantEditor,
     PositionEditor,
-    DescEditor,
-    DateTimeEditor
+    PicOptionsEditor,
+    DescEditor
 } from '@/components/survey-comps/edit-items'
+import { predefineColors, MULTIPLE_PIC_SELECT_KEY } from '@/constants'
 import { markRaw } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { predefineColors, DATE_TIME_KEY } from '@/constants'
-import type { BaseBusinessComp, TypeEditCompStatus } from '@/types'
+import type { BaseBusinessComp, OptionEditCompStatus } from '@/types'
 
 export default function () {
-    const status: BaseBusinessComp<TypeEditCompStatus> = {
-        type: markRaw(DateTime),
-        name: DATE_TIME_KEY,
+    const status: BaseBusinessComp<OptionEditCompStatus> = {
         id: uuidv4(),
-        // 组件状态：组件每一个能够修改的状态都需要对应一个编辑组件
+        type: markRaw(MultiplePicSelect),
+        name: MULTIPLE_PIC_SELECT_KEY,
         editCompConfig: {
             title: {
                 id: uuidv4(),
-                state: '默认日期/时间题目标题',
+                state: '默认图片多选题标题内容',
                 name: 'title-editor',
                 isShow: true,
                 editComp: markRaw(TitleEditor)
             },
             desc: {
                 id: uuidv4(),
-                state: '默认日期/时间题目描述',
+                state: '默认图片多选题描述内容',
                 name: 'desc-editor',
                 isShow: true,
                 editComp: markRaw(DescEditor)
             },
-            type: {
+            options: {
                 id: uuidv4(),
-                title: '日期类型',
-                currentStage: 3,
                 state: [
-                    { value: 'week', state: '周' },
-                    { value: 'year', state: '年' },
-                    { value: 'month', state: '月' },
-                    { value: 'date', state: '日期' }
+                    {
+                        picTitle: '图片标题1',
+                        picDesc: '图片描述1',
+                        value: ''
+                    },
+                    {
+                        picTitle: '图片标题2',
+                        picDesc: '图片描述2',
+                        value: ''
+                    }
                 ],
+                currentStage: 0,
+                name: 'option-editor',
                 isShow: true,
-                name: 'date-time-editor',
-                editComp: markRaw(DateTimeEditor),
-                isTooggle: false
+                editComp: markRaw(PicOptionsEditor)
             },
             position: {
                 id: uuidv4(),

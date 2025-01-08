@@ -11,24 +11,18 @@ import {
     idInitStatus,
     industryInitStatus,
     majorInitStatus,
-    multiplePicSelectInitStatus,
-    multipleSelectInitStatus,
     nameInitStatus,
     optionSelectInitStatus,
     phoneInitStatus,
     positionInitStatus,
     qqInitStatus,
-    textInputInitStatus,
     wechatInitStatus
 } from '@/configs/default-status/init-status'
 import {
-    MULTIPLE_PIC_SELECT_KEY,
-    MULTIPLE_SELECT_KEY,
     OPTION_SELECT_KEY,
     PRESET_PERSONAL_INFO_GENDER_KEY,
     PRESET_PERSONAL_INFO_ID_KEY,
     PRESET_PERSONAL_INFO_NAME_KEY,
-    TEXT_INPUT_KEY,
     PRESET_PERSONAL_INFO_COLLAGE_KEY,
     PRESET_PERSONAL_INFO_MAJOR_KEY,
     PRESET_PERSONAL_INFO_INDUSTRY_KEY,
@@ -60,9 +54,6 @@ function allShowInitStatus(comStatus: BaseBusinessComp) {
 }
 
 const onlyTitleAndDescMap = {
-    [OPTION_SELECT_KEY]: optionSelectInitStatus,
-    [MULTIPLE_PIC_SELECT_KEY]: multiplePicSelectInitStatus,
-    [MULTIPLE_SELECT_KEY]: multipleSelectInitStatus,
     [PRESET_PERSONAL_INFO_BIRTH_KEY]: birthInitStatus
 }
 
@@ -106,25 +97,15 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
                 comStatus.editCompConfig.options.currentStage = currentStage
             }
             break
-        case MULTIPLE_SELECT_KEY:
-        case MULTIPLE_PIC_SELECT_KEY:
-        case OPTION_SELECT_KEY:
         case PRESET_PERSONAL_INFO_BIRTH_KEY:
             const { title, desc } = onlyTitleAndDescMap[newMaterialName]()
             updateTitleAndDesc(comStatus, title, desc)
             break
-        case TEXT_INPUT_KEY:
-            if (isTypeEditCompStatusObject(comStatus.editCompConfig)) {
-                const { title, desc, typeIcons, typeOptions, typeTitle, titleSizeOptions } = textInputInitStatus()
+        case OPTION_SELECT_KEY:
+            if (isOptionEditCompStatusObject(comStatus.editCompConfig)) {
+                const { title, desc, typeComp } = optionSelectInitStatus()
                 updateTitleAndDesc(comStatus, title, desc)
-                allShowInitStatus(comStatus)
-
-                comStatus.editCompConfig.type.title = typeTitle
-                comStatus.editCompConfig.type.icons = typeIcons
-                comStatus.editCompConfig.type.state = typeOptions
-                comStatus.editCompConfig.type.isTooggle = false
-                comStatus.editCompConfig.position.currentStage = 0
-                comStatus.editCompConfig.titleSize.state = titleSizeOptions
+                comStatus.type = typeComp
             }
             break
         case PRESET_PERSONAL_INFO_ID_KEY:

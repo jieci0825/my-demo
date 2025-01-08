@@ -1,6 +1,9 @@
 import singleSelectDefaultStatus from './single-select'
+import multipleSelectDefaultStatus from './multiple-select'
 import singlePicSelectDefaultStatus from './single-pic-select'
+import multiplePicSelectDefaultStatus from './multiple-pic-select'
 import textNodeDefaultStatus from './text-node'
+import textInputDefaultStatus from './text-input'
 import rateScoreDefaultStatus from './rate-score'
 import dateTimeDefaultStatus from './date-time'
 import {
@@ -35,18 +38,18 @@ import {
 export const defaultStatusMap = {
     [OPTION_SELECT_KEY]: singleSelectDefaultStatus,
     [SINGLE_SELECT_KEY]: singleSelectDefaultStatus,
-    [MULTIPLE_SELECT_KEY]: singleSelectDefaultStatus,
+    [SINGLE_PIC_SELECT_KEY]: singlePicSelectDefaultStatus,
+    [MULTIPLE_SELECT_KEY]: multipleSelectDefaultStatus,
+    [MULTIPLE_PIC_SELECT_KEY]: multiplePicSelectDefaultStatus,
+    [RATE_SCORE_KEY]: rateScoreDefaultStatus,
+    [DATE_TIME_KEY]: dateTimeDefaultStatus,
+    [TEXT_NODE_KEY]: textNodeDefaultStatus,
+    [TEXT_INPUT_KEY]: textInputDefaultStatus,
+    [PRESET_PERSONAL_INFO_BIRTH_KEY]: dateTimeDefaultStatus,
     [PRESET_PERSONAL_INFO_GENDER_KEY]: singleSelectDefaultStatus,
     [PRESET_PERSONAL_INFO_AGE_KEY]: singleSelectDefaultStatus,
     [PRESET_PERSONAL_INFO_EDUCATION_KEY]: singleSelectDefaultStatus,
     [PRESET_PERSONAL_INFO_CAREER_KEY]: singleSelectDefaultStatus,
-    [SINGLE_PIC_SELECT_KEY]: singlePicSelectDefaultStatus,
-    [MULTIPLE_PIC_SELECT_KEY]: singlePicSelectDefaultStatus,
-    [RATE_SCORE_KEY]: rateScoreDefaultStatus,
-    [DATE_TIME_KEY]: dateTimeDefaultStatus,
-    [PRESET_PERSONAL_INFO_BIRTH_KEY]: dateTimeDefaultStatus,
-    [TEXT_NODE_KEY]: textNodeDefaultStatus,
-    [TEXT_INPUT_KEY]: textNodeDefaultStatus,
     [PRESET_PERSONAL_INFO_NAME_KEY]: textNodeDefaultStatus,
     [PRESET_PERSONAL_INFO_ID_KEY]: textNodeDefaultStatus,
     [PRESET_PERSONAL_INFO_COLLAGE_KEY]: textNodeDefaultStatus,
