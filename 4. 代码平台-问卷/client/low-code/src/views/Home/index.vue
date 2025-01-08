@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { JC_WEN_JUAN_ACTIVE_VIEW } from '@/constants'
+import { getAllSurveryData } from '@/db/operation'
 import { Plus, Compass } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import type { SurveyDBData } from '@/types'
 
-const tableData = ref([])
+const tableData = ref<SurveyDBData[]>([])
 const $router = useRouter()
+
+const fetchData = async () => {
+    const resp = await getAllSurveryData()
+    tableData.value = resp
+}
+fetchData()
 
 const goToCreateEditor = () => {
     // 当前激活视图是编辑器
