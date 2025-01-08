@@ -81,7 +81,6 @@ const handleRemove = (idx: number) => {
     .content {
         cursor: pointer;
         border-radius: var(--border-radius-large);
-        overflow: hidden;
         border: 1px solid transparent;
         &:hover {
             transform: scale(1.01);
