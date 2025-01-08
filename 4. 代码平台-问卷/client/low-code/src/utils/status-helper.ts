@@ -57,7 +57,8 @@ const onlyTitleAndDescMap = {
     [PRESET_PERSONAL_INFO_BIRTH_KEY]: birthInitStatus
 }
 
-const personalInfoTextInputInitStatusMap = {
+// 预设文本输入状态映射
+const textInputInitStatusMap = {
     [PRESET_PERSONAL_INFO_ID_KEY]: idInitStatus,
     [PRESET_PERSONAL_INFO_NAME_KEY]: nameInitStatus,
     [PRESET_PERSONAL_INFO_COLLAGE_KEY]: collageInitStatus,
@@ -72,7 +73,8 @@ const personalInfoTextInputInitStatusMap = {
     [PRESET_CONTACT_ADDRESS_KEY]: addressInitStatus
 }
 
-const personalInfoSingleSelectInitStatusMap = {
+// 预设选项选择状态映射
+const selectInitStatusMap = {
     [PRESET_PERSONAL_INFO_GENDER_KEY]: genderInitStatus,
     [PRESET_PERSONAL_INFO_AGE_KEY]: ageInitStatus,
     [PRESET_PERSONAL_INFO_CAREER_KEY]: careerInitStatus,
@@ -90,7 +92,7 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
         case PRESET_PERSONAL_INFO_CAREER_KEY:
         case PRESET_PERSONAL_INFO_EDUCATION_KEY:
             if (isOptionEditCompStatusObject(comStatus.editCompConfig)) {
-                const { title, desc, options, currentStage } = personalInfoSingleSelectInitStatusMap[newMaterialName]()
+                const { title, desc, options, currentStage } = selectInitStatusMap[newMaterialName]()
                 updateTitleAndDesc(comStatus, title, desc)
 
                 comStatus.editCompConfig.options.state = options
@@ -121,11 +123,11 @@ export const updateInitStatusBeforeAdd = (comStatus: BaseBusinessComp, newMateri
         case PRESET_CONTACT_WECHAT_KEY:
         case PRESET_CONTACT_ADDRESS_KEY:
             if (isTypeEditCompStatusObject(comStatus.editCompConfig)) {
-                const { title, desc, titleSizeOptions } = personalInfoTextInputInitStatusMap[newMaterialName]()
+                const { title, desc, titleSizeOptions } = textInputInitStatusMap[newMaterialName]()
                 updateTitleAndDesc(comStatus, title, desc)
                 allShowInitStatus(comStatus)
 
-                // 这里需要后置处理 type.isShow
+                // 这里需要后置处理 type.isShow，隐藏类型切换，只展示单行输入
                 comStatus.editCompConfig.type.isShow = false
                 comStatus.editCompConfig.type.currentStage = 0
                 comStatus.editCompConfig.position.currentStage = 0
