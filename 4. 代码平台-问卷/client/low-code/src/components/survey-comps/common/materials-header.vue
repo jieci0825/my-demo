@@ -4,7 +4,7 @@ const {
     desc = '这是一个描述',
     sn
 } = defineProps<{
-    sn: number
+    sn: number | null
     title: string
     desc: string
     titleSize: string
@@ -24,7 +24,11 @@ const {
             :style="{ fontSize: `${titleSize}px`, color: `${titleColor}` }"
             :class="['title', !isTitleBold ? 'font-bold' : 'font-weight-100', !isTitleSlant ? 'font-italic' : '']"
         >
-            <span class="mr-10">{{ sn }}.</span>
+            <span
+                v-if="sn"
+                class="mr-10"
+                >{{ sn }}.</span
+            >
             <span>{{ title }}</span>
         </h2>
         <div

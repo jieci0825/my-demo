@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import Draggable from 'vuedraggable'
 import { useEditorStore } from '@/stores/use-editor'
-import { emitter } from '@/utils'
-import { nextTick, ref } from 'vue'
+import { emitter, getRenderSnList } from '@/utils'
+import { computed, nextTick, ref } from 'vue'
 import { Close } from '@element-plus/icons-vue'
 
 const centerContainerRef = ref<HTMLElement | null>(null)
 const editorStore = useEditorStore()
+
+const snList = computed(() => getRenderSnList(editorStore.comps).value)
 
 const scrollToBottom = () => {
     if (!centerContainerRef.value) return
@@ -54,7 +56,7 @@ const handleRemove = (idx: number) => {
                     >
                         <Component
                             :editCompConfig="item.editCompConfig"
-                            :sn="1"
+                            :sn="snList[idx]"
                             :is="item.type"
                         />
                         <!-- close -->

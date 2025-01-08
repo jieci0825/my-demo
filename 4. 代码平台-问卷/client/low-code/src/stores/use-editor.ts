@@ -7,9 +7,8 @@ import {
     setPicLinkByIndex,
     toggleType
 } from './common-actions'
+import { emitter, isQuestionType } from '@/utils'
 import type { BaseBusinessComp } from '@/types'
-import { TEXT_NODE_KEY } from '@/constants'
-import { emitter } from '@/utils'
 
 interface IEditorState {
     currentCompIndex: number
@@ -45,9 +44,8 @@ export const useEditorStore = defineStore('editor', {
         // 题目数量
         surveyCount: (state: IEditorState): number => {
             let count = 0
-            const excludes = [TEXT_NODE_KEY]
             state.comps.forEach(comp => {
-                if (!excludes.includes(comp.name)) {
+                if (isQuestionType(comp.name)) {
                     count++
                 }
             })

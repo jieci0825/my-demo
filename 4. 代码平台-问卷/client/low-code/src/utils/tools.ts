@@ -1,0 +1,26 @@
+import { TEXT_NODE_KEY } from '@/constants'
+import type { BaseBusinessComp } from '@/types'
+import { computed, type ComputedRef } from 'vue'
+
+// 是否是题目类型
+export const isQuestionType = (type: string) => {
+    const excludes = [TEXT_NODE_KEY]
+    if (excludes.includes(type)) {
+        return false
+    }
+    return true
+}
+
+// 获取出渲染序号的数组
+export const getRenderSnList = (comps: BaseBusinessComp[]): ComputedRef<Array<null | number>> => {
+    let sn = 1
+    return computed(() => {
+        return comps.map(comp => {
+            if (isQuestionType(comp.name)) {
+                return sn++
+            }
+            // 如果不是题目类型，则返回一个 null 不进行渲染
+            return null
+        })
+    })
+}
