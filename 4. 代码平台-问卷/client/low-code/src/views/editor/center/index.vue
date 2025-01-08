@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Draggable from 'vuedraggable'
 import { useEditorStore } from '@/stores/use-editor'
 import { emitter } from '@/utils'
 import { nextTick, ref } from 'vue'
@@ -40,30 +41,36 @@ const handleRemove = (idx: number) => {
             <el-empty description="暂无内容" />
         </template>
         <template v-else>
-            <div
-                v-for="(item, idx) in editorStore.comps"
-                class="content p-10 relative"
-                :class="{ active: editorStore.currentCompIndex === idx }"
-                :key="item.id"
-                @click="handleClick(idx)"
+            <Draggable
+                v-model="editorStore.comps"
+                item-key="index"
             >
-                <Component
-                    :editCompConfig="item.editCompConfig"
-                    :sn="1"
-                    :is="item.type"
-                />
-                <!-- close -->
-                <el-button
-                    v-if="editorStore.currentCompIndex === idx"
-                    class="absolute close-btn"
-                    type="danger"
-                    size="small"
-                    circle
-                    :icon="Close"
-                    @click.stop="handleRemove(idx)"
-                >
-                </el-button>
-            </div>
+                <template #item="{ element: item, index: idx }">
+                    <div
+                        class="content p-10 relative"
+                        :class="{ active: editorStore.currentCompIndex === idx }"
+                        :key="item.id"
+                        @click="handleClick(idx)"
+                    >
+                        <Component
+                            :editCompConfig="item.editCompConfig"
+                            :sn="1"
+                            :is="item.type"
+                        />
+                        <!-- close -->
+                        <el-button
+                            v-if="editorStore.currentCompIndex === idx"
+                            class="absolute close-btn"
+                            type="danger"
+                            size="small"
+                            circle
+                            :icon="Close"
+                            @click.stop="handleRemove(idx)"
+                        >
+                        </el-button>
+                    </div>
+                </template>
+            </Draggable>
         </template>
     </div>
 </template>
@@ -75,13 +82,14 @@ const handleRemove = (idx: number) => {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-base);
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
     .content {
         cursor: pointer;
         border-radius: var(--border-radius-large);
         border: 1px solid transparent;
+        margin-top: 15px;
+        &:nth-child(1) {
+            margin-top: 0;
+        }
         &:hover {
             transform: scale(1.01);
             transition: 0.5s;
