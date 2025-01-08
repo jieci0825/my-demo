@@ -22,6 +22,23 @@ const scrollToBottom = () => {
 }
 emitter.on('scrollToBottom', scrollToBottom)
 
+// 滚动到指定的组件位置
+const scrollToComp = (idx: number) => {
+    if (!centerContainerRef.value) return
+    nextTick(() => {
+        const container = centerContainerRef.value!
+        // draggable组件内部会自动添加一个div包裹，所以实际要获取的是这个div下面的子元素
+        const comp = container.querySelector('div')!.children[idx] as HTMLElement
+        if (comp) {
+            container.scrollTo({
+                top: comp.offsetTop,
+                behavior: 'smooth'
+            })
+        }
+    })
+}
+emitter.on('scrollToComp', scrollToComp)
+
 const handleClick = (idx: number) => {
     if (editorStore.currentCompIndex === idx) {
         idx = -1

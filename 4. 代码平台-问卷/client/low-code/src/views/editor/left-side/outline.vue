@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Draggable from 'vuedraggable'
 import { useEditorStore } from '@/stores/use-editor'
-import { getRenderSnList } from '@/utils'
+import { emitter, getRenderSnList } from '@/utils'
 import { computed } from 'vue'
 
 const editorStore = useEditorStore()
@@ -10,9 +10,12 @@ const snList = computed(() => getRenderSnList(editorStore.comps).value)
 
 const handleClick = (idx: number) => {
     if (editorStore.currentCompIndex === idx) {
-        idx = -1
+        editorStore.setCurrentCompIndex(-1)
+    } else {
+        editorStore.setCurrentCompIndex(idx)
+        // 点击大纲时，滚动到对应组件
+        emitter.emit('scrollToComp', idx)
     }
-    editorStore.setCurrentCompIndex(idx)
 }
 
 const dragStart = () => {

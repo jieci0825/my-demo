@@ -5,7 +5,7 @@ import { useMaterialProps } from '@/hooks'
 
 interface Props {
     editCompConfig: TypeEditCompStatus
-    sn: number
+    sn: number | null
 }
 const props = defineProps<Props>()
 

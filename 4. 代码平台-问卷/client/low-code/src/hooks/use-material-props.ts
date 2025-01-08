@@ -9,7 +9,7 @@ import {
 
 interface MaterialHeaderProps<T> {
     editCompConfig: T
-    sn: number
+    sn: number | null
 }
 
 export function useMaterialProps<T extends BaseEditCompStatus>(props: MaterialHeaderProps<T>) {
