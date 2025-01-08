@@ -29,6 +29,9 @@ importers:
       vue-router:
         specifier: ^4.5.0
         version: 4.5.0(vue@3.5.13(typescript@5.6.3))
+      vuedraggable:
+        specifier: 4.0.0
+        version: 4.0.0(vue@3.5.13(typescript@5.6.3))
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.2.1
@@ -856,6 +859,9 @@ packages:
   scule@1.3.0:
     resolution: {integrity: sha512-6FtHJEvt+pVMIB9IBY+IcCJ6Z5f1iQnytgyfKMhDKgmzYG+TeH/wx1y3l27rshSbLiSanrR9ffZDrEsmjlQF2g==}
 
+  sortablejs@1.10.2:
+    resolution: {integrity: sha512-YkPGufevysvfwn5rfdlGyrGjt7/CRHwvRPogD/lC+TnvcN29jDpCifKP+rBqf+LRldfXSTh+0CGLcSg0VIxq3A==}
+
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -1009,6 +1015,11 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+
+  vuedraggable@4.0.0:
+    resolution: {integrity: sha512-3ggkKwJ4tR9hqr1AqmIKk4TKiJ1fYt2/rfByvRJ0r1ZUf3k3dn/oDdFCskQNeSkk8j7mLmmYctwJ3JexIYEm8g==}
+    peerDependencies:
+      vue: ^3.0.1
 
   webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
@@ -1705,6 +1716,8 @@ snapshots:
 
   scule@1.3.0: {}
 
+  sortablejs@1.10.2: {}
+
   source-map-js@1.2.1: {}
 
   strip-literal@2.1.1:
@@ -1841,5 +1854,10 @@ snapshots:
       '@vue/shared': 3.5.13
     optionalDependencies:
       typescript: 5.6.3
+
+  vuedraggable@4.0.0(vue@3.5.13(typescript@5.6.3)):
+    dependencies:
+      sortablejs: 1.10.2
+      vue: 3.5.13(typescript@5.6.3)
 
   webpack-virtual-modules@0.6.2: {}
