@@ -4,7 +4,6 @@ import type { BaseBusinessComp } from './edit-props'
 export interface SurveyDBData {
     createDate: number
     updateDate: number
-    id: string
     title: string
     surveyCount: number
     comps: BaseBusinessComp[]

@@ -8,7 +8,8 @@ import {
     toggleType
 } from './common-actions'
 import { emitter, isQuestionType } from '@/utils'
-import type { BaseBusinessComp } from '@/types'
+import type { BaseBusinessComp, SurveyDBData } from '@/types'
+import { insertSurveryData } from '@/db/operation'
 
 interface IEditorState {
     currentCompIndex: number
@@ -39,6 +40,13 @@ export const useEditorStore = defineStore('editor', {
         removeComp(index: number) {
             this.comps.splice(index, 1)
             this.setCurrentCompIndex(-1)
+        },
+        resetComps() {
+            this.comps = []
+            this.setCurrentCompIndex(-1)
+        },
+        async saveComp(data: SurveyDBData) {
+            await insertSurveryData(data)
         },
         setCurrentCompIndex(index: number) {
             this.currentCompIndex = index

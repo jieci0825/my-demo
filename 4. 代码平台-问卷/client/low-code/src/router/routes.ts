@@ -7,13 +7,13 @@ export const routes = [
         component: () => import('@/views/home/index.vue')
     },
     {
-        path: '/editor/:mode',
+        path: '/editor',
         name: 'editor',
         meta: {
-            title: '问卷'
+            title: '创建问卷'
         },
         component: () => import('@/views/editor/index.vue'),
-        redirect: '/editor/:mode/survey-type',
+        redirect: '/editor/survey-type',
         children: [
             {
                 path: 'outline',

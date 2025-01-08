@@ -42,7 +42,9 @@ const goHome = () => {
         </div>
         <div class="page-header-center flex align-items-center flex-1 pl-20 pr-20">
             <h2 class="font-weight-300">{{ innerTitle }}</h2>
-            <div class="center-actions"></div>
+            <div class="center-actions">
+                <slot name="center"></slot>
+            </div>
         </div>
         <div class="page-header-right flex-center">
             <slot name="right">
