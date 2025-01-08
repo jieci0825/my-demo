@@ -7,6 +7,11 @@ import { computed } from 'vue'
 const editorStore = useEditorStore()
 
 const snList = computed(() => getRenderSnList(editorStore.comps).value)
+
+const dragStart = () => {
+    // 拖拽开始时，将选中的组件索引重置为-1，恢复不选中状态
+    editorStore.setCurrentCompIndex(-1)
+}
 </script>
 
 <template>
@@ -17,6 +22,7 @@ const snList = computed(() => getRenderSnList(editorStore.comps).value)
                 v-model="editorStore.comps"
                 item-key="index"
                 class="outline-list"
+                @start="dragStart"
             >
                 <!-- 非题目类型的标题不进行渲染，序号为 null 则表示不是一个题目类型 -->
                 <!-- tips: 不能将注释加入此插槽内部，也会被认为是多个子节点，仅允许单个子节点 -->

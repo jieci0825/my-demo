@@ -32,6 +32,11 @@ const handleClick = (idx: number) => {
 const handleRemove = (idx: number) => {
     console.log('handleRemove', idx)
 }
+
+const dragStart = () => {
+    // 拖拽开始时，将选中的组件索引重置为-1，恢复不选中状态
+    editorStore.setCurrentCompIndex(-1)
+}
 </script>
 
 <template>
@@ -46,6 +51,7 @@ const handleRemove = (idx: number) => {
             <Draggable
                 v-model="editorStore.comps"
                 item-key="index"
+                @start="dragStart"
             >
                 <template #item="{ element: item, index: idx }">
                     <div
