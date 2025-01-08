@@ -4,6 +4,7 @@ import { useEditorStore } from '@/stores/use-editor'
 import { emitter, getRenderSnList } from '@/utils'
 import { computed, nextTick, ref } from 'vue'
 import { Close } from '@element-plus/icons-vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 const centerContainerRef = ref<HTMLElement | null>(null)
 const editorStore = useEditorStore()
@@ -46,8 +47,17 @@ const handleClick = (idx: number) => {
     editorStore.setCurrentCompIndex(idx)
 }
 
-const handleRemove = (idx: number) => {
-    console.log('handleRemove', idx)
+const handleRemove = async (idx: number) => {
+    try {
+        await ElMessageBox.confirm('确定删除该组件吗？', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+        })
+        editorStore.removeComp(idx)
+    } catch (error) {
+        ElMessage.info('已取消删除')
+    }
 }
 
 const dragStart = () => {
@@ -110,17 +120,19 @@ const dragStart = () => {
     .content {
         cursor: pointer;
         border-radius: var(--border-radius-large);
-        border: 1px solid transparent;
+        border: 2px solid transparent;
         margin-top: 15px;
         &:nth-child(1) {
             margin-top: 0;
+        }
+        &.active {
+            border-color: var(--primary-color);
         }
         &:hover {
             transform: scale(1.01);
             transition: 0.5s;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             &.active {
-                border: 1px solid var(--border-color);
                 .close-btn {
                     transform: scale(1);
                     transition: 0.3s;

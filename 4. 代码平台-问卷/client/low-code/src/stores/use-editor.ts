@@ -36,6 +36,10 @@ export const useEditorStore = defineStore('editor', {
 
             emitter.emit('scrollToBottom')
         },
+        removeComp(index: number) {
+            this.comps.splice(index, 1)
+            this.setCurrentCompIndex(-1)
+        },
         setCurrentCompIndex(index: number) {
             this.currentCompIndex = index
         }
