@@ -8,6 +8,13 @@ const editorStore = useEditorStore()
 
 const snList = computed(() => getRenderSnList(editorStore.comps).value)
 
+const handleClick = (idx: number) => {
+    if (editorStore.currentCompIndex === idx) {
+        idx = -1
+    }
+    editorStore.setCurrentCompIndex(idx)
+}
+
 const dragStart = () => {
     // 拖拽开始时，将选中的组件索引重置为-1，恢复不选中状态
     editorStore.setCurrentCompIndex(-1)
@@ -30,6 +37,7 @@ const dragStart = () => {
                     <div
                         v-if="snList[index]"
                         class="outline-item"
+                        @click="handleClick(index)"
                     >
                         {{ snList[index] }}. {{ element.editCompConfig.title.state }}
                     </div>
