@@ -5,7 +5,7 @@ import { Plus, Compass, View, Delete, EditPen } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { formatDate } from '@/utils'
-import type { SurveyDBData } from '@/types'
+import type { SurveyDBData, SurveyDBReturnData } from '@/types'
 
 const tableData = ref<SurveyDBData[]>([])
 const $router = useRouter()
@@ -29,6 +29,14 @@ const goToMaterials = () => {
     // 当前激活视图是组件市场
     localStorage.setItem(JC_WEN_JUAN_ACTIVE_VIEW, 'materials')
     $router.push('/materials')
+}
+const goToPreview = (row: SurveyDBReturnData) => {
+    $router.push({
+        path: `/preview/${row.id}`,
+        state: {
+            from: 'home'
+        }
+    })
 }
 </script>
 
@@ -95,6 +103,7 @@ const goToMaterials = () => {
                             size="small"
                             plain
                             :icon="View"
+                            @click="goToPreview(scope.row)"
                             >查看问卷</el-button
                         >
                         <el-button

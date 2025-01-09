@@ -8,7 +8,7 @@ import {
     SizeEditor,
     SlantEditor,
     PositionEditor,
-    OptionEditor,
+    PicOptionsEditor,
     DescEditor
 } from '@/components/survey-comps/edit-items'
 import { markRaw } from 'vue'
@@ -41,9 +41,9 @@ export default function () {
                 id: uuidv4(),
                 state: ['默认选项1', '默认选项2'],
                 currentStage: 0,
-                name: 'option-editor',
+                name: 'pic-option-editor',
                 isShow: true,
-                editComp: markRaw(OptionEditor)
+                editComp: markRaw(PicOptionsEditor)
             },
             position: {
                 id: uuidv4(),

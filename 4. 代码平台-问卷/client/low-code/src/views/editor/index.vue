@@ -63,6 +63,10 @@ const handleSave = async () => {
     }
 }
 
+const handlePreview = () => {
+    console.log('预览问卷')
+}
+
 provide(UPDATE_STATE, updateState)
 provide(GET_PIC_LINK, getPicLink)
 </script>
@@ -82,7 +86,11 @@ provide(GET_PIC_LINK, getPicLink)
                     >保存问卷</el-button
                 >
                 <el-button type="warning">更新问卷</el-button>
-                <el-button type="primary">预览问卷</el-button>
+                <el-button
+                    type="primary"
+                    @click="handlePreview"
+                    >预览问卷</el-button
+                >
             </template>
         </PageHeader>
         <div class="main flex">

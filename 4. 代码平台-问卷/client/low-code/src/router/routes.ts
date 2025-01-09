@@ -1,10 +1,21 @@
+import Home from '@/views/home/index.vue'
+
 export const routes = [
     {
         path: '/',
         meta: {
             title: '首页'
         },
-        component: () => import('@/views/home/index.vue')
+        // 动态引入导致其他组件没有加载完成就被引用，所以这里不使用动态引入
+        component: Home
+    },
+    {
+        path: '/preview/:id',
+        name: 'preview',
+        meta: {
+            title: '预览问卷'
+        },
+        component: () => import('@/views/preview/index.vue')
     },
     {
         path: '/editor',

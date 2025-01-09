@@ -49,7 +49,7 @@ export default function () {
                     }
                 ],
                 currentStage: 0,
-                name: 'option-editor',
+                name: 'pic-option-editor',
                 isShow: true,
                 editComp: markRaw(PicOptionsEditor)
             },

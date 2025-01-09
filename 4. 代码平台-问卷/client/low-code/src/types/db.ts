@@ -8,3 +8,7 @@ export interface SurveyDBData {
     surveyCount: number
     comps: BaseBusinessComp[]
 }
+
+export interface SurveyDBReturnData extends SurveyDBData {
+    id: number
+}
