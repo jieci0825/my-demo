@@ -137,3 +137,23 @@ export interface MaterialGroup {
     icon: VueCompType
     list: MaterialItemList
 }
+
+export type EditCompName =
+    | 'title-editor'
+    | 'desc-editor'
+    | 'position-editor'
+    | 'size-editor'
+    | 'bold-editor'
+    | 'slant-editor'
+    | 'color-editor'
+    | 'option-editor'
+    | 'type-editor'
+    | 'pic-option-editor'
+    | 'date-time-editor'
+    | 'rate-score-editor'
+
+export type ComponentType = EditCompName | MaterialKeys
+
+export type ComponentMap = {
+    [key in ComponentType]: VueCompType
+}

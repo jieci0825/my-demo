@@ -51,8 +51,9 @@ import {
     PicOptionsEditor
 } from '@/components/survey-comps/edit-items'
 import { markRaw } from 'vue'
+import type { ComponentMap } from '@/types'
 
-export const componentMap: { [k: string]: any } = {
+export const componentMap: ComponentMap = {
     // 业务组件
     [MULTIPLE_SELECT_KEY]: markRaw(MultipleSelect),
     [SINGLE_SELECT_KEY]: markRaw(SingleSelect),

@@ -3,7 +3,7 @@ import { componentMap } from '@/configs/componentMap'
 import { getSurveryDataById } from '@/db/operation'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import type { BaseBusinessComp } from '@/types'
+import type { BaseBusinessComp, EditCompName } from '@/types'
 
 const $route = useRoute()
 const id = +$route.params.id
@@ -29,7 +29,7 @@ function restoreComponentStatus(comps: BaseBusinessComp[]) {
         comp.type = material
         for (const key in comp.editCompConfig) {
             const editCompConfItem = comp.editCompConfig[key as keyof BaseBusinessComp['editCompConfig']]
-            editCompConfItem.editComp = componentMap[key]
+            editCompConfItem.editComp = componentMap[editCompConfItem.name as EditCompName]
         }
     }
 }
