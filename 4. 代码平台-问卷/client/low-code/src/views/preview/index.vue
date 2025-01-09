@@ -27,9 +27,9 @@ const snList = computed(() => getRenderSnList(editorStore.comps).value)
 const goBack = () => {
     const path = history.state.from
     if (path === 'home') {
-        $router.push('/')
-    } else {
         $router.back()
+    } else {
+        $router.push('/')
     }
 }
 </script>

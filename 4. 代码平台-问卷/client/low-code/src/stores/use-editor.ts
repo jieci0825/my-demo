@@ -21,9 +21,11 @@ const initComps = () => {
     const textNodeStatus1 = textNodeDefaultStatus()
     textNodeStatus1.editCompConfig.type.currentStage = 0
     textNodeStatus1.editCompConfig.title.state = '游戏满意度问卷调查'
+    textNodeStatus1.editCompConfig.type.isShow = false
 
     const textNodeStatus2 = textNodeDefaultStatus()
     textNodeStatus2.editCompConfig.desc.state = `为了给您提供更好的服务，希望您抽出几分钟的时间，将您的感受和建议告诉我们，我们会充分考虑您的意见，不断改进。期待您的参与！`
+    textNodeStatus2.editCompConfig.type.isShow = false
 
     return [textNodeStatus1, textNodeStatus2]
 }

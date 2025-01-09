@@ -1,6 +1,6 @@
 import { TEXT_NODE_KEY } from '@/constants'
-import type { BaseBusinessComp } from '@/types'
 import { computed, type ComputedRef } from 'vue'
+import type { BaseBusinessComp } from '@/types'
 
 // 是否是题目类型
 export const isQuestionType = (type: string) => {

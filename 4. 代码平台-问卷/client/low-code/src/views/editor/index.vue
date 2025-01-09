@@ -39,6 +39,8 @@ const isEditStatus = computed(() => !!$route.params.id)
 if (isEditStatus.value) {
     // 如果存在id，则表示需要是编辑状态，需要从数据库中拿去问卷数据
     fetchData()
+} else {
+    editorStore.resetComps()
 }
 
 const handleReset = async () => {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Draggable from 'vuedraggable'
 import { useEditorStore } from '@/stores/use-editor'
-import { emitter, getRenderSnList } from '@/utils'
+import { emitter, getRenderSnList, isQuestionType } from '@/utils'
 import { computed } from 'vue'
 
 const editorStore = useEditorStore()
@@ -38,7 +38,7 @@ const dragStart = () => {
                 <!-- tips: 不能将注释加入此插槽内部，也会被认为是多个子节点，仅允许单个子节点 -->
                 <template #item="{ element, index }">
                     <div
-                        v-if="snList[index]"
+                        v-if="isQuestionType(element.editCompConfig.type)"
                         class="outline-item"
                         @click="handleClick(index)"
                     >

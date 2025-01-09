@@ -11,13 +11,13 @@ import {
 } from '@/components/survey-comps/edit-items'
 import { markRaw } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { predefineColors, SINGLE_SELECT_KEY } from '@/constants'
+import { predefineColors, TEXT_NODE_KEY } from '@/constants'
 import type { BaseBusinessComp, TypeEditCompStatus } from '@/types'
 
 export default function () {
     const status: BaseBusinessComp<TypeEditCompStatus> = {
         type: markRaw(TextNode),
-        name: SINGLE_SELECT_KEY,
+        name: TEXT_NODE_KEY,
         id: uuidv4(),
         // 组件状态：组件每一个能够修改的状态都需要对应一个编辑组件
         editCompConfig: {
