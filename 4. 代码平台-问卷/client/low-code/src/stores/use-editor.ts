@@ -60,6 +60,11 @@ export const useEditorStore = defineStore('editor', {
         },
         setStore(comps: BaseBusinessComp[]) {
             this.comps = comps
+            this.setCurrentCompIndex(-1)
+        },
+        clearComps() {
+            this.comps = []
+            this.setCurrentCompIndex(-1)
         },
         setCurrentCompIndex(index: number) {
             this.currentCompIndex = index

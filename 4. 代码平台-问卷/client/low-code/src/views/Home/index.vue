@@ -23,7 +23,7 @@ fetchData()
 const goToCreateEditor = () => {
     // 当前激活视图是编辑器
     localStorage.setItem(JC_WEN_JUAN_ACTIVE_VIEW, 'editor')
-    $router.push(`/editor`)
+    $router.push(`/editor/survey-type`)
 }
 const goToMaterials = () => {
     // 当前激活视图是组件市场
@@ -37,6 +37,9 @@ const goToPreview = (row: SurveyDBReturnData) => {
             from: 'home'
         }
     })
+}
+const goToEdit = (row: SurveyDBReturnData) => {
+    $router.push(`/editor/${row.id}/survey-type`)
 }
 </script>
 
@@ -111,6 +114,7 @@ const goToPreview = (row: SurveyDBReturnData) => {
                             size="small"
                             plain
                             :icon="EditPen"
+                            @click="goToEdit(scope.row)"
                             >编辑</el-button
                         >
                         <el-button

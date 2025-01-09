@@ -10,7 +10,7 @@ export const routes = [
         component: Home
     },
     {
-        path: '/preview/:id',
+        path: '/preview/:id(\\d+)?',
         name: 'preview',
         meta: {
             title: '预览问卷'
@@ -18,13 +18,12 @@ export const routes = [
         component: () => import('@/views/preview/index.vue')
     },
     {
-        path: '/editor',
+        path: '/editor/:id(\\d+)?',
         name: 'editor',
         meta: {
             title: '创建问卷'
         },
         component: () => import('@/views/editor/index.vue'),
-        redirect: '/editor/survey-type',
         children: [
             {
                 path: 'outline',
