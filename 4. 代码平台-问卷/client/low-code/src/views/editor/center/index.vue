@@ -121,7 +121,7 @@ const dragStart = () => {
         cursor: pointer;
         border-radius: var(--border-radius-large);
         border: 2px solid transparent;
-        margin-top: 5px;
+        margin-top: 10px;
         &:first-child {
             margin-top: 0;
         }

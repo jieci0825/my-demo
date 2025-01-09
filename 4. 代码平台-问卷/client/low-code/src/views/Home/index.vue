@@ -7,8 +7,9 @@ import { useRouter } from 'vue-router'
 import { formatDate } from '@/utils'
 import type { SurveyDBData, SurveyDBReturnData } from '@/types'
 
-const tableData = ref<SurveyDBData[]>([])
 const $router = useRouter()
+
+const tableData = ref<SurveyDBData[]>([])
 
 const fetchData = async () => {
     const resp = await getAllSurveryData()

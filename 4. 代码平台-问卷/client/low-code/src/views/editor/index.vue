@@ -8,7 +8,12 @@ import { useEditorStore } from '@/stores/use-editor'
 import { computed, provide, type ComputedRef } from 'vue'
 import { dispatchStatus } from '@/stores/common-dispatch'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { useRoute } from 'vue-router'
 import type { FullEditCompStatus, PicLink } from '@/types'
+import { getSurveryDataById } from '@/db/operation'
+import { restoreComponentStatus } from '@/utils/process-indexDB-data'
+
+const $route = useRoute()
 
 const editorStore = useEditorStore()
 
@@ -20,6 +25,19 @@ const updateState = dispatchStatus(editorStore, editCompConfig as ComputedRef<Fu
 
 const getPicLink = (payload: PicLink) => {
     updateState('options', payload)
+}
+
+const fetchData = async () => {
+    const resp = await getSurveryDataById(+$route.params.id)
+    if (!resp) return
+    restoreComponentStatus(resp.comps)
+    editorStore.setStore(resp.comps)
+}
+// 是否是编辑状态
+const isEditStatus = computed(() => !!$route.params.id)
+if (isEditStatus.value) {
+    // 如果存在id，则表示需要是编辑状态，需要从数据库中拿去问卷数据
+    fetchData()
 }
 
 const handleReset = async () => {
@@ -75,17 +93,21 @@ provide(GET_PIC_LINK, getPicLink)
     <div class="editor-container">
         <PageHeader>
             <template #center>
-                <el-button
-                    @click="handleReset"
-                    type="danger"
-                    >重置问卷</el-button
-                >
-                <el-button
-                    @click="handleSave"
-                    type="success"
-                    >保存问卷</el-button
-                >
-                <el-button type="warning">更新问卷</el-button>
+                <template v-if="isEditStatus">
+                    <el-button type="warning">更新问卷</el-button>
+                </template>
+                <template v-else>
+                    <el-button
+                        @click="handleReset"
+                        type="danger"
+                        >重置问卷</el-button
+                    >
+                    <el-button
+                        @click="handleSave"
+                        type="success"
+                        >保存问卷</el-button
+                    >
+                </template>
                 <el-button
                     type="primary"
                     @click="handlePreview"
