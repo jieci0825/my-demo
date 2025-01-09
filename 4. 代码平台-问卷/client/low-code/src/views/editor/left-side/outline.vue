@@ -64,7 +64,6 @@ const dragStart = () => {
     }
     .outline-list {
         .outline-item {
-            text-indent: 1em;
             overflow: hidden;
             margin-top: 10px;
             text-overflow: ellipsis;

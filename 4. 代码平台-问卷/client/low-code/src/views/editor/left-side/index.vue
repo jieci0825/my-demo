@@ -20,7 +20,7 @@ const $router = useRouter()
                 :class="['tab-item', { 'tab-item-active': $route.name === tab.routeName }]"
                 @click="$router.push({ name: tab.routeName })"
             >
-                <el-icon :size="25">
+                <el-icon :size="20">
                     <component :is="tab.icon"></component>
                 </el-icon>
                 <span class="mt-5">{{ tab.text }}</span>
@@ -35,18 +35,17 @@ const $router = useRouter()
 <style scoped lang="scss">
 .tab-item-active {
     color: var(--primary-color);
-    background-color: var(--el-color-primary-light-9);
 }
 
 .left-side-container {
-    width: 350px;
+    width: 320px;
     height: 100%;
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-base);
     overflow: hidden;
     .tabs {
         flex-shrink: 0;
-        width: 80px;
+        width: 50px;
         height: 100%;
         border-right: 1px solid var(--border-color);
         .tab-item {

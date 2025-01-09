@@ -8,12 +8,13 @@ import { useEditorStore } from '@/stores/use-editor'
 import { computed, provide, type ComputedRef } from 'vue'
 import { dispatchStatus } from '@/stores/common-dispatch'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { useRoute } from 'vue-router'
-import type { FullEditCompStatus, PicLink } from '@/types'
-import { getSurveryDataById } from '@/db/operation'
+import { useRoute, useRouter } from 'vue-router'
+import { getSurveryDataById, insertSurveryData, updateSurveryDataById } from '@/db/operation'
 import { restoreComponentStatus } from '@/utils/process-indexDB-data'
+import type { FullEditCompStatus, PicLink } from '@/types'
 
 const $route = useRoute()
+const $router = useRouter()
 
 const editorStore = useEditorStore()
 
@@ -81,8 +82,60 @@ const handleSave = async () => {
     }
 }
 
-const handlePreview = () => {
-    console.log('预览问卷')
+const handleUpdate = async () => {
+    const currentId = +$route.params.id
+    const timestamp = Date.now()
+    updateSurveryDataById(currentId, {
+        comps: JSON.parse(JSON.stringify(editorStore.comps)),
+        updateDate: timestamp,
+        surveyCount: editorStore.surveyCount
+    })
+}
+
+const handlePreview = async () => {
+    try {
+        await ElMessageBox.confirm('预览问卷会对问卷进行保存，是否继续？', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+        })
+    } catch (error) {
+        ElMessage.info('取消预览')
+        return
+    }
+
+    try {
+        const timestamp = Date.now()
+        // 编辑状态的预览则进行更新
+        if (isEditStatus.value) {
+            const currentId = +$route.params.id
+            await updateSurveryDataById(currentId, {
+                comps: JSON.parse(JSON.stringify(editorStore.comps)),
+                updateDate: timestamp,
+                surveyCount: editorStore.surveyCount
+            })
+            $router.push({
+                path: `/preview/${currentId}`,
+                state: { from: 'editor' }
+            })
+        }
+        // 新建问卷的预览则进行保存
+        else {
+            const id = await insertSurveryData({
+                title: '新建问卷-未命名',
+                createDate: timestamp,
+                updateDate: timestamp,
+                surveyCount: editorStore.surveyCount,
+                comps: JSON.parse(JSON.stringify(editorStore.comps))
+            })
+            $router.push({
+                path: `/preview/${id}`,
+                state: { from: 'editor' }
+            })
+        }
+    } catch (error) {
+        ElMessage.error('预览失败')
+    }
 }
 
 provide(UPDATE_STATE, updateState)
@@ -91,10 +144,14 @@ provide(GET_PIC_LINK, getPicLink)
 
 <template>
     <div class="editor-container">
-        <PageHeader>
+        <PageHeader :title="isEditStatus ? '编辑问卷' : '新建问卷'">
             <template #center>
                 <template v-if="isEditStatus">
-                    <el-button type="warning">更新问卷</el-button>
+                    <el-button
+                        type="warning"
+                        @click="handleUpdate"
+                        >更新问卷</el-button
+                    >
                 </template>
                 <template v-else>
                     <el-button
@@ -128,6 +185,7 @@ provide(GET_PIC_LINK, getPicLink)
     width: 100%;
     height: 100%;
     .main {
+        width: var(--center-width);
         margin: 0 auto;
         padding: 20px;
         height: calc(100vh - 60px);
