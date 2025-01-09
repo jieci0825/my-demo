@@ -32,9 +32,7 @@ export const useEditorStore = defineStore('editor', {
         toggleType,
         addComp(comp: BaseBusinessComp) {
             this.comps.push(comp)
-            // 推入后，将选中组件置空
-            this.currentCompIndex = -1
-
+            this.currentCompIndex = -1 // 推入后，将选中组件置空
             emitter.emit('scrollToBottom')
         },
         removeComp(index: number) {
@@ -47,6 +45,9 @@ export const useEditorStore = defineStore('editor', {
         },
         async saveComp(data: SurveyDBData) {
             await insertSurveryData(data)
+        },
+        setStore(comps: BaseBusinessComp[]) {
+            this.comps = comps
         },
         setCurrentCompIndex(index: number) {
             this.currentCompIndex = index
