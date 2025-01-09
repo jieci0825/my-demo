@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { JC_WEN_JUAN_ACTIVE_VIEW } from '@/constants'
 import { getAllSurveryData } from '@/db/operation'
-import { Plus, Compass } from '@element-plus/icons-vue'
+import { Plus, Compass, View, Delete, EditPen } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { formatDate } from '@/utils'
 import type { SurveyDBData } from '@/types'
 
 const tableData = ref<SurveyDBData[]>([])
@@ -11,6 +12,10 @@ const $router = useRouter()
 
 const fetchData = async () => {
     const resp = await getAllSurveryData()
+    for (const item of resp) {
+        item.createDate = formatDate(item.createDate)
+        item.updateDate = formatDate(item.updateDate)
+    }
     tableData.value = resp
 }
 fetchData()
@@ -58,7 +63,7 @@ const goToMaterials = () => {
                     fixed
                     prop="createDate"
                     label="创建日期"
-                    width="150"
+                    width="160"
                     align="center"
                 />
                 <el-table-column
@@ -75,7 +80,7 @@ const goToMaterials = () => {
                 <el-table-column
                     prop="updateDate"
                     label="最近更新日期"
-                    width="150"
+                    width="160"
                     align="center"
                 />
                 <el-table-column
@@ -84,23 +89,26 @@ const goToMaterials = () => {
                     width="300"
                     align="center"
                 >
-                    <template>
+                    <template #default="scope">
                         <el-button
                             type="primary"
                             size="small"
                             plain
+                            :icon="View"
                             >查看问卷</el-button
                         >
                         <el-button
                             type="primary"
                             size="small"
                             plain
+                            :icon="EditPen"
                             >编辑</el-button
                         >
                         <el-button
                             type="danger"
                             size="small"
                             plain
+                            :icon="Delete"
                             >删除</el-button
                         >
                     </template>

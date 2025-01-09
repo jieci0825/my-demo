@@ -24,3 +24,8 @@ export const getRenderSnList = (comps: BaseBusinessComp[]): ComputedRef<Array<nu
         })
     })
 }
+
+// 格式化日期时间
+export const formatDate = (date: string | number) => {
+    return new Date(date).toLocaleString()
+}
