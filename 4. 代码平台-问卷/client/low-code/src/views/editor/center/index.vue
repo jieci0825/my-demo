@@ -82,7 +82,7 @@ const dragStart = () => {
             >
                 <template #item="{ element: item, index: idx }">
                     <div
-                        class="content p-10 relative"
+                        class="content relative p-10"
                         :class="{ active: editorStore.currentCompIndex === idx }"
                         :key="item.id"
                         @click="handleClick(idx)"
@@ -121,8 +121,8 @@ const dragStart = () => {
         cursor: pointer;
         border-radius: var(--border-radius-large);
         border: 2px solid transparent;
-        margin-top: 15px;
-        &:nth-child(1) {
+        margin-top: 5px;
+        &:first-child {
             margin-top: 0;
         }
         &.active {

@@ -22,7 +22,6 @@ const { computedState, alignClassMap } = useMaterialProps<TypeEditCompStatus>(pr
         :class="[alignClassMap[computedState.position]]"
     >
         <h1
-            class="pt-10 pb-10"
             v-if="currentType === 0"
             :style="{
                 fontSize: `${computedState.titleSize}px`,
