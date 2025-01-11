@@ -13,7 +13,7 @@ interface Props {
 }
 const props = defineProps<Props>()
 
-const getPickLink = inject(GET_PIC_LINK)
+const getPickLink = inject(GET_PIC_LINK, undefined)
 const picBeforeUploadInterceptor = inject(PIC_BEFORE_UPLOAD_INTERCEPTOR, () => ({ flag: true }))
 
 const handleSuccess: UploadProps['onSuccess'] = response => {
