@@ -87,11 +87,12 @@ const handleSave = async () => {
 const handleUpdate = async () => {
     const currentId = +$route.params.id
     const timestamp = Date.now()
-    updateSurveryDataById(currentId, {
+    await updateSurveryDataById(currentId, {
         comps: JSON.parse(JSON.stringify(editorStore.comps)),
         updateDate: timestamp,
         surveyCount: editorStore.surveyCount
     })
+    ElMessage.success('问卷更新成功')
 }
 
 const handlePreview = async () => {

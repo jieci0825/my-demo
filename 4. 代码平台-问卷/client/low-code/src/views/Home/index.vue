@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { JC_WEN_JUAN_ACTIVE_VIEW } from '@/constants'
-import { getAllSurveryData } from '@/db/operation'
+import { deleteSurveryDataById, getAllSurveryData } from '@/db/operation'
 import { Plus, Compass, View, Delete, EditPen } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { formatDate } from '@/utils'
 import type { SurveyDBData, SurveyDBReturnData } from '@/types'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 const $router = useRouter()
 
@@ -41,6 +42,25 @@ const goToPreview = (row: SurveyDBReturnData) => {
 }
 const goToEdit = (row: SurveyDBReturnData) => {
     $router.push(`/editor/${row.id}/survey-type`)
+}
+
+const deleteSurvey = async (row: SurveyDBReturnData) => {
+    try {
+        const message = `确定删除问卷《${row.title}》吗？`
+        await ElMessageBox.confirm(message, '提示', {
+            type: 'warning'
+        })
+    } catch (error) {
+        ElMessage.info('取消删除')
+        return
+    }
+
+    try {
+        await deleteSurveryDataById(row.id)
+        ElMessage.success('删除成功')
+    } catch (error) {
+        ElMessage.error('删除失败')
+    }
 }
 </script>
 
@@ -123,6 +143,7 @@ const goToEdit = (row: SurveyDBReturnData) => {
                             size="small"
                             plain
                             :icon="Delete"
+                            @click="deleteSurvey(scope.row)"
                             >删除</el-button
                         >
                     </template>
