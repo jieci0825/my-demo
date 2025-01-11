@@ -94,7 +94,6 @@ const dragStart = () => {
                         />
                         <!-- close -->
                         <el-button
-                            v-if="editorStore.currentCompIndex === idx"
                             class="absolute close-btn"
                             type="danger"
                             size="small"
@@ -127,17 +126,18 @@ const dragStart = () => {
         }
         &.active {
             border-color: var(--primary-color);
+            .close-btn {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
         &:hover {
             transform: scale(1.01);
             transition: 0.5s;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            &.active {
-                .close-btn {
-                    transform: scale(1);
-                    transition: 0.3s;
-                    opacity: 1;
-                }
+            .close-btn {
+                transform: scale(1);
+                opacity: 1;
             }
         }
 
@@ -145,6 +145,7 @@ const dragStart = () => {
             top: 10px;
             right: 10px;
             opacity: 0;
+            transition: 0.3s;
             transform: scale(0);
         }
     }

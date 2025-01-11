@@ -28,6 +28,8 @@ const goBack = () => {
     const path = history.state.from
     if (path === 'home') {
         $router.back()
+    } else if (path === 'editor') {
+        $router.push(`/editor/${id}/survey-type`)
     } else {
         $router.push('/')
     }
