@@ -36,6 +36,49 @@ const storage = multer.diskStorage({
     }
 })
 
+// 问题
+const question = {}
+// 答案
+const answer = {}
+
+// 存储问卷
+app.post('/api/questionnaire', (req, res) => {
+    const { id, questions } = req.body
+    question[id] = questions
+    res.status(200).send({
+        errorCode: 0,
+        message: '问卷存储成功'
+    })
+})
+
+// 获取问卷
+app.get('/api/questionnaire/:id', (req, res) => {
+    const { id } = req.params
+    if (question[id]) {
+        res.status(200).send({
+            errorCode: 0,
+            message: '问卷获取成功',
+            data: question[id]
+        })
+    } else {
+        res.status(404).send({
+            errorCode: 10001,
+            message: '问卷不存在'
+        })
+    }
+})
+
+// 存储答案
+app.post('/api/answer', (req, res) => {
+    const { id, answers: curAnswers } = req.body
+    answer[id] = curAnswers
+    console.table(answer)
+    res.status(200).send({
+        errorCode: 0,
+        message: '答案存储成功'
+    })
+})
+
 // 设置 multer 的上传配置
 const upload = multer({ storage: storage })
 
