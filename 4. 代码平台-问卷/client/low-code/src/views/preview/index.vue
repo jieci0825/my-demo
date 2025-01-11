@@ -2,10 +2,11 @@
 import { getSurveryDataById } from '@/db/operation'
 import { useRoute, useRouter } from 'vue-router'
 import { useEditorStore } from '@/stores/use-editor'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { getRenderSnList, isSupportPdfExport } from '@/utils'
 import { restoreComponentStatus } from '@/utils/process-indexDB-data'
-import { ElMessage, ElNotification } from 'element-plus'
+import { ElMessage, ElMessageBox, ElNotification } from 'element-plus'
+import { v4 as uuidV4 } from 'uuid'
 
 const $route = useRoute()
 const $router = useRouter()
@@ -57,6 +58,35 @@ const genPDF = () => {
     // 偷懒直接调用浏览器的打印功能
     window.print()
 }
+
+const dialogTableVisible = ref(false)
+const link = ref('')
+
+const genOnLienQuestion = () => {
+    const id = uuidV4()
+
+    const data = {
+        id,
+        questions: JSON.stringify(editorStore.comps)
+    }
+
+    fetch('http://localhost:3000/api/questionnaire', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(_ => {
+        dialogTableVisible.value = true
+        const onLineLink = `${window.location.origin}/questionnaire/${id}`
+        link.value = onLineLink
+    })
+}
+
+const handleCopyLink = () => {
+    navigator.clipboard.writeText(link.value)
+    ElMessage.success('复制成功')
+}
 </script>
 
 <template>
@@ -68,7 +98,11 @@ const genPDF = () => {
                     @click="goBack"
                     >返回</el-button
                 >
-                <el-button type="success">生成在线问卷</el-button>
+                <el-button
+                    type="success"
+                    @click="genOnLienQuestion"
+                    >生成在线问卷</el-button
+                >
                 <el-button
                     type="warning"
                     @click="genPDF"
@@ -91,6 +125,27 @@ const genPDF = () => {
             </div>
         </div>
     </div>
+
+    <el-dialog
+        v-model="dialogTableVisible"
+        title="问卷在线链接"
+        width="800"
+    >
+        <div>
+            <a
+                target="_blank"
+                :href="link"
+                >分享链接：{{ link }}</a
+            >
+        </div>
+        <div style="display: flex; justify-content: flex-end; margin-top: 20px">
+            <el-button
+                type="primary"
+                @click="handleCopyLink"
+                >复制连接</el-button
+            >
+        </div>
+    </el-dialog>
 </template>
 
 <style scoped lang="scss">
