@@ -1,15 +1,27 @@
-import { isBoolean, isNumber, isObjectWithKeys, isString } from '@/utils'
+import { extend, isBoolean, isNumber, isObjectWithKeys, isString } from '@/utils'
 import { ElMessage } from 'element-plus'
 import { setUse } from '@/stores/common-actions'
 import type { OptionEditCompStatus, PicLink, TypeEditCompStatus, FullEditCompStatus } from '@/types'
 import type { MaterialStoreInstance, EditorStoreInstance } from '@/types'
 import type { ComputedRef } from 'vue'
 
+export interface DispatchStatusOptions {
+    isPass: () => boolean
+}
+
 export const dispatchStatus = (
     store: MaterialStoreInstance | EditorStoreInstance,
-    currentEditCompStatusConfig: ComputedRef<FullEditCompStatus>
+    currentEditCompStatusConfig: ComputedRef<FullEditCompStatus>,
+    options?: Partial<DispatchStatusOptions>
 ) => {
+    const defaultOptions: DispatchStatusOptions = {
+        isPass: () => true
+    }
+    const config = extend(defaultOptions, options || {})
+
     return function (confKey: string, payload?: string | number | boolean | PicLink) {
+        if (!config.isPass()) return
+
         switch (confKey) {
             case 'title':
             case 'desc':

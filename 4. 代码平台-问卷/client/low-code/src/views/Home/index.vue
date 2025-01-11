@@ -58,6 +58,7 @@ const deleteSurvey = async (row: SurveyDBReturnData) => {
     try {
         await deleteSurveryDataById(row.id)
         ElMessage.success('删除成功')
+        fetchData()
     } catch (error) {
         ElMessage.error('删除失败')
     }

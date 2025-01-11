@@ -2,7 +2,7 @@
 import { Upload } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { inject } from 'vue'
-import { GET_PIC_LINK } from '@/constants'
+import { GET_PIC_LINK, PIC_BEFORE_UPLOAD_INTERCEPTOR } from '@/constants'
 import type { UploadProps } from 'element-plus'
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const getPickLink = inject(GET_PIC_LINK)
+const picBeforeUploadInterceptor = inject(PIC_BEFORE_UPLOAD_INTERCEPTOR, () => ({ flag: true }))
 
 const handleSuccess: UploadProps['onSuccess'] = response => {
     getPickLink &&
@@ -25,6 +26,13 @@ const handleSuccess: UploadProps['onSuccess'] = response => {
 }
 
 const beforeUpload: UploadProps['beforeUpload'] = rawFile => {
+    const { flag, message } = picBeforeUploadInterceptor()
+
+    if (!flag) {
+        ElMessage.error(message)
+        return false
+    }
+
     if (!['image/jpeg', 'image/png', 'image/jpg'].includes(rawFile.type)) {
         ElMessage.error('上传图片只能是 JPEG、JPG、PNG 格式!')
         return false
@@ -37,7 +45,10 @@ const beforeUpload: UploadProps['beforeUpload'] = rawFile => {
 </script>
 
 <template>
-    <div class="pic-item flex flex-direction-column mb-10">
+    <div
+        class="pic-item flex flex-direction-column mb-10"
+        @click.stop
+    >
         <div class="show-image flex-center flex-1">
             <el-upload
                 class="image-uploader flex-center"

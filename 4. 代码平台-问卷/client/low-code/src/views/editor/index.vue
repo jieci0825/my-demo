@@ -3,7 +3,7 @@ import PageHeader from '@/components/common/page-header/index.vue'
 import LeftSide from './left-side/index.vue'
 import RightSide from './right-side/index.vue'
 import CenterContainer from './center/index.vue'
-import { GET_PIC_LINK, UPDATE_STATE } from '@/constants'
+import { GET_PIC_LINK, PIC_BEFORE_UPLOAD_INTERCEPTOR, UPDATE_STATE } from '@/constants'
 import { useEditorStore } from '@/stores/use-editor'
 import { computed, provide, type ComputedRef } from 'vue'
 import { dispatchStatus } from '@/stores/common-dispatch'
@@ -21,6 +21,20 @@ const editorStore = useEditorStore()
 const editCompConfig = computed(() => {
     return editorStore.comps[editorStore.currentCompIndex]?.editCompConfig
 })
+
+const picBeforeUploadInterceptor = () => {
+    const data = {
+        flag: true,
+        message: ''
+    }
+
+    if (editorStore.currentCompIndex === -1) {
+        data.flag = false
+        data.message = '上传图片前请先选中当前组件'
+    }
+
+    return data
+}
 
 const updateState = dispatchStatus(editorStore, editCompConfig as ComputedRef<FullEditCompStatus>)
 
@@ -143,6 +157,7 @@ const handlePreview = async () => {
 
 provide(UPDATE_STATE, updateState)
 provide(GET_PIC_LINK, getPicLink)
+provide(PIC_BEFORE_UPLOAD_INTERCEPTOR, picBeforeUploadInterceptor)
 </script>
 
 <template>
