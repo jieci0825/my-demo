@@ -16,6 +16,10 @@ const {
     titleColor: string
     descColor: string
 }>()
+
+const formatSn = (sn: number) => {
+    return sn < 10 ? `0${sn}` : sn
+}
 </script>
 
 <template>
@@ -26,8 +30,8 @@ const {
         >
             <span
                 v-if="sn"
-                class="mr-10"
-                >{{ sn }}.</span
+                class="mr-10 font-weight-500"
+                >{{ formatSn(sn) }}.</span
             >
             <span>{{ title }}</span>
         </h2>

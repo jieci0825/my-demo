@@ -1,1 +1,1 @@
-export const UPDATE_ANSWER = 'update_answer'
+export const UPDATE_ANSWER = 'update-answer'

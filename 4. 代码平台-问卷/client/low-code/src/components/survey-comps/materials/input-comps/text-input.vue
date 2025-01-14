@@ -14,7 +14,8 @@ const emits = defineEmits([UPDATE_ANSWER])
 
 const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps<TypeEditCompStatus>(props)
 
-const innerValue = ref('')
+const innerValue1 = ref('')
+const innerValue2 = ref('')
 </script>
 
 <template>
@@ -25,17 +26,17 @@ const innerValue = ref('')
             <el-input
                 v-if="computedState.type === 0"
                 type="text"
-                v-model="innerValue"
-                @change="emits(UPDATE_ANSWER, innerValue)"
+                v-model="innerValue1"
+                @input="emits(UPDATE_ANSWER, innerValue1)"
                 @click.stop
             />
             <el-input
                 v-else
                 type="textarea"
                 resize="none"
-                v-model="innerValue"
+                v-model="innerValue2"
                 :rows="4"
-                @change="emits(UPDATE_ANSWER, innerValue)"
+                @input="emits(UPDATE_ANSWER, innerValue2)"
                 @click.stop
             ></el-input>
         </div>

@@ -33,7 +33,7 @@ const options = props.editCompConfig.options.state
                     class="pic-item-wrap mb-15"
                     v-for="(item, idx) in (options as PicTitleDescState[])"
                     :key="idx"
-                    :value="item.picTitle"
+                    :value="idx"
                 >
                     <PicItem
                         v-bind="item"

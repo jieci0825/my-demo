@@ -2,8 +2,8 @@
 import MaterialsHeader from '../../common/materials-header.vue'
 import { computed, ref } from 'vue'
 import { useMaterialProps } from '@/hooks'
-import { UPDATE_ANSWER } from '@/constants'
 import type { TypeEditCompStatus, ValueState } from '@/types'
+import { UPDATE_ANSWER } from '@/constants'
 
 interface IProps {
     editCompConfig: TypeEditCompStatus

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { computed, ref } from 'vue'
+import { computed, ref, type Ref } from 'vue'
 import { restoreComponentStatus } from '@/utils/process-indexDB-data'
 import { getRenderSnList, isQuestionType } from '@/utils'
 import type { BaseBusinessComp } from '@/types'
+import { ElMessage } from 'element-plus'
 
 const $route = useRoute()
 
@@ -38,9 +39,34 @@ const fetchData = async () => {
 }
 fetchData()
 
-const handleSubmit = () => {
+type AnswerValueType = string | number | Date | Array<string | number>
+const answers: Ref<{ [key: number]: AnswerValueType }> = ref({})
+const updateAnswer = (idx: number, answer: AnswerValueType) => {
+    const sn = snList.value[idx]
+    // 如果序号存在则表示是一个问题，则将答案更新到问题中
+    if (sn) {
+        answers.value[idx] = answer
+    } else {
+        console.warn(`索引 ${idx} 序列号为空`)
+    }
+}
+
+const submitAnswer = async () => {
     // todo
     console.log('提交答案')
+    const resp = await fetch('http://localhost:3000/api/answer/', {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            id: id.value,
+            answers: answers.value
+        })
+    })
+    const data = await resp.json()
+    console.log(data)
+    ElMessage.success('提交成功')
 }
 </script>
 
@@ -57,13 +83,14 @@ const handleSubmit = () => {
                     v-bind="item"
                     :sn="snList[idx]"
                     :is="item.type"
+                    @update-answer="updateAnswer(idx, $event)"
                 ></Component>
             </div>
         </div>
         <div class="footer mt-20">
             <el-button
                 type="primary"
-                @click="handleSubmit"
+                @click="submitAnswer"
                 >提交答案</el-button
             >
         </div>
@@ -90,6 +117,7 @@ const handleSubmit = () => {
         border: 1px solid var(--border-color);
         border-radius: var(--border-radius-base);
         .content-item {
+            width: 100%;
             margin-bottom: 20px;
             &:last-child {
                 margin-bottom: 0;

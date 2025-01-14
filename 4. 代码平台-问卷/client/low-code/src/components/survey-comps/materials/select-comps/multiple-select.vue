@@ -29,7 +29,7 @@ const innerValue = ref([])
                 <el-checkbox
                     v-for="(item, idx) in computedState.options"
                     :key="idx"
-                    :value="item"
+                    :value="idx"
                     :label="item as string"
                 />
             </el-checkbox-group>

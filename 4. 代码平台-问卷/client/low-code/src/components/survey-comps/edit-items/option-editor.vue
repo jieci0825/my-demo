@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { UPDATE_STATE } from '@/constants'
-import { inject, ref } from 'vue'
+import { computed, inject } from 'vue'
 import { Plus, Minus } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 
@@ -14,7 +14,7 @@ interface Props {
 const props = defineProps<Props>()
 const updateState = inject(UPDATE_STATE)
 
-const textArr = ref(props.state)
+const textArr = computed(() => props.state)
 
 const addOption = () => {
     const len = textArr.value.length

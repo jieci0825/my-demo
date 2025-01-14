@@ -15,6 +15,10 @@ const emits = defineEmits([UPDATE_ANSWER])
 const { computedState, materialHeaderProps, alignClassMap } = useMaterialProps<OptionEditCompStatus>(props)
 
 const innerValue = ref('')
+
+const emitsAnswer = (val: number) => {
+    emits(UPDATE_ANSWER, val)
+}
 </script>
 
 <template>
@@ -23,7 +27,7 @@ const innerValue = ref('')
         <div class="choose-wrap">
             <el-radio-group
                 v-model="innerValue"
-                @change="emits(UPDATE_ANSWER, innerValue)"
+                @change="emitsAnswer"
                 @click.stop
             >
                 <el-radio
