@@ -54,6 +54,7 @@ app.post('/api/questionnaire', (req, res) => {
 // 获取问卷
 app.get('/api/questionnaire/:id', (req, res) => {
     const { id } = req.params
+    console.log(id)
     if (question[id]) {
         res.status(200).send({
             errorCode: 0,

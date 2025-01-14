@@ -18,6 +18,14 @@ export const routes = [
         component: () => import('@/views/preview/index.vue')
     },
     {
+        path: '/questionnaire/:id',
+        name: 'questionnaire',
+        meta: {
+            title: '在线问卷'
+        },
+        component: () => import('@/views/questionnaire/index.vue')
+    },
+    {
         path: '/editor/:id(\\d+)?',
         name: 'editor',
         meta: {

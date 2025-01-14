@@ -5,7 +5,7 @@ import { useEditorStore } from '@/stores/use-editor'
 import { computed, ref } from 'vue'
 import { getRenderSnList, isSupportPdfExport } from '@/utils'
 import { restoreComponentStatus } from '@/utils/process-indexDB-data'
-import { ElMessage, ElMessageBox, ElNotification } from 'element-plus'
+import { ElMessage, ElNotification } from 'element-plus'
 import { v4 as uuidV4 } from 'uuid'
 
 const $route = useRoute()
