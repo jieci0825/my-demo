@@ -8,7 +8,7 @@ import {
     SizeEditor,
     SlantEditor,
     PositionEditor,
-    PicOptionsEditor,
+    OptionEditor,
     DescEditor
 } from '@/components/survey-comps/edit-items'
 import { markRaw } from 'vue'
@@ -43,7 +43,7 @@ export default function () {
                 currentStage: 0,
                 name: 'pic-option-editor',
                 isShow: true,
-                editComp: markRaw(PicOptionsEditor)
+                editComp: markRaw(OptionEditor)
             },
             position: {
                 id: uuidv4(),

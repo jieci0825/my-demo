@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { TypeEditCompStatus } from '@/types'
 import { useMaterialProps } from '@/hooks'
+import type { TypeEditCompStatus } from '@/types'
 
 interface Props {
     editCompConfig: TypeEditCompStatus
