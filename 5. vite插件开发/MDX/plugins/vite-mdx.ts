@@ -19,8 +19,11 @@ export default (options?: Options): Plugin => {
             // 过滤掉不需要编译的文件
             if (filter(id)) {
                 // 进行编译
-                const result = await compile(code, { format: 'detect', jsxImportSource: 'vue', jsx: true })
-                console.log('*********:', result.value)
+                const result = await compile(code, {
+                    format: 'detect',
+                    jsxImportSource: 'vue',
+                    jsx: true
+                })
 
                 return {
                     // 将编译后的代码返回
