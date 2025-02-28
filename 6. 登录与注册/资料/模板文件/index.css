@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+button {
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+input {
+    padding: 0 5px;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 4px;
+    outline: none;
+    font-size: 16px;
+    border-color: #ccc;
+}
+
+.form-wrapper {
+    text-align: center;
+    padding: 20px;
+    border: 2px solid #ccc;
+    width: 400px;
+    margin: 50px auto;
+    border-radius: 4px;
+}
+
+.form-wrapper .title {
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.form-wrapper .content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-wrapper .footer {
+    margin-top: 20px;
+}
