@@ -145,7 +145,7 @@ router.get('/verify-token', async ctx => {
     const authorization = ctx.headers.authorization
     if (!authorization) {
         ctx.body = {
-            errorCode: 10002,
+            errorCode: 10004,
             msg: 'token不存在',
             data: null
         }
@@ -163,7 +163,7 @@ router.get('/verify-token', async ctx => {
     } catch (error) {
         ctx.status = 401
         ctx.body = {
-            errorCode: 10006,
+            errorCode: 10005,
             msg: 'token无效',
             data: null
         }
