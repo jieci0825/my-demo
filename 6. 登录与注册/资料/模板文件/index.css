@@ -20,6 +20,11 @@ input {
     border-color: #ccc;
 }
 
+.head-wrapper {
+    width: 400px;
+    margin: 50px auto;
+}
+
 .form-wrapper {
     text-align: center;
     padding: 20px;
