@@ -28,27 +28,16 @@ export const getRegisterForm = () => {
 }
 
 // 加密
-function Encrypt() {
-    let encryptor = undefined
+reqPublicKey().then(async res => {
+    // 公钥
+    const PUBLIC_KEY = res.data.data
+    encryptor = new JSEncrypt()
+    encryptor.setPublicKey(PUBLIC_KEY)
 
-    reqPublicKey().then(async res => {
-        // 公钥
-        const PUBLIC_KEY = res.data.data
-        encryptor = new JSEncrypt()
-        encryptor.setPublicKey(PUBLIC_KEY)
-
-        // 协商对称密钥
-        const key = generateString()
-        setSymmetricKey(key)
-        const data = { symmetricKey: encryptor.encrypt(key) }
-        await reqAgreementKey(data)
-        console.log('协商对称密钥成功~~')
-    })
-
-    return value => {
-        return encryptor ? encryptor.encrypt(value) : null
-    }
-}
-
-// 加密方法
-export const encrypt = Encrypt()
+    // 协商对称密钥
+    const key = generateString()
+    setSymmetricKey(key)
+    const data = { symmetricKey: encryptor.encrypt(key) }
+    await reqAgreementKey(data)
+    console.log('协商对称密钥成功~~')
+})
