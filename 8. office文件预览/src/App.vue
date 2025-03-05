@@ -1,39 +1,40 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
-import { renderAsync } from 'docx-preview'
+import VueOfficeDocx from '@vue-office/docx'
+import '@vue-office/docx/lib/index.css'
+import VueOfficeExcel from '@vue-office/excel'
+import '@vue-office/excel/lib/index.css'
+import VueOfficePdf from '@vue-office/pdf'
+import VueOfficePptx from '@vue-office/pptx'
+import { onMounted, ref } from 'vue'
 
 const fileInput = ref(null)
 const filename = ref('')
-const fileType = computed(() => {
-    return filename.value.split('.').pop()
-})
-const previewBox = ref(null)
-
-// 处理本地的 docx 文件
-const handleDocx = async file => {
-    // 将文件转为 blob 数据
-    const blob = new Blob([file], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' })
-    renderAsync(blob, previewBox.value)
-}
-
-// 预览在线的 docx 文件
-const previewOnlineDocx = async () => {
-    const filename = encodeURIComponent('获取 AppID')
-    const cosFileUrl = `https://coderjcnodejs-1312270807.cos.ap-guangzhou.myqcloud.com/${filename}.docx`
-
-    const response = await fetch(cosFileUrl)
-    const blob = await response.blob()
-    renderAsync(blob, previewBox.value)
-}
+const fileType = ref('')
+const src = ref('')
 
 const processFile = e => {
     const file = e.target.files[0]
     filename.value = file.name
-    switch (fileType.value) {
-        case 'docx':
-            handleDocx(file)
-            break
+    fileType.value = filename.value.split('.').pop()
+
+    let fileReader = new FileReader()
+    fileReader.onload = () => {
+        src.value = fileReader.result
     }
+    fileReader.readAsArrayBuffer(file)
+}
+
+const previewOnline = type => {
+    const filenameMap = {
+        docx: '获取 AppID',
+        xlsx: '产品信息表',
+        pdf: 'JavaScript柯里化',
+        pptx: '双十一'
+    }
+    const filename = encodeURIComponent(filenameMap[type])
+    const cosUrl = `https://coderjcnodejs-1312270807.cos.ap-guangzhou.myqcloud.com/${filename}.${type}`
+    fileType.value = type
+    src.value = cosUrl
 }
 
 onMounted(() => {
@@ -48,12 +49,37 @@ onMounted(() => {
                 type="file"
                 ref="fileInput"
             />
-            <button @click="previewOnlineDocx">预览在线的docx</button>
+            <button @click="previewOnline('docx')">预览在线的DOCX</button>
+            <button @click="previewOnline('xlsx')">预览在线的EXCEL</button>
+            <button @click="previewOnline('pdf')">预览在线的PDF</button>
+            <button @click="previewOnline('pptx')">预览在线的PPTX</button>
         </div>
-        <div
-            class="preview-box"
-            ref="previewBox"
-        ></div>
+        <div class="preview-box">
+            <template v-if="fileType === 'docx'">
+                <vue-office-docx
+                    style="height: 100%"
+                    :src="src"
+                />
+            </template>
+            <template v-else-if="fileType === 'xlsx'">
+                <vue-office-excel
+                    style="height: 100%"
+                    :src="src"
+                />
+            </template>
+            <template v-else-if="fileType === 'pdf'">
+                <vue-office-pdf
+                    style="height: 100%"
+                    :src="src"
+                />
+            </template>
+            <template v-else-if="fileType === 'pptx'">
+                <vue-office-pptx
+                    style="height: 100%"
+                    :src="src"
+                />
+            </template>
+        </div>
     </div>
 </template>
 
@@ -64,6 +90,11 @@ onMounted(() => {
     width: 100vw;
     height: 100vh;
     padding: 20px;
+
+    button {
+        padding: 2px 6px;
+    }
+
     .header {
         display: flex;
         justify-content: center;
@@ -72,6 +103,7 @@ onMounted(() => {
         height: 50px;
         background-color: #ccc;
         flex-shrink: 0;
+        gap: 10px;
     }
 
     .preview-box {
