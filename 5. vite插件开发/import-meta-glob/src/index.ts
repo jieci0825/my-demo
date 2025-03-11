@@ -1,5 +1,7 @@
 import path from 'node:path'
+import fs from 'fs'
 import fg from 'fast-glob'
+import MagicString from 'magic-string'
 import type { Plugin } from 'vite'
 
 const importGlobRE = /\bimport\.meta\.jcGlob\((.*)\)/g
@@ -14,6 +16,7 @@ export default function (options: Options = {}): Plugin {
             const matchs = Array.from(code.matchAll(importGlobRE))
             if (!matchs.length) return
 
+            const s = new MagicString(code)
             for (const m of matchs) {
                 // m[0] 是整个匹配项  m[1] 是括号内的内容
                 const glob = m[1].slice(1, -1)
@@ -28,11 +31,16 @@ export default function (options: Options = {}): Plugin {
                 //  - 实际就是把在使用的位置 import.meta.jcGlob<ModuleType>('./fixtures/*.ts') 这个字符串替换为我们要的内容
                 // const replaceContent = "欲买挂花同载酒，终不似，少年游!"
                 const replaceContent = `{ ${files.map(file => `'${file}': ()=> import('${file}')`).join(', ')} }`
-                code = code.slice(0, startIndex) + replaceContent + code.slice(endIndex)
 
-                console.log(code)
+                // ! 直接替换会导致 sourceMap 失效
+                // code = code.slice(0, startIndex) + replaceContent + code.slice(endIndex)
 
-                return code
+                // * 使用 MagicString 可以解决 sourceMap 失效的问题
+                s.overwrite(startIndex, endIndex, replaceContent)
+            }
+            return {
+                code: s.toString(),
+                map: s.generateMap({ hires: true })
             }
         }
     }

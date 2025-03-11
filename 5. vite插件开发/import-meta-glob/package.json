@@ -11,6 +11,7 @@
     "license": "ISC",
     "dependencies": {
         "fast-glob": "^3.3.3",
+        "magic-string": "^0.30.17",
         "vite": "^6.2.1"
     },
     "devDependencies": {
