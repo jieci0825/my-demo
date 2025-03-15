@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 4px 10px;
+    outline: none;
+    border: 1px solid transparent;
+    background-color: #009688;
+    color: #fff;
+    border-radius: 4px;
+    transition: background-color .3s;
+}
+
+button:hover {
+    background-color: #0a655f;
+    color: #fff;
+}
+
+body {
+    width: 400px;
+    height: 120px;
+    background-color: #effefb;
+}
+
+.container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btns button {
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+.tips {
+    font-size: 14px;
+    color: #999;
+    margin-top: 10px;
+}
