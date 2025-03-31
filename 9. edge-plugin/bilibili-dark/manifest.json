@@ -17,10 +17,6 @@
             "matches": ["*://*.bilibili.com/*"],
             "js": ["js/content.js"],
             "css": ["./css/content.css"]
-        },
-        {
-            "matches": ["*://account.bilibili.com/*"],
-            "js": ["js/user-center.js"]
         }
     ],
     "permissions": ["tabs"]
