@@ -1,0 +1,21 @@
+html[data-theme='dark'] {
+  --Wh0: #23272f;
+  --Ga11: #23272f;
+  --Ga1: #333a45;
+  --Ga7: #ebecf0;
+  --Ga1_s: #343a46;
+  --Ga10: #f6f7f9;
+  --Ga0_s: #343a46;
+  --Ga2: #343a46;
+  --Ga0: #343a46;
+  --Ga12: #343a46;
+  --Ga12_s: #343a46;
+  --Ga13_s: #343a46;
+  --brand_blue_thin: #333a45;
+}
+html[data-theme='dark'] body a {
+  color: var(--Ga7);
+}
+html[data-theme='dark'] .float-button.float-button {
+  box-shadow: 0 0 10px #727b7e;
+}
