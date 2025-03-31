@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Bilibili Dark",
-    "version": "1.0.2",
+    "version": "1.1.0",
     "description": "为 Bilibili 添加夜间模式",
     "icons": {
         "16": "images/icon-16.png",
@@ -16,6 +16,10 @@
         {
             "matches": ["*://*.bilibili.com/*"],
             "js": ["js/content.js"]
+        },
+        {
+            "matches": ["*://account.bilibili.com/*"],
+            "js": ["js/user-center.js"]
         }
     ],
     "permissions": ["tabs"]

@@ -30,9 +30,7 @@ function setTips(text) {
 function getBiliBiliTab() {
     return new Promise((resolve, reject) => {
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            // 给负责哔哩哔哩的站点的js脚本发送消息-
-            //  - 本插件只会针对一个网页，所以第一个 tab 就是的，无需辨别 - 即 content.js
-            //  - 辨别可以通过  tab.url 方法实现。如果 url 属性不存在，可以需要触发刷新行为
+            // 给负责哔哩哔哩的站点的js脚本发送消息- tabs[0] 是当前激活的标签页
             if (tabs.length) {
                 resolve(tabs[0])
             } else {
