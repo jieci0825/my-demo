@@ -1,3 +1,45 @@
+// 此文件匹配 *://*.bilibili.com/* 格式的网站。因此可以作为全局仓库。
+/**
+ * 获取本地存储
+ * @param {string} key
+ * @returns {string|object|undefined}
+ */
+function getLocal(key) {
+    try {
+        return JSON.parse(localStorage.getItem(key))
+    } catch (error) {
+        return localStorage.getItem(key)
+    }
+}
+
+/**
+ * 设置本地存储
+ * @param {string} key
+ * @param {object|string} value
+ */
+function setLocal(key, value) {
+    if (!key) return
+    try {
+        localStorage.setItem(key, JSON.stringify(value))
+    } catch (error) {
+        localStorage.setItem(key, value)
+    }
+}
+
+/**
+ * 延迟执行
+ * @param {function} fn 执行的函数
+ * @param {number} delay ms
+ */
+function delayExecute(fn, delay = 100) {
+    setTimeout(fn, delay)
+}
+
+/**
+ * @name JC_BILIBILI_IS_DARK 常量-是否开启暗黑模式
+ */
+const JC_BILIBILI_IS_DARK_KEY = 'JC_BILIBILI_IS_DARK'
+
 ;(function () {
     // 监听来自 popup 的消息
     chrome.runtime.onMessage.addListener(function (request) {
@@ -8,11 +50,9 @@
         }
     })
 
-    const JC_BILIBILI_IS_DARK_KEY = 'JC_BILIBILI_IS_DARK'
-
     const container = document.documentElement
-    const body = document.body
     const a1s = document.querySelectorAll('body a')
+    const styleId = '__jc_dark_centent_style__'
 
     const cssDarkMap = {
         '--Wh0': '#23272f',
@@ -52,6 +92,7 @@
 
         // 给当前页面添加一个 style
         const style = document.createElement('style')
+        style.id = styleId
         style.innerHTML = `.float-button.float-button{
         box-shadow: 0 0 10px  #727b7e;
     }`
@@ -71,25 +112,6 @@
         }
         for (const a of a1s) {
             a.style.removeProperty('color')
-        }
-
-        clearUserCenter()
-    }
-
-    function getLocal(key) {
-        try {
-            return JSON.parse(localStorage.getItem(key))
-        } catch (error) {
-            return localStorage.getItem(key)
-        }
-    }
-
-    function setLocal(key, value) {
-        if (!key) return
-        try {
-            localStorage.setItem(key, JSON.stringify(value))
-        } catch (error) {
-            localStorage.setItem(key, value)
         }
     }
 })()
