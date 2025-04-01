@@ -1,21 +1,482 @@
 html[data-theme='dark'] {
-  --Wh0: #23272f;
-  --Ga11: #23272f;
-  --Ga1: #333a45;
-  --Ga7: #ebecf0;
-  --Ga1_s: #343a46;
+  --primary-color: #23272f;
+  --primary-active-color: #00a1d6;
+  --secondary-color: #343a46;
+  --secondary-color-1: #333a45;
+  --secondary-color-2: #313843;
+  --primary-text-color: #fff;
+  --regular-text-color: #ebecf0;
+  --secondary-text-color: #99a1b3;
+  --border-color: #5f656b;
+  --Wh0: var(--primary-color);
+  --Ga11: var(--primary-color);
+  --Ga1: var(--secondary-color-1);
+  --Ga7: var(--regular-text-color);
   --Ga10: #f6f7f9;
-  --Ga0_s: #343a46;
-  --Ga2: #343a46;
-  --Ga0: #343a46;
-  --Ga12: #343a46;
-  --Ga12_s: #343a46;
-  --Ga13_s: #343a46;
-  --brand_blue_thin: #333a45;
+  --Ga0_s: var(--secondary-color);
+  --Ga2: var(--secondary-color);
+  --Ga0: var(--secondary-color);
+  --Ga12: var(--secondary-color);
+  --Ga1_s: var(--secondary-color);
+  --Ga12_s: var(--secondary-color);
+  --Ga13_s: var(--secondary-color);
+  --brand_blue_thin: var(--secondary-color-1);
+  --line_light: var(--secondary-color);
+  --graph_bg_thin: var(--secondary-color);
+  --filter: brightness(0.6) contrast(1.2);
 }
 html[data-theme='dark'] body a {
-  color: var(--Ga7);
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .bili-video-card__info--owner {
+  color: var(--secondary-text-color);
 }
 html[data-theme='dark'] .float-button.float-button {
   box-shadow: 0 0 10px #727b7e;
+}
+html[data-theme='dark'] .el-input__inner,
+html[data-theme='dark'] .el-radio-button__inner,
+html[data-theme='dark'] .el-textarea__inner {
+  background-color: var(--secondary-color-2);
+  color: var(--regular-text-color);
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .el-input__inner:hover,
+html[data-theme='dark'] .el-radio-button__inner:hover,
+html[data-theme='dark'] .el-textarea__inner:hover {
+  border-color: var(--primary-active-color);
+}
+html[data-theme='dark'] .security-right,
+html[data-theme='dark'] body {
+  background-color: var(--Wh0);
+}
+html[data-theme='dark'] .tool-uninstall-pendant {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .h-line,
+html[data-theme='dark'] .home-mp,
+html[data-theme='dark'] .tabs-nav,
+html[data-theme='dark'] .face-nav,
+html[data-theme='dark'] .points-box,
+html[data-theme='dark'] .index-info,
+html[data-theme='dark'] .padding-dom,
+html[data-theme='dark'] .pendant-list > li,
+html[data-theme='dark'] .security-right,
+html[data-theme='dark'] .tool-container,
+html[data-theme='dark'] .points-faq-line,
+html[data-theme='dark'] .points-how-warp,
+html[data-theme='dark'] .security_content,
+html[data-theme='dark'] .points-pendant-item,
+html[data-theme='dark'] .points-pendant-warp,
+html[data-theme='dark'] .security-right-title,
+html[data-theme='dark'] .home-daily-task-warp {
+  border-color: var(--secondary-color);
+}
+html[data-theme='dark'] .security_content {
+  background-color: var(--secondary-color);
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .top-header,
+html[data-theme='dark'] .points-header-warp {
+  filter: var(--filter);
+}
+html[data-theme='dark'] .h-safe-title,
+html[data-theme='dark'] .pendant-name,
+html[data-theme='dark'] .h-reward-info,
+html[data-theme='dark'] .tabs-nav-item,
+html[data-theme='dark'] .points-how-title,
+html[data-theme='dark'] .home-top-msg-name,
+html[data-theme='dark'] .points-exchange-title,
+html[data-theme='dark'] .home-dialy-task-title,
+html[data-theme='dark'] .points-faq-info-list > p,
+html[data-theme='dark'] .points-pendant-title > p,
+html[data-theme='dark'] .points-info > p {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .security-left .on.on {
+  background-color: #515f7a !important;
+}
+html[data-theme='dark'] #ser-ul > .security-list:hover,
+html[data-theme='dark'] .security-list-jump:hover {
+  background-color: #3a465e !important;
+}
+html[data-theme='dark'] .re-exp-info,
+html[data-theme='dark'] .curren-b-nu,
+html[data-theme='dark'] .security-nav-name,
+html[data-theme='dark'] .security-list-link-jump,
+html[data-theme='dark'] .curren-b-num,
+html[data-theme='dark'] .face-nav > div > a,
+html[data-theme='dark'] .pendant-list > li > .pendant-name,
+html[data-theme='dark'] .home-dialy-task-titlem {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .security-ul,
+html[data-theme='dark'] .security-title,
+html[data-theme='dark'] .security-list-jump {
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .go-movie {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: var(--regular-text-color);
+  transition: all 0.3s ease;
+}
+html[data-theme='dark'] .go-movie:hover {
+  background-color: var(--primary-active-color);
+}
+html[data-theme='dark'] .dialog-contnent {
+  background-color: var(--secondary-color);
+}
+html[data-theme='dark'] .dialog-contnent .dialog-title {
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .dialog-contnent .dialog-title-txt {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .dialog-contnent .dialog-success-explain {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .topBanner,
+html[data-theme='dark'] .curMedal {
+  filter: var(--filter);
+}
+html[data-theme='dark'] #app {
+  background-color: var(--primary-color);
+}
+html[data-theme='dark'] .ztolayer-dialog {
+  background-color: var(--secondary-color);
+}
+html[data-theme='dark'] .ztolayer-dialog .item-content .tips {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .ztolayer-dialog .info-content .info {
+  color: var(--secondary-text-color);
+}
+html[data-theme='dark'] .bg-blue {
+  background-color: #515f7a !important;
+}
+html[data-theme='dark'] .security-list .child-list {
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .security-list .child-list li a {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .security-list .child-list li a:hover {
+  background-color: #3a465e !important;
+}
+html[data-theme='dark'] .security-list .first-level {
+  border-color: var(--border-color);
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .security-list .f-list-hover:hover {
+  background-color: #3a465e !important;
+}
+html[data-theme='dark'] #mp-mine-header {
+  filter: var(--filter);
+}
+html[data-theme='dark'] .mp-img,
+html[data-theme='dark'] .tabs-mk2,
+html[data-theme='dark'] .sr-t {
+  border-color: var(--secondary-color);
+}
+html[data-theme='dark'] .face-g-list .mp-block .left .mp-info .mp-title {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .face-g-list .mp-block .left .mp-info .mp-descr {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .face-g-list .face-g-block {
+  border-color: var(--secondary-color);
+}
+html[data-theme='dark'] .face-g-list .mp-block .right ul li p.title {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .coin-nav {
+  border-color: var(--secondary-color);
+}
+html[data-theme='dark'] .coin-inner {
+  background-color: var(--primary-color);
+}
+html[data-theme='dark'] .coin-rest-info,
+html[data-theme='dark'] .coin-index-right-title,
+html[data-theme='dark'] .coin-rest-p {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .coin-text-p,
+html[data-theme='dark'] .coin-rest-info-inco {
+  color: var(--secondary-text-color);
+}
+html[data-theme='dark'] .table-normal thead tr td {
+  background-color: var(--secondary-color);
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .table-normal tbody tr,
+html[data-theme='dark'] .table-normal tbody tr td {
+  border-color: var(--border-color);
+  background-color: #35404b;
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .table-wrapper {
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .record-nav,
+html[data-theme='dark'] .main-content-title {
+  border-color: var(--secondary-color);
+}
+html[data-theme='dark'] .record-group,
+html[data-theme='dark'] .main-content-title span.i {
+  color: var(--secondary-text-color);
+}
+html[data-theme='dark'] .main-content-title span.t {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .identify-component .identify-head {
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .identify-tips {
+  background-color: var(--secondary-color);
+}
+html[data-theme='dark'] .indentify-page {
+  background-color: var(--primary-color);
+  border-color: var(--secondary-color);
+}
+html[data-theme='dark'] .no-level-text {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .notice .notice-item_left .title {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .notice .notice-item_left .detail {
+  color: var(--secondary-text-color);
+}
+html[data-theme='dark'] .notice .notice-item_right .switch-text {
+  color: var(--secondary-text-color);
+}
+html[data-theme='dark'] .pay-center-top-img {
+  filter: var(--filter);
+}
+html[data-theme='dark'] .pay-bcoin-index-title {
+  background-color: #35404b;
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .pay-bcoin-index-content {
+  background-color: var(--secondary-color);
+}
+html[data-theme='dark'] .pay-bcoin-index-content .pay-bcoin-index-box {
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .pay-bcoin-index-content .pay-bcoin-two-title {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .pay-center-wrapper {
+  background-color: var(--primary-color);
+}
+html[data-theme='dark'] .left-nav-link-item {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .left-nav-wp {
+  border: var(--border-color);
+  background-color: var(--secondary-color);
+}
+html[data-theme='dark'] .left-nav-wp .left-nav-title {
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .left-nav-wp .left-nav-title .left-nav-title-txt {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .nav-user-info-wp {
+  border: var(--border-color);
+  background-color: var(--secondary-color);
+}
+html[data-theme='dark'] .nav-user-info-wp .nav-user-content .nav-user-top .nav-user-top-name {
+  color: var(--primary-text-color);
+  font-size: 16px;
+}
+html[data-theme='dark'] .nav-user-info-wp .nav-user-pay-info .nav-user-pay-bcoin,
+html[data-theme='dark'] .nav-user-info-wp .nav-user-pay-info .nav-user-pay-shell {
+  color: var(--secondary-text-color);
+}
+html[data-theme='dark'] .nav-user-info-wp .nav-user-pay-info .nav-user-pay-bcoin span,
+html[data-theme='dark'] .nav-user-info-wp .nav-user-pay-info .nav-user-pay-shell span {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .left-nav-link-item.on {
+  border-left: #515f7a;
+  background-color: #3a465e;
+}
+html[data-theme='dark'] .pay-bcoin-index-wp,
+html[data-theme='dark'] .pay-bcoin-recharge-wp {
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .international-footer {
+  background-color: var(--primary-color);
+}
+html[data-theme='dark'] .international-footer .link-box .link-item .bt {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .international-footer .link-box .link-item ul a {
+  color: var(--secondary-text-color) !important;
+}
+html[data-theme='dark'] .international-footer .link-box .link-item.link-c a p {
+  color: var(--regular-text-color) !important;
+}
+html[data-theme='dark'] .international-footer .partner a {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .pay-bcoin-recharge-content {
+  background-color: var(--secondary-color);
+}
+html[data-theme='dark'] .pay-bcoin-recharge-content .pay-rechange-item,
+html[data-theme='dark'] .pay-bcoin-recharge-content .pay-recharge-diy-wp {
+  color: var(--regular-text-color);
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .pay-bcoin-recharge-content .pay-recharge-diy-static,
+html[data-theme='dark'] .pay-bcoin-recharge-content .pay-rechange-item-bottom {
+  color: var(--secondary-text-color);
+}
+html[data-theme='dark'] .pay-bcoin-recharge-content .qrpay-content .more-pay .more-text,
+html[data-theme='dark'] .pay-bcoin-recharge-content .pay-tips {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .pay-bcoin-recharge-content .pay-rechange-agreement .el-checkbox {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .pay-bcoin-recharge-content .pay-rechange-agreement a {
+  color: var(--secondary-text-color);
+}
+html[data-theme='dark'] .pay-bcoin-record-content,
+html[data-theme='dark'] .pay-shell-index-content,
+html[data-theme='dark'] .pay-shell-withdraw-content,
+html[data-theme='dark'] .pay-shell-bill-content {
+  background-color: var(--secondary-color);
+}
+html[data-theme='dark'] .pay-bcoin-record-wp {
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .el-table .el-table__header-wrapper th {
+  background-color: var(--primary-color);
+}
+html[data-theme='dark'] .el-table .el-table__header-wrapper .el-table__header .cell {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .el-table {
+  border: 1px solid var(--border-color);
+}
+html[data-theme='dark'] .el-table__body-wrapper {
+  background-color: var(--secondary-color);
+}
+html[data-theme='dark'] .pay-shell-index-bottom-1,
+html[data-theme='dark'] .pay-shell-index-bottom-2 {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .pay-shell-index-wp,
+html[data-theme='dark'] .pay-shell-index-top {
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .link-navbar-more {
+  background-color: var(--primary-color) !important;
+}
+html[data-theme='dark'] .app-body .section-block.with-radius {
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .app-body .section-block {
+  background-color: var(--secondary-color);
+}
+html[data-theme='dark'] .tabnav {
+  border-color: var(--border-color);
+  background-color: var(--secondary-color);
+}
+html[data-theme='dark'] .user-info > .user-name {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .grade-dec {
+  color: var(--secondary-text-color);
+}
+html[data-theme='dark'] .tabnav-item {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .no-data {
+  filter: var(--filter);
+}
+html[data-theme='dark'] .side-bar {
+  background-color: var(--secondary-color);
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .side-bar .sub-pages-item,
+html[data-theme='dark'] .side-bar .nav-item {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .side-bar .sub-pages-item:hover,
+html[data-theme='dark'] .side-bar .nav-item:hover,
+html[data-theme='dark'] .side-bar .sub-pages-item.active,
+html[data-theme='dark'] .side-bar .nav-item.active {
+  color: var(--primary-active-color);
+}
+html[data-theme='dark'] .app-body .section-block.with-padding {
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .favourite-card {
+  background-color: var(--secondary-color);
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .center-grid,
+html[data-theme='dark'] .center-grid tbody tr:nth-child(odd) {
+  background-color: var(--secondary-color);
+}
+html[data-theme='dark'] .center-grid thead tr {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .center-grid tbody tr {
+  color: var(--secondary-text-color);
+}
+html[data-theme='dark'] .explaination {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+html[data-theme='dark'] .explaination span {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .laboratory-content {
+  border-color: var(--border-color);
+  background-color: var(--secondary-color);
+}
+html[data-theme='dark'] .laboratory-content .config-item {
+  border-color: var(--border-color);
+}
+html[data-theme='dark'] .laboratory-content .config-item .title {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .laboratory-content .config-item .subtitle {
+  color: var(--secondary-text-color);
+}
+html[data-theme='dark'] .history-card {
+  background-color: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  color: var(--secondary-text-color);
+}
+html[data-theme='dark'] .history-card:hover {
+  background-color: var(--primary-color);
+}
+html[data-theme='dark'] .history-card .room-info .room-title {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .history-card .up-info .up-uname span {
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .daily-task .task-item {
+  background-color: var(--secondary-color);
+  border-color: var(--border-color);
+  color: var(--regular-text-color);
+}
+html[data-theme='dark'] .daily-task .task-item .task-info .task-title {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .daily-task .task-item .task-status {
+  color: var(--primary-text-color);
+}
+html[data-theme='dark'] .daily-task .task-item .desc {
+  color: var(--secondary-text-color);
 }
