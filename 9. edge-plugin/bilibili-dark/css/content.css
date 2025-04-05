@@ -598,6 +598,15 @@ html[data-theme='dark'] .bili-im .list-container .list-item.active {
 html[data-theme='dark'] .bili-im .list-container .list-item:hover {
   background-color: var(--list-hover-bg);
 }
+html[data-theme='dark'] .bili-im .list-container .list-item.top {
+  background-color: var(--list-hover-bg);
+}
+html[data-theme='dark'] .bili-im .send-box {
+  background-color: var(--secondary-color);
+}
+html[data-theme='dark'] .bili-im .core-style {
+  color: var(--regular-text-color);
+}
 html[data-theme='dark'] .router-view .config {
   background-color: var(--secondary-color);
   color: var(--primary-text-color);
