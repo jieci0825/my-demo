@@ -558,6 +558,7 @@ html[data-theme='dark'] .bili-im .left .title {
 }
 html[data-theme='dark'] .bili-im .right .dialog .title {
   border-color: var(--border-color);
+  color: var(--regular-text-color);
 }
 html[data-theme='dark'] .bili-im .right .msg-time .time {
   color: var(--secondary-text-color);
@@ -603,6 +604,7 @@ html[data-theme='dark'] .bili-im .list-container .list-item.top {
 }
 html[data-theme='dark'] .bili-im .send-box {
   background-color: var(--secondary-color);
+  border-color: var(--border-color);
 }
 html[data-theme='dark'] .bili-im .core-style {
   color: var(--regular-text-color);
@@ -976,10 +978,6 @@ html[data-theme='dark'] .page-wrp .text-split_wrap .split-item {
 }
 html[data-theme='dark'] .page-wrp .info-wrp .text {
   color: var(--regular-text-color);
-}
-html[data-theme='dark'] iframe {
-  filter: invert(90%) brightness(1.2);
-  /* 轻微反色，避免完全黑白 */
 }
 html[data-theme='dark'] .fans_wrap.cc-content-body {
   background-color: var(--secondary-color);
