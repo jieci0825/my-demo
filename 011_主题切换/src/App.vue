@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { useTheme } from './hooks'
 
-const { isDark, toggleTheme } = useTheme()
+const { isDark, initTheme, toggleTheme } = useTheme()
+
+onMounted(() => {
+    initTheme()
+})
 </script>
 
 <template>
@@ -10,7 +15,7 @@ const { isDark, toggleTheme } = useTheme()
             <div class="logo">主题切换Demo</div>
             <button
                 class="theme-toggle"
-                @click="toggleTheme"
+                @click="() => toggleTheme()"
             >
                 <span id="theme-icon">{{ isDark ? '☀️' : '🌙' }}</span> 切换主题
             </button>

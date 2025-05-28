@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import type { GlobalState } from './global.type'
-import type { ObjToKeyValueArray } from '../../../types/utils'
+import type { ObjToKeyValueArray } from '@/types/utils'
 
-export const useGlobalStore = defineStore('jc-global', {
+export const useGlobalStore = defineStore('global', {
     state: (): GlobalState => ({
         // 是否是暗黑模式
         isDark: false
