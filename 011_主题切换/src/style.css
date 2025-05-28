@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #4285f4;
+    --bg: #ffffff;
+    --text: #333333;
+    --card-bg: #f8f9fa;
+    --border: #e0e0e0;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+.dark-theme {
+    --primary: #8ab4f8;
+    --bg: #1a1a1a;
+    --text: #f1f1f1;
+    --card-bg: #2d2d2d;
+    --border: #444444;
+    --shadow: rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    transition: all 0.3s ease;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
