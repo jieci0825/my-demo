@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const toggleTheme = () => {
-    console.log('切换主题')
-}
+import { useTheme } from './hooks'
+
+const { isDark, toggleTheme } = useTheme()
 </script>
 
 <template>
@@ -10,9 +10,9 @@ const toggleTheme = () => {
             <div class="logo">主题切换Demo</div>
             <button
                 class="theme-toggle"
-                @click="toggleTheme()"
+                @click="toggleTheme"
             >
-                <span id="theme-icon">🌙</span> 切换主题
+                <span id="theme-icon">{{ isDark ? '☀️' : '🌙' }}</span> 切换主题
             </button>
         </header>
 

@@ -13,7 +13,7 @@
     --shadow: rgba(0, 0, 0, 0.1);
 }
 
-.dark-theme {
+.dark {
     --primary: #8ab4f8;
     --bg: #1a1a1a;
     --text: #f1f1f1;
