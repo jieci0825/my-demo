@@ -1,0 +1,74 @@
+@use 'sass:map';
+
+$currentTheme: null;
+
+// 定义主题色
+$themeMap: (
+    primary: (
+        bgColor: #007bff,
+        fontColor: #fff,
+        borderColor: #007bff
+    ),
+    success: (
+        bgColor: #28a745,
+        fontColor: #fff,
+        borderColor: #28a745
+    ),
+    danger: (
+        bgColor: #dc3545,
+        fontColor: #fff,
+        borderColor: #dc3545
+    ),
+    info: (
+        bgColor: #6c757d,
+        fontColor: #fff,
+        borderColor: #6c757d
+    ),
+    dark: (
+        bgColor: #343a40,
+        fontColor: #fff,
+        borderColor: #343a40
+    )
+);
+
+// ***** case1 给一些固定样式，且只有一些配色这种简单 css 改变是，直接在模板内置样式配置会很方便 *********
+// .btn {
+//     padding: 8px 16px;
+//     border-radius: 6px;
+// }
+
+// 根据主题色设置样式，直接遍历这个 map
+// @each $theme, $color in $themeMap {
+//     .btn-#{$theme} {
+//         background-color: map.get($color, bgColor);
+//         color: map.get($color, fontColor);
+//         border-color: map.get($color, borderColor);
+//     }
+// }
+
+@function getVarue($key) {
+    // 执行的时候会自动赋值全局变量，所以可以直接取值
+    @return map.get($currentTheme, $key);
+}
+
+// ***** case2 混合+插槽 *****
+@mixin themeMixin() {
+    @each $theme, $color in $themeMap {
+        .btn-#{$theme} {
+            $currentTheme: $color !global;
+            @content;
+            // 使用完成后，重置全局变量
+            $currentTheme: null !global;
+        }
+    }
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    @include themeMixin() {
+        background-color: getVarue(fontColor);
+        color: getVarue(bgColor);
+        border: 2px solid getVarue(bgColor);
+    }
+}
