@@ -9,12 +9,18 @@ const { isDark, toggleTheme, followSystem, switchFollowSystem } = useTheme()
         <header>
             <div class="logo">主题切换Demo</div>
             <button
+                style="margin-left: auto"
                 class="theme-toggle"
                 @click="() => toggleTheme()"
             >
                 <span id="theme-icon">{{ isDark ? '☀️' : '🌙' }}</span> 切换主题
             </button>
-            <button @click="() => switchFollowSystem()">{{ followSystem ? '关闭' : '开启' }}-跟随系统</button>
+            <button
+                class="theme-toggle"
+                @click="() => switchFollowSystem()"
+            >
+                {{ followSystem ? '关闭' : '开启' }}-跟随系统
+            </button>
         </header>
 
         <main>
@@ -43,7 +49,7 @@ const { isDark, toggleTheme, followSystem, switchFollowSystem } = useTheme()
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -52,17 +58,16 @@ const { isDark, toggleTheme, followSystem, switchFollowSystem } = useTheme()
 
 header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 15px 0;
     border-bottom: 1px solid var(--border);
     margin-bottom: 30px;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary);
+    gap: 20px;
+    .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary);
+    }
 }
 
 .theme-toggle {
