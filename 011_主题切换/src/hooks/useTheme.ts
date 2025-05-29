@@ -1,6 +1,6 @@
 import { useGlobalStore } from '@/stores/modules/global'
 import { storeToRefs } from 'pinia'
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, watchEffect } from 'vue'
 
 const media = window.matchMedia('(prefers-color-scheme: dark)')
 
@@ -46,11 +46,14 @@ export const useTheme = () => {
 
     onMounted(() => {
         initTheme()
-        media.addEventListener('change', onDarkModeChange)
     })
 
-    onUnmounted(() => {
-        media.removeEventListener('change', onDarkModeChange)
+    watchEffect(() => {
+        if (followSystem.value) {
+            media.addEventListener('change', onDarkModeChange)
+        } else {
+            media.removeEventListener('change', onDarkModeChange)
+        }
     })
 
     return { isDark, toggleTheme, initTheme, followSystem, switchFollowSystem }
