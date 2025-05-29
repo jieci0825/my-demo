@@ -5,7 +5,9 @@ import type { ObjToKeyValueArray } from '@/types/utils'
 export const useGlobalStore = defineStore('global', {
     state: (): GlobalState => ({
         // 是否是暗黑模式
-        isDark: false
+        isDark: false,
+        // 开启跟随系统主题
+        followSystem: false
     }),
     actions: {
         setGlobalState(...args: ObjToKeyValueArray<GlobalState>) {

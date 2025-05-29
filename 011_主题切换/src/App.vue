@@ -1,12 +1,7 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
 import { useTheme } from './hooks'
 
-const { isDark, initTheme, toggleTheme } = useTheme()
-
-onMounted(() => {
-    initTheme()
-})
+const { isDark, toggleTheme, followSystem, switchFollowSystem } = useTheme()
 </script>
 
 <template>
@@ -19,6 +14,7 @@ onMounted(() => {
             >
                 <span id="theme-icon">{{ isDark ? '☀️' : '🌙' }}</span> 切换主题
             </button>
+            <button @click="() => switchFollowSystem()">{{ followSystem ? '关闭' : '开启' }}-跟随系统</button>
         </header>
 
         <main>
