@@ -1,0 +1,38 @@
+@use 'sass:map'; // 使用 map 数据类型，需要在这里添加声明
+
+// 基础变量
+$primary-color: #37a6a6;
+
+.container {
+    background-color: $primary-color;
+    padding: 20px;
+    .title {
+        color: 24px;
+        color: #fff;
+    }
+}
+
+// 数组
+$colors: 'red', 'green', 'blue';
+// 索引访问
+$color: nth($colors, 2);
+// 使用
+.box {
+    color: $color;
+}
+
+// Map
+$theme: (
+    k1: '10px',
+    k2: '20px',
+    k3: '30px'
+);
+
+// 访问
+$theme-value: map-get($theme, k2);
+$h: map.get($theme, k3); // 新版推荐
+// 使用
+.box {
+    width: $theme-value;
+    height: $h;
+}
