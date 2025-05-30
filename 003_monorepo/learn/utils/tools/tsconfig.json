@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "target": "ES2015", // 指定打包的版本
+        "module": "ES2015", // 指定使用的模块系统
+        "declaration": true, // 生成声明文件
+        "declarationDir": "./dist/types", // 声明文件输出目录
+        "esModuleInterop": true, // 启用 CommonJS 和 ES 模块之间的互操作性
+        "forceConsistentCasingInFileNames": true // 强制文件名大小写一致
+    },
+    "include": ["./src/**/*"]
+}
