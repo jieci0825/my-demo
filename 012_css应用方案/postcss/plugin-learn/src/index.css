@@ -1,0 +1,8 @@
+body {
+    font-size: 16px;
+    background-color: slateblue;
+}
+
+.box1 {
+    transform: translateX(100px);
+}
