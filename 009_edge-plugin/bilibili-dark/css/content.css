@@ -1366,3 +1366,11 @@ html[data-theme='dark'] .comment_wrap .bcc-input-inner {
     border-color: var(--border-color);
     color: var(--regular-text-color);
 }
+
+html[data-theme='dark'] .message-aside {
+    background-color: var(--secondary-color);
+}
+
+html[data-theme='dark'] .message-main {
+    background-color: transparent;
+}
