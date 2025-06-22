@@ -1,3 +1,4 @@
+const generateHtml = require('./generate-html')
 const parse = require('./parse')
 const tokenize = require('./tokenize')
 
@@ -26,7 +27,7 @@ const markdownText = `
 function markdownToHtml(markdownText) {
     const tokens = tokenize(markdownText)
     const ast = parse(tokens)
-    console.log(ast)
+    return generateHtml(ast)
 }
 
 const htmlContent = markdownToHtml(markdownText)

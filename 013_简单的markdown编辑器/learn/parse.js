@@ -20,7 +20,7 @@ function parse(tokens) {
                 break
             // 列表
             case 'list-item': {
-                const _type = token.ordered ? 'ordered-list-item' : 'unordered-list-item'
+                const _type = token.ordered ? 'ordered-list' : 'unordered-list'
 
                 // 如果存在当前列表项的父项，且类型标识符合预期，则直接添加子元素
                 if (currentListItem && currentListItem.type === _type) {
