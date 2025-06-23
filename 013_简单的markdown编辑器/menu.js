@@ -122,15 +122,14 @@ if (process.platform === 'darwin') {
         submenu: [
             {
                 label: '退出' + app.name,
-                click() {
-                    app.quit()
-                }
+                role: 'quit'
             }
         ]
     })
 }
 
 // 避免出现的应用名称是Electron
+//  - 开发时才显示，如果打包之后，则不设置这一段代码，也会正常显示 app.getName() 的值
 menuList.unshift({
     label: ''
 })

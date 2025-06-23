@@ -1,4 +1,5 @@
 const { app, BrowserWindow, globalShortcut } = require('electron')
+require('electron-reload')(__dirname)
 require('./menu')
 
 const createWindow = () => {
