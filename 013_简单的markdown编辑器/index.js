@@ -4,8 +4,8 @@ require('./menu')
 
 const createWindow = () => {
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1200,
+        height: 700,
         webPreferences: {
             // 允许渲染进程中使用 nodejs
             nodeIntegration: true,

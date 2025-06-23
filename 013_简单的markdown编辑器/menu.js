@@ -1,4 +1,61 @@
-const { Menu, app } = require('electron')
+const { Menu, app, BrowserWindow, dialog } = require('electron')
+const fs = require('fs')
+
+function loadFile() {
+    const window = BrowserWindow.getFocusedWindow()
+    const files = dialog.showOpenDialogSync(window, {
+        properties: ['openFile'],
+        title: '请选择你要打开的 md 文件',
+        defaultPath: app.getPath('documents'),
+        filters: [
+            {
+                name: 'Markdown',
+                extensions: ['md']
+            }
+        ]
+    })
+
+    if (files === undefined) return
+
+    const fileUrl = files[0]
+    const fileContent = fs.readFileSync(fileUrl, 'utf-8')
+
+    // 将读取到的内容写入到编辑器中
+    window.webContents.send('load-file', fileContent)
+}
+
+async function saveFile() {
+    const window = BrowserWindow.getFocusedWindow()
+    // 获取当前窗口的编辑器内容
+    //  - 即调用方法，执行一段 js 代码，获取编辑器内容
+    const fileContent = await window.webContents.executeJavaScript('editor.value()')
+
+    if (fileContent === undefined || fileContent === '') {
+        dialog.showMessageBoxSync(window, {
+            type: 'info',
+            title: '提示',
+            message: '请输入内容之后再保存'
+        })
+        return
+    }
+
+    // 选择保存文件的路径
+    const filePath = dialog.showSaveDialogSync(window, {
+        title: '选择保存的位置',
+        defaultPath: app.getPath('documents'),
+        filters: [
+            {
+                name: 'Markdown',
+                extensions: ['md']
+            }
+        ]
+    })
+
+    if (filePath === undefined) return
+
+    // 写入文件并创建
+    fs.writeFileSync(filePath, fileContent, 'utf-8')
+}
 
 const menuList = [
     {
@@ -7,13 +64,13 @@ const menuList = [
             {
                 label: '打开',
                 click() {
-                    console.log('打开文件')
+                    loadFile()
                 }
             },
             {
                 label: '保存',
                 click() {
-                    console.log('保存文件')
+                    saveFile()
                 }
             }
         ]
