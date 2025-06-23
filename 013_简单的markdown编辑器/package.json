@@ -1,15 +1,16 @@
 {
-    "name": "simple-markdown-editor",
+    "name": "MarkdownEditor",
     "version": "0.0.1",
     "description": "一个简单的markdown编辑器",
     "main": "index.js",
     "scripts": {
-        "dev": "nodemon --exec cross-env NODE_ENV=development electron . --watch ./src .js",
-        "start": "electron ."
+        "dev": "nodemon --exec cross-env NODE_ENV=development electron . --watch ./ .js",
+        "start": "cross-env NODE_ENV=production electron ."
     },
     "author": "coderjc",
     "license": "MIT",
     "dependencies": {
+        "cross-env": "^7.0.3",
         "nodemon": "^3.1.10",
         "simplemde": "^1.11.2"
     },

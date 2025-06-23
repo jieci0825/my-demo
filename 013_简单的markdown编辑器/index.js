@@ -19,9 +19,17 @@ app.whenReady().then(() => {
     const win = createWindow()
     win.loadFile('./window/index.html')
 
-    globalShortcut.register('F12', () => {
-        BrowserWindow.getFocusedWindow().webContents.toggleDevTools()
-    })
+    // 开发环境才需要注册
+    if (process.env.NODE_ENV === 'development') {
+        globalShortcut.register('F12', () => {
+            BrowserWindow.getFocusedWindow().webContents.toggleDevTools()
+        })
+    }
+})
+
+// 注销所有的快捷键
+app.on('will-quit', () => {
+    globalShortcut.unregisterAll()
 })
 
 app.on('window-all-closed', () => {

@@ -1,9 +1,6 @@
-const { Menu } = require('electron')
+const { Menu, app } = require('electron')
 
 const menuList = [
-    {
-        label: ''
-    },
     {
         label: '文件',
         submenu: [
@@ -118,6 +115,25 @@ const menuList = [
         ]
     }
 ]
+
+if (process.platform === 'darwin') {
+    menuList.unshift({
+        label: app.getName(),
+        submenu: [
+            {
+                label: '退出' + app.name,
+                click() {
+                    app.quit()
+                }
+            }
+        ]
+    })
+}
+
+// 避免出现的应用名称是Electron
+menuList.unshift({
+    label: ''
+})
 
 const menu = Menu.buildFromTemplate(menuList)
 Menu.setApplicationMenu(menu)
