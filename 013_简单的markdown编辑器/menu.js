@@ -112,50 +112,115 @@ const menuList = [
         label: '格式化',
         submenu: [
             {
-                label: '加粗'
+                label: '加粗',
+                accelerator: 'CmdOrCtrl+B',
+                click() {
+                    const window = BrowserWindow.getFocusedWindow()
+                    window.webContents.send('format', 'toggleBold')
+                }
             },
             {
-                label: '斜体'
+                label: '斜体',
+                accelerator: 'CmdOrCtrl+I',
+                click() {
+                    const window = BrowserWindow.getFocusedWindow()
+                    window.webContents.send('format', 'toggleItalic')
+                }
             },
             { type: 'separator' },
             {
                 label: '标题',
                 submenu: [
                     {
-                        label: '一级标题'
+                        label: '一级标题',
+                        accelerator: 'CmdOrCtrl+1',
+                        click() {
+                            const window = BrowserWindow.getFocusedWindow()
+                            window.webContents.send('format', 'toggleHeading1')
+                        }
                     },
                     {
-                        label: '二级标题'
+                        label: '二级标题',
+                        accelerator: 'CmdOrCtrl+2',
+                        click() {
+                            const window = BrowserWindow.getFocusedWindow()
+                            window.webContents.send('format', 'toggleHeading2')
+                        }
                     },
                     {
-                        label: '三级标题'
+                        label: '三级标题',
+                        accelerator: 'CmdOrCtrl+3',
+                        click() {
+                            const window = BrowserWindow.getFocusedWindow()
+                            window.webContents.send('format', 'toggleHeading3')
+                        }
                     },
                     {
-                        label: '四级标题'
+                        label: '四级标题',
+                        accelerator: 'CmdOrCtrl+4',
+                        click() {
+                            const window = BrowserWindow.getFocusedWindow()
+                            window.webContents.send('format', 'toggleHeading4')
+                        }
                     },
                     {
-                        label: '五级标题'
+                        label: '五级标题',
+                        accelerator: 'CmdOrCtrl+5',
+                        click() {
+                            const window = BrowserWindow.getFocusedWindow()
+                            window.webContents.send('format', 'toggleHeading5')
+                        }
                     },
                     {
-                        label: '六级标题'
+                        label: '六级标题',
+                        accelerator: 'CmdOrCtrl+6',
+                        click() {
+                            const window = BrowserWindow.getFocusedWindow()
+                            window.webContents.send('format', 'toggleHeading6')
+                        }
                     }
                 ]
             },
             { type: 'separator' },
             {
-                label: '有序列表'
+                label: '无序列表',
+                accelerator: 'CmdOrCtrl+O',
+                click() {
+                    const window = BrowserWindow.getFocusedWindow()
+                    window.webContents.send('format', 'toggleUnorderedList')
+                }
             },
             {
-                label: '无序列表'
+                label: '有序列表',
+                accelerator: 'CmdOrCtrl+U',
+                click() {
+                    const window = BrowserWindow.getFocusedWindow()
+                    window.webContents.send('format', 'toggleOrderedList')
+                }
             },
             {
-                label: '引用'
+                label: '引用',
+                accelerator: 'Alt+Q',
+                click() {
+                    const window = BrowserWindow.getFocusedWindow()
+                    window.webContents.send('format', 'toggleBlockquote')
+                }
             },
             {
-                label: '链接'
+                label: '链接',
+                accelerator: 'CmdOrCtrl+L',
+                click() {
+                    const window = BrowserWindow.getFocusedWindow()
+                    window.webContents.send('format', 'drawLink')
+                }
             },
             {
-                label: '代码块'
+                label: '代码块',
+                accelerator: 'CmdOrCtrl+K',
+                click() {
+                    const window = BrowserWindow.getFocusedWindow()
+                    window.webContents.send('format', 'toggleCodeBlock')
+                }
             }
         ]
     },
