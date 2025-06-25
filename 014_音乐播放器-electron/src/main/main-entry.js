@@ -1,5 +1,7 @@
 import { app, BrowserWindow, globalShortcut } from 'electron'
 
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
+
 let mianWindow = null
 
 function createWindow() {
