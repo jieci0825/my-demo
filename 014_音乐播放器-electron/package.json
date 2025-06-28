@@ -17,6 +17,7 @@
     "devDependencies": {
         "@vitejs/plugin-vue": "^6.0.0",
         "electron": "^37.0.0",
+        "sass": "^1.89.2",
         "vite": "^7.0.0",
         "vite-plugin-optimizer": "^1.4.3"
     }
