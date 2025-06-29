@@ -12,27 +12,31 @@
         "appId": "com.coderjc.music-player",
         "mac": {
             "category": "public.app-category.music",
-            "dmg": {
-                "title": "Music Player",
-                "icon": "public/icon.icns",
-                "background": "public/background.png",
-                "window": {
-                    "width": 500,
-                    "height": 500
+            "target": [
+                "dmg",
+                "pkg"
+            ]
+        },
+        "dmg": {
+            "title": "Music Player",
+            "icon": "public/icon.icns",
+            "background": "public/background.png",
+            "window": {
+                "width": 500,
+                "height": 500
+            },
+            "contents": [
+                {
+                    "x": 130,
+                    "y": 280
                 },
-                "contents": [
-                    {
-                        "x": 130,
-                        "y": 280
-                    },
-                    {
-                        "x": 380,
-                        "y": 280,
-                        "type": "link",
-                        "path": "/Applications"
-                    }
-                ]
-            }
+                {
+                    "x": 380,
+                    "y": 280,
+                    "type": "link",
+                    "path": "/Applications"
+                }
+            ]
         },
         "pkg": {
             "installlocation": "/Applications"
