@@ -57,6 +57,17 @@
         },
         "pkg": {
             "installLocation": "/Applications"
+        },
+        "win": {
+            "target": [
+                "nsis",
+                "msi"
+            ],
+            "icon": "public/music.ico"
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true
         }
     },
     "author": "",
