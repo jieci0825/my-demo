@@ -1,6 +1,9 @@
 <script setup>
 import { ref, reactive, onMounted, watch, computed } from 'vue'
 
+// 获取 electron 的 ipcRenderer
+const { ipcRenderer } = window.require('electron')
+
 // 播放状态
 const isPlaying = ref(false)
 const currentTime = ref(0)
@@ -53,23 +56,23 @@ const togglePlay = () => {
 }
 
 // 上一首
-const previousSong = () => {
+const previousSong = async () => {
     if (playMode.value === 'random') {
         currentSongIndex.value = Math.floor(Math.random() * songList.value.length)
     } else {
         currentSongIndex.value = currentSongIndex.value > 0 ? currentSongIndex.value - 1 : songList.value.length - 1
     }
-    loadCurrentSong()
+    await loadCurrentSong()
 }
 
 // 下一首
-const nextSong = () => {
+const nextSong = async () => {
     if (playMode.value === 'random') {
         currentSongIndex.value = Math.floor(Math.random() * songList.value.length)
     } else {
         currentSongIndex.value = currentSongIndex.value < songList.value.length - 1 ? currentSongIndex.value + 1 : 0
     }
-    loadCurrentSong()
+    await loadCurrentSong()
 }
 
 // 切换播放模式
@@ -94,19 +97,20 @@ const getPlayModeIcon = () => {
 }
 
 // 加载当前歌曲
-const loadCurrentSong = () => {
-    if (audioRef.value) {
-        // 尝试多种路径格式以确保兼容性
-        const possiblePaths = [
-            `./src/assets/music/${currentSong.value.file}`,
-            `/src/assets/music/${currentSong.value.file}`,
-            `./assets/music/${currentSong.value.file}`
-        ]
+const loadCurrentSong = async () => {
+    if (audioRef.value && currentSong.value) {
+        try {
+            // 通过 IPC 获取正确的音乐文件路径
+            const musicPath = await ipcRenderer.invoke('get-music-path', currentSong.value.file)
 
-        audioRef.value.src = possiblePaths[0]
-        audioRef.value.load()
-        if (isPlaying.value) {
-            audioRef.value.play()
+            audioRef.value.src = musicPath
+            audioRef.value.load()
+
+            if (isPlaying.value) {
+                audioRef.value.play()
+            }
+        } catch (error) {
+            console.error('加载音乐文件失败:', error)
         }
     }
 }
@@ -131,9 +135,9 @@ const setVolume = event => {
 }
 
 // 选择歌曲
-const selectSong = index => {
+const selectSong = async index => {
     currentSongIndex.value = index
-    loadCurrentSong()
+    await loadCurrentSong()
     if (!isPlaying.value) {
         togglePlay()
     }
@@ -151,21 +155,21 @@ const handleAudioEvents = () => {
         currentTime.value = audio.currentTime
     })
 
-    audio.addEventListener('ended', () => {
+    audio.addEventListener('ended', async () => {
         if (playMode.value === 'single') {
             audio.currentTime = 0
             audio.play()
         } else {
-            nextSong()
+            await nextSong()
         }
     })
 }
 
 // 组件挂载
-onMounted(() => {
+onMounted(async () => {
     handleAudioEvents()
     audioRef.value.volume = volume.value
-    loadCurrentSong()
+    await loadCurrentSong()
 })
 
 // 监听音量变化
