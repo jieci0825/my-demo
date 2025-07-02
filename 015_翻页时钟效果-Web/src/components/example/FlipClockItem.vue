@@ -12,20 +12,25 @@
         <div class="flip-clock-item-bf">
             <!-- 上片 -->
             <div class="flip-clock-item-up">
+                <!-- 遮罩 -->
+                <div class="shadow"></div>
                 <!-- 数字 -->
                 <div class="num">9</div>
             </div>
             <!-- 下片 -->
             <div class="flip-clock-item-down">
+                <div class="shadow"></div>
                 <div class="num">9</div>
             </div>
         </div>
         <!-- 当前帧 -->
         <div class="flip-clock-item-af">
             <div class="flip-clock-item-up">
+                <div class="shadow"></div>
                 <div class="num">0</div>
             </div>
             <div class="flip-clock-item-down">
+                <div class="shadow"></div>
                 <div class="num">0</div>
             </div>
         </div>
@@ -94,7 +99,6 @@ defineExpose({
     perspective: 200px;
     box-sizing: border-box;
     user-select: none;
-    // 让两个面都重叠在一起
     .flip-clock-item-bf,
     .flip-clock-item-af {
         position: absolute;
@@ -108,7 +112,6 @@ defineExpose({
         backface-visibility: hidden;
         perspective: 200px;
     }
-    // 定义上下片的公共样式
     .flip-clock-item-up,
     .flip-clock-item-down {
         position: absolute;
@@ -118,6 +121,13 @@ defineExpose({
         overflow: hidden;
         background-color: $bg;
         line-height: $height;
+        .shadow {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            z-index: 2;
+        }
         .num {
             position: absolute;
             left: 0;
@@ -132,11 +142,13 @@ defineExpose({
             font-weight: bold;
         }
     }
-    // 定义上片样式-主要就是设置定位和改变变形原点
     .flip-clock-item-up {
         top: 0;
         transform-origin: 50% 100%;
         border-radius: $size $size 0 0;
+        .shadow {
+            background: $upShadow;
+        }
         &::after {
             content: '';
             display: block;
@@ -151,12 +163,18 @@ defineExpose({
         bottom: 0;
         transform-origin: 50% 0%;
         border-radius: 0 0 $size $size;
+        .shadow {
+            background: $downShadow;
+        }
         .num {
             bottom: 0;
         }
     }
     .flip-clock-item-bf {
         z-index: 3;
+        .shadow {
+            animation: show 0.5s linear both;
+        }
     }
     .flip-clock-item-af {
         z-index: 5;

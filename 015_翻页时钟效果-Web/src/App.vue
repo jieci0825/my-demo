@@ -14,8 +14,8 @@ const handleClick = () => {
     <div class="container">
         <!-- <div>
             <button @click="handleClick">点击</button>
-        </div>
-        <Example ref="compRef" /> -->
+        </div> -->
+        <!-- <Example ref="compRef" /> -->
         <FlipClockItem />
     </div>
 </template>

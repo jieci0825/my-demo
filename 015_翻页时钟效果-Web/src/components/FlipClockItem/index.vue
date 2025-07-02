@@ -42,12 +42,8 @@ const turnNext = () => {
     })
 }
 
-window.turnNext = turnNext
-
-onMounted(() => {
-    setInterval(() => {
-        turnNext()
-    }, 1000)
+defineExpose({
+    turnNext
 })
 </script>
 
@@ -65,10 +61,10 @@ onMounted(() => {
 
 <style scoped lang="scss">
 $size: 10px;
-$width: 12 * $size;
-$height: 16 * $size;
-$fontSize: 12 * $size;
-$bg: #333;
+$width: 7 * $size;
+$height: 10 * $size;
+$fontSize: 7 * $size;
+$bg: #181818;
 $fontColor: #fff;
 
 .flip-clock {
@@ -80,26 +76,15 @@ $fontColor: #fff;
     perspective: 300px;
 
     // 中横线
-    // &::after {
-    //     position: absolute;
-    //     content: '';
-    //     width: 100%;
-    //     height: 2px;
-    //     top: calc(50% - 3px);
-    //     left: 0;
-    //     background-color: rgba(0, 0, 0, 0.3);
-    //     z-index: 999;
-    // }
-
-    &:hover {
-        .card1 {
-            transform: rotateX(-180deg);
-        }
-
-        .card4 {
-            transform: rotateX(0deg);
-            z-index: 2;
-        }
+    &::after {
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 2px;
+        top: calc(50% - 3px);
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 999;
     }
 
     &.flip-clock--down {
@@ -124,9 +109,9 @@ $fontColor: #fff;
         font-size: $fontSize;
         text-align: center;
         color: $fontColor;
+        font-weight: bold;
         overflow: hidden;
         background-color: $bg;
-        border-radius: $size !important;
         backface-visibility: hidden;
     }
 
