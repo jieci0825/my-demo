@@ -7,16 +7,15 @@ const { max = 10 } = defineProps({
 
 const containerRef = ref(null)
 
-const isActive = ref(false)
-
 let nextNum = 0
 let prevNum = nextNum
 
-const turnNext = () => {
-    isActive.value = true
+const turnNext = num => {
+    if (!containerRef.value) return
+    containerRef.value.classList.add('flip-clock--down')
 
     prevNum = nextNum
-    nextNum = (nextNum + 1) % max
+    nextNum = num !== undefined ? num : (nextNum + 1) % max
 
     const card1 = containerRef.value.querySelector('.card1')
     const card2 = containerRef.value.querySelector('.card2')
@@ -28,9 +27,8 @@ const turnNext = () => {
     card3.textContent = nextNum
     card4.textContent = nextNum
 
-    // 监听过渡动画结束
-    card1.addEventListener('transitionend', () => {
-        isActive.value = false
+    setTimeout(() => {
+        containerRef.value.classList.remove('flip-clock--down')
 
         card1.textContent = nextNum
         card2.textContent = nextNum
@@ -39,7 +37,7 @@ const turnNext = () => {
         card3.classList.replace('card3', 'card1')
         card4.classList.replace('card4', 'card2')
         card2.classList.replace('card2', 'card4')
-    })
+    }, 600)
 }
 
 defineExpose({
@@ -50,7 +48,7 @@ defineExpose({
 <template>
     <div
         ref="containerRef"
-        :class="['flip-clock', { 'flip-clock--down': isActive }]"
+        class="flip-clock"
     >
         <div class="flip-clock__card card1">0</div>
         <div class="flip-clock__card card2">0</div>

@@ -1,22 +1,10 @@
 <script setup>
-import { ref } from 'vue'
-import FlipClockItem from '@/components/FlipClockItem/index.vue'
-
-import Example from '@/components/example/FlipClockItem.vue'
-
-const compRef = ref(null)
-const handleClick = () => {
-    compRef.value.turnNext()
-}
+import FlipClock from './components/FlipClock/index.vue'
 </script>
 
 <template>
     <div class="container">
-        <!-- <div>
-            <button @click="handleClick">点击</button>
-        </div> -->
-        <!-- <Example ref="compRef" /> -->
-        <FlipClockItem />
+        <FlipClock />
     </div>
 </template>
 
@@ -27,6 +15,6 @@ const handleClick = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e5d3b3;
+    background-color: #37a6a6;
 }
 </style>
