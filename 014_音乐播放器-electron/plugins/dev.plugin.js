@@ -22,6 +22,7 @@ export const devPlugin = () => {
 
                 // 启动 electron 进程
                 //  - spawn 可以异步的创建一个子进程
+                //  - 组成一个类似的命令 electron /project/path/dist/main.js http://example.com
                 const electronProcess = spawn('electron', ['dist/main.js', url], {
                     cwd: process.cwd(),
                     stdio: 'inherit' // 继承父进程的输入输出
