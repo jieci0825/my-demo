@@ -58,7 +58,7 @@ defineExpose({
 </template>
 
 <style scoped lang="scss">
-$size: 10px;
+$size: 6px;
 $width: 7 * $size;
 $height: 10 * $size;
 $fontSize: 7 * $size;

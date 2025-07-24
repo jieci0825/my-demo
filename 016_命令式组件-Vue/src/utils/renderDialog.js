@@ -1,0 +1,40 @@
+import { ElDialog } from 'element-plus'
+import { createApp, h, ref } from 'vue'
+import registerApp from '../global/registerApp'
+
+export function renderDialog(component, props = {}, dialogProps = {}) {
+    const instance = ref(null)
+    const dialogVisible = ref(true)
+
+    const vnode = h(
+        ElDialog,
+        {
+            ...dialogProps,
+            modelValue: dialogVisible.value,
+            onClosed: () => {
+                unmount()
+            }
+        },
+        {
+            default: () => h(component, { ...props, ref: instance })
+        }
+    )
+
+    const container = document.createElement('div')
+    const app = createApp(vnode)
+    registerApp(app)
+    app.mount(container)
+
+    const el = container.firstElementChild
+    document.body.appendChild(el)
+
+    function unmount() {
+        app.unmount()
+        document.body.removeChild(el)
+    }
+
+    return {
+        unmount,
+        instance
+    }
+}
