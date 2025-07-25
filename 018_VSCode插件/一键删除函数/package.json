@@ -3,6 +3,7 @@
     "displayName": "del-function",
     "description": "一键删除函数",
     "version": "0.0.1",
+    "type": "module",
     "engines": {
         "vscode": "^1.102.0"
     },
@@ -25,11 +26,12 @@
         "watch": "tsc -watch -p ./",
         "pretest": "pnpm run compile && pnpm run lint",
         "lint": "eslint src",
-        "test": "vscode-test"
+        "test": "vitest --run"
     },
     "devDependencies": {
         "@babel/parser": "^7.28.0",
         "@babel/traverse": "^7.28.0",
+        "@types/babel__traverse": "^7.20.7",
         "@types/mocha": "^10.0.10",
         "@types/node": "20.x",
         "@types/vscode": "^1.102.0",

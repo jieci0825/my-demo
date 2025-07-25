@@ -1,49 +1,24 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode'
-import { parse } from '@babel/parser'
+import { getFunctionNode } from './utils.js'
 
-// This method is called when your extension is activated
 export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('coderjc-del-function.coderjc', async () => {
         // 获取当前编辑器
         const editor = vscode.window.activeTextEditor
         if (!editor) return
 
-        const testCode = `
-        function foo() {
-            console.log('foo')
-            return 111
+        const code = editor.document.getText() // 当前文档代码
+        const index = editor.document.offsetAt(editor.selection.active) // 光标当前位置
+        const functionNode = getFunctionNode(code, index)
+        if (!functionNode) return
 
-            function bar() {
-                console.log('bar')
-                return 222
-            }
-        }
-
-        function foo2() {
-            // 测试注释
-            console.log('foo2')
-            let a = 1
-        }
-        `
-
-        const ast = parse(testCode)
-        console.log(ast)
-
-        const document = editor.document
-        const position = editor.selection.active // 光标当前位置
-        const lineText = document.lineAt(position.line).text
-
-        // 指定删除的字符范围
-        //  - position.translate(0, 1) 表示删除光标后的一个字符（需处理边界条件）
-        const deleteRange = new vscode.Range(position, position.translate(0, 1))
-        // 合并多个编辑操作，一次性提交以提高效率
-        const edit = new vscode.WorkspaceEdit()
-        // edit.delete 添加一个删除操作的任务
-        //  - document.uri 表示要操作的文档
-        edit.delete(document.uri, deleteRange)
-        // 添加完成任务之后，提交任务执行
-        await vscode.workspace.applyEdit(edit)
+        editor.edit(editBuilder => {
+            editBuilder.delete(
+                new vscode.Range(
+                    new vscode.Position(functionNode.start.line - 1, functionNode.start.column),
+                    new vscode.Position(functionNode.end.line - 1, functionNode.end.column)
+                )
+            )
+        })
     })
 }
