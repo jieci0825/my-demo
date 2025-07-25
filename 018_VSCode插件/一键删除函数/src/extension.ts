@@ -1,6 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode'
+import { parse } from '@babel/parser'
 
 // This method is called when your extension is activated
 export function activate(context: vscode.ExtensionContext) {
@@ -8,6 +9,27 @@ export function activate(context: vscode.ExtensionContext) {
         // 获取当前编辑器
         const editor = vscode.window.activeTextEditor
         if (!editor) return
+
+        const testCode = `
+        function foo() {
+            console.log('foo')
+            return 111
+
+            function bar() {
+                console.log('bar')
+                return 222
+            }
+        }
+
+        function foo2() {
+            // 测试注释
+            console.log('foo2')
+            let a = 1
+        }
+        `
+
+        const ast = parse(testCode)
+        console.log(ast)
 
         const document = editor.document
         const position = editor.selection.active // 光标当前位置
