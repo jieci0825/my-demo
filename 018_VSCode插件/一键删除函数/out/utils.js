@@ -78,6 +78,26 @@ export function getFunctionNode(code, index) {
                     name: node.key.name
                 };
             }
+        },
+        // 自执行函数
+        CallExpression(path) {
+            const { node } = path;
+            if (!node || node.start > index || node.end < index)
+                return;
+            if (t.isFunctionExpression(node.callee)) {
+                functionNode = {
+                    start: node.loc?.start,
+                    end: node.loc?.end,
+                    name: node.callee.id?.name || 'FunctionExpressionIIFE'
+                };
+            }
+            else if (t.isArrowFunctionExpression(node.callee)) {
+                functionNode = {
+                    start: node.loc?.start,
+                    end: node.loc?.end,
+                    name: 'ArrowFunctionIIFE'
+                };
+            }
         }
     });
     return functionNode;
