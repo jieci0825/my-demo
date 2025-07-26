@@ -54,6 +54,30 @@ export function getFunctionNode(code, index) {
                     name: functionName
                 };
             }
+        },
+        // 处理 Class 中的函数
+        ClassMethod(path) {
+            const { node } = path;
+            if (!node || node.start > index || node.end < index)
+                return;
+            functionNode = {
+                start: node.loc?.start,
+                end: node.loc?.end,
+                name: node.kind
+            };
+        },
+        ClassProperty(path) {
+            const { node } = path;
+            if (!node || node.start > index || node.end < index)
+                return;
+            if (t.isIdentifier(node.key) &&
+                (t.isArrowFunctionExpression(node.value) || t.isFunctionExpression(node.value))) {
+                functionNode = {
+                    start: node.loc?.start,
+                    end: node.loc?.end,
+                    name: node.key.name
+                };
+            }
         }
     });
     return functionNode;

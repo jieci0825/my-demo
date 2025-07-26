@@ -154,7 +154,7 @@ test('函数表达式-函数声明', () => {
     })
 })
 
-test.only('不带关键字的函数表达式', () => {
+test('不带关键字的函数表达式', () => {
     const testCode = `
     foo = function() {
         console.log('foo')
@@ -195,6 +195,97 @@ test.only('不带关键字的函数表达式', () => {
     expect(functionNode).toEqual({
         start: { line: 2, column: 4, index: 5 },
         end: { line: 4, column: 5, index: 56 },
+        name: 'foo'
+    })
+})
+
+test.only('类里面的函数', () => {
+    const testCode = `
+    class A {
+        constructor() {
+            this.b = 2
+        }
+
+        foo() {
+            console.log('foo')
+        }
+    }
+    `
+
+    const ast = parse(testCode)
+
+    let index = 25
+
+    let functionNode
+
+    traverse(ast, {
+        ClassMethod(path) {
+            const { node } = path
+            if (!node || node.start! > index || node.end! < index) return
+
+            functionNode = {
+                start: node.loc?.start,
+                end: node.loc?.end,
+                name: node.kind
+            }
+        }
+    })
+
+    console.log('====================================')
+    console.log(JSON.stringify(functionNode, null, 2))
+    console.log('====================================')
+
+    expect(functionNode).toEqual({
+        start: { line: 3, column: 8, index: 23 },
+        end: { line: 5, column: 9, index: 71 },
+        name: 'constructor'
+    })
+})
+test('类里面的函数-表达式写法', () => {
+    const testCode = `
+    class A {
+        foo = () => {
+            console.log('foo')
+        }
+
+        bar = function() {
+            console.log('bar')
+        }
+    }
+    `
+
+    const ast = parse(testCode)
+
+    let index = 25
+
+    let functionNode
+
+    traverse(ast, {
+        ClassProperty(path) {
+            const { node } = path
+            console.log(node)
+            if (!node || node.start! > index || node.end! < index) return
+
+            if (
+                t.isIdentifier(node.key) &&
+                (t.isArrowFunctionExpression(node.value) || t.isFunctionExpression(node.value))
+            ) {
+                functionNode = {
+                    start: node.loc?.start,
+                    end: node.loc?.end,
+                    name: (node.key as any).name
+                }
+            }
+        }
+    })
+
+    console.log('====================================')
+    console.log(JSON.stringify(functionNode, null, 2))
+    console.log('====================================')
+
+    expect(functionNode).toEqual({
+        start: { line: 3, column: 8, index: 23 },
+        end: { line: 5, column: 9, index: 77 },
         name: 'foo'
     })
 })
