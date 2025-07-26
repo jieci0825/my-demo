@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { getFunctionNode } from './utils.js';
+import { getFunctionNode, getParserPlugins } from './utils.js';
 export function activate(context) {
     vscode.commands.registerCommand('coderjc-del-function.coderjc', async () => {
         // 获取当前编辑器
@@ -8,7 +8,9 @@ export function activate(context) {
             return;
         const code = editor.document.getText(); // 当前文档代码
         const index = editor.document.offsetAt(editor.selection.active); // 光标当前位置
-        const functionNode = getFunctionNode(code, index);
+        const fileExtension = editor.document.fileName.split('.').pop()?.toLowerCase();
+        const plugins = getParserPlugins(fileExtension || 'js');
+        const functionNode = getFunctionNode(code, index, { plugins });
         if (!functionNode)
             return;
         editor.edit(editBuilder => {
