@@ -42,5 +42,8 @@
         "eslint": "^9.25.1",
         "typescript": "^5.8.3",
         "vitest": "^3.2.4"
+    },
+    "dependencies": {
+        "@babel/types": "^7.28.2"
     }
 }

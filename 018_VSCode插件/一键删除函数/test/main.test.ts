@@ -1,8 +1,9 @@
 import { parse } from '@babel/parser'
 import { test, expect } from 'vitest'
 import traverse from '@babel/traverse'
+import * as t from '@babel/types'
 
-test('parase code', () => {
+test('函数声明', () => {
     const testCode = `
         function foo() {
             console.log('foo')
@@ -58,4 +59,102 @@ test('parase code', () => {
         },
         name: 'foo'
     })
+})
+
+test('函数表达式-箭头函数', () => {
+    const testCode = `
+    const foo = ()=>{
+        const resp = getData()
+
+        const bar = ()=>{
+            console.log('bar', resp)
+        }
+    }
+    `
+
+    const ast = parse(testCode)
+    console.log(ast)
+
+    let index = 19
+
+    let functionNode
+
+    traverse(ast, {
+        VariableDeclaration(path) {
+            const { node } = path
+            if (!node || node.start! > index || node.end! < index) return
+
+            for (const declarator of node.declarations) {
+                // 检查是否是箭头函数赋值
+                if (t.isIdentifier(declarator.id) && t.isArrowFunctionExpression(declarator.init)) {
+                    const functionName = declarator.id.name
+
+                    functionNode = {
+                        start: node.loc?.start,
+                        end: node.loc?.end,
+                        name: functionName
+                    }
+                }
+            }
+        }
+    })
+
+    console.log('====================================')
+    console.log(JSON.stringify(functionNode, null, 2))
+    console.log('====================================')
+
+    expect(functionNode).toEqual({
+        start: { line: 2, column: 4, index: 5 },
+        end: { line: 8, column: 5, index: 133 },
+        name: 'foo'
+    })
+})
+
+test.only('函数表达式-函数声明', () => {
+    const testCode = `
+    const foo = function() {
+        console.log('foo')
+    }
+    `
+
+    const ast = parse(testCode)
+    console.log(ast)
+
+    let index = 19
+
+    let functionNode
+
+    traverse(ast, {
+        VariableDeclaration(path) {
+            const { node } = path
+            if (!node || node.start! > index || node.end! < index) return
+
+            for (const declarator of node.declarations) {
+                // 检查是否是箭头函数赋值
+                if (t.isIdentifier(declarator.id) && t.isFunctionExpression(declarator.init)) {
+                    const functionName = declarator.id.name
+
+                    functionNode = {
+                        start: node.loc?.start,
+                        end: node.loc?.end,
+                        name: functionName
+                    }
+                }
+            }
+        }
+    })
+
+    console.log('====================================')
+    console.log(JSON.stringify(functionNode, null, 2))
+    console.log('====================================')
+
+    expect(functionNode).toEqual({
+        start: { line: 2, column: 4, index: 5 },
+        end: { line: 4, column: 5, index: 62 },
+        name: 'foo'
+    })
+})
+
+test('立即执行函数', () => {
+    expect(1).toBe(1)
 })
