@@ -110,7 +110,7 @@ test('函数表达式-箭头函数', () => {
     })
 })
 
-test.only('函数表达式-函数声明', () => {
+test('函数表达式-函数声明', () => {
     const testCode = `
     const foo = function() {
         console.log('foo')
@@ -118,7 +118,6 @@ test.only('函数表达式-函数声明', () => {
     `
 
     const ast = parse(testCode)
-    console.log(ast)
 
     let index = 19
 
@@ -151,6 +150,51 @@ test.only('函数表达式-函数声明', () => {
     expect(functionNode).toEqual({
         start: { line: 2, column: 4, index: 5 },
         end: { line: 4, column: 5, index: 62 },
+        name: 'foo'
+    })
+})
+
+test.only('不带关键字的函数表达式', () => {
+    const testCode = `
+    foo = function() {
+        console.log('foo')
+    }
+    `
+
+    const ast = parse(testCode)
+
+    let index = 19
+
+    let functionNode
+
+    traverse(ast, {
+        AssignmentExpression(path) {
+            const { node } = path
+            if (!node || node.start! > index || node.end! < index) return
+
+            // 检查是否是箭头函数赋值
+            if (
+                t.isIdentifier(node.left) &&
+                (t.isArrowFunctionExpression(node.right) || t.isFunctionExpression(node.right))
+            ) {
+                const functionName = node.left.name
+
+                functionNode = {
+                    start: node.loc?.start,
+                    end: node.loc?.end,
+                    name: functionName
+                }
+            }
+        }
+    })
+
+    console.log('====================================')
+    console.log(JSON.stringify(functionNode))
+    console.log('====================================')
+
+    expect(functionNode).toEqual({
+        start: { line: 2, column: 4, index: 5 },
+        end: { line: 4, column: 5, index: 56 },
         name: 'foo'
     })
 })
