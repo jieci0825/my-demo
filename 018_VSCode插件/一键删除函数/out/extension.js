@@ -10,7 +10,7 @@ export function activate(context) {
         const index = editor.document.offsetAt(editor.selection.active); // 光标当前位置
         const fileExtension = editor.document.fileName.split('.').pop()?.toLowerCase();
         const plugins = getParserPlugins(fileExtension || 'js');
-        const functionNode = getFunctionNode(code, index, { plugins });
+        const functionNode = getFunctionNode(code, index, fileExtension, { plugins });
         if (!functionNode)
             return;
         editor.edit(editBuilder => {

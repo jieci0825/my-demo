@@ -1,8 +1,28 @@
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
 import * as t from '@babel/types';
-export function getFunctionNode(code, index, options = {}) {
+import * as vueCompiler from '@vue/compiler-sfc';
+export function getFunctionNode(code, index, fileExtension, options = { plugins: [] }) {
     try {
+        let scriptContent = null;
+        if (fileExtension === 'vue') {
+            scriptContent = extractVueScript(code);
+            if (!scriptContent?.content)
+                return;
+            // 调整code为脚本内容
+            code = scriptContent.content;
+            // 调整index为脚本内的相对位置
+            // const { loc } = vueCompiler.compileScript(scriptContent.raw.descriptor, {
+            //     id: 'del-function'
+            // })
+            const scriptStart = scriptContent.loc.start.offset;
+            // 因为前面将 code 调整为脚本内容，所以这里需要减去脚本起始位置
+            // 即正确的位置 = 全局位置 - 脚本起始位置
+            index -= scriptStart;
+            if (scriptContent.lang === 'ts') {
+                options.plugins.push('typescript');
+            }
+        }
         const ast = parse(code, {
             errorRecovery: true,
             ...options
@@ -104,6 +124,12 @@ export function getFunctionNode(code, index, options = {}) {
                 }
             }
         });
+        // 如果是 vue 文件，还需要进行行号处理
+        if (fileExtension === 'vue' && functionNode && scriptContent) {
+            // 因为前面 code 被替换为了 vue 文件中 <script setup>/.../</script> 中的内容，前面可能是存在 template 部分的内容，因此前面 functionNode 的行号只是函数在 script 中的行号，需要加上 template 的行号
+            functionNode.start.line += scriptContent.loc.start.line - 1;
+            functionNode.end.line += scriptContent.loc.start.line - 1;
+        }
         return functionNode;
     }
     catch (error) {
@@ -121,6 +147,30 @@ export function getParserPlugins(fileExtension) {
     else if (fileExtension === 'js') {
         plugins.push('classProperties', 'decorators-legacy');
     }
+    else if (fileExtension === 'vue') {
+        plugins.push('decorators-legacy');
+    }
     return plugins;
+}
+function extractVueScript(code) {
+    try {
+        const parsed = vueCompiler.parse(code);
+        if (parsed.descriptor.script || parsed.descriptor.scriptSetup) {
+            const script = parsed.descriptor.script || parsed.descriptor.scriptSetup;
+            return script
+                ? {
+                    content: script.content || null,
+                    lang: script.lang,
+                    loc: script.loc,
+                    raw: parsed
+                }
+                : null;
+        }
+        return null;
+    }
+    catch (error) {
+        console.error('Vue SFC解析错误:', error);
+        return null;
+    }
 }
 //# sourceMappingURL=utils.js.map

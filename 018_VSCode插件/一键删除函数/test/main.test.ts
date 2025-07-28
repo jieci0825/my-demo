@@ -2,6 +2,7 @@ import { parse } from '@babel/parser'
 import { test, expect } from 'vitest'
 import traverse from '@babel/traverse'
 import * as t from '@babel/types'
+import * as vueCompiler from '@vue/compiler-sfc'
 
 test('函数声明', () => {
     const testCode = `
@@ -290,7 +291,7 @@ test('类里面的函数-表达式写法', () => {
     })
 })
 
-test.only('函数声明-TS', () => {
+test('函数声明-TS', () => {
     const testCode = `
         function foo() {
             console.log('foo')
@@ -335,4 +336,73 @@ test.only('函数声明-TS', () => {
     //     },
     //     name: 'foo'
     // })
+})
+
+test.only('解析Vue', () => {
+    const testCode = `
+    <script setup>
+    import { getCurrentInstance, ref } from 'vue'
+    import LoginForm from './components/LoginForm.vue'
+    import { renderDialog } from './utils/renderDialog'
+
+    const dialogFormVisible = ref(false)
+
+    const loginFormRef = ref()
+
+    const open = () => {
+        // dialogFormVisible.value = true
+
+        const { unmount, instance } = renderDialog(LoginForm, {}, { title: '登录表单' })
+    }
+    </script>
+
+    <template>
+        <div class="container">
+            <div>
+                <el-button
+                    type="primary"
+                    @click="open"
+                    >打开</el-button
+                >
+            </div>
+            <el-dialog
+                v-model="dialogFormVisible"
+                title="登录表单"
+                width="500"
+            >
+                <LoginForm ref="loginFormRef" />
+            </el-dialog>
+        </div>
+    </template>
+
+    <style scoped lang="scss">
+    .container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    </style>
+    `
+
+    let code
+
+    const parsed = vueCompiler.parse(testCode)
+    if (parsed.descriptor.script || parsed.descriptor.scriptSetup) {
+        const script = parsed.descriptor.script || parsed.descriptor.scriptSetup
+        code = script?.content || null
+    }
+
+    if (!code) {
+        return
+    }
+
+    const ast = parse(code, {
+        errorRecovery: false,
+        plugins: ['decorators-legacy'],
+        sourceType: 'module'
+    })
+
+    console.log(JSON.stringify(ast.program.body))
 })

@@ -13,7 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
         const fileExtension = editor.document.fileName.split('.').pop()?.toLowerCase()
         const plugins = getParserPlugins(fileExtension || 'js')
 
-        const functionNode = getFunctionNode(code, index, { plugins })
+        const functionNode = getFunctionNode(code, index, fileExtension, { plugins })
 
         if (!functionNode) return
 
