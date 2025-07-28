@@ -14,8 +14,34 @@
     "contributes": {
         "commands": [
             {
-                "command": "coderjc-control-font-size.coderjc",
-                "title": "CoderJc: 控制字体大小"
+                "command": "extension.increaseFontSize",
+                "title": "增加编辑器字体大小"
+            },
+            {
+                "command": "extension.decreaseFontSize",
+                "title": "减小编辑器字体大小"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "extension.increaseFontSize",
+                "key": "ctrl+alt+.",
+                "when": "editorTextFocus && !isMac"
+            },
+            {
+                "command": "extension.increaseFontSize",
+                "key": "cmd+alt+.",
+                "when": "editorTextFocus && isMac"
+            },
+            {
+                "command": "extension.decreaseFontSize",
+                "key": "ctrl+alt+,",
+                "when": "editorTextFocus && !isMac"
+            },
+            {
+                "command": "extension.decreaseFontSize",
+                "key": "cmd+alt+,",
+                "when": "editorTextFocus && isMac"
             }
         ]
     },
