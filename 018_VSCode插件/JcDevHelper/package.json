@@ -1,0 +1,205 @@
+{
+    "name": "jc-dev-helper",
+    "displayName": "Jc Dev Helper",
+    "description": "一款专为前端开发者设计的 VSCode 效率插件，提供智能函数删除、字体大小控制和智能日志生成功能",
+    "version": "1.0.0",
+    "publisher": "coderjc",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Other",
+        "Snippets",
+        "Formatters"
+    ],
+    "keywords": [
+        "function",
+        "delete",
+        "font",
+        "size",
+        "console",
+        "log",
+        "productivity",
+        "javascript",
+        "typescript",
+        "vue"
+    ],
+    "icon": "resources/icon.png",
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "jcDevHelper.deleteFunction",
+                "title": "删除当前函数",
+                "category": "JcDevHelper"
+            },
+            {
+                "command": "jcDevHelper.increaseFontSize",
+                "title": "增大字体大小",
+                "category": "JcDevHelper"
+            },
+            {
+                "command": "jcDevHelper.decreaseFontSize",
+                "title": "减小字体大小",
+                "category": "JcDevHelper"
+            },
+            {
+                "command": "jcDevHelper.insertSmartLog",
+                "title": "插入智能日志",
+                "category": "JcDevHelper"
+            },
+            {
+                "command": "jcDevHelper.insertJsonLog",
+                "title": "插入 JSON 日志",
+                "category": "JcDevHelper"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "jcDevHelper.deleteFunction",
+                "key": "ctrl+shift+d",
+                "mac": "cmd+shift+d",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "jcDevHelper.increaseFontSize",
+                "key": "ctrl+alt+.",
+                "mac": "cmd+alt+.",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "jcDevHelper.decreaseFontSize",
+                "key": "ctrl+alt+,",
+                "mac": "cmd+alt+,",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "jcDevHelper.insertSmartLog",
+                "key": "alt+l",
+                "mac": "alt+l",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "jcDevHelper.insertJsonLog",
+                "key": "ctrl+alt+l",
+                "mac": "cmd+alt+l",
+                "when": "editorTextFocus"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "jcDevHelper.deleteFunction",
+                    "when": "editorTextFocus",
+                    "group": "1_modification@1"
+                },
+                {
+                    "command": "jcDevHelper.insertSmartLog",
+                    "when": "editorTextFocus && editorHasSelection",
+                    "group": "1_modification@2"
+                },
+                {
+                    "command": "jcDevHelper.insertJsonLog",
+                    "when": "editorTextFocus && editorHasSelection",
+                    "group": "1_modification@3"
+                }
+            ],
+            "commandPalette": [
+                {
+                    "command": "jcDevHelper.deleteFunction",
+                    "when": "editorTextFocus"
+                },
+                {
+                    "command": "jcDevHelper.increaseFontSize"
+                },
+                {
+                    "command": "jcDevHelper.decreaseFontSize"
+                },
+                {
+                    "command": "jcDevHelper.insertSmartLog",
+                    "when": "editorTextFocus"
+                },
+                {
+                    "command": "jcDevHelper.insertJsonLog",
+                    "when": "editorTextFocus"
+                }
+            ]
+        },
+        "configuration": {
+            "title": "Jc Dev Helper",
+            "properties": {
+                "jcDevHelper.fontSizeStep": {
+                    "type": "number",
+                    "default": 1,
+                    "description": "字体大小调整步长",
+                    "minimum": 1,
+                    "maximum": 10
+                },
+                "jcDevHelper.maxFontSize": {
+                    "type": "number",
+                    "default": 50,
+                    "description": "字体大小最大值",
+                    "minimum": 20,
+                    "maximum": 100
+                },
+                "jcDevHelper.minFontSize": {
+                    "type": "number",
+                    "default": 6,
+                    "description": "字体大小最小值",
+                    "minimum": 4,
+                    "maximum": 20
+                },
+                "jcDevHelper.logTemplate": {
+                    "type": "string",
+                    "default": "===>:",
+                    "description": "日志模板，使用 ~~ 作为变量名占位符"
+                },
+                "jcDevHelper.enableJsonStringify": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "是否默认启用 JSON 序列化输出"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "pnpm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "pnpm run compile && pnpm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "vscode-test",
+        "package": "vsce package",
+        "publish": "vsce publish"
+    },
+    "devDependencies": {
+        "@types/babel__traverse": "^7.20.7",
+        "@types/node": "20.x",
+        "@types/vscode": "^1.60.0",
+        "@typescript-eslint/eslint-plugin": "^6.21.0",
+        "@typescript-eslint/parser": "^6.21.0",
+        "@vscode/test-cli": "^0.0.11",
+        "@vscode/test-electron": "^2.5.2",
+        "@vscode/vsce": "^3.2.0",
+        "eslint": "^8.57.1",
+        "typescript": "^5.8.3"
+    },
+    "dependencies": {
+        "@babel/parser": "^7.28.0",
+        "@babel/traverse": "^7.28.0",
+        "@babel/types": "^7.28.2",
+        "@vue/compiler-sfc": "^3.5.18"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/coderjc/jc-dev-helper.git"
+    },
+    "homepage": "https://github.com/coderjc/jc-dev-helper#readme",
+    "bugs": {
+        "url": "https://github.com/coderjc/jc-dev-helper/issues"
+    },
+    "license": "MIT"
+}
