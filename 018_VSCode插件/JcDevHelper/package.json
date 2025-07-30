@@ -155,7 +155,7 @@
                 "jcDevHelper.logTemplate": {
                     "type": "string",
                     "default": "===>:",
-                    "description": "日志模板，使用 ~~ 作为变量名占位符"
+                    "description": "日志模板"
                 },
                 "jcDevHelper.enableJsonStringify": {
                     "type": "boolean",
