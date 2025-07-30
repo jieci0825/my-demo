@@ -2,7 +2,7 @@
     "name": "jc-dev-helper",
     "displayName": "Jc Dev Helper",
     "description": "一款专为前端开发者设计的 VSCode 效率插件，提供智能函数删除、字体大小控制和智能日志生成功能",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "publisher": "coderjc",
     "engines": {
         "vscode": "^1.60.0"
