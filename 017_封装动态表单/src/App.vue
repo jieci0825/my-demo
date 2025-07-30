@@ -39,6 +39,15 @@ const formItems = computed(() => {
                 { label: '男', value: 'man' },
                 { label: '女', value: 'woman' }
             ]
+        },
+        {
+            label: '网络',
+            key: 'network',
+            placeholder: '请输入网络地址',
+            slots: {
+                // 插槽时，会将 item 作为组件的 props 传递下来，也就可以在此处进行接收使用
+                prepend: props => 'http://' + props.item.key
+            }
         }
     ]
 })
@@ -80,12 +89,12 @@ const submit2 = async () => {
             >提交</el-button
         >
         <div style="width: 100%; height: 30px"></div>
-        <FormBuilder2></FormBuilder2>
+        <!-- <FormBuilder2></FormBuilder2>
         <el-button
             type="primary"
             @click="submit2"
             >提交2</el-button
-        >
+        > -->
     </div>
 </template>
 

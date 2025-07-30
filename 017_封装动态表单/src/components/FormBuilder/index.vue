@@ -17,7 +17,7 @@ function omit(obj, keys) {
     return Object.fromEntries(Object.entries(obj).filter(([key]) => !keys.includes(key)))
 }
 
-const withProps = ['label', 'key', 'type', 'hidden', 'isSlot', 'gutter', 'span']
+const withProps = ['label', 'key', 'type', 'hidden', 'isSlot', 'gutter', 'span', 'slots']
 
 const getFormItemProps = item => {
     if (item.props && typeof item.props === 'object') {
@@ -40,7 +40,21 @@ const getFormItemComp = item => {
     return type
 }
 
-const items = computed(() => props.formItems.filter(item => !item.hidden))
+const items = computed(() => {
+    const filterItems = props.formItems.filter(item => !item.hidden)
+    const processItems = filterItems.map(item => {
+        if (!item.slots) {
+            item.slots = {}
+        }
+        if (typeof item.slots === 'function') {
+            item.slots = {
+                default: item.slots
+            }
+        }
+        return item
+    })
+    return processItems
+})
 
 const elFormInstance = useTemplateRef('elFormRef')
 
@@ -79,7 +93,17 @@ defineExpose({
                             :is="getFormItemComp(item)"
                             v-model="modelValue[item.key]"
                             v-bind="getFormItemProps(item)"
-                        ></Component>
+                        >
+                            <template
+                                v-for="(_, slotName) in item.slots"
+                                #[slotName]
+                            >
+                                <Component
+                                    :item="item"
+                                    :is="item.slots[slotName]"
+                                />
+                            </template>
+                        </Component>
                     </template>
                 </el-form-item>
             </el-col>
