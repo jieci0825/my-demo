@@ -15,9 +15,16 @@ const modelValue = defineModel()
         <el-option
             v-for="item in attrs.options"
             :key="item.value"
-            :label="item.label"
             :value="item.value"
-        />
+            :label="item.label"
+        >
+            <template v-if="item.slots">
+                <component
+                    :is="item.slots.default"
+                    :item="item"
+                />
+            </template>
+        </el-option>
     </el-select>
 </template>
 

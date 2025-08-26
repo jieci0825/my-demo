@@ -1,11 +1,16 @@
 <script setup>
-import { computed, ref, useTemplateRef } from 'vue'
+import { computed, h, ref, useTemplateRef } from 'vue'
 import FormBuilder from './components/FormBuilder/index.vue'
 import { useFormBuilder } from './hooks/useFormBuilder'
 
 const formData = ref({})
 
 const formInstance = useTemplateRef('formRef')
+setTimeout(() => {
+    console.log('--')
+    console.log(formInstance.value)
+}, 1000)
+console.log(formInstance)
 
 const formItems = computed(() => {
     return [
@@ -36,7 +41,16 @@ const formItems = computed(() => {
             placeholder: '请选择性别',
             // isSlot: true,
             options: [
-                { label: '男', value: 'man' },
+                {
+                    label: '男',
+                    value: 'man',
+                    slots: {
+                        default: props => {
+                            console.log(props)
+                            return h('span', { style: { color: 'red' } }, '男')
+                        }
+                    }
+                },
                 { label: '女', value: 'woman' }
             ]
         },

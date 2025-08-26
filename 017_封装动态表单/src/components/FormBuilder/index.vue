@@ -1,7 +1,7 @@
 <script setup>
 import { ElInput, ElForm, ElFormItem, ElInputNumber } from 'element-plus'
 import JcSelect from './JcSelect.vue'
-import { computed, useTemplateRef } from 'vue'
+import { computed, toRaw, useTemplateRef } from 'vue'
 
 const props = defineProps(['formItems', 'rules'])
 
@@ -14,10 +14,21 @@ const formItmeCompMap = {
 }
 
 function omit(obj, keys) {
-    return Object.fromEntries(Object.entries(obj).filter(([key]) => !keys.includes(key)))
+    return Object.fromEntries(
+        Object.entries(obj).filter(([key]) => !keys.includes(key))
+    )
 }
 
-const withProps = ['label', 'key', 'type', 'hidden', 'isSlot', 'gutter', 'span', 'slots']
+const withProps = [
+    'label',
+    'key',
+    'type',
+    'hidden',
+    'isSlot',
+    'gutter',
+    'span',
+    'slots'
+]
 
 const getFormItemProps = item => {
     if (item.props && typeof item.props === 'object') {
@@ -64,7 +75,8 @@ defineExpose({
     },
     rest() {
         elFormInstance.value.resetFields()
-    }
+    },
+    elFormInstance: toRaw(elFormInstance)
 })
 </script>
 
