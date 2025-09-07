@@ -1,4 +1,4 @@
-const { DataSuccess, NotFound, ParameterException } = require('@/core/error-type')
+const { DataSuccess, NotFound, ParamsError } = require('@/core/error-type')
 const examPaperService = require('@/app/services/exam-paper.service')
 
 class Controller {
@@ -9,7 +9,7 @@ class Controller {
         const data = ctx.request.body
 
         if (!data.name || !data.category) {
-            throw new ParameterException('考卷名称和分类不能为空')
+            throw new ParamsError('考卷名称和分类不能为空')
         }
 
         const result = await examPaperService.create(data)
@@ -31,7 +31,7 @@ class Controller {
         const { id } = ctx.params
 
         if (!id) {
-            throw new ParameterException('ID不能为空')
+            throw new ParamsError('ID不能为空')
         }
 
         const result = await examPaperService.getById(id)
@@ -51,7 +51,7 @@ class Controller {
         const data = ctx.request.body
 
         if (!id) {
-            throw new ParameterException('ID不能为空')
+            throw new ParamsError('ID不能为空')
         }
 
         const result = await examPaperService.updateById(id, data)
@@ -70,7 +70,7 @@ class Controller {
         const { id } = ctx.params
 
         if (!id) {
-            throw new ParameterException('ID不能为空')
+            throw new ParamsError('ID不能为空')
         }
 
         const result = await examPaperService.deleteById(id)
