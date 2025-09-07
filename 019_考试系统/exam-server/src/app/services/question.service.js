@@ -13,7 +13,6 @@ class Service {
             type: data.type,
             answer: data.answer,
             analysis: data.analysis,
-            exam_id: data.exam_id,
             options: data.options || ''
         })
         return question.toJSON()
@@ -31,7 +30,6 @@ class Service {
             type: data.type,
             answer: data.answer,
             analysis: data.analysis,
-            exam_id: data.exam_id,
             options: data.options || ''
         }))
 
@@ -65,9 +63,6 @@ class Service {
         }
         if (data.analysis !== undefined) {
             updateData.analysis = data.analysis
-        }
-        if (data.exam_id !== undefined) {
-            updateData.exam_id = data.exam_id
         }
         if (data.options !== undefined) {
             updateData.options = data.options
@@ -103,32 +98,14 @@ class Service {
     }
 
     /**
-     * 根据考卷ID获取问题列表
-     * @param {number} examId 考卷ID
+     * 获取所有问题列表
      * @returns {Array} 问题列表
      */
-    async getByExamId(examId) {
+    async getAll() {
         const questions = await Question.findAll({
-            where: {
-                exam_id: examId
-            },
             order: [['sn', 'ASC']]
         })
         return questions.map(item => item.toJSON())
-    }
-
-    /**
-     * 批量删除考卷下的所有问题
-     * @param {number} examId 考卷ID
-     * @returns {number} 删除的问题数量
-     */
-    async deleteByExamId(examId) {
-        const result = await Question.destroy({
-            where: {
-                exam_id: examId
-            }
-        })
-        return result
     }
 }
 

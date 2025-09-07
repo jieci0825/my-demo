@@ -34,11 +34,6 @@ Question.init(
         analysis: {
             type: DataTypes.TEXT
         },
-        // 属于哪个考卷
-        exam_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
         // 选项
         options: {
             type: DataTypes.JSON,
