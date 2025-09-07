@@ -13,7 +13,8 @@ class Service {
             type: data.type,
             answer: data.answer,
             analysis: data.analysis,
-            exam_id: data.exam_id
+            exam_id: data.exam_id,
+            options: data.options || ''
         })
         return question.toJSON()
     }
@@ -30,11 +31,11 @@ class Service {
             type: data.type,
             answer: data.answer,
             analysis: data.analysis,
-            exam_id: data.exam_id
+            exam_id: data.exam_id,
+            options: data.options || ''
         }))
 
-        const questions = await Question.bulkCreate(questionsData)
-        return questions.map(question => question.toJSON())
+        await Question.bulkCreate(questionsData)
     }
 
     /**
@@ -67,6 +68,9 @@ class Service {
         }
         if (data.exam_id !== undefined) {
             updateData.exam_id = data.exam_id
+        }
+        if (data.options !== undefined) {
+            updateData.options = data.options
         }
 
         await question.update(updateData)

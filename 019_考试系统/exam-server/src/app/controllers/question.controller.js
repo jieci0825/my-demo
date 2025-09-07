@@ -18,17 +18,35 @@ class Controller {
             // 验证每个问题的必填字段
             for (let i = 0; i < data.length; i++) {
                 const question = data[i]
-                if (!question.sn || !question.question || !question.type || !question.answer || !question.exam_id) {
-                    throw new ParamsError(`第${i + 1}个问题的题号、问题、问题类型、答案和考卷ID不能为空`)
+                if (
+                    !question.sn ||
+                    !question.question ||
+                    !question.type ||
+                    !question.answer ||
+                    !question.exam_id
+                ) {
+                    throw new ParamsError(
+                        `第${
+                            i + 1
+                        }个问题的题号、问题、问题类型、答案和考卷ID不能为空`
+                    )
                 }
             }
 
-            const result = await questionService.createBatch(data)
-            throw new DataSuccess(result, `批量创建${data.length}个问题成功`)
+            await questionService.createBatch(data)
+            throw new DataSuccess(`批量创建${data.length}个问题成功`)
         } else {
             // 单个创建验证
-            if (!data.sn || !data.question || !data.type || !data.answer || !data.exam_id) {
-                throw new ParamsError('题号、问题、问题类型、答案和考卷ID不能为空')
+            if (
+                !data.sn ||
+                !data.question ||
+                !data.type ||
+                !data.answer ||
+                !data.exam_id
+            ) {
+                throw new ParamsError(
+                    '题号、问题、问题类型、答案和考卷ID不能为空'
+                )
             }
 
             const result = await questionService.create(data)

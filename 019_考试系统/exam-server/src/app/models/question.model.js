@@ -38,6 +38,11 @@ Question.init(
         exam_id: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        // 选项
+        options: {
+            type: DataTypes.JSON,
+            allowNull: true
         }
     },
     { sequelize, tableName: 'questions' }

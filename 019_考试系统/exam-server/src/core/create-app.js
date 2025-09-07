@@ -19,7 +19,13 @@ function applyCors(app) {
  * @param app koa实例
  */
 function applyBodyParse(app) {
-    app.use(koaBody())
+    app.use(
+        koaBody({
+            jsonLimit: '20mb',
+            textLimit: '20mb',
+            formLimit: '20mb'
+        })
+    )
 }
 
 /**
