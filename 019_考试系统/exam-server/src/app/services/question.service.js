@@ -1,40 +1,51 @@
-const { Question } = require('@/app/models/question.model')
+const { Question, ExamPaperQuestion } = require('@/app/models')
 const { Op } = require('sequelize')
+const { sequelize } = require('@/core/db')
 
 class Service {
     /**
-     * 创建问题
-     * @param {Object} data 问题数据
-     * @returns {Object} 创建的问题信息
-     */
-    async create(data) {
-        const question = await Question.create({
-            sn: data.sn,
-            question: data.question,
-            type: data.type,
-            answer: data.answer,
-            analysis: data.analysis,
-            options: data.options || ''
-        })
-        return question.toJSON()
-    }
-
-    /**
      * 批量创建问题
      * @param {Array} dataArray 问题数据数组
+     * @param {number} examPaperId 考卷ID
      * @returns {Array} 创建的问题信息数组
      */
-    async createBatch(dataArray) {
-        const questionsData = dataArray.map(data => ({
-            sn: data.sn,
-            question: data.question,
-            type: data.type,
-            answer: data.answer,
-            analysis: data.analysis,
-            options: data.options || ''
-        }))
+    async createBatch(dataArray, examPaperId) {
+        const transaction = await sequelize.transaction()
 
-        await Question.bulkCreate(questionsData)
+        try {
+            const questionsData = dataArray.map(data => ({
+                sn: data.sn,
+                question: data.question,
+                type: data.type,
+                answer: data.answer,
+                analysis: data.analysis,
+                options: data.options || ''
+            }))
+
+            // 批量创建问题，并返回创建的问题实例
+            const createdQuestions = await Question.bulkCreate(questionsData, {
+                transaction,
+                returning: true
+            })
+
+            // 如果提供了考卷ID，则创建考卷问题关系
+            if (examPaperId) {
+                const relationshipData = createdQuestions.map(question => ({
+                    exam_paper_id: examPaperId,
+                    question_id: question.id
+                }))
+
+                await ExamPaperQuestion.bulkCreate(relationshipData, {
+                    transaction
+                })
+            }
+
+            await transaction.commit()
+            return createdQuestions.map(question => question.toJSON())
+        } catch (error) {
+            await transaction.rollback()
+            throw error
+        }
     }
 
     /**

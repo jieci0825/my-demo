@@ -6,34 +6,30 @@ class Controller {
      * 创建问题（支持单个或批量创建）
      */
     async create(ctx) {
-        const data = ctx.request.body
+        const { exam_id, questions } = ctx.request.body
 
-        // 检查是否为数组（批量创建）
-        if (Array.isArray(data)) {
-            // 批量创建验证
-            if (data.length === 0) {
-                throw new ParamsError('问题数组不能为空')
-            }
-
-            // 验证每个问题的必填字段
-            for (let i = 0; i < data.length; i++) {
-                const question = data[i]
-                if (!question.sn || !question.question || !question.type || !question.answer) {
-                    throw new ParamsError(`第${i + 1}个问题的题号、问题、问题类型、答案不能为空`)
-                }
-            }
-
-            await questionService.createBatch(data)
-            throw new DataSuccess(`批量创建${data.length}个问题成功`)
-        } else {
-            // 单个创建验证
-            if (!data.sn || !data.question || !data.type || !data.answer) {
-                throw new ParamsError('题号、问题、问题类型、答案不能为空')
-            }
-
-            const result = await questionService.create(data)
-            throw new DataSuccess(result, '创建问题成功')
+        // 批量创建验证
+        if (!questions || questions.length === 0) {
+            throw new ParamsError('问题数组不能为空')
         }
+
+        // 验证每个问题的必填字段
+        for (let i = 0; i < questions.length; i++) {
+            const question = questions[i]
+            if (
+                !question.sn ||
+                !question.question ||
+                !question.type ||
+                !question.answer
+            ) {
+                throw new ParamsError(
+                    `第${i + 1}个问题的题号、问题、问题类型、答案不能为空`
+                )
+            }
+        }
+
+        await questionService.createBatch(questions, exam_id)
+        throw new DataSuccess(`批量创建${questions.length}个问题成功`)
     }
 
     /**
