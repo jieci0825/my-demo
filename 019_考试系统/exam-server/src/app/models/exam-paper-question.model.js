@@ -35,17 +35,7 @@ ExamPaperQuestion.init(
     },
     {
         sequelize,
-        tableName: 'exam_paper_questions',
-        // 确保同一考卷中不能有重复的问题
-        indexes: [
-            {
-                unique: true,
-                fields: ['exam_paper_id', 'question_id']
-            },
-            {
-                fields: ['exam_paper_id', 'order_number']
-            }
-        ]
+        tableName: 'exam_paper_questions'
     }
 )
 

@@ -1,4 +1,5 @@
 const { Question } = require('@/app/models/question.model')
+const { Op } = require('sequelize')
 
 class Service {
     /**
@@ -98,14 +99,42 @@ class Service {
     }
 
     /**
-     * 获取所有问题列表
-     * @returns {Array} 问题列表
+     * 获取问题列表（支持分页和动态查询）
+     * @param {Object} options 查询选项
+     * @param {number} options.page 页码
+     * @param {number} options.limit 每页条数
+     * @param {Object} options.conditions 查询条件
+     * @returns {Object} 包含列表和分页信息的对象
      */
-    async getAll() {
-        const questions = await Question.findAll({
-            order: [['sn', 'ASC']]
+    async getList({ page, limit, conditions }) {
+        // 构建 where 条件
+        const where = {}
+
+        if (conditions.type) {
+            where.type = conditions.type
+        }
+
+        if (conditions.title) {
+            where.question = {
+                [Op.like]: `%${conditions.title}%`
+            }
+        }
+
+        // 计算偏移量
+        const offset = (page - 1) * limit
+
+        // 查询数据和总数
+        const { count, rows } = await Question.findAndCountAll({
+            where,
+            order: [['sn', 'ASC']],
+            limit,
+            offset
         })
-        return questions.map(item => item.toJSON())
+
+        return {
+            list: rows.map(item => item.toJSON()),
+            total: count
+        }
     }
 }
 

@@ -107,6 +107,43 @@ class Controller {
         const result = await questionService.getByExamId(examId)
         throw new DataSuccess(result)
     }
+
+    /**
+     * 获取问题列表（支持分页和动态查询）
+     */
+    async getList(ctx) {
+        const query = ctx.request.query
+        const { page = 1, limit = 10, type, title } = query
+
+        // 参数验证
+        const pageNum = parseInt(page)
+        const limitNum = parseInt(limit)
+
+        if (pageNum < 1) {
+            throw new ParamsError('页码必须大于0')
+        }
+
+        if (limitNum < 1 || limitNum > 100) {
+            throw new ParamsError('每页条数必须在1-100之间')
+        }
+
+        // 构建查询条件
+        const conditions = {}
+        if (type) {
+            conditions.type = type
+        }
+        if (title) {
+            conditions.title = title
+        }
+
+        const result = await questionService.getList({
+            page: pageNum,
+            limit: limitNum,
+            conditions
+        })
+
+        throw new DataSuccess(result)
+    }
 }
 
 module.exports = new Controller()

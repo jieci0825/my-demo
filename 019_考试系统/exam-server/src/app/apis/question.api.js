@@ -1,10 +1,20 @@
 const Router = require('koa-router')
 const router = new Router({ prefix: '/question' })
 
-const { create, updateById, deleteById, getById, getByExamId } = require('@/app/controllers/question.controller')
+const {
+    create,
+    updateById,
+    deleteById,
+    getById,
+    getByExamId,
+    getList
+} = require('@/app/controllers/question.controller')
 
 // 创建问题
 router.post('/', create)
+
+// 获取问题列表
+router.get('/', getList)
 
 // 根据ID更新问题
 router.put('/:id', updateById)
