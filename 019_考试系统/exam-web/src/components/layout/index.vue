@@ -1,6 +1,5 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { SwitchButton } from '@element-plus/icons-vue'
 
 const router = useRouter()
 
@@ -60,6 +59,10 @@ const logout = () => {
 <style scoped lang="scss">
 .layout {
     height: 100vh;
+
+    :deep(.el-container) {
+        height: 100%;
+    }
 }
 
 .header {
@@ -75,15 +78,16 @@ const logout = () => {
 }
 
 .sidebar {
-    background-color: #f5f5f5;
+    height: 100%;
+    border-right: 1px solid #e0e0e0;
 }
 
 .menu {
     border: none;
-    background-color: #f5f5f5;
 }
 
 .main {
+    height: 100%;
     background-color: #fff;
     padding: 20px;
 }
