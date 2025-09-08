@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { examPaperApi } from '@/api'
 import ExamPaperForm from './components/exam-paper-form.vue'
+import { useRouter } from 'vue-router'
 
 // 响应式数据
 const tableData = ref([])
@@ -12,6 +13,8 @@ const loading = ref(false)
 const formVisible = ref(false)
 const formMode = ref('add') // 'add' 或 'edit'
 const editData = ref(null)
+
+const router = useRouter()
 
 // 获取考卷列表
 const getExamPapers = async () => {
@@ -35,8 +38,13 @@ const handleAdd = () => {
 
 // 查看考卷详情
 const handleView = row => {
-    // TODO: 实现查看考卷详情功能
-    ElMessage.info(`查看考卷详情功能待开发，考卷ID: ${row.id}`)
+    router.push({
+        path: '/exam-paper',
+        query: {
+            id: row.id,
+            action: 'preview'
+        }
+    })
 }
 
 // 编辑考卷

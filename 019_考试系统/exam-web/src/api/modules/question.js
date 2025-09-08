@@ -51,3 +51,16 @@ export const getQuestionById = id => {
 export const getQuestionsByExamId = examId => {
     return request.get(`/question/exam/${examId}`)
 }
+
+/**
+ * 获取题目列表（支持分页和动态查询）
+ * @param {Object} params - 查询参数
+ * @param {number} params.page - 页码，默认为1
+ * @param {number} params.limit - 每页条数，默认为10，最大100
+ * @param {string} params.type - 题目类型（可选）
+ * @param {string} params.title - 题目标题（模糊查询，可选）
+ * @returns {Promise}
+ */
+export const getQuestionList = params => {
+    return request.get('/question', { params })
+}

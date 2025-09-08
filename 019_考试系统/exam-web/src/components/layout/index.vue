@@ -59,6 +59,7 @@ const logout = () => {
 <style scoped lang="scss">
 .layout {
     height: 100vh;
+    overflow: hidden;
 
     :deep(.el-container) {
         height: 100%;
@@ -88,7 +89,8 @@ const logout = () => {
 
 .main {
     height: 100%;
-    background-color: #fff;
+    background-color: #f6f6f7;
     padding: 20px;
+    overflow: auto;
 }
 </style>

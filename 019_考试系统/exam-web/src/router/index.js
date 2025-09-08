@@ -89,6 +89,15 @@ const routes = [
         }
     },
     {
+        path: '/exam-paper',
+        name: 'ExamPaper',
+        component: () => import('@/views/exam-paper/index.vue'),
+        meta: {
+            title: '考卷',
+            requiresAuth: true
+        }
+    },
+    {
         path: '/:pathMatch(.*)*',
         redirect: '/404'
     }
