@@ -21,7 +21,8 @@ function convertKeysToSnakeCase(obj) {
     // 转换对象的键名
     const converted = {}
     for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
+        // 换成 Object 构造函数上的原型方法
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
             // 将驼峰命名转换为下划线命名
             const snakeKey = key.replace(/([A-Z])/g, '_$1').toLowerCase()
             // 递归处理值
@@ -39,17 +40,16 @@ function camelToSnakeMiddleware() {
     return async (ctx, next) => {
         // 处理请求体数据
         if (ctx.request.body && typeof ctx.request.body === 'object') {
-            ctx.request.body = convertKeysToSnakeCase(ctx.request.body)
+            if (Object.keys(ctx.request.body).length > 0) {
+                ctx.request.body = convertKeysToSnakeCase(ctx.request.body)
+            }
         }
 
         // 处理查询参数
         if (ctx.query && typeof ctx.query === 'object') {
-            ctx.query = convertKeysToSnakeCase(ctx.query)
-        }
-
-        // 处理URL参数
-        if (ctx.params && typeof ctx.params === 'object') {
-            ctx.params = convertKeysToSnakeCase(ctx.params)
+            if (Object.keys(ctx.query).length > 0) {
+                ctx.query = convertKeysToSnakeCase(ctx.query)
+            }
         }
 
         await next()

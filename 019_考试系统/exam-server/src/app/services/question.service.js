@@ -137,7 +137,7 @@ class Service {
         // 查询数据和总数
         const { count, rows } = await Question.findAndCountAll({
             where,
-            order: [['sn', 'ASC']],
+            order: [['id', 'DESC']],
             limit,
             offset
         })

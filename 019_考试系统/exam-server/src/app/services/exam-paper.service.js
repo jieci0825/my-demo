@@ -1,4 +1,4 @@
-const { ExamPaper } = require('@/app/models/exam-paper.model')
+const { ExamPaper, ExamPaperQuestion, Question } = require('@/app/models')
 
 class Service {
     /**
@@ -32,7 +32,37 @@ class Service {
      */
     async getById(id) {
         const examPaper = await ExamPaper.findByPk(id)
-        return examPaper ? examPaper.toJSON() : null
+        if (!examPaper) {
+            return null
+        }
+
+        // 获取考卷下的所有题目
+        // 1. 先查询考卷题目关联表，获取题目ID列表
+        const examPaperQuestions = await ExamPaperQuestion.findAll({
+            where: { exam_paper_id: id }
+        })
+
+        const examPaperData = examPaper.toJSON()
+
+        if (examPaperQuestions.length === 0) {
+            examPaperData.questions = []
+            return examPaperData
+        }
+
+        // 2. 提取题目ID列表
+        const questionIds = examPaperQuestions.map(epq => epq.question_id)
+
+        // 3. 根据题目ID查询具体的题目信息，并按sn升序排序
+        const questions = await Question.findAll({
+            where: {
+                id: questionIds
+            },
+            order: [['sn', 'ASC']]
+        })
+
+        examPaperData.questions = questions.map(question => question.toJSON())
+
+        return examPaperData
     }
 
     /**
