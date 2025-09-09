@@ -62,7 +62,6 @@ async function getExamPaperDetail() {
         justify-content: center;
         height: 50px;
         border-bottom: 1px solid #e0e0e0;
-        margin-bottom: 20px;
 
         h1 {
             font-size: 20px;

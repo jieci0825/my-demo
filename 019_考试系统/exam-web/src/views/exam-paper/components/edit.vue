@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps(['detail'])
 
@@ -70,6 +70,35 @@ const getQuestionType = type => {
     }
     return typeMap[type] || '未知题型'
 }
+
+const submitExam = () => {
+    // TODO 提交之前需要展示弹窗
+    console.log(userAnswers.value)
+}
+
+// 键盘事件处理
+const handleKeydown = event => {
+    // 左方向键 - 上一题
+    if (event.key === 'ArrowLeft') {
+        event.preventDefault()
+        prevQuestion()
+    }
+    // 右方向键 - 下一题
+    else if (event.key === 'ArrowRight') {
+        event.preventDefault()
+        nextQuestion()
+    }
+}
+
+// 组件挂载时添加键盘监听
+onMounted(() => {
+    document.addEventListener('keydown', handleKeydown)
+})
+
+// 组件卸载时移除键盘监听
+onUnmounted(() => {
+    document.removeEventListener('keydown', handleKeydown)
+})
 </script>
 
 <template>
@@ -194,6 +223,11 @@ const getQuestionType = type => {
                 >
                     {{ showAnswer ? '隐藏答案' : '显示答案' }}
                 </el-button>
+                <el-button
+                    type="success"
+                    @click="submitExam"
+                    >提交试卷</el-button
+                >
             </div>
         </div>
     </div>
@@ -402,6 +436,7 @@ const getQuestionType = type => {
 
     .el-button {
         width: 100%;
+        margin-left: 0;
     }
 }
 </style>
