@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { examPaperApi } from '@/api'
 import Preview from './components/preview.vue'
+import Edit from './components/edit.vue'
 
 // 1. 根据页面上的id获取考卷详情
 // 2. 考卷详情包含题目，然后渲染这些题目
@@ -39,6 +40,10 @@ async function getExamPaperDetail() {
                     v-if="isPreview"
                     :questions="detail.questions"
                 />
+                <Edit
+                    v-else
+                    :detail="detail"
+                />
             </div>
         </template>
     </div>
@@ -66,11 +71,7 @@ async function getExamPaperDetail() {
     }
 
     .content {
-        margin: 0 auto;
-        width: 800px;
-        height: 10px;
-        border: 1px solid #e0e0e0;
-        border-radius: 6px;
+        height: calc(100vh - 70px);
     }
 }
 </style>
