@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ElMessage } from 'element-plus'
 
 const props = defineProps(['detail'])
 
@@ -11,6 +12,9 @@ const userAnswers = ref({})
 
 // 是否显示答案
 const showAnswer = ref(false)
+
+// 错误答案的题目ID集合
+const wrongAnswers = ref(new Set())
 
 // 当前题目
 const currentQuestion = computed(() => {
@@ -71,9 +75,43 @@ const getQuestionType = type => {
     return typeMap[type] || '未知题型'
 }
 
+// 检测选择题答案正确性
+const checkChoiceAnswers = () => {
+    const newWrongAnswers = new Set()
+
+    props.detail?.questions?.forEach(question => {
+        // 只检查选择题
+        if (question.type === 'choice') {
+            const userAnswer = userAnswers.value[question.id]
+            const correctAnswer = question.answer
+
+            // 如果用户已答题且答案错误，则标记为错误
+            if (userAnswer && userAnswer !== correctAnswer) {
+                newWrongAnswers.add(question.id)
+            }
+        }
+    })
+
+    wrongAnswers.value = newWrongAnswers
+    return newWrongAnswers
+}
+
 const submitExam = () => {
-    // TODO 提交之前需要展示弹窗
-    console.log(userAnswers.value)
+    // 检测选择题答案正确性
+    const wrongAnswerIds = checkChoiceAnswers()
+
+    if (wrongAnswerIds.size > 0) {
+        const wrongQuestions = Array.from(wrongAnswerIds)
+            .map(id => {
+                const questionIndex = props.detail?.questions?.findIndex(q => q.id === id)
+                return questionIndex !== -1 ? questionIndex + 1 : null
+            })
+            .filter(index => index !== null)
+
+        ElMessage.warning(`检测到第 ${wrongQuestions.join('、')} 题答案错误，已在侧边栏标红显示`)
+    } else {
+        ElMessage.success('恭喜！所有选择题答案都正确')
+    }
 }
 
 // 键盘事件处理
@@ -192,7 +230,8 @@ onUnmounted(() => {
                         class="nav-item"
                         :class="{
                             active: index === currentIndex,
-                            answered: isAnswered(question.id)
+                            answered: isAnswered(question.id),
+                            wrong: wrongAnswers.has(question.id)
                         }"
                         @click="goToQuestion(index)"
                     >
@@ -420,6 +459,17 @@ onUnmounted(() => {
             background: #67c23a;
             color: white;
             border-color: #67c23a;
+
+            &.active {
+                background: #409eff;
+                border-color: #409eff;
+            }
+        }
+
+        &.wrong {
+            background: #f56c6c;
+            color: white;
+            border-color: #f56c6c;
 
             &.active {
                 background: #409eff;

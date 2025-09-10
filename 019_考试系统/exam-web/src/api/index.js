@@ -7,6 +7,7 @@ export default request
 export * as authApi from './modules/auth'
 export * as questionApi from './modules/question'
 export * as examPaperApi from './modules/exam-paper.js'
+export * as examSubmissionApi from './modules/exam-submission.js'
 
 // 也可以导出一些常用的请求方法
 export const get = (url, params) => request.get(url, { params })
