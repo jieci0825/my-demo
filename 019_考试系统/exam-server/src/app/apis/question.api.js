@@ -9,6 +9,9 @@ const {
     getByExamId,
     getList
 } = require('@/app/controllers/question.controller')
+const { verifyToken } = require('@/middleware/auth.middleware')
+
+router.use(verifyToken)
 
 // 创建问题
 router.post('/', create)

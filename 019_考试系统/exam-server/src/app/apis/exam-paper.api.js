@@ -2,6 +2,9 @@ const Router = require('koa-router')
 const router = new Router({ prefix: '/exam-paper' })
 
 const { create, getList, getById, updateById, deleteById } = require('@/app/controllers/exam-paper.controller')
+const { verifyToken } = require('@/middleware/auth.middleware')
+
+router.use(verifyToken)
 
 // 创建考卷
 router.post('/', create)
