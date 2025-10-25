@@ -1,7 +1,0 @@
-{
-  "name": "project-1",
-  "version": "1.0.0",
-  "dependencies": {
-    "project-1": "file:"
-  }
-}

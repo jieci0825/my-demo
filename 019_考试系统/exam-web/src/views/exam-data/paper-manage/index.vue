@@ -63,11 +63,15 @@ const handleEdit = async row => {
 // 删除考卷
 const handleDelete = async row => {
     try {
-        await ElMessageBox.confirm(`确定要删除考卷 "${row.name}" 吗？`, '删除确认', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-        })
+        await ElMessageBox.confirm(
+            `确定要删除考卷 "${row.name}" 吗？`,
+            '删除确认',
+            {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }
+        )
 
         await examPaperApi.deleteExamPaperById(row.id)
         ElMessage.success('删除考卷成功')
@@ -82,6 +86,16 @@ const handleDelete = async row => {
 // 表单提交成功回调
 const handleFormSuccess = () => {
     getExamPapers() // 刷新列表
+}
+
+const handleExam = row => {
+    router.push({
+        path: '/exam-paper',
+        query: {
+            id: row.id,
+            action: 'exam'
+        }
+    })
 }
 
 // 组件挂载时获取数据
@@ -130,7 +144,7 @@ onMounted(() => {
             />
             <el-table-column
                 label="操作"
-                width="200"
+                width="260"
                 align="center"
                 fixed="right"
             >
@@ -141,6 +155,13 @@ onMounted(() => {
                         @click="handleView(row)"
                     >
                         查看
+                    </el-button>
+                    <el-button
+                        type="primary"
+                        size="small"
+                        @click="handleExam(row)"
+                    >
+                        考试
                     </el-button>
                     <el-button
                         type="primary"
