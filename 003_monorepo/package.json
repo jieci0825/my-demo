@@ -2,9 +2,17 @@
     "name": "coderjc",
     "version": "1.0.0",
     "description": "",
+    "type": "module",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "lint:prettier": "prettier --write \"**/*.{js,ts,mjs,cjs,json,tsx,css,scss,less,vue,html,md}\"",
+        "lint:eslint": "eslint",
+        "commit": "git-cz"
+    },
+    "config": {
+        "commitizen": {
+            "path": "node_modules/cz-git"
+        }
     },
     "keywords": [],
     "author": "",
@@ -16,7 +24,12 @@
         "pnpm": ">=10.15.0"
     },
     "devDependencies": {
+        "@commitlint/cli": "^20.1.0",
+        "@commitlint/config-conventional": "^20.0.0",
         "@types/node": "^24.9.1",
+        "commitizen": "^4.3.1",
+        "cz-git": "^1.12.0",
+        "prettier": "^3.6.2",
         "typescript": "^5.9.3"
     }
 }
