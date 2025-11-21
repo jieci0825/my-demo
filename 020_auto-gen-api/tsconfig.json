@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "module": "esnext",
+        "target": "ES2015",
+        "types": [],
+        "lib": ["ESNext"],
+        "sourceMap": true,
+        "declaration": true,
+        "declarationMap": true,
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": true,
+        "strict": true,
+        "verbatimModuleSyntax": false,
+        "moduleResolution": "bundler",
+        "isolatedModules": true,
+        "noUncheckedSideEffectImports": true,
+        "moduleDetection": "force",
+        "skipLibCheck": true,
+        "paths": {
+            "@coderjc/utils": ["./packages/utils/src/index.ts"],
+            "@coderjc/cli": ["packages/cli/src/index.ts"]
+        }
+    },
+    "include": ["apps/**/*.{ts,tsx,vue}", "packages/**/*.{ts,tsx,vue}"],
+    "exclude": ["node_modules", "dist"]
+}

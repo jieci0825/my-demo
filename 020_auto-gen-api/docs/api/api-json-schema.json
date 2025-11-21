@@ -1,0 +1,79 @@
+{
+  "metadata": {
+    "generatedAt": "2025-11-21T10:06:12.401Z",
+    "totalModules": 1,
+    "totalApis": 1
+  },
+  "modules": {
+    "abc": {
+      "moduleName": "abc",
+      "prefix": "/api/abc",
+      "description": "用户管理模块，处理用户的增删改查等操作",
+      "apis": [
+        {
+          "name": "list",
+          "description": "获取 abc 列表的描述",
+          "summary": "获取 abc 列表",
+          "method": "GET",
+          "path": "/",
+          "fullPath": "/api/abc/",
+          "auth": "bearer",
+          "tags": [
+            "列表"
+          ],
+          "deprecated": false,
+          "remarks": "获取 abc 列表的备注",
+          "platforms": [
+            "admin",
+            "h5"
+          ],
+          "requestType": "GetAbcListQueryDTO",
+          "requestSchema": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "type": "object",
+            "properties": {
+              "page": {
+                "description": "页码",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              },
+              "pageSize": {
+                "description": "每页条数",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              }
+            },
+            "required": [
+              "page",
+              "pageSize"
+            ],
+            "additionalProperties": false
+          },
+          "responseType": "GetAbcListResponseDTO",
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "list": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "total": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "list",
+              "total"
+            ],
+            "$schema": "http://json-schema.org/draft-07/schema#"
+          }
+        }
+      ]
+    }
+  }
+}

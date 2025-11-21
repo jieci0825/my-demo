@@ -1,0 +1,7 @@
+export { default as abcRouter } from './abc.router'
+export * as abcController from './abc.controller'
+export * as abcService from './abc.service'
+export * as abcRepo from './abc.repo'
+export * from './abc.validator'
+export * from './abc.dto'
+export * from './abc.meta'
