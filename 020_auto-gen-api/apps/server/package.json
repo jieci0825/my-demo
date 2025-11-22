@@ -16,6 +16,7 @@
     },
     "devDependencies": {
         "@coderjc/utils": "workspace:*",
+        "@coderjc/types": "workspace:*",
         "@types/koa": "^3.0.1",
         "@types/koa-bodyparser": "^4.3.13",
         "@types/koa__router": "^12.0.5",

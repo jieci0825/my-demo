@@ -2,7 +2,7 @@
  * 这个文件就是生成 API 文档时需要用到的元数据。
  */
 
-import type { ModuleApiMeta } from '../../../../../packages/types/src/api-meta'
+import type { ModuleApiMeta } from '@coderjc/types'
 import { getAbcListValidator } from './abc.validator'
 
 export const abcApiMeta: ModuleApiMeta = {
