@@ -1,60 +1,72 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { abcApi } from './api'
 import type { Abc } from '@coderjc/types'
 
 const data = ref<Abc.GetAbcListResponseDTO | null>(null)
 const loading = ref(false)
+const error = ref<string | null>(null)
 
 const fetchData = async () => {
     loading.value = true
+    error.value = null
     try {
-        const result = await abcApi.list()
+        const result = await abcApi.list({
+            page: 1,
+            pageSize: 10,
+        })
         data.value = result
-    } catch (error) {
-        console.error('请求失败:', error)
+    } catch (err) {
+        error.value = err instanceof Error ? err.message : '请求失败'
     } finally {
         loading.value = false
     }
 }
-
-onMounted(() => {
-    fetchData()
-})
 </script>
 
 <template>
-    <div>
-        <a href="https://vite.dev" target="_blank">
-            <img src="/vite.svg" class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://vuejs.org/" target="_blank">
-            <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-        </a>
-    </div>
-    <div style="margin-top: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 8px">
+    <div class="container">
+        <h1>admin</h1>
         <button @click="fetchData" :disabled="loading">
             {{ loading ? '加载中...' : '获取数据' }}
         </button>
-        <pre
-            v-if="data"
-            style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px; overflow: auto"
-            >{{ JSON.stringify(data, null, 2) }}</pre
-        >
+        <div v-if="error" class="error">{{ error }}</div>
+        <pre v-if="data">{{ JSON.stringify(data, null, 2) }}</pre>
     </div>
 </template>
 
 <style scoped>
-.logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+.container {
+    padding: 20px;
 }
-.logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
+
+h1 {
+    margin: 0 0 20px 0;
 }
-.logo.vue:hover {
-    filter: drop-shadow(0 0 2em #42b883aa);
+
+button {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.error {
+    margin-top: 16px;
+    padding: 12px;
+    background: #fee;
+    color: #c33;
+    border-radius: 4px;
+}
+
+pre {
+    margin-top: 16px;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 4px;
+    overflow: auto;
 }
 </style>
