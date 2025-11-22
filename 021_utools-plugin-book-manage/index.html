@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>书签管理器</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <h2>书签管理器</h2>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="搜索书签...">
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <button id="addBtn" class="btn btn-primary">添加书签</button>
+      <button id="importBtn" class="btn">导入</button>
+      <button id="exportBtn" class="btn">导出</button>
+    </div>
+
+    <div class="bookmark-list" id="bookmarkList">
+      <!-- 书签列表将动态渲染 -->
+    </div>
+
+    <!-- 添加/编辑书签模态框 -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 id="modalTitle">添加书签</h3>
+        <form id="bookmarkForm">
+          <div class="form-group">
+            <label for="bookmarkTitle">标题</label>
+            <input type="text" id="bookmarkTitle" required>
+          </div>
+          <div class="form-group">
+            <label for="bookmarkUrl">URL</label>
+            <input type="url" id="bookmarkUrl" required>
+          </div>
+          <div class="form-group">
+            <label for="bookmarkCategory">分类</label>
+            <input type="text" id="bookmarkCategory" placeholder="可选">
+          </div>
+          <div class="form-group">
+            <label for="bookmarkTags">标签</label>
+            <input type="text" id="bookmarkTags" placeholder="多个标签用逗号分隔">
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">保存</button>
+            <button type="button" class="btn" id="cancelBtn">取消</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
