@@ -19,9 +19,18 @@
         "skipLibCheck": true,
         "paths": {
             "@coderjc/utils": ["./packages/utils/src/index.ts"],
-            "@coderjc/cli": ["packages/cli/src/index.ts"]
+            "@coderjc/cli": ["./packages/cli/src/index.ts"],
+            "@coderjc/types": ["./packages/types/src/index.ts"],
+            "@coderjc/request": ["./packages/request/src/index.ts"]
         }
     },
-    "include": ["apps/**/*.{ts,tsx,vue}", "packages/**/*.{ts,tsx,vue}"],
-    "exclude": ["node_modules", "dist"]
+    "include": [
+        "apps/**/*.ts",
+        "apps/**/*.tsx",
+        "apps/**/*.vue",
+        "packages/**/*.ts",
+        "packages/**/*.tsx",
+        "packages/**/*.vue"
+    ],
+    "exclude": ["node_modules", "dist", "**/node_modules", "**/dist"]
 }

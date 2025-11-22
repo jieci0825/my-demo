@@ -1,6 +1,6 @@
 {
-    "name": "@coderjc/types",
-    "version": "0.1.2",
+    "name": "@coderjc/request",
+    "version": "0.1.1",
     "type": "module",
     "private": true,
     "main": "src/index.ts",
