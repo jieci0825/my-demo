@@ -1,5 +1,15 @@
 import { ErrorCode, ErrorMessages } from './error-codes'
 
+interface A {
+    a: string
+    b?: string
+}
+function createA(a: A) {}
+
+function foo(a: string, b?: string) {
+    createA({ a, b })
+}
+
 /**
  * 异常基类配置接口
  */
