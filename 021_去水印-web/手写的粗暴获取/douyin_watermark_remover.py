@@ -316,7 +316,7 @@ async def main():
             print(f"  {key}: {value}")
         
         # 下载视频（取消下面的注释来启用）
-        # await remover.download_video(share_url)
+        await remover.download_video(share_url)
         
     except Exception as e:
         print(f"\n发生错误: {e}")
