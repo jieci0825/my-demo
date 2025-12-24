@@ -263,13 +263,20 @@ class DouyinWatermarkRemover:
             print("未获取到视频链接")
             return None
         
-        print(f"  视频链接: {video_url[:100]}...")
+        print(f"  视频链接: {video_url}")
         
         # 创建保存目录
         os.makedirs(save_path, exist_ok=True)
+
+        # strip()：避免描述是空格
+        desc = (video_info.get("desc") or "").strip()
+        author = (video_info.get("author") or "").strip()
+
+        # 截取前15个字符作为文件名
+        name_part = desc[:15] if desc else author
         
         # 生成文件名
-        filename = f"{video_info['aweme_id']}.mp4"
+        filename = f"{video_info['aweme_id']}_{name_part}.mp4"
         filepath = os.path.join(save_path, filename)
         
         print(f"\n正在下载视频到: {filepath}")
@@ -312,7 +319,7 @@ async def main():
         print("=" * 60)
         for key, value in video_info.items():
             if isinstance(value, str) and len(value) > 80:
-                value = value[:80] + "..."
+                value = value
             print(f"  {key}: {value}")
         
         # 下载视频（取消下面的注释来启用）
