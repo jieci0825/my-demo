@@ -1,0 +1,15 @@
+{
+    "name": "02_MCP",
+    "version": "1.0.0",
+    "description": "基于最新MCP JSON-RPC协议的服务器，实现求和和创建文件工具",
+    "main": "server.js",
+    "type": "module",
+    "scripts": {
+        "start": "node server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": ["mcp", "json-rpc", "tools"],
+    "author": "",
+    "license": "ISC",
+    "packageManager": "pnpm@10.20.0"
+}
