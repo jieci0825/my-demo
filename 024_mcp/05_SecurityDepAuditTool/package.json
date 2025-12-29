@@ -1,0 +1,17 @@
+{
+    "name": "security-dep-audit-tool",
+    "version": "1.0.0",
+    "description": "安全审计工具",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node src/entry/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "packageManager": "pnpm@10.20.0",
+    "dependencies": {
+        "uuid": "^13.0.0"
+    }
+}

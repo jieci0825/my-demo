@@ -1,0 +1,5 @@
+export { createWorkDir } from './createWorkDir/index.js'
+export { parseProject } from './parseProject/index.js'
+export { generateLockFile } from './generateLockFile/index.js'
+export { audit } from './audit/index.js'
+export { writeMD } from './writeMD/index.js'

