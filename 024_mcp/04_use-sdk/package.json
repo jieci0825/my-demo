@@ -1,0 +1,10 @@
+{
+    "scripts": {
+        "start": "node src/server.js",
+        "inspect": "npx @modelcontextprotocol/inspector"
+    },
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "^1.25.1",
+        "zod": "^4.2.1"
+    }
+}
