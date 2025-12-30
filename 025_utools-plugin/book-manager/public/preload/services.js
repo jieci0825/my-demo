@@ -28,5 +28,17 @@ window.services = {
             encoding: 'base64'
         })
         return filePath
+    },
+    // 路径拼接
+    resolvePath(...args) {
+        return path.resolve(...args)
+    },
+    // 获取当前os平台
+    getOSPlatform() {
+        return process.platform
+    },
+    // 检测文件是否存在
+    fileExists(path) {
+        return fs.existsSync(path)
     }
 }
