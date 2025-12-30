@@ -1,36 +1,27 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useTheme } from './hooks'
+import { useInit, useSubInput } from './hooks'
+import { provide } from 'vue'
 
-const route = ref('')
-const enterAction = ref({})
+const { bookmarks } = useInit()
 
-// 检查是否在 utools 环境中
-if (window.utools) {
-    window.utools.onPluginEnter(action => {
-        route.value = action.code
-        enterAction.value = action
-        window.utools.setSubInput(({ text }) => {
-            console.log('text: ', text)
-        }, '搜索书籍...')
-    })
-    window.utools.onPluginOut(isKill => {
-        route.value = ''
-    })
-} else {
-    console.warn('非 utools 环境，使用开发模式')
-    route.value = 'hello'
-    enterAction.value = { code: 'hello' }
-}
+const {
+    value: keyword,
+    setSubInput,
+    onChanged,
+    onSearch,
+    onClear
+} = useSubInput()
 
-const { isDark, toggleTheme } = useTheme()
+provide('appContext', {
+    bookmarks,
+    keyword,
+    setSubInput,
+    onChanged,
+    onSearch,
+    onClear
+})
 </script>
 
-<template>
-    <button @click="toggleTheme">切换主题</button>
-
-    <div v-if="isDark">暗色模式</div>
-    <div v-else>浅色模式</div>
-</template>
+<template></template>
 
 <style lang="scss"></style>
