@@ -1,39 +1,85 @@
+import dbTool from './storage'
+
+/**
+ * 获取书签
+ */
 export function getBookmarks() {
     const bookmarkDirPath = getBookmarkDirPathByOSPlatform()
 
-    const edgeBookmarkFilePath = getBookmarkFilePath(bookmarkDirPath.edge)
-    const chromeBookmarkFilePath = getBookmarkFilePath(bookmarkDirPath.chrome)
+    const flattenedBookmarks = []
 
-    const edgeBookmarksTree = getBookmarksTree(edgeBookmarkFilePath)
-    const chromeBookmarksTree = getBookmarksTree(chromeBookmarkFilePath)
-
-    const flattenedBookmarks = flattenBookmarks(
-        edgeBookmarksTree,
-        chromeBookmarksTree
-    )
+    for (const browser in bookmarkDirPath) {
+        const bookmarks = processBookmarks(bookmarkDirPath[browser], browser)
+        flattenedBookmarks.push(...bookmarks)
+    }
 
     return flattenedBookmarks
 }
 
 /**
- * 打平书签树结构，为每个节点添加来源属性
+ * 处理单个浏览器书签
  */
-function flattenBookmarks(edgeBookmarksTree, chromeBookmarksTree) {
-    const flattened = []
+function processBookmarks(bookmarkPath, browser) {
+    const bookmarkFilePath = getBookmarkFilePath(bookmarkPath)
 
-    // 处理Edge书签
-    if (edgeBookmarksTree) {
-        Object.keys(edgeBookmarksTree).forEach(rootKey => {
-            const rootNode = edgeBookmarksTree[rootKey]
-            flattenNode(rootNode, rootKey, 'edge', flattened, [])
-        })
+    if (!bookmarkFilePath) {
+        return []
     }
 
-    // 处理Chrome书签
-    if (chromeBookmarksTree) {
-        Object.keys(chromeBookmarksTree).forEach(rootKey => {
-            const rootNode = chromeBookmarksTree[rootKey]
-            flattenNode(rootNode, rootKey, 'chrome', flattened, [])
+    const fileMetadata = services.getFileMetadata(bookmarkFilePath)
+    const needUpdate = checkNeedUpdateBookmarks(fileMetadata, browser)
+
+    if (!needUpdate) {
+        const bookmarks = dbTool.get(`bookmarks_${browser}`)
+        return bookmarks
+    }
+
+    const bookmarksTree = getBookmarksTree(bookmarkFilePath)
+    const flattenedBookmarks = flattenBookmarks(bookmarksTree, browser)
+
+    dbTool.set(`bookmarks_${browser}`, flattenedBookmarks)
+
+    return flattenedBookmarks
+}
+
+/**
+ * 检测是否需要更新书签
+ */
+function checkNeedUpdateBookmarks(fileMetadata, browserType) {
+    const { mtimeMs } = fileMetadata
+
+    const key = `bookmarkLastModified_${browserType}`
+
+    const lastModified = dbTool.get(key)
+
+    if (!lastModified) {
+        dbTool.set(key, mtimeMs)
+        return true
+    }
+
+    // 如果上次修改时间与本次修改时间相同，则不需要更新本次更新时间
+    if (lastModified === mtimeMs) {
+        return false
+    }
+
+    // 将本次的修改时间存入本地
+    dbTool.set(key, mtimeMs)
+
+    return true
+}
+
+/**
+ * 打平书签树结构，为每个节点添加来源属性
+ * @param {object} bookmarksTree 书签树对象
+ * @param {string} browserType 浏览器类型 ('edge' 或 'chrome')
+ */
+function flattenBookmarks(bookmarksTree, browserType) {
+    const flattened = []
+
+    if (bookmarksTree) {
+        Object.keys(bookmarksTree).forEach(rootKey => {
+            const rootNode = bookmarksTree[rootKey]
+            flattenNode(rootNode, rootKey, browserType, flattened, [])
         })
     }
 
