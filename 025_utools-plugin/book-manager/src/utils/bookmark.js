@@ -100,6 +100,8 @@ function flattenNode(node, rootKey, browserSource, result, path) {
             ...node,
             browser: browserSource,
             rootKey,
+            tags: [],
+            alias: '',
             path: [...path],
             fullPath: [...path, node.name].join(' > ')
         }
@@ -164,8 +166,8 @@ function getBookmarkDirPathByOSPlatform() {
     const osPlatform = services.getOSPlatform()
 
     const bookmarkPath = {
-        edge: '',
-        chrome: ''
+        chrome: '',
+        edge: ''
     }
     if (osPlatform === 'win32') {
         // TODO:
