@@ -1,2 +1,2 @@
 export * from './check-type'
-export * from './storage'
+export { default as dbTool } from './storage'
