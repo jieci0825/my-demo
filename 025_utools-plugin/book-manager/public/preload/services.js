@@ -40,5 +40,9 @@ window.services = {
     // 检测文件是否存在
     fileExists(path) {
         return fs.existsSync(path)
+    },
+    // 读一个文件的元信息（包括文件名、文件大小、最后修改时间）
+    getFileMetadata(path) {
+        return fs.statSync(path)
     }
 }
