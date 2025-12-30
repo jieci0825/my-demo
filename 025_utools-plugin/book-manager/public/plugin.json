@@ -1,0 +1,25 @@
+{
+    "main": "index.html",
+    "preload": "preload/services.js",
+    "logo": "logo.png",
+    "development": {
+        "main": "http://localhost:5173/index.html"
+    },
+    "features": [
+        {
+            "code": "bm",
+            "explain": "bm 匹配任意文本",
+            "cmds": ["bm"]
+        },
+        {
+            "code": "bmc",
+            "explain": "bmc 匹配任意文本-限于chrome中的书签",
+            "cmds": ["bm-chrome"]
+        },
+        {
+            "code": "bme",
+            "explain": "bme 匹配任意文本-限于edge中的书签",
+            "cmds": ["bm-edge"]
+        }
+    ]
+}
