@@ -1,4 +1,5 @@
 <script setup>
+import Home from './views/home/index.vue'
 import { useInit, useSubInput } from './hooks'
 import { provide } from 'vue'
 
@@ -22,6 +23,6 @@ provide('appContext', {
 })
 </script>
 
-<template></template>
-
-<style lang="scss"></style>
+<template>
+    <Home />
+</template>
