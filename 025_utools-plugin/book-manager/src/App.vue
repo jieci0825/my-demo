@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useTheme } from './hooks'
 
 const route = ref('')
 const enterAction = ref({})
@@ -22,12 +23,14 @@ if (window.utools) {
     enterAction.value = { code: 'hello' }
 }
 
-onMounted(() => {
-    // 默认保持浅色模式
-    document.documentElement.classList.remove('dark')
-})
+const { isDark, toggleTheme } = useTheme()
 </script>
 
-<template></template>
+<template>
+    <button @click="toggleTheme">切换主题</button>
+
+    <div v-if="isDark">暗色模式</div>
+    <div v-else>浅色模式</div>
+</template>
 
 <style lang="scss"></style>
