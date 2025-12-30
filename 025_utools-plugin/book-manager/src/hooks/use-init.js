@@ -1,9 +1,10 @@
 import { isDev } from '@/configs'
 import { dbTool, getBookmarks } from '@/utils'
 import { useTheme } from './use-theme'
+import { ref } from 'vue'
 
 export const useInit = () => {
-    let bookmarks = []
+    const bookmarks = ref([])
 
     if (isDev) {
         const docs = dbTool.allDocs()
@@ -15,7 +16,7 @@ export const useInit = () => {
 
     if (window.utools) {
         window.utools?.onPluginEnter(action => {
-            bookmarks = getBookmarks(action)
+            bookmarks.value = getBookmarks(action)
         })
     } else {
         console.warn('非 utools 环境，使用开发模式')
