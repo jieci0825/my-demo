@@ -7,14 +7,16 @@ export function getBookmarks() {
     const edgeBookmarksTree = getBookmarksTree(edgeBookmarkFilePath)
     const chromeBookmarksTree = getBookmarksTree(chromeBookmarkFilePath)
 
-    return flattenBookmarks(edgeBookmarksTree, chromeBookmarksTree)
+    const flattenedBookmarks = flattenBookmarks(
+        edgeBookmarksTree,
+        chromeBookmarksTree
+    )
+
+    return flattenedBookmarks
 }
 
 /**
  * 打平书签树结构，为每个节点添加来源属性
- * @param {object} edgeBookmarksTree Edge浏览器书签树
- * @param {object} chromeBookmarksTree Chrome浏览器书签树
- * @returns {Array} 打平后的书签数组
  */
 function flattenBookmarks(edgeBookmarksTree, chromeBookmarksTree) {
     const flattened = []
@@ -41,27 +43,26 @@ function flattenBookmarks(edgeBookmarksTree, chromeBookmarksTree) {
 /**
  * 递归打平单个节点
  * @param {object} node 当前节点
- * @param {string} rootKey 根节点键名
- * @param {string} browserSource 浏览器来源（'edge' 或 'chrome'）
- * @param {Array} result 结果数组
- * @param {Array} path 路径数组
  */
 function flattenNode(node, rootKey, browserSource, result, path) {
     if (!node) return
 
-    // 创建当前节点的副本并添加来源和路径信息
-    const flattenedNode = {
-        ...node,
-        browser: browserSource,
-        rootKey,
-        path: [...path],
-        fullPath: [...path, node.name].join(' > ')
+    // 只有type为url的节点才加入到最终结果中
+    if (node.type === 'url') {
+        // 创建当前节点的副本并添加来源和路径信息
+        const flattenedNode = {
+            ...node,
+            browser: browserSource,
+            rootKey,
+            path: [...path],
+            fullPath: [...path, node.name].join(' > ')
+        }
+
+        // 添加到结果数组
+        result.push(flattenedNode)
     }
 
-    // 添加到结果数组
-    result.push(flattenedNode)
-
-    // 如果有子节点，递归处理
+    // 如果有子节点，递归处理（无论当前节点是否为url类型）
     if (node.children && Array.isArray(node.children)) {
         const newPath = [...path, node.name]
         node.children.forEach(child => {
