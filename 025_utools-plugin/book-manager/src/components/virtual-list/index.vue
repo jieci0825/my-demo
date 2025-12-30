@@ -1,5 +1,12 @@
 <script setup>
-import { computed, ref, onMounted, onUnmounted, nextTick } from 'vue'
+import {
+    computed,
+    ref,
+    onMounted,
+    onUnmounted,
+    nextTick,
+    useTemplateRef
+} from 'vue'
 
 const props = defineProps({
     // 数据数组
@@ -25,7 +32,7 @@ const props = defineProps({
 })
 
 // 滚动容器的引用
-const scrollContainer = ref(null)
+const scrollContainer = useTemplateRef('scrollContainer')
 
 // 当前滚动位置
 const scrollTop = ref(0)
