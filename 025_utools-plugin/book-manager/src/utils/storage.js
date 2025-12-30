@@ -77,6 +77,10 @@ const dbTool = {
             console.error('dbTool.clear error:', err)
             return 0
         }
+    },
+
+    allDocs() {
+        return utools.db.allDocs(PREFIX)
     }
 }
 
