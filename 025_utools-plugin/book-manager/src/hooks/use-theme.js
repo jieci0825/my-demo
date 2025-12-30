@@ -5,25 +5,27 @@ function getSystemTheme() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches
 }
 
-function init() {
-    const theme = dbTool.get('theme')
-    if (theme) {
-        return theme
-    }
-    return getSystemTheme()
+function getInitTheme() {
+    const theme = dbTool.get('theme') || getSystemTheme()
+    return theme
 }
 
 export const useTheme = () => {
-    const isDark = ref(init())
+    const isDark = ref(getInitTheme())
 
     const toggleTheme = () => {
         isDark.value = !isDark.value
-        document.documentElement.classList.toggle('dark', isDark.value)
-        dbTool.set('theme', isDark.value)
+        setTheme(isDark.value)
+    }
+
+    function setTheme(theme) {
+        document.documentElement.classList.toggle('dark', theme)
+        return dbTool.set('theme', theme)
     }
 
     return {
         isDark,
-        toggleTheme
+        toggleTheme,
+        setTheme
     }
 }
