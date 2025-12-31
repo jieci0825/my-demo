@@ -3,14 +3,18 @@ import { ref, onMounted } from 'vue'
 import CButton from '@/components/c-button/index.vue'
 import dbTool from '@/utils/storage'
 import { message } from '@/utils'
+import { useTheme } from '@/hooks'
 
 // 配置项
 const config = ref({
     chromePath: '',
     edgePath: '',
     sortType: 'default', // default | usage
-    matchType: 'multiple' // multiple | exact
+    matchType: 'multiple', // multiple | exact
+    theme: false // false: light, true: dark
 })
+
+const { setTheme } = useTheme()
 
 // 从数据库加载配置
 const loadConfig = () => {
@@ -24,6 +28,8 @@ const loadConfig = () => {
 const saveConfig = () => {
     const success = dbTool.set('settings', config.value)
     if (success) {
+        // 应用主题设置
+        setTheme(config.value.theme)
         message.success('设置保存成功！')
     } else {
         message.error('设置保存失败！')
@@ -176,6 +182,31 @@ onMounted(() => {
                                 value="exact"
                             />
                             <span class="settings__radio-label">精准匹配</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 主题设置 -->
+            <section class="settings__section">
+                <h3 class="settings__section-title">主题设置</h3>
+                <div class="settings__item">
+                    <div class="settings__radio-group">
+                        <label class="settings__radio">
+                            <input
+                                v-model="config.theme"
+                                type="radio"
+                                :value="false"
+                            />
+                            <span class="settings__radio-label">明亮主题</span>
+                        </label>
+                        <label class="settings__radio">
+                            <input
+                                v-model="config.theme"
+                                type="radio"
+                                :value="true"
+                            />
+                            <span class="settings__radio-label">黑暗主题</span>
                         </label>
                     </div>
                 </div>

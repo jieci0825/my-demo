@@ -6,7 +6,8 @@ function getSystemTheme() {
 }
 
 function getInitTheme() {
-    const theme = dbTool.get('theme') || getSystemTheme()
+    const savedConfig = dbTool.get('settings') || {}
+    const theme = savedConfig?.theme || getSystemTheme()
     return theme
 }
 
@@ -20,7 +21,9 @@ export const useTheme = () => {
 
     function setTheme(theme) {
         document.documentElement.classList.toggle('dark', theme)
-        return dbTool.set('theme', theme)
+        const savedConfig = dbTool.get('settings') || {}
+        savedConfig.theme = theme
+        return dbTool.set('settings', savedConfig)
     }
 
     return {
