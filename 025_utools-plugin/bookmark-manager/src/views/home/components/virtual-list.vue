@@ -45,21 +45,101 @@ watch(filterBookmarks, newList => {
 })
 
 /**
+ * 解析搜索文本，提取关键词、标签和分组条件
+ * @param {string} text 搜索文本
+ * @returns {{ keyword: string, tags: string[], groups: string[] }}
+ */
+function parseSearchText(text) {
+    const tags = []
+    const groups = []
+
+    // 匹配 #标签 和 @分组，支持中文和常见字符
+    const tagRegex = /#([^\s#@]+)/g
+    const groupRegex = /@([^\s#@]+)/g
+
+    let match
+
+    // 提取所有标签
+    while ((match = tagRegex.exec(text)) !== null) {
+        tags.push(match[1])
+    }
+
+    // 提取所有分组
+    while ((match = groupRegex.exec(text)) !== null) {
+        groups.push(match[1])
+    }
+
+    // 移除 #xxx 和 @xxx，剩余部分作为关键词
+    const keyword = text
+        .replace(/#[^\s#@]+/g, '')
+        .replace(/@[^\s#@]+/g, '')
+        .trim()
+
+    return { keyword, tags, groups }
+}
+
+/**
+ * 检查书签是否匹配标签条件（模糊匹配，AND 逻辑）
+ */
+function matchTags(bookmark, tags) {
+    if (tags.length === 0) return true
+    if (!bookmark.tags || bookmark.tags.length === 0) return false
+
+    // 所有标签条件都必须匹配（AND）
+    return tags.every(searchTag => {
+        const lowerSearchTag = searchTag.toLowerCase()
+        // 书签的任意一个标签包含搜索标签即可
+        return bookmark.tags.some(tag =>
+            tag.toLowerCase().includes(lowerSearchTag)
+        )
+    })
+}
+
+/**
+ * 检查书签是否匹配分组条件（模糊匹配，AND 逻辑）
+ */
+function matchGroups(bookmark, groups) {
+    if (groups.length === 0) return true
+    if (!bookmark.path || bookmark.path.length === 0) return false
+
+    // 所有分组条件都必须匹配（AND）
+    return groups.every(searchGroup => {
+        const lowerSearchGroup = searchGroup.toLowerCase()
+        // 路径中任意一项包含搜索分组即可
+        return bookmark.path.some(pathItem =>
+            pathItem.toLowerCase().includes(lowerSearchGroup)
+        )
+    })
+}
+
+/**
  * 根据关键词匹配书签
  */
 function matchBookmarks(text) {
-    const fuse = new Fuse(appContext.bookmarks.value, {
-        keys: ['name', 'alias', 'url'],
-        threshold: 0.4 // 越小越严格
-    })
+    const { keyword, tags, groups } = parseSearchText(text)
 
-    if (!text) {
-        return appContext.bookmarks.value
+    let results = appContext.bookmarks.value
+
+    // 1. 如果有关键词，先用 Fuse.js 进行模糊搜索
+    if (keyword) {
+        const fuse = new Fuse(results, {
+            keys: ['name', 'alias', 'url'],
+            threshold: 0.4 // 越小越严格
+        })
+        results = fuse.search(keyword).map(result => result.item)
     }
 
-    // Fuse.js search 返回的是结果对象数组，需要提取 item 属性
-    const results = fuse.search(text)
-    return results.map(result => result.item)
+    // 2. 应用标签过滤
+    if (tags.length > 0) {
+        results = results.filter(bookmark => matchTags(bookmark, tags))
+    }
+
+    // 3. 应用分组过滤
+    if (groups.length > 0) {
+        results = results.filter(bookmark => matchGroups(bookmark, groups))
+    }
+
+    return results
 }
 
 onChanged(text => {
