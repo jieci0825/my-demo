@@ -150,12 +150,14 @@ function getBookmarksTree(bookmarkFilePath) {
  * 优先使用本地存储的文件路径，如果不存在则根据平台获取默认文件路径
  */
 function getBookmarkFilePath(browser) {
-    const key = 'browserBookmarkPath'
-    const storedPaths = dbTool.get(key) || {}
+    const key = 'settings'
+    const settings = dbTool.get(key) || {}
+
+    const browserPathKey = `${browser}Path`
 
     // 1. 如果本地存在该浏览器的文件路径，直接使用
-    if (storedPaths[browser]) {
-        return storedPaths[browser]
+    if (settings[browserPathKey]) {
+        return settings[browserPathKey]
     }
 
     // 2. 本地不存在，根据平台处理
@@ -165,8 +167,8 @@ function getBookmarkFilePath(browser) {
         // Mac 系统：查找默认文件路径并存储
         const defaultFilePath = findDefaultBookmarkFilePath(browser)
         if (defaultFilePath) {
-            storedPaths[browser] = defaultFilePath
-            dbTool.set(key, storedPaths)
+            settings[browserPathKey] = defaultFilePath
+            dbTool.set(key, settings)
             return defaultFilePath
         }
     } else if (osPlatform === 'win32') {
