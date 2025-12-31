@@ -1,22 +1,195 @@
 <script setup>
-// 设置组件 - 内容暂时留白
+import { ref, onMounted } from 'vue'
+import CButton from '@/components/c-button/index.vue'
+import dbTool from '@/utils/storage'
+import { message } from '@/utils'
+
+// 配置项
+const config = ref({
+    chromePath: '',
+    edgePath: '',
+    sortType: 'default', // default | usage
+    matchType: 'multiple' // multiple | exact
+})
+
+// 从数据库加载配置
+const loadConfig = () => {
+    const savedConfig = dbTool.get('settings')
+    if (savedConfig) {
+        config.value = { ...config.value, ...savedConfig }
+    }
+}
+
+// 保存配置
+const saveConfig = () => {
+    const success = dbTool.set('settings', config.value)
+    if (success) {
+        message.success('设置保存成功！')
+    } else {
+        message.error('设置保存失败！')
+    }
+}
+
+// 选择 Chrome 书签文件
+const selectChromeFile = () => {
+    const result = utools.showOpenDialog({
+        title: '选择 Chrome 书签文件',
+        filters: [
+            { name: 'Bookmarks', extensions: ['*'] },
+            { name: 'All Files', extensions: ['*'] }
+        ],
+        properties: ['openFile']
+    })
+
+    if (result && result.length > 0) {
+        config.value.chromePath = result[0]
+    }
+}
+
+// 选择 Edge 书签文件
+const selectEdgeFile = () => {
+    const result = utools.showOpenDialog({
+        title: '选择 Edge 书签文件',
+        filters: [
+            { name: 'Bookmarks', extensions: ['*'] },
+            { name: 'All Files', extensions: ['*'] }
+        ],
+        properties: ['openFile']
+    })
+
+    if (result && result.length > 0) {
+        config.value.edgePath = result[0]
+    }
+}
+
+onMounted(() => {
+    loadConfig()
+})
 </script>
 
 <template>
     <div class="settings">
-        <div class="settings__placeholder">
-            <svg
-                viewBox="0 0 1024 1024"
-                width="64"
-                height="64"
-            >
-                <path
-                    fill="currentColor"
-                    opacity="0.3"
-                    d="M512.5 390.6c-29.9 0-57.9 11.6-79.1 32.8-21.1 21.2-32.8 49.2-32.8 79.1 0 29.9 11.7 57.9 32.8 79.1 21.2 21.1 49.2 32.8 79.1 32.8 29.9 0 57.9-11.7 79.1-32.8 21.1-21.2 32.8-49.2 32.8-79.1 0-29.9-11.7-57.9-32.8-79.1a110.96 110.96 0 0 0-79.1-32.8zm412.3 235.5l-65.4-55.9c3.1-19 4.7-38.4 4.7-57.7s-1.6-38.8-4.7-57.7l65.4-55.9a32.03 32.03 0 0 0 9.3-35.2l-.9-2.6a442.5 442.5 0 0 0-79.6-137.7l-1.8-2.1a32.12 32.12 0 0 0-35.1-9.5l-81.2 28.9c-30-24.6-63.4-44-99.6-57.5l-15.7-84.9a32.05 32.05 0 0 0-25.8-25.7l-2.7-.5c-52-9.4-106.8-9.4-158.8 0l-2.7.5a32.05 32.05 0 0 0-25.8 25.7l-15.8 85.3a353.44 353.44 0 0 0-99 57.4l-81.9-29.1a32 32 0 0 0-35.1 9.5l-1.8 2.1a445.93 445.93 0 0 0-79.6 137.7l-.9 2.6c-4.5 12.5-.8 26.5 9.3 35.2l66.2 56.5c-3.1 18.8-4.6 38-4.6 57 0 19.2 1.5 38.4 4.6 57l-66 56.5a32.03 32.03 0 0 0-9.3 35.2l.9 2.6c18.1 50.3 44.8 96.8 79.6 137.7l1.8 2.1a32.12 32.12 0 0 0 35.1 9.5l81.8-29.1c29.8 24.5 63 43.9 98.8 57.7l15.9 85.3a32.05 32.05 0 0 0 25.8 25.7l2.7.5a448.27 448.27 0 0 0 158.8 0l2.7-.5a32.05 32.05 0 0 0 25.8-25.7l15.7-84.9c36.2-13.6 69.6-32.9 99.6-57.5l81.2 28.9a32 32 0 0 0 35.1-9.5l1.8-2.1c34.8-41.1 61.5-87.4 79.6-137.7l.9-2.6c4.3-12.4.6-26.3-9.5-35z"
-                />
-            </svg>
-            <p class="settings__placeholder-text">设置功能待开发</p>
+        <div class="settings__content">
+            <!-- 书签文件配置 -->
+            <section class="settings__section">
+                <h3 class="settings__section-title">书签文件</h3>
+
+                <!-- Chrome 书签 -->
+                <div class="settings__item">
+                    <label class="settings__label">
+                        <img
+                            src="/chrome.png"
+                            alt="Chrome"
+                            class="settings__icon"
+                        />
+                        Chrome 书签文件
+                    </label>
+                    <div class="settings__file-input">
+                        <input
+                            v-model="config.chromePath"
+                            type="text"
+                            class="settings__input"
+                            placeholder="请选择或输入 Chrome 书签文件路径"
+                        />
+                        <CButton
+                            size="small"
+                            @click="selectChromeFile"
+                        >
+                            浏览
+                        </CButton>
+                    </div>
+                </div>
+
+                <!-- Edge 书签 -->
+                <div class="settings__item">
+                    <label class="settings__label">
+                        <img
+                            src="/edge.png"
+                            alt="Edge"
+                            class="settings__icon"
+                        />
+                        Edge 书签文件
+                    </label>
+                    <div class="settings__file-input">
+                        <input
+                            v-model="config.edgePath"
+                            type="text"
+                            class="settings__input"
+                            placeholder="请选择或输入 Edge 书签文件路径"
+                        />
+                        <CButton
+                            size="small"
+                            @click="selectEdgeFile"
+                        >
+                            浏览
+                        </CButton>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 排序方式 -->
+            <section class="settings__section">
+                <h3 class="settings__section-title">排序方式</h3>
+                <div class="settings__item">
+                    <div class="settings__radio-group">
+                        <label class="settings__radio">
+                            <input
+                                v-model="config.sortType"
+                                type="radio"
+                                value="default"
+                            />
+                            <span class="settings__radio-label">默认排序</span>
+                        </label>
+                        <label class="settings__radio">
+                            <input
+                                v-model="config.sortType"
+                                type="radio"
+                                value="usage"
+                            />
+                            <span class="settings__radio-label"
+                                >使用次数排序</span
+                            >
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 匹配方式 -->
+            <section class="settings__section">
+                <h3 class="settings__section-title">匹配方式</h3>
+                <div class="settings__item">
+                    <div class="settings__radio-group">
+                        <label class="settings__radio">
+                            <input
+                                v-model="config.matchType"
+                                type="radio"
+                                value="multiple"
+                            />
+                            <span class="settings__radio-label"
+                                >多关键词匹配</span
+                            >
+                        </label>
+                        <label class="settings__radio">
+                            <input
+                                v-model="config.matchType"
+                                type="radio"
+                                value="exact"
+                            />
+                            <span class="settings__radio-label">精准匹配</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 保存按钮 -->
+            <div class="settings__actions">
+                <CButton
+                    type="primary"
+                    @click="saveConfig"
+                >
+                    保存设置
+                </CButton>
+            </div>
         </div>
     </div>
 </template>
@@ -25,22 +198,113 @@
 .settings {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow-y: auto;
+    padding: 24px;
 
-    &__placeholder {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-        color: var(--color-text-tip);
+    &__content {
+        max-width: 800px;
+        margin: 0 auto;
     }
 
-    &__placeholder-text {
+    &__section {
+        margin-bottom: 32px;
+
+        &:last-of-type {
+            margin-bottom: 24px;
+        }
+    }
+
+    &__section-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-text-title);
+        margin: 0 0 16px 0;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    &__item {
+        margin-bottom: 20px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         font-size: 14px;
-        margin: 0;
+        color: var(--color-text-body);
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+
+    &__icon {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+    }
+
+    &__file-input {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    &__input {
+        flex: 1;
+        padding: 8px 12px;
+        border: 1px solid var(--color-border);
+        border-radius: 4px;
+        background: var(--color-bg);
+        color: var(--color-text-body);
+        font-size: 14px;
+        outline: none;
+        transition: all 0.3s ease;
+
+        &:focus {
+            border-color: var(--color-border-active);
+        }
+
+        &::placeholder {
+            color: var(--color-text-tip);
+        }
+    }
+
+    &__radio-group {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    &__radio {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        user-select: none;
+
+        input[type='radio'] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: var(--color-accent);
+        }
+    }
+
+    &__radio-label {
+        font-size: 14px;
+        color: var(--color-text-body);
+    }
+
+    &__actions {
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid var(--color-border);
+        display: flex;
+        justify-content: flex-end;
     }
 }
 </style>
-

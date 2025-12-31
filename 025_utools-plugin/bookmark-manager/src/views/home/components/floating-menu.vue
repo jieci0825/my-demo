@@ -89,7 +89,7 @@ const handleSettingClick = () => {
     flex-direction: column;
     align-items: center;
     gap: 12px;
-    z-index: 9999;
+    z-index: 2000;
 
     .icon {
         width: 16px;
