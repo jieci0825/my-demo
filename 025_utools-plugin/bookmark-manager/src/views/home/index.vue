@@ -62,5 +62,6 @@ const handleSettingClick = () => {
     height: 100vh;
     overflow: hidden;
     position: relative;
+    background: var(--color-bg);
 }
 </style>
