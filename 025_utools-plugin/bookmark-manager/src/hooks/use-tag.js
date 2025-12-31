@@ -59,8 +59,12 @@ export const useTag = () => {
     // 删除标签
     const delTag = index => {
         if (index >= 0 && index < tagList.value.length) {
-            tagList.value.splice(index, 1)
-            saveTags()
+            const tag = tagList.value[index]
+            // 如果标签统计等于小于0，则删除标签
+            if (tag.count <= 0) {
+                tagList.value.splice(index, 1)
+                saveTags()
+            }
             return {
                 success: true,
                 message: '标签删除成功'
@@ -73,6 +77,37 @@ export const useTag = () => {
         }
     }
 
+    // 增加标签使用次数
+    const addTagCount = tagName => {
+        const index = getTagIndexByName(tagName)
+        if (index >= 0) {
+            tagList.value[index].count++
+            saveTags()
+        }
+    }
+
+    // 减少标签使用次数
+    const reduceTagCount = tagName => {
+        const index = getTagIndexByName(tagName)
+        if (index >= 0) {
+            tagList.value[index].count--
+            saveTags()
+        }
+    }
+
+    // 根据标签名删除标签
+    const delTagByName = tagName => {
+        const index = getTagIndexByName(tagName)
+        if (index >= 0) {
+            delTag(index)
+        }
+    }
+
+    // 根据标签名返回索引
+    const getTagIndexByName = tagName => {
+        return tagList.value.findIndex(tag => tag.tagName === tagName)
+    }
+
     // 组件挂载时加载数据
     onMounted(() => {
         loadTags()
@@ -81,6 +116,10 @@ export const useTag = () => {
     return {
         tagList,
         addTag,
-        delTag
+        delTag,
+        delTagByName,
+        addTagCount,
+        reduceTagCount,
+        getTagIndexByName
     }
 }
