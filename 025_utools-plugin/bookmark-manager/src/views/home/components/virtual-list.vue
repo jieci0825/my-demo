@@ -1,6 +1,7 @@
 <script setup>
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 import { useVirtualList } from '@vueuse/core'
+import { Edit, CopyDocument } from '@element-plus/icons-vue'
 
 const appContext = inject('appContext')
 
@@ -10,6 +11,37 @@ const { list, containerProps, wrapperProps } = useVirtualList(
         itemHeight: 70
     }
 )
+
+// 右键菜单相关状态
+const activeItemIndex = ref(null)
+
+// 处理右键菜单
+const handleContextMenu = (e, index) => {
+    e.preventDefault()
+    activeItemIndex.value = index
+}
+
+// 处理鼠标离开
+const handleMouseLeave = () => {
+    activeItemIndex.value = null
+}
+
+// 编辑功能
+const handleEdit = item => {
+    // TODO: 实现编辑功能
+}
+
+// 复制链接功能
+const handleCopyLink = item => {
+    if (navigator.clipboard && item.url) {
+        navigator.clipboard
+            .writeText(item.url)
+            .then(() => {})
+            .catch(err => {
+                console.error('复制失败:', err)
+            })
+    }
+}
 </script>
 
 <template>
@@ -22,6 +54,8 @@ const { list, containerProps, wrapperProps } = useVirtualList(
                 v-for="({ data: item }, index) in list"
                 :key="index"
                 class="list-item"
+                @contextmenu="handleContextMenu($event, index)"
+                @mouseleave="handleMouseLeave"
             >
                 <div class="list-item-icon">
                     <img
@@ -64,6 +98,35 @@ const { list, containerProps, wrapperProps } = useVirtualList(
                         </div>
                     </div>
                 </div>
+
+                <!-- 右键蒙层菜单 -->
+                <div
+                    v-if="activeItemIndex === index"
+                    class="context-menu-overlay"
+                >
+                    <div class="menu-buttons">
+                        <div
+                            class="menu-btn btn-edit"
+                            @click="handleEdit(item)"
+                            title="编辑"
+                        >
+                            <Edit
+                                color="#171717"
+                                :size="14"
+                            />
+                        </div>
+                        <div
+                            class="menu-btn btn-copy"
+                            @click="handleCopyLink(item)"
+                            title="复制链接"
+                        >
+                            <CopyDocument
+                                color="#171717"
+                                :size="14"
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -87,6 +150,7 @@ const { list, containerProps, wrapperProps } = useVirtualList(
         display: flex;
         align-items: center;
         padding: 10px 16px;
+        position: relative;
 
         &:hover {
             background: var(--color-bg-hover);
@@ -153,6 +217,43 @@ const { list, containerProps, wrapperProps } = useVirtualList(
                 .content-bottom-group {
                     font-size: 12px;
                     color: var(--color-text-tip);
+                }
+            }
+        }
+
+        // 右键蒙层菜单样式
+        .context-menu-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            backdrop-filter: blur(2px);
+
+            .menu-buttons {
+                display: flex;
+                gap: 30px;
+                align-items: center;
+
+                .menu-btn {
+                    width: 25px;
+                    height: 25px;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    font-size: 14px;
+
+                    &:hover {
+                        transform: scale(1.15);
+                    }
+
+                    &:active {
+                        transform: scale(1.05);
+                    }
                 }
             }
         }
