@@ -8,18 +8,8 @@
     "features": [
         {
             "code": "bm",
-            "explain": "bm 匹配任意文本",
+            "explain": "bm 打开书签管理器",
             "cmds": ["bm"]
-        },
-        {
-            "code": "bmc",
-            "explain": "bmc 匹配任意文本-限于chrome中的书签",
-            "cmds": ["bm-chrome"]
-        },
-        {
-            "code": "bme",
-            "explain": "bme 匹配任意文本-限于edge中的书签",
-            "cmds": ["bm-edge"]
         }
     ]
 }
