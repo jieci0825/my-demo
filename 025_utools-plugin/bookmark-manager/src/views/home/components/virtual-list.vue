@@ -248,6 +248,7 @@ const handleCopyLink = item => {
                 .content-top-title {
                     font-size: 14px;
                     font-weight: bold;
+                    color: var(--color-text-title);
                 }
 
                 .content-top-alias {
@@ -260,7 +261,7 @@ const handleCopyLink = item => {
                 margin-bottom: 3px;
                 .content-middle-url {
                     font-size: 14px;
-                    color: var(--color-text-tip);
+                    color: var(--color-text-body);
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
