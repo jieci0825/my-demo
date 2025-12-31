@@ -3,8 +3,10 @@ import Fuse from 'fuse.js'
 import { inject, ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useVirtualList, useMemoize } from '@vueuse/core'
 import { Edit, CopyDocument } from '@element-plus/icons-vue'
-import { highlightText } from '@/utils'
+import { highlightText, message } from '@/utils'
 import dbTool from '@/utils/storage'
+import CDialog from '@/components/c-dialog/index.vue'
+import BookmarkEdit from './bookmark-edit.vue'
 
 const appContext = inject('appContext')
 const { onChanged } = appContext
@@ -194,6 +196,10 @@ onUnmounted(() => {
 // 右键菜单相关状态
 const activeItemIndex = ref(null)
 
+// 编辑对话框相关状态
+const editDialogVisible = ref(false)
+const currentEditItem = ref(null)
+
 // 处理右键菜单
 const handleContextMenu = (e, index) => {
     e.preventDefault()
@@ -207,7 +213,16 @@ const handleMouseLeave = () => {
 
 // 编辑功能
 const handleEdit = item => {
-    // TODO: 实现编辑功能
+    currentEditItem.value = item
+    editDialogVisible.value = true
+    // 隐藏右键菜单
+    activeItemIndex.value = null
+}
+
+// 编辑保存成功处理
+const handleEditSaved = () => {
+    message.success('书签编辑成功')
+    editDialogVisible.value = false
 }
 
 // 复制链接功能
@@ -260,7 +275,10 @@ const handleCopyLink = item => {
                         >
                             <span
                                 v-html="
-                                    memoizedHighlight(item.alias, searchText)
+                                    `（${memoizedHighlight(
+                                        item.alias,
+                                        searchText
+                                    )}）`
                                 "
                             ></span>
                         </div>
@@ -307,28 +325,35 @@ const handleCopyLink = item => {
                     <div class="menu-buttons">
                         <div
                             class="menu-btn btn-edit"
-                            @click="handleEdit(item)"
+                            @click.stop="handleEdit(item)"
                             title="编辑"
                         >
-                            <Edit
-                                color="#171717"
-                                :size="14"
-                            />
+                            <Edit :size="14" />
                         </div>
                         <div
                             class="menu-btn btn-copy"
                             @click="handleCopyLink(item)"
                             title="复制链接"
                         >
-                            <CopyDocument
-                                color="#171717"
-                                :size="14"
-                            />
+                            <CopyDocument :size="14" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- 编辑对话框 -->
+        <c-dialog
+            v-model:visible="editDialogVisible"
+            title="编辑书签"
+            width="600px"
+        >
+            <BookmarkEdit
+                v-if="currentEditItem"
+                :item="currentEditItem"
+                @saved="handleEditSaved"
+            />
+        </c-dialog>
     </div>
 </template>
 
@@ -391,6 +416,7 @@ const handleCopyLink = item => {
 
             .content-top {
                 display: flex;
+                gap: 10px;
 
                 .content-top-title {
                     font-size: 14px;
@@ -418,11 +444,21 @@ const handleCopyLink = item => {
             .content-bottom {
                 display: flex;
                 align-items: center;
+                gap: 10px;
 
                 .content-bottom-tags {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+                    gap: 4px;
+
+                    .tag {
+                        padding: 2px 4px;
+                        border-radius: 4px;
+                        background: var(--color-bg-sub);
+                        font-size: 12px;
+                        color: var(--color-text-tip);
+                    }
                 }
 
                 .content-bottom-group {
@@ -457,6 +493,7 @@ const handleCopyLink = item => {
                     cursor: pointer;
                     transition: all 0.2s ease;
                     font-size: 14px;
+                    color: var(--color-text-title);
 
                     &:hover {
                         transform: scale(1.15);
