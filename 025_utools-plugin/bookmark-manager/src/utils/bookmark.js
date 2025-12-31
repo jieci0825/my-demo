@@ -4,12 +4,11 @@ import dbTool from './storage'
  * 获取书签
  */
 export function getBookmarks() {
-    const bookmarkDirPath = getBookmarkDirPathByOSPlatform()
-
     const flattenedBookmarks = []
+    const browsers = ['chrome', 'edge']
 
-    for (const browser in bookmarkDirPath) {
-        const bookmarks = processBookmarks(bookmarkDirPath[browser], browser)
+    for (const browser of browsers) {
+        const bookmarks = processBookmarks(browser)
         flattenedBookmarks.push(...bookmarks)
     }
 
@@ -19,21 +18,24 @@ export function getBookmarks() {
 /**
  * 处理单个浏览器书签
  */
-function processBookmarks(bookmarkPath, browser) {
-    const bookmarkFilePath = getBookmarkFilePath(bookmarkPath)
+function processBookmarks(browser) {
+    // 1. 获取书签文件路径
+    const bookmarkFilePath = getBookmarkFilePath(browser)
 
     if (!bookmarkFilePath) {
         return []
     }
 
+    // 2. 检查是否需要更新
     const fileMetadata = services.getFileMetadata(bookmarkFilePath)
     const needUpdate = checkNeedUpdateBookmarks(fileMetadata, browser)
 
     if (!needUpdate) {
         const bookmarks = dbTool.get(`bookmarks_${browser}`)
-        return bookmarks
+        return bookmarks || []
     }
 
+    // 3. 读取并处理书签
     const bookmarksTree = getBookmarksTree(bookmarkFilePath)
     const flattenedBookmarks = flattenBookmarks(bookmarksTree, browser)
 
@@ -144,45 +146,67 @@ function getBookmarksTree(bookmarkFilePath) {
 }
 
 /**
- * 获取书签目录中真正的书签文件路径
+ * 获取书签文件的完整路径
+ * 优先使用本地存储的文件路径，如果不存在则根据平台获取默认文件路径
  */
-function getBookmarkFilePath(bookmarkDirPath) {
-    const profiles = ['Default', 'Profile 3', 'Profile 2', 'Profile 1']
-    const profile = profiles.find(profile => {
-        return services.fileExists(
-            services.resolvePath(bookmarkDirPath, profile, 'Bookmarks')
-        )
-    })
-    if (!profile) {
+function getBookmarkFilePath(browser) {
+    const key = 'browserBookmarkPath'
+    const storedPaths = dbTool.get(key) || {}
+
+    // 1. 如果本地存在该浏览器的文件路径，直接使用
+    if (storedPaths[browser]) {
+        return storedPaths[browser]
+    }
+
+    // 2. 本地不存在，根据平台处理
+    const osPlatform = services.getOSPlatform()
+
+    if (osPlatform === 'darwin') {
+        // Mac 系统：查找默认文件路径并存储
+        const defaultFilePath = findDefaultBookmarkFilePath(browser)
+        if (defaultFilePath) {
+            storedPaths[browser] = defaultFilePath
+            dbTool.set(key, storedPaths)
+            return defaultFilePath
+        }
+    } else if (osPlatform === 'win32') {
+        // Windows 系统：没有存储路径则停止
         return null
     }
-    return services.resolvePath(bookmarkDirPath, profile, 'Bookmarks')
+
+    return null
 }
 
 /**
- * 根据平台获取书签目录路径
+ * 查找默认书签文件路径（仅 Mac 系统）
  */
-function getBookmarkDirPathByOSPlatform() {
-    const osPlatform = services.getOSPlatform()
+function findDefaultBookmarkFilePath(browser) {
+    const appDataPath = utools.getPath('appData')
 
-    const bookmarkPath = {
-        chrome: '',
-        edge: ''
-    }
-    if (osPlatform === 'win32') {
-        // TODO:
-    } else if (osPlatform === 'darwin') {
-        bookmarkPath.chrome = services.resolvePath(
-            utools.getPath('appData'),
-            'Google/Chrome'
-        )
-        bookmarkPath.edge = services.resolvePath(
-            utools.getPath('appData'),
-            'Microsoft Edge'
-        )
-    } else {
-        // TODO: 其他平台
+    const browserDirMap = {
+        chrome: 'Google/Chrome',
+        edge: 'Microsoft Edge'
     }
 
-    return bookmarkPath
+    const browserDir = browserDirMap[browser]
+    if (!browserDir) {
+        return null
+    }
+
+    const bookmarkDirPath = services.resolvePath(appDataPath, browserDir)
+
+    // 在不同的 Profile 中查找 Bookmarks 文件
+    const profiles = ['Default', 'Profile 3', 'Profile 2', 'Profile 1']
+    for (const profile of profiles) {
+        const filePath = services.resolvePath(
+            bookmarkDirPath,
+            profile,
+            'Bookmarks'
+        )
+        if (services.fileExists(filePath)) {
+            return filePath
+        }
+    }
+
+    return null
 }
