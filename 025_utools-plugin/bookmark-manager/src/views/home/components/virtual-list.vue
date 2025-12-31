@@ -4,6 +4,7 @@ import { inject, ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useVirtualList, useMemoize } from '@vueuse/core'
 import { Edit, CopyDocument } from '@element-plus/icons-vue'
 import { highlightText } from '@/utils'
+import dbTool from '@/utils/storage'
 
 const appContext = inject('appContext')
 const { onChanged } = appContext
@@ -77,6 +78,14 @@ const { list, containerProps, wrapperProps, scrollTo } = useVirtualList(
  */
 function openBookmark(item) {
     if (!item?.url) return
+
+    // 如果有 guid，则更新使用统计
+    if (item.guid) {
+        const currentUsage = dbTool.get('urlUsageCount') || {}
+        const currentCount = currentUsage[item.guid] || 0
+        currentUsage[item.guid] = currentCount + 1
+        dbTool.set('urlUsageCount', currentUsage)
+    }
 
     if (window.utools) {
         window.utools.shellOpenExternal(item.url)
