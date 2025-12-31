@@ -1,4 +1,5 @@
-import { isString } from './check-type'
+import { toRaw, toValue } from 'vue'
+import { isArray, isObject, isString } from './check-type'
 
 const PREFIX = 'utools/bookManager/'
 
@@ -24,6 +25,12 @@ const dbTool = {
     set(key, value) {
         const id = getDocId(key)
 
+        let rawValue = toValue(value)
+
+        if (isArray(rawValue) || isObject(rawValue)) {
+            rawValue = JSON.parse(JSON.stringify(rawValue))
+        }
+
         try {
             // 读出已有 doc（为了获取 _rev）
             let existing = utools.db.get(id)
@@ -31,7 +38,7 @@ const dbTool = {
             // 组装数据
             const doc = {
                 _id: id,
-                value
+                value: rawValue
             }
 
             // 如果已有，则带上 _rev 进行覆盖
@@ -42,7 +49,7 @@ const dbTool = {
             const result = utools.db.put(doc)
             return result && result.ok === true
         } catch (error) {
-            console.error('dbTool.set error:', err)
+            console.error('dbTool.set error:', error)
             return false
         }
     },
