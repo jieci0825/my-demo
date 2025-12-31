@@ -10,16 +10,16 @@ const props = defineProps({
     }
 })
 
+const emit = defineEmits(['tag-click', 'setting-click'])
+
 const isMenuVisible = ref(false)
 
 const handleTagClick = () => {
-    console.log('标签被点击')
-    // TODO: 实现标签功能
+    emit('tag-click')
 }
 
 const handleSettingClick = () => {
-    console.log('设置被点击')
-    // TODO: 实现设置功能
+    emit('setting-click')
 }
 </script>
 
