@@ -51,7 +51,7 @@ const handleSettingClick = () => {
             title="设置"
             :fullscreen="true"
         >
-            <Settings />
+            <Settings @close="settingDialogVisible = false" />
         </CDialog>
     </div>
 </template>

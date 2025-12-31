@@ -5,6 +5,8 @@ import dbTool from '@/utils/storage'
 import { message } from '@/utils'
 import { useTheme } from '@/hooks'
 
+const emit = defineEmits(['close'])
+
 // 配置项
 const config = ref({
     chromePath: '',
@@ -31,6 +33,8 @@ const saveConfig = () => {
         // 应用主题设置
         setTheme(config.value.theme)
         message.success('设置保存成功！')
+        // 成功则关闭设置界面
+        emit('close')
     } else {
         message.error('设置保存失败！')
     }
@@ -214,6 +218,7 @@ onMounted(() => {
 
             <!-- 保存按钮 -->
             <div class="settings__actions">
+                <CButton @click="emit('close')"> 取消 </CButton>
                 <CButton
                     type="primary"
                     @click="saveConfig"
@@ -336,6 +341,7 @@ onMounted(() => {
         border-top: 1px solid var(--color-border);
         display: flex;
         justify-content: flex-end;
+        gap: 20px;
     }
 }
 </style>
