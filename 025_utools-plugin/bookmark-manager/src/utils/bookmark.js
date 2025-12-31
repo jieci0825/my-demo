@@ -31,7 +31,7 @@ function processBookmarks(browser) {
     const needUpdate = checkNeedUpdateBookmarks(fileMetadata, browser)
 
     if (!needUpdate) {
-        const bookmarks = dbTool.get(`bookmarks_${browser}`)
+        const bookmarks = dbTool.get(getBookmarkKey(browser))
         return bookmarks || []
     }
 
@@ -39,7 +39,7 @@ function processBookmarks(browser) {
     const bookmarksTree = getBookmarksTree(bookmarkFilePath)
     const flattenedBookmarks = flattenBookmarks(bookmarksTree, browser)
 
-    dbTool.set(`bookmarks_${browser}`, flattenedBookmarks)
+    dbTool.set(getBookmarkKey(browser), flattenedBookmarks)
 
     return flattenedBookmarks
 }
@@ -211,4 +211,40 @@ function findDefaultBookmarkFilePath(browser) {
     }
 
     return null
+}
+
+/**
+ * 更新书签项的属性
+ */
+export function updateBookmarkProperty({ guid, browser, key, value }) {
+    // 1. 获取对应浏览器的书签数据
+    const bookmarks = dbTool.get(getBookmarkKey(browser))
+
+    if (!bookmarks || !Array.isArray(bookmarks)) {
+        console.warn(`未找到 ${browser} 浏览器的书签数据`)
+        return false
+    }
+
+    // 2. 找到匹配的书签项
+    const bookmarkIndex = bookmarks.findIndex(item => item.guid === guid)
+
+    if (bookmarkIndex === -1) {
+        console.warn(`未找到 guid 为 ${guid} 的书签项`)
+        return false
+    }
+
+    // 3. 更新指定的属性
+    bookmarks[bookmarkIndex][key] = value
+
+    // 4. 保存回本地存储
+    dbTool.set(getBookmarkKey(browser), bookmarks)
+
+    return true
+}
+
+/**
+ * 获取浏览器书签key
+ */
+function getBookmarkKey(browser) {
+    return `bookmarks_${browser}`
 }
