@@ -1,6 +1,6 @@
 <script setup>
 import Fuse from 'fuse.js'
-import { inject, ref, computed, watch } from 'vue'
+import { inject, ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useVirtualList, useMemoize } from '@vueuse/core'
 import { Edit, CopyDocument } from '@element-plus/icons-vue'
 import { highlightText } from '@/utils'
@@ -11,15 +11,19 @@ const { onChanged } = appContext
 // 当前搜索关键词
 const searchText = ref('')
 
+// 当前选中项的索引（基于过滤后的列表）
+const selectedIndex = ref(0)
+
 // 创建带缓存的高亮函数
 const memoizedHighlight = useMemoize(
     (text, keyword) => highlightText(text, keyword),
     { getKey: (text, keyword) => `${text}__${keyword}` }
 )
 
-// 当 searchText 变化时，清除缓存
+// 当 searchText 变化时，清除缓存并重置选中索引
 watch(searchText, () => {
     memoizedHighlight.clear()
+    selectedIndex.value = 0
 })
 
 // 过滤后的书签列表 - 响应式计算属性
@@ -28,6 +32,13 @@ const filterBookmarks = computed(() => {
         return appContext.bookmarks.value
     }
     return matchBookmarks(searchText.value)
+})
+
+// 当过滤列表变化时，确保选中索引在有效范围内
+watch(filterBookmarks, newList => {
+    if (selectedIndex.value >= newList.length) {
+        selectedIndex.value = Math.max(0, newList.length - 1)
+    }
 })
 
 /**
@@ -52,8 +63,123 @@ onChanged(text => {
     searchText.value = text
 })
 
-const { list, containerProps, wrapperProps } = useVirtualList(filterBookmarks, {
-    itemHeight: 70
+const ITEM_HEIGHT = 70
+
+const { list, containerProps, wrapperProps, scrollTo } = useVirtualList(
+    filterBookmarks,
+    {
+        itemHeight: ITEM_HEIGHT
+    }
+)
+
+/**
+ * 打开书签 URL
+ */
+function openBookmark(item) {
+    if (!item?.url) return
+
+    if (window.utools) {
+        window.utools.shellOpenExternal(item.url)
+        window.utools.hideMainWindow()
+    } else {
+        // 开发环境降级处理
+        window.open(item.url, '_blank')
+    }
+}
+
+/**
+ * 处理点击事件
+ */
+function handleItemClick(item, index) {
+    selectedIndex.value = index
+    openBookmark(item)
+}
+
+/**
+ * 获取可视区域信息
+ */
+function getVisibleRange() {
+    const container = containerProps.ref.value
+    if (!container) return { firstVisible: 0, lastVisible: 0, visibleCount: 0 }
+
+    const scrollTop = container.scrollTop
+    const containerHeight = container.clientHeight
+    const visibleCount = Math.floor(containerHeight / ITEM_HEIGHT)
+
+    // 使用 Math.ceil 确保只有完全显示的 item 才被认为是第一个可见项
+    // 这样当 item 顶部被遮住时，向上滚动会触发滚动使其完全显示
+    const firstFullyVisible = Math.ceil(scrollTop / ITEM_HEIGHT)
+    // 使用 Math.floor 计算最后一个完全可见的 item
+    const lastFullyVisible =
+        Math.floor((scrollTop + containerHeight) / ITEM_HEIGHT) - 1
+
+    return {
+        firstVisible: firstFullyVisible,
+        lastVisible: lastFullyVisible,
+        visibleCount,
+        scrollTop,
+        containerHeight
+    }
+}
+
+/**
+ * 处理键盘事件
+ */
+function handleKeydown(e) {
+    const listLength = filterBookmarks.value.length
+    if (listLength === 0) return
+
+    const container = containerProps.ref.value
+    if (!container) return
+
+    switch (e.key) {
+        case 'ArrowUp':
+            e.preventDefault()
+            if (selectedIndex.value > 0) {
+                const { firstVisible } = getVisibleRange()
+                const newIndex = selectedIndex.value - 1
+
+                // 如果新选中项在可视区域第一项之上，需要滚动
+                if (newIndex < firstVisible) {
+                    container.scrollTop = newIndex * ITEM_HEIGHT
+                }
+
+                selectedIndex.value = newIndex
+            }
+            break
+        case 'ArrowDown':
+            e.preventDefault()
+            if (selectedIndex.value < listLength - 1) {
+                const { lastVisible, containerHeight } = getVisibleRange()
+                const newIndex = selectedIndex.value + 1
+
+                // 如果新选中项超出可视区域最后一项，需要滚动
+                if (newIndex > lastVisible) {
+                    // 滚动使新选中项位于可视区域底部
+                    container.scrollTop =
+                        (newIndex + 1) * ITEM_HEIGHT - containerHeight
+                }
+
+                selectedIndex.value = newIndex
+            }
+            break
+        case 'Enter':
+            e.preventDefault()
+            const currentItem = filterBookmarks.value[selectedIndex.value]
+            if (currentItem) {
+                openBookmark(currentItem)
+            }
+            break
+    }
+}
+
+// 注册全局键盘事件
+onMounted(() => {
+    window.addEventListener('keydown', handleKeydown)
+})
+
+onUnmounted(() => {
+    window.removeEventListener('keydown', handleKeydown)
 })
 
 // 右键菜单相关状态
@@ -95,10 +221,12 @@ const handleCopyLink = item => {
     >
         <div v-bind="wrapperProps">
             <div
-                v-for="({ data: item }, index) in list"
-                :key="index"
+                v-for="{ data: item, index: originalIndex } in list"
+                :key="originalIndex"
                 class="list-item"
-                @contextmenu="handleContextMenu($event, index)"
+                :class="{ 'is-selected': selectedIndex === originalIndex }"
+                @click="handleItemClick(item, originalIndex)"
+                @contextmenu="handleContextMenu($event, originalIndex)"
                 @mouseleave="handleMouseLeave"
             >
                 <div class="list-item-icon">
@@ -164,7 +292,7 @@ const handleCopyLink = item => {
 
                 <!-- 右键蒙层菜单 -->
                 <div
-                    v-if="activeItemIndex === index"
+                    v-if="activeItemIndex === originalIndex"
                     class="context-menu-overlay"
                 >
                     <div class="menu-buttons">
@@ -215,8 +343,18 @@ const handleCopyLink = item => {
         padding: 10px 16px;
         position: relative;
 
+        &:first-child {
+            border-top: 1px solid var(--color-border);
+        }
+
         &:hover {
             background: var(--color-bg-hover);
+        }
+
+        &.is-selected {
+            background: var(--color-bg-hover);
+            border-left: 3px solid var(--color-text-highlight);
+            padding-left: 13px;
         }
 
         .list-item-icon {
