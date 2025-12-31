@@ -12,14 +12,15 @@
 }
 
 html.dark {
-    --color-bg: #16181d;
-    --color-bg-sub: #23262e;
+    --color-bg: #23272f;
+    --color-bg-sub: #343a46;
     --color-bg-hover: #343a45;
     --color-border: #474c54;
     --color-border-active: #575d65;
-    --color-text-title: #ffffff;
-    --color-text-body: #babcbf;
-    --color-text-tip: #7c7f86;
-    --color-text-highlight: #ef4444;
+    --color-text-title: #f6f7f9;
+    --color-text-body: #ebecf0;
+    --color-text-tip: #99a1b3;
+    // #149eca
+    --color-text-highlight: #58c4dc;
     --color-accent: #babcbf;
 }
