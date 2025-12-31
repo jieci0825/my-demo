@@ -134,7 +134,7 @@ onMounted(() => {
             </section>
 
             <!-- 排序方式 -->
-            <section class="settings__section">
+            <!-- <section class="settings__section">
                 <h3 class="settings__section-title">排序方式</h3>
                 <div class="settings__item">
                     <div class="settings__radio-group">
@@ -158,7 +158,7 @@ onMounted(() => {
                         </label>
                     </div>
                 </div>
-            </section>
+            </section> -->
 
             <!-- 匹配方式 -->
             <section class="settings__section">
