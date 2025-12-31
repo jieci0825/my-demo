@@ -1,16 +1,60 @@
 <script setup>
-import { inject, ref } from 'vue'
-import { useVirtualList } from '@vueuse/core'
+import Fuse from 'fuse.js'
+import { inject, ref, computed, watch } from 'vue'
+import { useVirtualList, useMemoize } from '@vueuse/core'
 import { Edit, CopyDocument } from '@element-plus/icons-vue'
+import { highlightText } from '@/utils'
 
 const appContext = inject('appContext')
+const { onChanged } = appContext
 
-const { list, containerProps, wrapperProps } = useVirtualList(
-    appContext.bookmarks,
-    {
-        itemHeight: 70
-    }
+// 当前搜索关键词
+const searchText = ref('')
+
+// 创建带缓存的高亮函数
+const memoizedHighlight = useMemoize(
+    (text, keyword) => highlightText(text, keyword),
+    { getKey: (text, keyword) => `${text}__${keyword}` }
 )
+
+// 当 searchText 变化时，清除缓存
+watch(searchText, () => {
+    memoizedHighlight.clear()
+})
+
+// 过滤后的书签列表 - 响应式计算属性
+const filterBookmarks = computed(() => {
+    if (!searchText.value) {
+        return appContext.bookmarks.value
+    }
+    return matchBookmarks(searchText.value)
+})
+
+/**
+ * 根据关键词匹配书签
+ */
+function matchBookmarks(text) {
+    const fuse = new Fuse(appContext.bookmarks.value, {
+        keys: ['name', 'alias', 'url'],
+        threshold: 0.4 // 越小越严格
+    })
+
+    if (!text) {
+        return appContext.bookmarks.value
+    }
+
+    // Fuse.js search 返回的是结果对象数组，需要提取 item 属性
+    const results = fuse.search(text)
+    return results.map(result => result.item)
+}
+
+onChanged(text => {
+    searchText.value = text
+})
+
+const { list, containerProps, wrapperProps } = useVirtualList(filterBookmarks, {
+    itemHeight: 70
+})
 
 // 右键菜单相关状态
 const activeItemIndex = ref(null)
@@ -69,16 +113,26 @@ const handleCopyLink = item => {
                 </div>
                 <div class="list-item-content">
                     <div class="content-top">
-                        <div class="content-top-title">{{ item.name }}</div>
+                        <div
+                            class="content-top-title"
+                            v-html="memoizedHighlight(item.name, searchText)"
+                        ></div>
                         <div
                             class="content-top-alias"
                             v-if="item.alias"
                         >
-                            （{{ item.alias }}）
+                            <span
+                                v-html="
+                                    memoizedHighlight(item.alias, searchText)
+                                "
+                            ></span>
                         </div>
                     </div>
                     <div class="content-middle">
-                        <div class="content-middle-url">{{ item.url }}</div>
+                        <div
+                            class="content-middle-url"
+                            v-html="memoizedHighlight(item.url, searchText)"
+                        ></div>
                     </div>
                     <div class="content-bottom">
                         <div
@@ -90,11 +144,20 @@ const handleCopyLink = item => {
                                 v-for="tag in item.tags"
                                 :key="tag"
                             >
-                                {{ tag }}
+                                <span
+                                    v-html="memoizedHighlight(tag, searchText)"
+                                ></span>
                             </div>
                         </div>
                         <div class="content-bottom-group">
-                            {{ item?.path?.join(' > ') }}
+                            <span
+                                v-html="
+                                    memoizedHighlight(
+                                        item?.path?.join(' > '),
+                                        searchText
+                                    )
+                                "
+                            ></span>
                         </div>
                     </div>
                 </div>
