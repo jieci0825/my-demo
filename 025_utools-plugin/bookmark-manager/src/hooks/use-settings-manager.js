@@ -22,16 +22,16 @@ let instance = null
  */
 function createSettingsManager() {
     // 回调注册表：Map<callback, Set<key>>
-    // 使用 callback 作为 key，方便去重执行
+    //  - 使用 callback 作为 key，方便去重执行
     const callbackToKeys = new Map()
 
     // 反向索引：Map<key, Set<callback>>
-    // 用于快速查找某个 key 对应的所有回调
+    //  - 用于快速查找某个 key 对应的所有回调
+    //  - 也方便后续如果需要在不指定keys的时候，取消某个 callback 的所有监听，就可以利用上
     const keyToCallbacks = new Map()
 
     /**
      * 获取当前配置
-     * @returns {object}
      */
     function getConfig() {
         const saved = dbTool.get(SETTINGS_KEY)
@@ -40,20 +40,20 @@ function createSettingsManager() {
 
     /**
      * 注册配置变更监听器
-     * @param {string | string[]} keys - 监听的配置项
-     * @param {function} callback - 回调函数，参数为 { key, oldValue, newValue }
-     * @returns {function} 取消监听的函数
      */
     function on(keys, callback) {
+        // 将 keys 进行参数归一化，方便后续处理
         const keyList = Array.isArray(keys) ? keys : [keys]
 
-        // 记录 callback 监听的 keys
+        // 检测 callback 是否已经注册过，如果没有注册过，则注册一个空的 Set
         if (!callbackToKeys.has(callback)) {
             callbackToKeys.set(callback, new Set())
         }
+
+        // 获取 callback 对应的 keys
         const callbackKeys = callbackToKeys.get(callback)
 
-        // 建立双向索引
+        // 建立双向索引，将 callback 和 keys 建立关联
         keyList.forEach(key => {
             callbackKeys.add(key)
 
@@ -69,8 +69,6 @@ function createSettingsManager() {
 
     /**
      * 移除配置变更监听器
-     * @param {string | string[]} keys - 监听的配置项
-     * @param {function} callback - 回调函数
      */
     function off(keys, callback) {
         const keyList = Array.isArray(keys) ? keys : [keys]
@@ -96,9 +94,7 @@ function createSettingsManager() {
 
     /**
      * 对比两个配置对象，返回变化的字段
-     * @param {object} oldConfig
-     * @param {object} newConfig
-     * @returns {Array<{ key: string, oldValue: any, newValue: any }>}
+     * @description 这个字段返回的结构是：[{ key: string, oldValue: any, newValue: any }]
      */
     function diffConfig(oldConfig, newConfig) {
         const changes = []
@@ -125,8 +121,6 @@ function createSettingsManager() {
 
     /**
      * 保存配置并触发变更回调
-     * @param {object} newConfig - 新配置
-     * @returns {Promise<boolean>} 是否保存成功
      */
     async function save(newConfig) {
         const oldConfig = getConfig()
@@ -148,26 +142,37 @@ function createSettingsManager() {
         const callbackChanges = new Map() // Map<callback, changes[]>
 
         changes.forEach(change => {
+            // 根据 key 获取对应的 callback 集合
             const callbacks = keyToCallbacks.get(change.key)
-            if (callbacks) {
-                callbacks.forEach(callback => {
-                    callbacksToExecute.add(callback)
 
-                    // 收集该回调对应的所有变更
-                    if (!callbackChanges.has(callback)) {
-                        callbackChanges.set(callback, [])
-                    }
-                    callbackChanges.get(callback).push(change)
-                })
+            if (!callbacks) {
+                return
             }
+
+            callbacks.forEach(callback => {
+                // 添加到需要执行的回调集合中
+                callbacksToExecute.add(callback)
+
+                // 收集该回调对应的所有变更
+                //  - 将变更收集到 callbackChanges 中，方便后续执行回调时传入变更数据
+                if (!callbackChanges.has(callback)) {
+                    callbackChanges.set(callback, [])
+                }
+                callbackChanges.get(callback).push(change)
+            })
         })
 
         // 执行回调（支持异步）
         const promises = []
+
+        // 遍历需要执行的回调集合，执行回调
         callbacksToExecute.forEach(callback => {
-            const changesForCallback = callbackChanges.get(callback)
+            // 获取该回调对应的所有变更，也就是需要传入的参数
+            const changesForCallbackParams = callbackChanges.get(callback)
             try {
-                const result = callback(changesForCallback)
+                const result = callback(changesForCallbackParams)
+
+                // 如果回调返回的是一个 Promise，则将 Promise 添加到 promises 集合中
                 if (result instanceof Promise) {
                     promises.push(result)
                 }
@@ -176,7 +181,7 @@ function createSettingsManager() {
             }
         })
 
-        // 等待所有异步回调完成
+        // 如果存在异步回调，则等待所有异步回调完成
         if (promises.length > 0) {
             await Promise.allSettled(promises)
         }
@@ -194,7 +199,6 @@ function createSettingsManager() {
 
 /**
  * 获取配置管理器实例（单例）
- * @returns {ReturnType<typeof createSettingsManager>}
  */
 export function useSettingsManager() {
     if (!instance) {
@@ -202,4 +206,3 @@ export function useSettingsManager() {
     }
     return instance
 }
-
