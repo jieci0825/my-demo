@@ -14,6 +14,10 @@ export const useSubInput = (
 ) => {
     // 是否在注册中
     let registering = false
+    // 子输入框是否已注册
+    let isRegistered = false
+    // 待设置的值（在子输入框注册前暂存）
+    let pendingValue = null
 
     // 子输入框的值
     const subInput = ref(initialValue)
@@ -41,6 +45,7 @@ export const useSubInput = (
             return
         }
         registering = true
+        isRegistered = false
         // 先移除之前的
         utools.removeSubInput()
 
@@ -61,10 +66,15 @@ export const useSubInput = (
             )
             // 如果注册成功
             if (res) {
-                // 设置初始值
-                if (initialValue) {
-                    utools.setSubInputValue(initialValue)
+                isRegistered = true
+                // 设置初始值（优先使用待设置的值）
+                const valueToSet = pendingValue !== null ? pendingValue : initialValue
+                if (valueToSet) {
+                    subInput.value = valueToSet
+                    utools.setSubInputValue(valueToSet)
+                    onChangedHook.trigger(valueToSet)
                 }
+                pendingValue = null
                 // 清除定时器
                 clearInterval(interval)
                 registering = false
@@ -83,8 +93,14 @@ export const useSubInput = (
     })
 
     function setSubInput(val) {
+        // 如果子输入框还未注册，暂存值等待注册后设置
+        if (!isRegistered) {
+            pendingValue = val
+            return
+        }
         subInput.value = val
         utools.setSubInputValue(subInput.value)
+        onChangedHook.trigger(val)
     }
 
     // 文档可见性

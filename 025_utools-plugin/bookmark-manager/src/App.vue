@@ -1,9 +1,9 @@
 <script setup>
 import Home from './views/home/index.vue'
 import { useInit, useSubInput } from './hooks'
-import { provide } from 'vue'
+import { provide, watch } from 'vue'
 
-const { bookmarks } = useInit()
+const { bookmarks, initialKeyword } = useInit()
 
 const {
     value: keyword,
@@ -12,6 +12,17 @@ const {
     onSearch,
     onClear
 } = useSubInput()
+
+// 监听初始关键词变化，设置到子输入框
+watch(
+    initialKeyword,
+    newKeyword => {
+        if (newKeyword) {
+            setSubInput(newKeyword)
+        }
+    },
+    { immediate: true }
+)
 
 provide('appContext', {
     bookmarks,
