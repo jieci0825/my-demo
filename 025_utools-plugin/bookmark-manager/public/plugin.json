@@ -9,7 +9,14 @@
         {
             "code": "bm",
             "explain": "bm 打开书签管理器",
-            "cmds": ["bm"]
+            "cmds": [
+                "bm",
+                {
+                    "type": "over",
+                    "label": "bm",
+                    "minLength": 0
+                }
+            ]
         }
     ]
 }
