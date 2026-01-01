@@ -225,10 +225,21 @@ function getBookmarkFilePath(browser) {
 }
 
 /**
+ * 获取 appDataPath
+ */
+function getAppDataPath(platform) {
+    const appDataPath = utools.getPath('appData')
+    if (platform === 'win32') {
+        return appDataPath.replace('Roaming', 'Local')
+    }
+    return appDataPath
+}
+
+/**
  * 查找默认书签文件路径
  */
 function findDefaultBookmarkFilePath(browser, platform) {
-    const appDataPath = utools.getPath('appData')
+    const appDataPath = getAppDataPath(platform)
 
     const browserDirMap = {
         darwin: {
@@ -236,8 +247,8 @@ function findDefaultBookmarkFilePath(browser, platform) {
             edge: 'Microsoft Edge'
         },
         win32: {
-            chrome: 'Local/Google/Chrome/User Data',
-            edge: 'Local/Microsoft/Edge/User Data'
+            chrome: 'Google/Chrome/User Data',
+            edge: 'Microsoft/Edge/User Data'
         }
     }
 
