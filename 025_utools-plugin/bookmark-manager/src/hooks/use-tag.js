@@ -1,14 +1,12 @@
 import { ref, onMounted } from 'vue'
-import dbTool from '@/utils/storage'
-
-const STORAGE_KEY = 'tags'
+import { dbTool, TAGS_KEY } from '@/utils'
 
 export const useTag = () => {
     const tagList = ref([])
 
     // 从本地存储加载标签
     const loadTags = () => {
-        const savedTags = dbTool.get(STORAGE_KEY)
+        const savedTags = dbTool.get(TAGS_KEY)
         if (savedTags && Array.isArray(savedTags)) {
             tagList.value = savedTags
         }
@@ -16,7 +14,7 @@ export const useTag = () => {
 
     // 保存标签到本地存储
     const saveTags = () => {
-        dbTool.set(STORAGE_KEY, tagList)
+        dbTool.set(TAGS_KEY, tagList)
     }
 
     // 添加标签

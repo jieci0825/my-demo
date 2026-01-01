@@ -1,4 +1,9 @@
 import dbTool from './storage'
+import {
+    SETTINGS_KEY,
+    getBookmarksKey,
+    getBookmarkLastModifiedKey
+} from './storage-keys'
 
 /**
  * 获取书签
@@ -31,7 +36,7 @@ function processBookmarks(browser) {
     const needUpdate = checkNeedUpdateBookmarks(fileMetadata, browser)
 
     if (!needUpdate) {
-        const bookmarks = dbTool.get(getBookmarkKey(browser))
+        const bookmarks = dbTool.get(getBookmarksKey(browser))
         return bookmarks || []
     }
 
@@ -39,7 +44,7 @@ function processBookmarks(browser) {
     const bookmarksTree = getBookmarksTree(bookmarkFilePath)
     const flattenedBookmarks = flattenBookmarks(bookmarksTree, browser)
 
-    dbTool.set(getBookmarkKey(browser), flattenedBookmarks)
+    dbTool.set(getBookmarksKey(browser), flattenedBookmarks)
 
     return flattenedBookmarks
 }
@@ -50,7 +55,7 @@ function processBookmarks(browser) {
 function checkNeedUpdateBookmarks(fileMetadata, browserType) {
     const { mtimeMs } = fileMetadata
 
-    const key = `bookmarkLastModified_${browserType}`
+    const key = getBookmarkLastModifiedKey(browserType)
 
     const lastModified = dbTool.get(key)
 
@@ -150,8 +155,7 @@ function getBookmarksTree(bookmarkFilePath) {
  * 优先使用本地存储的文件路径，如果不存在则根据平台获取默认文件路径
  */
 function getBookmarkFilePath(browser) {
-    const key = 'settings'
-    const settings = dbTool.get(key) || {}
+    const settings = dbTool.get(SETTINGS_KEY) || {}
 
     const browserPathKey = `${browser}Path`
 
@@ -168,7 +172,7 @@ function getBookmarkFilePath(browser) {
         const defaultFilePath = findDefaultBookmarkFilePath(browser)
         if (defaultFilePath) {
             settings[browserPathKey] = defaultFilePath
-            dbTool.set(key, settings)
+            dbTool.set(SETTINGS_KEY, settings)
             return defaultFilePath
         }
     } else if (osPlatform === 'win32') {
@@ -218,7 +222,7 @@ function findDefaultBookmarkFilePath(browser) {
  */
 export function updateBookmarkProperty({ guid, browser, key, value }) {
     // 1. 获取对应浏览器的书签数据
-    const bookmarks = dbTool.get(getBookmarkKey(browser))
+    const bookmarks = dbTool.get(getBookmarksKey(browser))
 
     if (!bookmarks || !Array.isArray(bookmarks)) {
         console.warn(`未找到 ${browser} 浏览器的书签数据`)
@@ -237,14 +241,7 @@ export function updateBookmarkProperty({ guid, browser, key, value }) {
     bookmarks[bookmarkIndex][key] = value
 
     // 4. 保存回本地存储
-    dbTool.set(getBookmarkKey(browser), bookmarks)
+    dbTool.set(getBookmarksKey(browser), bookmarks)
 
     return true
-}
-
-/**
- * 获取浏览器书签key
- */
-function getBookmarkKey(browser) {
-    return `bookmarks_${browser}`
 }

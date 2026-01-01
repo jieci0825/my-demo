@@ -1,27 +1,72 @@
-import { toRaw, toValue } from 'vue'
+import { toValue } from 'vue'
 import { isArray, isObject, isString } from './check-type'
 
-const PREFIX = 'utools/bookManager/'
+/** 存储前缀 */
+const APP_PREFIX = 'utools/bookManager/'
 
+/** 设备ID缓存（避免重复获取） */
+let _deviceId = null
+
+/**
+ * 获取当前设备ID
+ * 使用 utools.getNativeId() 获取设备唯一标识
+ * @returns {string} 设备ID
+ */
+function getDeviceId() {
+    if (_deviceId === null) {
+        try {
+            _deviceId = utools.getNativeId() || 'default'
+        } catch (error) {
+            console.warn('获取设备ID失败，使用默认值:', error)
+            _deviceId = 'default'
+        }
+    }
+    return _deviceId
+}
+
+/**
+ * 生成完整的文档ID
+ * 格式: utools/bookManager/{deviceId}/{key}
+ * @param {string} key - 存储 key
+ * @returns {string} 完整的文档ID
+ */
 function getDocId(key) {
     if (!isString(key)) {
         throw new Error('dbTool: key must be a non-empty string')
     }
-    return `${PREFIX}${key}`
+    const deviceId = getDeviceId()
+    return `${APP_PREFIX}${deviceId}/${key}`
 }
 
 const dbTool = {
+    /**
+     * 获取当前设备ID
+     * @returns {string} 设备ID
+     */
+    getDeviceId,
+
+    /**
+     * 获取存储值
+     * @param {string} key - 存储 key（应使用 storage-keys.js 中定义的常量）
+     * @returns {any} 存储的值，不存在则返回 null
+     */
     get(key) {
         const id = getDocId(key)
         try {
             const doc = utools.db.get(id)
             return doc ? doc.value : null
         } catch (error) {
-            console.error('dbTool: get error', error)
+            console.error('dbTool.get error:', error)
             return null
         }
     },
 
+    /**
+     * 设置存储值
+     * @param {string} key - 存储 key（应使用 storage-keys.js 中定义的常量）
+     * @param {any} value - 要存储的值
+     * @returns {boolean} 是否成功
+     */
     set(key, value) {
         const id = getDocId(key)
 
@@ -54,6 +99,11 @@ const dbTool = {
         }
     },
 
+    /**
+     * 删除存储值
+     * @param {string} key - 存储 key（应使用 storage-keys.js 中定义的常量）
+     * @returns {boolean} 是否成功
+     */
     remove(key) {
         const id = getDocId(key)
         try {
@@ -68,10 +118,16 @@ const dbTool = {
         }
     },
 
+    /**
+     * 清除当前设备的所有存储数据
+     * @returns {number} 删除的文档数量
+     */
     clear() {
         try {
+            const deviceId = getDeviceId()
+            const prefix = `${APP_PREFIX}${deviceId}/`
             // 批量读出所有符合前缀的 docs
-            const docs = utools.db.allDocs(PREFIX)
+            const docs = utools.db.allDocs(prefix)
             let count = 0
             for (const doc of docs) {
                 try {
@@ -86,8 +142,14 @@ const dbTool = {
         }
     },
 
+    /**
+     * 获取当前设备的所有存储文档
+     * @returns {Array} 文档列表
+     */
     allDocs() {
-        return utools.db.allDocs(PREFIX)
+        const deviceId = getDeviceId()
+        const prefix = `${APP_PREFIX}${deviceId}/`
+        return utools.db.allDocs(prefix)
     }
 }
 

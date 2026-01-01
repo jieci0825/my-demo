@@ -1,4 +1,4 @@
-import { dbTool } from '@/utils'
+import { dbTool, SETTINGS_KEY } from '@/utils'
 import { ref } from 'vue'
 
 function getSystemTheme() {
@@ -6,7 +6,7 @@ function getSystemTheme() {
 }
 
 function getInitTheme() {
-    const savedConfig = dbTool.get('settings') || {}
+    const savedConfig = dbTool.get(SETTINGS_KEY) || {}
     const theme = savedConfig?.theme || getSystemTheme()
     return theme
 }
@@ -21,9 +21,9 @@ export const useTheme = () => {
 
     function setTheme(theme) {
         document.documentElement.classList.toggle('dark', theme)
-        const savedConfig = dbTool.get('settings') || {}
+        const savedConfig = dbTool.get(SETTINGS_KEY) || {}
         savedConfig.theme = theme
-        return dbTool.set('settings', savedConfig)
+        return dbTool.set(SETTINGS_KEY, savedConfig)
     }
 
     return {

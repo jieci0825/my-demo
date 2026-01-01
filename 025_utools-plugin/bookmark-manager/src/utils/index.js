@@ -1,5 +1,6 @@
 export * from './check-type'
 export { default as dbTool } from './storage'
+export * from './storage-keys'
 export * from './bookmark'
 export { default as message } from './message'
 export * from './highlight'

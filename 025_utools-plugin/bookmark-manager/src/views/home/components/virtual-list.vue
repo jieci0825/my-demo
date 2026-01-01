@@ -3,8 +3,7 @@ import Fuse from 'fuse.js'
 import { inject, ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useVirtualList, useMemoize } from '@vueuse/core'
 import { Edit, CopyDocument } from '@element-plus/icons-vue'
-import { highlightText, message } from '@/utils'
-import dbTool from '@/utils/storage'
+import { highlightText, message, dbTool, URL_USAGE_COUNT_KEY } from '@/utils'
 import CDialog from '@/components/c-dialog/index.vue'
 import BookmarkEdit from './bookmark-edit.vue'
 
@@ -163,10 +162,10 @@ function openBookmark(item) {
 
     // 如果有 guid，则更新使用统计
     if (item.guid) {
-        const currentUsage = dbTool.get('urlUsageCount') || {}
+        const currentUsage = dbTool.get(URL_USAGE_COUNT_KEY) || {}
         const currentCount = currentUsage[item.guid] || 0
         currentUsage[item.guid] = currentCount + 1
-        dbTool.set('urlUsageCount', currentUsage)
+        dbTool.set(URL_USAGE_COUNT_KEY, currentUsage)
     }
 
     if (window.utools) {

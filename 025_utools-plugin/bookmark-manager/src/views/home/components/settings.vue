@@ -1,8 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import CButton from '@/components/c-button/index.vue'
-import dbTool from '@/utils/storage'
-import { message } from '@/utils'
+import { dbTool, SETTINGS_KEY, message } from '@/utils'
 import { useTheme } from '@/hooks'
 
 const emit = defineEmits(['close'])
@@ -20,7 +19,7 @@ const { setTheme } = useTheme()
 
 // 从数据库加载配置
 const loadConfig = () => {
-    const savedConfig = dbTool.get('settings')
+    const savedConfig = dbTool.get(SETTINGS_KEY)
     if (savedConfig) {
         config.value = { ...config.value, ...savedConfig }
     }
@@ -28,7 +27,7 @@ const loadConfig = () => {
 
 // 保存配置
 const saveConfig = () => {
-    const success = dbTool.set('settings', config.value)
+    const success = dbTool.set(SETTINGS_KEY, config.value)
     if (success) {
         // 应用主题设置
         setTheme(config.value.theme)
