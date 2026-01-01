@@ -166,35 +166,47 @@ function getBookmarkFilePath(browser) {
 
     // 2. 本地不存在，根据平台处理
     const osPlatform = services.getOSPlatform()
+    const supportedPlatforms = ['darwin', 'win32']
 
-    if (osPlatform === 'darwin') {
-        // Mac 系统：查找默认文件路径并存储
-        const defaultFilePath = findDefaultBookmarkFilePath(browser)
-        if (defaultFilePath) {
-            settings[browserPathKey] = defaultFilePath
-            dbTool.set(SETTINGS_KEY, settings)
-            return defaultFilePath
-        }
-    } else if (osPlatform === 'win32') {
-        // Windows 系统：没有存储路径则停止
+    // 如果不在支持的平台列表中，直接返回 null
+    if (!supportedPlatforms.includes(osPlatform)) {
         return null
+    }
+
+    // 查找默认文件路径并存储
+    const defaultFilePath = findDefaultBookmarkFilePath(browser, osPlatform)
+    if (defaultFilePath) {
+        settings[browserPathKey] = defaultFilePath
+        dbTool.set(SETTINGS_KEY, settings)
+        return defaultFilePath
     }
 
     return null
 }
 
 /**
- * 查找默认书签文件路径（仅 Mac 系统）
+ * 查找默认书签文件路径
  */
-function findDefaultBookmarkFilePath(browser) {
+function findDefaultBookmarkFilePath(browser, platform) {
     const appDataPath = utools.getPath('appData')
 
     const browserDirMap = {
-        chrome: 'Google/Chrome',
-        edge: 'Microsoft Edge'
+        darwin: {
+            chrome: 'Google/Chrome',
+            edge: 'Microsoft Edge'
+        },
+        win32: {
+            chrome: 'Local/Google/Chrome/User Data',
+            edge: 'Local/Microsoft/Edge/User Data'
+        }
     }
 
-    const browserDir = browserDirMap[browser]
+    const platformDirs = browserDirMap[platform]
+    if (!platformDirs) {
+        return null
+    }
+
+    const browserDir = platformDirs[browser]
     if (!browserDir) {
         return null
     }
