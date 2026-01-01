@@ -1,13 +1,12 @@
 <script setup>
-import { ref, onMounted, inject } from 'vue'
+import { ref, onMounted } from 'vue'
 import CButton from '@/components/c-button/index.vue'
-import { dbTool, SETTINGS_KEY, message } from '@/utils'
-import { useTheme } from '@/hooks'
+import { message } from '@/utils'
+import { useSettingsManager } from '@/hooks'
 
-const emit = defineEmits(['close', 'saved'])
+const emit = defineEmits(['close'])
 
-const appContext = inject('appContext')
-const { refreshBookmarks } = appContext
+const settingsManager = useSettingsManager()
 
 // 配置项
 const config = ref({
@@ -19,28 +18,16 @@ const config = ref({
     splitCharHighlight: false // 是否开启单字符拆分高亮
 })
 
-const { setTheme } = useTheme()
-
-// 从数据库加载配置
+// 从 settingsManager 加载配置
 const loadConfig = () => {
-    const savedConfig = dbTool.get(SETTINGS_KEY)
-    if (savedConfig) {
-        config.value = { ...config.value, ...savedConfig }
-    }
+    config.value = { ...config.value, ...settingsManager.getConfig() }
 }
 
 // 保存配置
-const saveConfig = () => {
-    const success = dbTool.set(SETTINGS_KEY, config.value)
+const saveConfig = async () => {
+    const success = await settingsManager.save(config.value)
     if (success) {
-        // 应用主题设置
-        setTheme(config.value.theme)
-        // 刷新书签数据（如果路径有变化）
-        refreshBookmarks()
         message.success('设置保存成功！')
-        // 通知设置已保存
-        emit('saved')
-        // 成功则关闭设置界面
         emit('close')
     } else {
         message.error('设置保存失败！')

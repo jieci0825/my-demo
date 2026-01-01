@@ -8,7 +8,6 @@ import TagManager from './components/tag-manager.vue'
 import Settings from './components/settings.vue'
 
 const containerRef = ref(null)
-const virtualListRef = ref(null)
 const isHovered = useElementHover(containerRef)
 
 // 标签弹窗显示状态
@@ -23,10 +22,6 @@ const handleTagClick = () => {
 const handleSettingClick = () => {
     settingDialogVisible.value = true
 }
-
-const handleSettingsSaved = () => {
-    virtualListRef.value?.refreshSettings()
-}
 </script>
 
 <template>
@@ -34,7 +29,7 @@ const handleSettingsSaved = () => {
         ref="containerRef"
         class="container"
     >
-        <VirtualList ref="virtualListRef" />
+        <VirtualList />
         <FloatingMenu
             :visible="isHovered"
             @tag-click="handleTagClick"
@@ -56,10 +51,7 @@ const handleSettingsSaved = () => {
             title="设置"
             :fullscreen="true"
         >
-            <Settings
-                @close="settingDialogVisible = false"
-                @saved="handleSettingsSaved"
-            />
+            <Settings @close="settingDialogVisible = false" />
         </CDialog>
     </div>
 </template>

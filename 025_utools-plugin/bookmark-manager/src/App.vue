@@ -1,10 +1,12 @@
 <script setup>
 import Home from './views/home/index.vue'
-import { useInit, useSubInput } from './hooks'
+import { useInit, useSubInput, useTheme, useSettingsManager } from './hooks'
 import { provide, watch } from 'vue'
 import { getBookmarks } from '@/utils'
 
 const { bookmarks, initialKeyword } = useInit()
+const { setTheme } = useTheme()
+const settingsManager = useSettingsManager()
 
 // 刷新书签数据
 const refreshBookmarks = () => {
@@ -15,6 +17,20 @@ const refreshBookmarks = () => {
     }
     return false
 }
+
+// 注册配置变更回调
+// 主题变更
+settingsManager.on('theme', changes => {
+    const themeChange = changes.find(c => c.key === 'theme')
+    if (themeChange) {
+        setTheme(themeChange.newValue)
+    }
+})
+
+// 书签路径变更
+settingsManager.on(['chromePath', 'edgePath'], () => {
+    refreshBookmarks()
+})
 
 const {
     value: keyword,
@@ -41,8 +57,7 @@ provide('appContext', {
     setSubInput,
     onChanged,
     onSearch,
-    onClear,
-    refreshBookmarks
+    onClear
 })
 </script>
 

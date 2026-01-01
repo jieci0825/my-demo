@@ -3,18 +3,15 @@ import Fuse from 'fuse.js'
 import { inject, ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useVirtualList, useMemoize } from '@vueuse/core'
 import { Edit, CopyDocument } from '@element-plus/icons-vue'
-import {
-    highlightText,
-    message,
-    dbTool,
-    URL_USAGE_COUNT_KEY,
-    SETTINGS_KEY
-} from '@/utils'
+import { highlightText, message, dbTool, URL_USAGE_COUNT_KEY } from '@/utils'
+import { useSettingsManager } from '@/hooks'
 import CDialog from '@/components/c-dialog/index.vue'
 import BookmarkEdit from './bookmark-edit.vue'
 
 const appContext = inject('appContext')
 const { onChanged } = appContext
+
+const settingsManager = useSettingsManager()
 
 // 当前搜索关键词
 const searchText = ref('')
@@ -23,15 +20,9 @@ const searchText = ref('')
 const selectedIndex = ref(0)
 
 // 获取设置中的单字符拆分高亮配置
-const splitCharHighlight = ref(false)
-
-// 刷新设置
-const refreshSettings = () => {
-    const settings = dbTool.get(SETTINGS_KEY)
-    splitCharHighlight.value = settings?.splitCharHighlight ?? false
-    // 清除高亮缓存以应用新设置
-    memoizedHighlight.clear()
-}
+const splitCharHighlight = ref(
+    settingsManager.getConfig().splitCharHighlight ?? false
+)
 
 // 创建带缓存的高亮函数
 const memoizedHighlight = useMemoize(
@@ -46,9 +37,14 @@ const memoizedHighlight = useMemoize(
 const highlight = text =>
     memoizedHighlight(text, searchText.value, splitCharHighlight.value)
 
-// 暴露方法供父组件调用
-defineExpose({
-    refreshSettings
+// 注册配置变更回调
+settingsManager.on('splitCharHighlight', changes => {
+    const change = changes.find(c => c.key === 'splitCharHighlight')
+    if (change) {
+        splitCharHighlight.value = change.newValue
+        // 清除高亮缓存以应用新设置
+        memoizedHighlight.clear()
+    }
 })
 
 // 当 searchText 变化时，清除缓存并重置选中索引
@@ -295,8 +291,6 @@ function handleKeydown(e) {
 // 注册全局键盘事件
 onMounted(() => {
     window.addEventListener('keydown', handleKeydown)
-    // 初始化设置
-    refreshSettings()
 })
 
 onUnmounted(() => {
