@@ -3,7 +3,13 @@ import Fuse from 'fuse.js'
 import { inject, ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useVirtualList, useMemoize } from '@vueuse/core'
 import { Edit, CopyDocument } from '@element-plus/icons-vue'
-import { highlightText, message, dbTool, URL_USAGE_COUNT_KEY } from '@/utils'
+import {
+    highlightText,
+    message,
+    dbTool,
+    URL_USAGE_COUNT_KEY,
+    SETTINGS_KEY
+} from '@/utils'
 import CDialog from '@/components/c-dialog/index.vue'
 import BookmarkEdit from './bookmark-edit.vue'
 
@@ -16,11 +22,34 @@ const searchText = ref('')
 // 当前选中项的索引（基于过滤后的列表）
 const selectedIndex = ref(0)
 
+// 获取设置中的单字符拆分高亮配置
+const splitCharHighlight = ref(false)
+
+// 刷新设置
+const refreshSettings = () => {
+    const settings = dbTool.get(SETTINGS_KEY)
+    splitCharHighlight.value = settings?.splitCharHighlight ?? false
+    // 清除高亮缓存以应用新设置
+    memoizedHighlight.clear()
+}
+
 // 创建带缓存的高亮函数
 const memoizedHighlight = useMemoize(
-    (text, keyword) => highlightText(text, keyword),
-    { getKey: (text, keyword) => `${text}__${keyword}` }
+    (text, keyword, splitChar) => highlightText(text, keyword, splitChar),
+    {
+        getKey: (text, keyword, splitChar) =>
+            `${text}__${keyword}__${splitChar}`
+    }
 )
+
+// 封装高亮调用
+const highlight = text =>
+    memoizedHighlight(text, searchText.value, splitCharHighlight.value)
+
+// 暴露方法供父组件调用
+defineExpose({
+    refreshSettings
+})
 
 // 当 searchText 变化时，清除缓存并重置选中索引
 watch(searchText, () => {
@@ -266,6 +295,8 @@ function handleKeydown(e) {
 // 注册全局键盘事件
 onMounted(() => {
     window.addEventListener('keydown', handleKeydown)
+    // 初始化设置
+    refreshSettings()
 })
 
 onUnmounted(() => {
@@ -346,26 +377,21 @@ const handleCopyLink = item => {
                     <div class="content-top">
                         <div
                             class="content-top-title"
-                            v-html="memoizedHighlight(item.name, searchText)"
+                            v-html="highlight(item.name)"
                         ></div>
                         <div
                             class="content-top-alias"
                             v-if="item.alias"
                         >
                             <span
-                                v-html="
-                                    `（${memoizedHighlight(
-                                        item.alias,
-                                        searchText
-                                    )}）`
-                                "
+                                v-html="`（${highlight(item.alias)}）`"
                             ></span>
                         </div>
                     </div>
                     <div class="content-middle">
                         <div
                             class="content-middle-url"
-                            v-html="memoizedHighlight(item.url, searchText)"
+                            v-html="highlight(item.url)"
                         ></div>
                     </div>
                     <div class="content-bottom">
@@ -378,19 +404,12 @@ const handleCopyLink = item => {
                                 v-for="tag in item.tags"
                                 :key="tag"
                             >
-                                <span
-                                    v-html="memoizedHighlight(tag, searchText)"
-                                ></span>
+                                <span v-html="highlight(tag)"></span>
                             </div>
                         </div>
                         <div class="content-bottom-group">
                             <span
-                                v-html="
-                                    memoizedHighlight(
-                                        item?.path?.join(' > '),
-                                        searchText
-                                    )
-                                "
+                                v-html="highlight(item?.path?.join(' > '))"
                             ></span>
                         </div>
                     </div>

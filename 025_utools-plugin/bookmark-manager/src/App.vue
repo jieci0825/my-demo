@@ -2,8 +2,19 @@
 import Home from './views/home/index.vue'
 import { useInit, useSubInput } from './hooks'
 import { provide, watch } from 'vue'
+import { getBookmarks } from '@/utils'
 
 const { bookmarks, initialKeyword } = useInit()
+
+// 刷新书签数据
+const refreshBookmarks = () => {
+    const newBookmarks = getBookmarks(true)
+    if (newBookmarks && newBookmarks.length > 0) {
+        bookmarks.value = newBookmarks
+        return true
+    }
+    return false
+}
 
 const {
     value: keyword,
@@ -30,7 +41,8 @@ provide('appContext', {
     setSubInput,
     onChanged,
     onSearch,
-    onClear
+    onClear,
+    refreshBookmarks
 })
 </script>
 

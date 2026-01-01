@@ -7,13 +7,14 @@ import {
 
 /**
  * 获取书签
+ * @param {boolean} forceRefresh 是否强制刷新，跳过缓存检查
  */
-export function getBookmarks() {
+export function getBookmarks(forceRefresh = false) {
     const flattenedBookmarks = []
     const browsers = ['chrome', 'edge']
 
     for (const browser of browsers) {
-        const bookmarks = processBookmarks(browser)
+        const bookmarks = processBookmarks(browser, forceRefresh)
         flattenedBookmarks.push(...bookmarks)
     }
 
@@ -22,8 +23,10 @@ export function getBookmarks() {
 
 /**
  * 处理单个浏览器书签
+ * @param {string} browser 浏览器类型
+ * @param {boolean} forceRefresh 是否强制刷新
  */
-function processBookmarks(browser) {
+function processBookmarks(browser, forceRefresh = false) {
     // 1. 获取书签文件路径
     const bookmarkFilePath = getBookmarkFilePath(browser)
 
@@ -31,17 +34,26 @@ function processBookmarks(browser) {
         return []
     }
 
-    // 2. 检查是否需要更新
-    const fileMetadata = services.getFileMetadata(bookmarkFilePath)
-    const needUpdate = checkNeedUpdateBookmarks(fileMetadata, browser)
+    // 2. 检查是否需要更新（强制刷新时跳过检查）
+    if (!forceRefresh) {
+        const fileMetadata = services.getFileMetadata(bookmarkFilePath)
+        const needUpdate = checkNeedUpdateBookmarks(fileMetadata, browser)
 
-    if (!needUpdate) {
-        const bookmarks = dbTool.get(getBookmarksKey(browser))
-        return bookmarks || []
+        if (!needUpdate) {
+            const bookmarks = dbTool.get(getBookmarksKey(browser))
+            return bookmarks || []
+        }
     }
 
     // 3. 读取并处理书签
     const bookmarksTree = getBookmarksTree(bookmarkFilePath)
+
+    // 如果读取失败，返回缓存数据
+    if (!bookmarksTree) {
+        const cachedBookmarks = dbTool.get(getBookmarksKey(browser))
+        return cachedBookmarks || []
+    }
+
     const flattenedBookmarks = flattenBookmarks(bookmarksTree, browser)
 
     dbTool.set(getBookmarksKey(browser), flattenedBookmarks)

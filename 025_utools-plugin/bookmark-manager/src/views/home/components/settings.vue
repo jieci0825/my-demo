@@ -1,10 +1,13 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject } from 'vue'
 import CButton from '@/components/c-button/index.vue'
 import { dbTool, SETTINGS_KEY, message } from '@/utils'
 import { useTheme } from '@/hooks'
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'saved'])
+
+const appContext = inject('appContext')
+const { refreshBookmarks } = appContext
 
 // 配置项
 const config = ref({
@@ -12,7 +15,8 @@ const config = ref({
     edgePath: '',
     sortType: 'default', // default | usage
     matchType: 'multiple', // multiple | exact
-    theme: false // false: light, true: dark
+    theme: false, // false: light, true: dark
+    splitCharHighlight: false // 是否开启单字符拆分高亮
 })
 
 const { setTheme } = useTheme()
@@ -31,7 +35,11 @@ const saveConfig = () => {
     if (success) {
         // 应用主题设置
         setTheme(config.value.theme)
+        // 刷新书签数据（如果路径有变化）
+        refreshBookmarks()
         message.success('设置保存成功！')
+        // 通知设置已保存
+        emit('saved')
         // 成功则关闭设置界面
         emit('close')
     } else {
@@ -215,6 +223,25 @@ onMounted(() => {
                 </div>
             </section>
 
+            <!-- 高亮设置 -->
+            <section class="settings__section">
+                <h3 class="settings__section-title">高亮设置</h3>
+                <div class="settings__item">
+                    <label class="settings__checkbox">
+                        <input
+                            v-model="config.splitCharHighlight"
+                            type="checkbox"
+                        />
+                        <span class="settings__checkbox-label"
+                            >开启单字符拆分高亮</span
+                        >
+                    </label>
+                    <p class="settings__hint">
+                        开启后，搜索关键词会拆分成单个字符进行高亮匹配（可能影响性能）
+                    </p>
+                </div>
+            </section>
+
             <!-- 保存按钮 -->
             <div class="settings__actions">
                 <CButton @click="emit('close')"> 取消 </CButton>
@@ -332,6 +359,32 @@ onMounted(() => {
     &__radio-label {
         font-size: 14px;
         color: var(--color-text-body);
+    }
+
+    &__checkbox {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        user-select: none;
+
+        input[type='checkbox'] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: var(--color-accent);
+        }
+    }
+
+    &__checkbox-label {
+        font-size: 14px;
+        color: var(--color-text-body);
+    }
+
+    &__hint {
+        margin: 8px 0 0 24px;
+        font-size: 12px;
+        color: var(--color-text-tip);
     }
 
     &__actions {
