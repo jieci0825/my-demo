@@ -421,6 +421,26 @@ const handleCopyLink = item => {
             </div>
         </div>
 
+        <!-- 空数据提示 -->
+        <div
+            v-if="filterBookmarks.length === 0"
+            class="empty-state"
+        >
+            <div class="empty-icon">📖</div>
+            <div class="empty-text">
+                <div class="empty-title">
+                    {{ searchText ? '未找到匹配的书签' : '暂无书签' }}
+                </div>
+                <div class="empty-subtitle">
+                    {{
+                        searchText
+                            ? '尝试调整搜索关键词或标签'
+                            : '点击右上角添加书签'
+                    }}
+                </div>
+            </div>
+        </div>
+
         <!-- 编辑对话框 -->
         <c-dialog
             v-model:visible="editDialogVisible"
@@ -583,6 +603,38 @@ const handleCopyLink = item => {
                     }
                 }
             }
+        }
+    }
+}
+
+// 空状态样式
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: var(--color-text-tip);
+
+    .empty-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+        opacity: 0.6;
+    }
+
+    .empty-text {
+        text-align: center;
+
+        .empty-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--color-text-body);
+            margin-bottom: 8px;
+        }
+
+        .empty-subtitle {
+            font-size: 14px;
+            color: var(--color-text-tip);
         }
     }
 }
