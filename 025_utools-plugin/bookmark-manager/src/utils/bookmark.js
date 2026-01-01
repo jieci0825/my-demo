@@ -6,12 +6,40 @@ import {
 } from './storage-keys'
 
 /**
- * 获取书签
- * @param {boolean} forceRefresh 是否强制刷新，跳过缓存检查
+ * 根据命令代码获取需要加载的浏览器列表
+ * @param {string} code 命令代码 ('bm' | 'bmc' | 'bme')
+ * @returns {string[]} 浏览器列表
  */
-export function getBookmarks(forceRefresh = false) {
+function getBrowsersByCode(code) {
+    const browserMap = {
+        bmc: ['chrome'],
+        bme: ['edge'],
+        bm: ['chrome', 'edge']
+    }
+    return browserMap[code] || ['chrome', 'edge']
+}
+
+/**
+ * 获取书签
+ * @param {object|boolean} actionOrForceRefresh utools 插件进入时的 action 对象，或者布尔值表示强制刷新
+ * @param {boolean} forceRefreshParam 是否强制刷新，跳过缓存检查（仅当第一个参数是 action 对象时使用）
+ */
+export function getBookmarks(
+    actionOrForceRefresh = {},
+    forceRefreshParam = false
+) {
+    let action = {}
+    let forceRefresh = false
+
+    if (typeof actionOrForceRefresh === 'boolean') {
+        forceRefresh = actionOrForceRefresh
+    } else {
+        action = actionOrForceRefresh || {}
+        forceRefresh = forceRefreshParam
+    }
+
     const flattenedBookmarks = []
-    const browsers = ['chrome', 'edge']
+    const browsers = getBrowsersByCode(action.code)
 
     for (const browser of browsers) {
         const bookmarks = processBookmarks(browser, forceRefresh)

@@ -21,10 +21,14 @@ export const useInit = () => {
             bookmarks.value = getBookmarks(action)
             // 如果是 over 类型进入，payload 就是用户输入的搜索关键词
             if (action.type === 'over' && action.payload) {
-                // 去除可能的 "bm " 前缀（仅在进入时处理）
+                // 去除可能的命令前缀（bmc、bme、bm，按长度倒序匹配）
                 let keyword = action.payload
-                if (keyword.toLowerCase().startsWith('bm ')) {
-                    keyword = keyword.slice(3)
+                const prefixes = ['bmc ', 'bme ', 'bm ']
+                for (const prefix of prefixes) {
+                    if (keyword.toLowerCase().startsWith(prefix)) {
+                        keyword = keyword.slice(prefix.length)
+                        break
+                    }
                 }
                 initialKeyword.value = keyword.trim()
             } else {

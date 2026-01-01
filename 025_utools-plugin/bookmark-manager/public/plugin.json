@@ -8,12 +8,36 @@
     "features": [
         {
             "code": "bm",
-            "explain": "bm 打开书签管理器",
+            "explain": "bm 打开书签管理器（加载所有支持的浏览器）",
             "cmds": [
                 "bm",
                 {
                     "type": "over",
                     "label": "bm",
+                    "minLength": 0
+                }
+            ]
+        },
+        {
+            "code": "bmc",
+            "explain": "bmc 打开书签管理器（仅 Chrome）",
+            "cmds": [
+                "bmc",
+                {
+                    "type": "over",
+                    "label": "bmc",
+                    "minLength": 0
+                }
+            ]
+        },
+        {
+            "code": "bme",
+            "explain": "bme 打开书签管理器（仅 Edge）",
+            "cmds": [
+                "bme",
+                {
+                    "type": "over",
+                    "label": "bme",
                     "minLength": 0
                 }
             ]
