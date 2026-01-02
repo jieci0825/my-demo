@@ -4,7 +4,7 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "build": "rollup -c"
+        "build": "node scripts/clear.js && rollup -c"
     },
     "keywords": [],
     "author": "",

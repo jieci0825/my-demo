@@ -1,4 +1,4 @@
-/** 多个入口打包为多个文件 */
+/* ======= 多个入口打包为多个文件 ======= */
 const config1 = {
     // 配置多个入口
     input: ['./src/main1.js', './src/main2.js'],
@@ -12,7 +12,7 @@ const config1 = {
     }
 }
 
-/** 多个入口打包为多个文件-且为不同格式 */
+/* ======= 多个入口打包为多个文件-且为不同格式 ======= */
 const config2 = {
     input: ['./src/main1.js', './src/main2.js'],
     output: [
@@ -29,4 +29,21 @@ const config2 = {
     ]
 }
 
-export default config2
+/* ======= 多个入口打包-使用多个配置 ======= */
+const config3 = {
+    input: './src/main1.js',
+    output: {
+        dir: 'dist/esm',
+        format: 'esm'
+    }
+}
+const config4 = {
+    input: './src/main2.js',
+    output: {
+        dir: 'dist/cjs',
+        format: 'cjs'
+    }
+}
+// export default [config3, config4]
+
+export default [config3, config4]
