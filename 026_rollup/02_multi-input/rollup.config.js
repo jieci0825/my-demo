@@ -1,4 +1,5 @@
-export default {
+/** 多个入口打包为多个文件 */
+const config1 = {
     // 配置多个入口
     input: ['./src/main1.js', './src/main2.js'],
 
@@ -10,3 +11,22 @@ export default {
         entryFileNames: '[name].bundle.js'
     }
 }
+
+/** 多个入口打包为多个文件-且为不同格式 */
+const config2 = {
+    input: ['./src/main1.js', './src/main2.js'],
+    output: [
+        {
+            dir: 'dist/esm',
+            format: 'es',
+            entryFileNames: '[name].bundle.js'
+        },
+        {
+            dir: 'dist/cjs',
+            format: 'cjs',
+            entryFileNames: '[name].bundle.js'
+        }
+    ]
+}
+
+export default config2
