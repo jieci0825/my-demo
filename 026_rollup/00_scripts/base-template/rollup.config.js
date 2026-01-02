@@ -1,4 +1,7 @@
-export default {
+/**
+ * @type {import('rollup').RollupOptions}
+ */
+const config = {
     input: 'src/index.js',
 
     output: {
@@ -6,3 +9,5 @@ export default {
         format: 'es'
     }
 }
+
+export default config
