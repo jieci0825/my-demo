@@ -1,0 +1,13 @@
+{
+    "name": "026_rollup",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "gm": "node ./00_scripts/gen-template.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": ""
+}
