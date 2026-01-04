@@ -1,0 +1,14 @@
+{
+    "name": "esbuid",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "build": "npx esbuild src/index.ts --outfile=dist/index.js --bundle --minify"
+    },
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "devDependencies": {
+        "esbuild": "^0.27.2"
+    }
+}
