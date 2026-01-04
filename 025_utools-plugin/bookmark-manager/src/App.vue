@@ -1,12 +1,25 @@
 <script setup>
 import Home from './views/home/index.vue'
 import { useInit, useSubInput, useTheme, useSettingsManager } from './hooks'
-import { provide, watch } from 'vue'
+import { provide } from 'vue'
 import { getBookmarks } from '@/utils'
 
-const { bookmarks, initialKeyword } = useInit()
 const { setTheme } = useTheme()
 const settingsManager = useSettingsManager()
+
+const {
+    value: keyword,
+    register,
+    unregister,
+    setSubInput,
+    onChanged,
+    onSearch,
+    onClear
+} = useSubInput()
+
+const { bookmarks } = useInit({
+    onEnter: keyword => register(keyword)
+})
 
 // 刷新书签数据
 const refreshBookmarks = () => {
@@ -18,7 +31,6 @@ const refreshBookmarks = () => {
     return false
 }
 
-// 注册配置变更回调
 // 主题变更
 settingsManager.on('theme', changes => {
     const themeChange = changes.find(c => c.key === 'theme')
@@ -32,29 +44,11 @@ settingsManager.on(['chromePath', 'edgePath'], () => {
     refreshBookmarks()
 })
 
-const {
-    value: keyword,
-    setSubInput,
-    onChanged,
-    onSearch,
-    onClear
-} = useSubInput()
-
-// 监听初始关键词变化，设置到子输入框
-watch(
-    initialKeyword,
-    newKeyword => {
-        if (newKeyword) {
-            setSubInput(newKeyword)
-        }
-    },
-    { immediate: true }
-)
-
 provide('appContext', {
     bookmarks,
     keyword,
     setSubInput,
+    unregister,
     onChanged,
     onSearch,
     onClear
