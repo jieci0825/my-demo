@@ -1,0 +1,10 @@
+{
+    "type": "module",
+    "scripts": {
+        "build": "node esbuild.config.mjs"
+    },
+    "devDependencies": {
+        "esbuild": "^0.27.2",
+        "esbuild-plugin-time": "^1.0.0"
+    }
+}
