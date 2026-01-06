@@ -1,6 +1,8 @@
 import { withInstall } from '@my/utils'
-import { MyButton as _MyButton } from './src/button'
+import _MyButton from './src/button.vue'
 
 export const MyButton = withInstall(_MyButton, 'MyButton')
 
 export default MyButton
+
+export * from './src/types'
