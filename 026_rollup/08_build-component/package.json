@@ -1,0 +1,10 @@
+{
+    "name": "root",
+    "private": true,
+    "packageManager": "pnpm@10.0.0",
+    "scripts": {
+        "dev": "pnpm --filter play dev",
+        "build": "pnpm --filter play build",
+        "preview": "pnpm --filter play preview"
+    }
+}

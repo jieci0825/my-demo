@@ -1,0 +1,112 @@
+.my-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-sizing: border-box;
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease,
+        color 0.2s ease, opacity 0.2s ease;
+}
+
+.my-button.is-disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.my-button__spinner {
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    animation: my-button-spin 0.8s linear infinite;
+}
+
+@keyframes my-button-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.my-button__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.my-button.is-icon {
+    width: 36px;
+    padding: 0;
+}
+
+.my-button__text {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* 主色调 #171717 */
+.my-button--primary {
+    background-color: #171717;
+    color: #ffffff;
+}
+.my-button--primary:hover {
+    background-color: #0f0f0f;
+}
+
+/* 次色调 #F4F4F5 */
+.my-button--secondary {
+    background-color: #f4f4f5;
+    color: #171717;
+    border-color: #e4e4e7;
+}
+.my-button--secondary:hover {
+    background-color: #ededee;
+}
+
+/* 危险色 #EF4444 */
+.my-button--danger {
+    background-color: #ef4444;
+    color: #ffffff;
+}
+.my-button--danger:hover {
+    background-color: #dc2626;
+}
+
+.my-button--outline {
+    background-color: transparent;
+    color: #171717;
+    border-color: #171717;
+}
+.my-button--outline:hover {
+    background-color: rgba(23, 23, 23, 0.06);
+}
+
+.my-button--ghost {
+    background-color: transparent;
+    color: #171717;
+}
+.my-button--ghost:hover {
+    background-color: rgba(23, 23, 23, 0.06);
+}
+
+.my-button--link {
+    height: auto;
+    padding: 0;
+    border-color: transparent;
+    background-color: transparent;
+    color: #171717;
+}
+.my-button--link:hover {
+    text-decoration: underline;
+}

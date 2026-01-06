@@ -1,0 +1,17 @@
+{
+  "name": "@my/theme-chalk",
+  "private": false,
+  "version": "0.0.0",
+  "type": "module",
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
+  "exports": {
+    "./index.css": "./index.css",
+    "./button.css": "./button.css",
+    "./variable.scss": "./variable.scss"
+  }
+}
+
+

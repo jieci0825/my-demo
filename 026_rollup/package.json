@@ -9,5 +9,8 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "description": ""
+    "description": "",
+    "dependencies": {
+        "vue": "^3.5.26"
+    }
 }
