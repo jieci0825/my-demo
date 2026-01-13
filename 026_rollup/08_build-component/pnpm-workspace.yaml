@@ -1,8 +1,0 @@
-packages:
-  - "play"
-  - "packages/my-comp"
-  - "packages/components"
-  - "packages/utils"
-  - "packages/theme-chalk"
-
-
