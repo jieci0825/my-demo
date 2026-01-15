@@ -1,0 +1,16 @@
+{
+    "name": "028_langchain",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {},
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "@langchain/core": "^1.1.15",
+        "@langchain/ollama": "^1.2.0",
+        "langchain": "^1.2.10"
+    }
+}
