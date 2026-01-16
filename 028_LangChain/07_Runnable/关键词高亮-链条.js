@@ -29,5 +29,6 @@ let chain = prompt.pipe(model).pipe(parser)
 chain = chain.pipe(highlightKeywordsRunnable)
 
 // 无法使用流式输出
+//  - 因为 highlightKeywordsRunnable 这个节点无法流式输出，所以整个链条也无法流式输出。这在数据流系统里是铁律，一个节点无法流式输出，整个链条都无法流式输出。
 const res = await chain.invoke({ question: '什么是闭包' })
 console.log(res)
