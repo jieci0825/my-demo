@@ -26,6 +26,7 @@ const parser = new StringOutputParser()
 let chain = prompt.pipe(model).pipe(parser)
 
 // 接到链条中
+//  - 也可以直接传入一个普通函数，pipe内部会自动包装成RunnableLambda
 chain = chain.pipe(highlightKeywordsRunnable)
 
 // 无法使用流式输出
