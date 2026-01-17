@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    /* 背景色 */
+    --bg-color: #23272f;
+    /* 次背景色 */
+    --sub-bg-color: #343a46;
+    /* 背景深色 */
+    --bg-dark-color: #16181d;
+    /* 激活背景色 */
+    --active-bg-color: rgba(88,175,223,.1);
+    /* 文本颜色 */
+    --text-color: #f6f7f9;
+    /* 文本激活色 */
+    --active-text-color: #58c4dc;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Fira Code', '手札体-简';
+}
