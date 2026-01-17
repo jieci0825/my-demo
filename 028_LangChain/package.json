@@ -9,8 +9,11 @@
     "license": "ISC",
     "description": "",
     "dependencies": {
+        "@langchain/classic": "^1.0.9",
+        "@langchain/community": "^1.1.4",
         "@langchain/core": "^1.1.15",
         "@langchain/ollama": "^1.2.0",
+        "cheerio": "^1.1.2",
         "langchain": "^1.2.10"
     }
 }
