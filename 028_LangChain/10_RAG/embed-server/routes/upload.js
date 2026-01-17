@@ -20,7 +20,7 @@ async function ensureUploadDir() {
  */
 router.post('/upload', async (ctx) => {
     try {
-        await ensureUploadDir();
+        const uploadDir = await ensureUploadDir();
 
         const file = ctx.request.files.file;
 
@@ -37,7 +37,18 @@ router.post('/upload', async (ctx) => {
         const mimeType = file.mimetype;
 
         const newFileName = originalName;
-        const newFilePath = filePath;
+        const newFilePath = path.join(uploadDir, originalName);
+
+        try {
+            await fs.unlink(newFilePath);
+        } catch (error) {
+            if (error.code !== 'ENOENT') {
+                throw error;
+            }
+        }
+
+        // 覆盖保存为原始文件名
+        await fs.rename(filePath, newFilePath);
 
         ctx.body = {
             success: true,
