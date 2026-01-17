@@ -36,15 +36,8 @@ router.post('/upload', async (ctx) => {
         const fileSize = file.size;
         const mimeType = file.mimetype;
 
-        // 生成新的文件名（避免文件名冲突）
-        const ext = path.extname(originalName);
-        const baseName = path.basename(originalName, ext);
-        const timestamp = Date.now();
-        const newFileName = `${baseName}_${timestamp}${ext}`;
-        const newFilePath = path.join(path.dirname(filePath), newFileName);
-
-        // 重命名文件
-        await fs.rename(filePath, newFilePath);
+        const newFileName = originalName;
+        const newFilePath = filePath;
 
         ctx.body = {
             success: true,
