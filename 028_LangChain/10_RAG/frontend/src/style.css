@@ -17,6 +17,14 @@
     --text-color: #f6f7f9;
     /* 文本激活色 */
     --active-text-color: #58c4dc;
+    /* 边框颜色 */
+    --border-color: #434c5e;
+    /* 用户消息背景色 */
+    --user-msg-bg: #3b4252;
+    /* AI 消息背景色 */
+    --ai-msg-bg: #2e3440;
+    /* 滚动条颜色 */
+    --scrollbar-color: #4c566a;
 }
 
 body{
