@@ -1,7 +1,7 @@
-const Koa = require('koa');
-const cors = require('koa-cors');
-const { koaBody } = require('koa-body');
-const router = require('./routes/upload');
+import Koa from "koa";
+import cors from "koa-cors";
+import { koaBody } from "koa-body";
+import router from "./routes/upload.js";
 
 const app = new Koa();
 

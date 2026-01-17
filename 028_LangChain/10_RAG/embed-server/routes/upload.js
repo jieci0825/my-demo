@@ -1,8 +1,12 @@
-const Router = require('koa-router');
-const fs = require('fs').promises;
-const path = require('path');
+import Router from "koa-router";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const router = new Router({ prefix: '/api' });
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const router = new Router({ prefix: "/api" });
 
 // 确保上传目录存在
 async function ensureUploadDir() {
@@ -49,6 +53,7 @@ router.post('/upload', async (ctx) => {
 
         // 覆盖保存为原始文件名
         await fs.rename(filePath, newFilePath);
+
 
         ctx.body = {
             success: true,
@@ -107,4 +112,4 @@ router.get('/files', async (ctx) => {
     }
 });
 
-module.exports = router;
+export default router;
