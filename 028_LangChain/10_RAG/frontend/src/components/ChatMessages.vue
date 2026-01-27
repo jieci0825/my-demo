@@ -4,8 +4,8 @@ import { nextTick, ref, watch } from 'vue'
 const props = defineProps({
     messages: {
         type: Array,
-        required: true
-    }
+        required: true,
+    },
 })
 
 const scrollContainer = ref(null)
@@ -22,8 +22,8 @@ watch(() => props.messages, scrollToBottom, { deep: true })
 
 <template>
     <main class="chat-messages" ref="scrollContainer">
-        <div 
-            v-for="(msg, index) in messages" 
+        <div
+            v-for="(msg, index) in messages"
             :key="index"
             :class="['message-wrapper', msg.role]"
         >
@@ -60,7 +60,7 @@ watch(() => props.messages, scrollToBottom, { deep: true })
         &.user {
             align-self: flex-end;
             flex-direction: row-reverse;
-            
+
             .message-content {
                 background-color: var(--user-msg-bg);
                 color: var(--text-color);
@@ -73,7 +73,7 @@ watch(() => props.messages, scrollToBottom, { deep: true })
 
         &.ai {
             align-self: flex-start;
-            
+
             .message-content {
                 background-color: var(--ai-msg-bg);
                 color: var(--text-color);
@@ -105,4 +105,3 @@ watch(() => props.messages, scrollToBottom, { deep: true })
     }
 }
 </style>
-

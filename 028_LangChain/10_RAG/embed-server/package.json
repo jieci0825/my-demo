@@ -9,11 +9,16 @@
         "dev": "nodemon app.js"
     },
     "dependencies": {
+        "@langchain/classic": "^1.0.9",
+        "@langchain/community": "^1.1.4",
         "@langchain/core": "^1.1.15",
+        "@langchain/openai": "^1.2.2",
+        "@langchain/textsplitters": "^1.0.1",
         "koa": "^2.15.0",
         "koa-body": "^6.0.1",
         "koa-cors": "^0.0.5",
-        "koa-router": "^12.0.1"
+        "koa-router": "^12.0.1",
+        "pdf-parse": "^1.1.4"
     },
     "devDependencies": {
         "nodemon": "^3.1.0"

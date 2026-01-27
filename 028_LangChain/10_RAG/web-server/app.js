@@ -7,16 +7,7 @@ const app = new Koa()
 
 // 中间件配置
 app.use(cors())
-app.use(
-    koaBody({
-        multipart: true,
-        formidable: {
-            uploadDir: './uploads',
-            keepExtensions: true,
-            maxFileSize: 10 * 1024 * 1024, // 10MB
-        },
-    }),
-)
+app.use(koaBody())
 
 // 注册所有路由模块
 await registerRoutes(app)
@@ -26,9 +17,9 @@ app.on('error', (err, ctx) => {
     console.error('server error', err)
 })
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3002
 const HOST = process.env.HOST || 'localhost'
 
 app.listen(PORT, HOST, () => {
-    console.log(`文件上传服务器运行在 http://${HOST}:${PORT}`)
+    console.log(`Web 服务器运行在 http://${HOST}:${PORT}`)
 })

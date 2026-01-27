@@ -6,8 +6,8 @@ import { ElMessage } from 'element-plus'
 defineProps({
     currentDoc: {
         type: String,
-        default: ''
-    }
+        default: '',
+    },
 })
 
 const emit = defineEmits(['upload-success'])
@@ -17,7 +17,7 @@ const triggerUpload = () => {
     fileInput.value.click()
 }
 
-const handleFileChange = async (event) => {
+const handleFileChange = async event => {
     const file = event.target.files[0]
     if (!file) return
 
@@ -27,7 +27,7 @@ const handleFileChange = async (event) => {
     try {
         const response = await fetch('http://localhost:3001/api/upload', {
             method: 'POST',
-            body: formData
+            body: formData,
         })
 
         const result = await response.json()
@@ -55,7 +55,12 @@ const handleFileChange = async (event) => {
             当前挂载文档：<span class="doc-name">{{ currentDoc }}</span>
         </div>
         <div class="actions">
-            <input type="file" ref="fileInput" style="display: none" @change="handleFileChange">
+            <input
+                type="file"
+                ref="fileInput"
+                style="display: none"
+                @change="handleFileChange"
+            />
             <el-button type="primary" :icon="Upload" @click="triggerUpload">
                 上传文件
             </el-button>

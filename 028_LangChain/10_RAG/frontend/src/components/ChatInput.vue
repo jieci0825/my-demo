@@ -37,7 +37,7 @@ const handleSend = () => {
         color: var(--active-text-color);
         border: none;
         cursor: pointer;
-        
+
         &:hover {
             background-color: var(--active-text-color);
             color: var(--text-color);
@@ -48,7 +48,7 @@ const handleSend = () => {
         background-color: var(--bg-dark-color);
         box-shadow: none !important;
         border: 1px solid var(--border-color);
-        
+
         &.is-focus {
             border-color: var(--active-text-color);
         }
@@ -60,4 +60,3 @@ const handleSend = () => {
     }
 }
 </style>
-
