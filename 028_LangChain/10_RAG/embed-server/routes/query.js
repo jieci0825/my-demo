@@ -11,9 +11,11 @@ router.post('/query', async ctx => {
     const { prompt } = ctx.request.body
     const retrievalResult = await storeRetrieval(prompt)
 
-    console.log('retrievalResult=>', retrievalResult)
-
-    ctx.body = {}
+    ctx.body = {
+        success: true,
+        message: 'ok',
+        data: retrievalResult,
+    }
 })
 
 export default router

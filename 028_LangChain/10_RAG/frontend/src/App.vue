@@ -5,45 +5,73 @@ import ChatMessages from './components/ChatMessages.vue'
 import ChatInput from './components/ChatInput.vue'
 
 const currentDoc = ref('')
-const messages = ref([
-    {
-        role: 'ai',
-        content:
-            '你好！我是你的 AI 助手。你可以上传文档，然后针对文档内容向我提问。',
-    },
-])
+const messages = ref([])
 
 const handleUploadSuccess = docName => {
     currentDoc.value = docName
-    messages.value.push({
-        role: 'ai',
-        content: `成功挂载文档：${docName}。现在你可以开始提问了。`,
-    })
 }
 
 const handleSendMessage = async text => {
-    // 添加用户消息
+    // 获取当前对话历史（排除系统欢迎语）
+    const history = messages.value.slice(1)
+
     messages.value.push({ role: 'user', content: text })
 
-    // 发送请求
-    const response = await fetch('http://localhost:3002/api/chat', {
-        method: 'POST',
-        body: JSON.stringify({ prompt: text }),
-    })
-    const data = await response.json()
-    console.log(data)
+    // 添加空的 AI 消息占位，用于流式填充
+    messages.value.push({ role: 'ai', content: '' })
+    // 从数组中获取 reactive 化后的对象引用，确保修改能触发视图更新
+    const aiMessage = messages.value[messages.value.length - 1]
 
-    messages.value.push({ role: 'ai', content: data.answer })
+    try {
+        const response = await fetch('http://localhost:3002/api/chat', {
+            method: 'POST',
+            body: JSON.stringify({ prompt: text, history }),
+        })
 
-    // 模拟 AI 回复
-    // 注意：这里后续需要对接真实的 RAG 接口
-    // setTimeout(() => {
-    //     const reply = currentDoc.value
-    //         ? `针对文档《${currentDoc.value}》，你问的是："${text}"。由于目前是 UI 测试阶段，暂未对接真实 RAG 后端。`
-    //         : `你问的是："${text}"。请先上传文档以开启 RAG 测试。`
+        if (!response.ok) {
+            aiMessage.content = '请求失败，请稍后重试。'
+            return
+        }
 
-    //     messages.value.push({ role: 'ai', content: reply })
-    // }, 1000)
+        const reader = response.body.getReader()
+        const decoder = new TextDecoder()
+        let buffer = ''
+
+        while (true) {
+            const { done, value } = await reader.read()
+            if (done) break
+
+            buffer += decoder.decode(value, { stream: true })
+
+            // 解析 SSE 格式数据
+            const lines = buffer.split('\n')
+            buffer = lines.pop() || ''
+
+            for (const line of lines) {
+                const trimmedLine = line.trim()
+                if (!trimmedLine || !trimmedLine.startsWith('data:')) continue
+
+                const data = trimmedLine.slice(5).trim()
+                if (data === '[DONE]') continue
+
+                try {
+                    const parsed = JSON.parse(data)
+                    if (parsed.content) {
+                        aiMessage.content += parsed.content
+                    }
+                    if (parsed.error) {
+                        aiMessage.content = parsed.error
+                    }
+                } catch {}
+            }
+        }
+
+        if (!aiMessage.content) {
+            aiMessage.content = '未收到有效响应。'
+        }
+    } catch (error) {
+        aiMessage.content = '网络错误，请检查连接。'
+    }
 }
 </script>
 
