@@ -1,6 +1,6 @@
-const Koa = require('koa')
-const Router = require('@koa/router')
-const { koaBody } = require('koa-body')
+import Koa from 'koa'
+import Router from '@koa/router'
+import { koaBody } from 'koa-body'
 
 const app = new Koa()
 const router = new Router()
@@ -25,24 +25,20 @@ router.get('/api/data', async ctx => {
     ctx.set('Cache-Control', 'no-cache, no-transform')
     ctx.set('Connection', 'keep-alive')
 
-    messageId++
-
-    // 设置本次消息的id
-    ctx.res.write(`id: ${messageId}\n`)
+    const sendEvent = (event, data) => {
+        ctx.res.write(`id: ${messageId}\n`)
+        ctx.res.write(`event: ${event}\n`)
+        ctx.res.write(`data: ${JSON.stringify(data)}\n\n`)
+        messageId++
+    }
 
     // 每隔1秒发送一次数据
     let timer = setInterval(() => {
-        const content = {
+        sendEvent('message', {
             time: new Date().toISOString(),
             message: 'Hello, world!',
-        }
-        ctx.res.write(`data: ${JSON.stringify(content)}\n\n`)
+        })
     }, 1000)
-
-    const sendEvent = (event, data) => {
-        ctx.res.write(`event: ${event}\n`)
-        ctx.res.write(`data: ${JSON.stringify(data)}\n\n`)
-    }
 
     setTimeout(() => {
         sendEvent('notification', {
