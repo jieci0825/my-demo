@@ -38,6 +38,16 @@
                     // result.innerHTML = JSON.stringify(data, null, 2)
                 }
 
+                // 监听额外自定义事件类型
+                eventSource.addEventListener('notification', event => {
+                    console.log('额外自定义事件类型==>', event.data)
+                })
+
+                eventSource.addEventListener('done', event => {
+                    console.log('连接关闭==>', event.data)
+                    eventSource.close()
+                })
+
                 eventSource.onerror = event => {
                     console.error('EventSource failed:', event)
                 }
