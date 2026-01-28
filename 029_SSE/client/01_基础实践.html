@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>基础实践</title>
+    </head>
+    <body>
+        <h1>基础实践</h1>
+        <button id="btn">发送请求</button>
+        <button id="btn2">关闭请求-fetch</button>
+
+        <div id="result"></div>
+
+        <script>
+            const btn = document.getElementById('btn')
+            const btn2 = document.getElementById('btn2')
+            const result = document.getElementById('result')
+
+            btn.addEventListener('click', () => {
+                const eventSource = new EventSource(
+                    'http://localhost:3000/api/data'
+                )
+
+                eventSource.onopen = () => {
+                    console.log('EventSource opened')
+                }
+
+                eventSource.onmessage = event => {
+                    console.log(event.data)
+                    // const data = JSON.parse(event.data)
+                    // result.innerHTML = JSON.stringify(data, null, 2)
+                }
+
+                eventSource.onerror = event => {
+                    console.error('EventSource failed:', event)
+                }
+            })
+        </script>
+    </body>
+</html>
