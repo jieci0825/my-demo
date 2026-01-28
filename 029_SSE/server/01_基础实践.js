@@ -15,6 +15,8 @@ app.use(async (ctx, next) => {
 
 app.use(koaBody())
 
+let messageId = 0
+
 router.get('/api/data', async ctx => {
     ctx.status = 200
     ctx.respond = false // 关键：禁用 Koa 自动响应
@@ -22,6 +24,11 @@ router.get('/api/data', async ctx => {
     ctx.set('Content-Type', 'text/event-stream; charset=utf-8')
     ctx.set('Cache-Control', 'no-cache, no-transform')
     ctx.set('Connection', 'keep-alive')
+
+    messageId++
+
+    // 设置本次消息的id
+    ctx.res.write(`id: ${messageId}\n`)
 
     // 每隔1秒发送一次数据
     setInterval(() => {
