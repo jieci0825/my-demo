@@ -40,7 +40,9 @@ const goHome = () => {
                 ></el-button>
             </slot>
         </div>
-        <div class="page-header-center flex align-items-center flex-1 pl-20 pr-20">
+        <div
+            class="page-header-center flex align-items-center flex-1 pl-20 pr-20"
+        >
             <h2 class="font-weight-300">{{ innerTitle }}</h2>
             <div class="center-actions">
                 <slot name="center"></slot>
