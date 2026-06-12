@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import './style.css'
+import './styles/base.scss'
 import 'markstream-vue/index.css'
 import App from './App.vue'
 import router from './router'
