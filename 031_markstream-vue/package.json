@@ -11,7 +11,8 @@
     "dependencies": {
         "@coderjc/reqflow": "^0.0.6",
         "markstream-vue": "^1.0.0",
-        "vue": "^3.5.34"
+        "vue": "^3.5.34",
+        "vue-router": "^4.6.4"
     },
     "devDependencies": {
         "@types/node": "^24.12.3",
